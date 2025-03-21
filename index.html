@@ -198,7 +198,7 @@
       <span class="post-meta-item-text">Posted on</span>
       
 
-      <time title="Created: 2025-03-21 23:46:35 / Modified: 23:51:17" itemprop="dateCreated datePublished" datetime="2025-03-21T23:46:35+08:00">2025-03-21</time>
+      <time title="Created: 2025-03-21 23:46:35 / Modified: 23:52:54" itemprop="dateCreated datePublished" datetime="2025-03-21T23:46:35+08:00">2025-03-21</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -217,7 +217,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">Word count in article: </span>
-      <span>5.5k</span>
+      <span>5.4k</span>
     </span>
     <span class="post-meta-item" title="Reading time">
       <span class="post-meta-item-icon">
@@ -259,7 +259,7 @@
 <img data-src="../images/image-20241120213824271.png" alt="image-20241120213824271" style="zoom:50%;" />
 
 <p> ret指令为pop eip，这个指令就是把栈顶的内容弹进了eip（就是下一条指令执行的地址）具体实现请见下图：</p>
-<p><img data-src="/../images/2706180-20220118102755803-79970067.png" alt="2706180-20220118102755803-79970067">&lt;img src&#x3D;”D:..&#x2F;images&#x2F;2706180-20220118102755803-79970067.png” alt&#x3D;”image-20241120214408552” style&#x3D;”zoom: 67%;” &#x2F;</p>
+<p><img data-src="/../images/2706180-20220118102755803-79970067.png" alt="2706180-20220118102755803-79970067"></p>
 <p>若这个ret_address为<code>leave;ret</code>且<code>fake_frame</code>为我们精心构造的栈帧，就可以实现将esp寄存器也迁移到我们精心构造的栈帧，从而实现get_shell等操作，具体实现请见下图：</p>
 <p><img data-src="/../images/image-20241120220941300.png" alt="image-20241120220941300"></p>
 <p>栈迁移的例题有以下几种：</p>
