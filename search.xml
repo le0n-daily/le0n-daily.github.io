@@ -3,10 +3,8 @@
   <entry>
     <title>栈迁移</title>
     <url>/2025/03/21/%E6%A0%88%E8%BF%81%E7%A7%BB/</url>
-    <content><![CDATA[<h1 id="栈迁移基础"><a href="#栈迁移基础" class="headerlink" title="栈迁移基础"></a>栈迁移基础</h1><p>本文讨论的原理，都是针对于32位程序的栈迁移来说的，例题里面有一道是64位的栈迁移</p>
+    <content><![CDATA[<p>本文讨论的原理，都是针对于32位程序的栈迁移来说的，例题里面有一道是64位的栈迁移</p>
 <h3 id="1、什么是栈迁移"><a href="#1、什么是栈迁移" class="headerlink" title="1、什么是栈迁移"></a>1、什么是栈迁移</h3><p> 这里我谈谈自己的理解，简单一句话：<strong>栈迁移就是控制程序的执行流</strong>（这个换的地方既可以是bss段也可以是栈里面），此时新的问题随之产生，为什么要换个地方GetShell，这就是下一段要说的为什么要使用栈迁移。</p>
-<span id="more"></span>
-
 <h3 id="2、为什么要使用栈迁移-什么时候该使栈迁移（使用栈迁移的条件）"><a href="#2、为什么要使用栈迁移-什么时候该使栈迁移（使用栈迁移的条件）" class="headerlink" title="2、为什么要使用栈迁移&amp;&amp;什么时候该使栈迁移（使用栈迁移的条件）"></a>2、为什么要使用栈迁移&amp;&amp;什么时候该使栈迁移（使用栈迁移的条件）</h3><p>言简意赅的来说，就是可溢出的长度不够用，也就是说我们要么是没办法溢出到返回地址只能溢出覆盖ebp，要么是刚好溢出覆盖了返回地址但是受payload长度限制，没办法把参数给写到返回地址后面。总之呢，就是能够溢出的长度不够，没办法GetShell，所以我们才需要换一个地方GetShell。</p>
 <p> 使用栈迁移的条件：</p>
 <ul>
@@ -81,10 +79,10 @@
   <entry>
     <title>Tcache attack</title>
     <url>/2025/03/26/tcache_attack/</url>
-    <content><![CDATA[<p>文章是在初次学习tcache_attack时写的，又不准确的地方还望指正</p>
+    <content><![CDATA[<p>文章是在初次学习tcache_attack时写的，有不准确的地方还望指正</p>
 <h2 id="tcache"><a href="#tcache" class="headerlink" title="tcache"></a>tcache</h2><p>cache 是 glibc 2.26 (ubuntu 17.10) 之后引入的一种技），目的是提升堆管理的性能。但提升性能的同时舍弃了很多安全检查，也因此有了很多新的利用方式。</p>
 <blockquote>
-<p>主要参考了 glibc 源码，</p>
+<p>主要参考了 glibc 2.27源码，</p>
 </blockquote>
 <h3 id="相关结构体"><a href="#相关结构体" class="headerlink" title="相关结构体"></a>相关结构体</h3><p>tcache 引入了两个新的结构体，<code>tcache_entry</code> 和 <code>tcache_perthread_struct</code>。</p>
 <p>这其实和 fastbin 很像，但又不一样。</p>
@@ -375,7 +373,6 @@
 ]]></content>
       <categories>
         <category>pwn</category>
-        <category>heap</category>
       </categories>
       <tags>
         <tag>pwn</tag>
