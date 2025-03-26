@@ -79,7 +79,7 @@
   <entry>
     <title>Tcache attack</title>
     <url>/2025/03/26/tcache_attack/</url>
-    <content><![CDATA[<p>文章是在初次学习tcache_attack时写的，有不准确的地方还望指正</p>
+    <content><![CDATA[<p>文章是在初次学习tcache_attack时写的，有不准确的地方还望指正，文章中所用的环境基本都是ubuntu18.04</p>
 <h2 id="tcache"><a href="#tcache" class="headerlink" title="tcache"></a>tcache</h2><p>cache 是 glibc 2.26 (ubuntu 17.10) 之后引入的一种技），目的是提升堆管理的性能。但提升性能的同时舍弃了很多安全检查，也因此有了很多新的利用方式。</p>
 <blockquote>
 <p>主要参考了 glibc 2.27源码，</p>
@@ -371,6 +371,29 @@
 
 <h2 id="参考博客"><a href="#参考博客" class="headerlink" title="参考博客"></a>参考博客</h2><p>ctf-wiki，<a href="https://nightrainy.github.io/">知世</a></p>
 ]]></content>
+      <categories>
+        <category>pwn</category>
+      </categories>
+      <tags>
+        <tag>pwn</tag>
+        <tag>heap</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>largebin_attack</title>
+    <url>/2025/03/26/largebin-attack/</url>
+    <content><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">
+  <script id="hbeData" type="hbeData" data-hmacdigest="1fd10544d79b7ce0f2fdff594f7b54c907c417ac119a8f5d412fe3edcf0a275b">4630436162ade97ba2718b7d0c4b3b63aa2ab1619d9cdbb4bb5fd57226dc61d2</script>
+  <div class="hbe hbe-content">
+    <div class="hbe hbe-input hbe-input-default">
+      <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">
+      <label class="hbe hbe-input-label hbe-input-label-default" for="hbePass">
+        <span class="hbe hbe-input-label-content hbe-input-label-content-default">Hey, password is required here.</span>
+      </label>
+    </div>
+  </div>
+</div>
+<script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">]]></content>
       <categories>
         <category>pwn</category>
       </categories>
