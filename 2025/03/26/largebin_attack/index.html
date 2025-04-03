@@ -37,7 +37,7 @@
 <meta property="og:image" content="http://example.com/images/image-20250327214449386.png">
 <meta property="og:image" content="http://example.com/images/image-20250327214738926.png">
 <meta property="article:published_time" content="2025-03-26T10:16:16.062Z">
-<meta property="article:modified_time" content="2025-04-03T03:33:44.029Z">
+<meta property="article:modified_time" content="2025-04-03T03:36:57.701Z">
 <meta property="article:author" content="leon">
 <meta property="article:tag" content="pwn">
 <meta property="article:tag" content="heap">
@@ -220,7 +220,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2025-04-03 11:33:44" itemprop="dateModified" datetime="2025-04-03T11:33:44+08:00">2025-04-03</time>
+      <time title="Modified: 2025-04-03 11:36:57" itemprop="dateModified" datetime="2025-04-03T11:36:57+08:00">2025-04-03</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -264,7 +264,7 @@
     
     
     
-    <div class="post-body" itemprop="articleBody"><p>文章是在初次学习largebin_attack时写的，有不准确的地方还望指正，文章中所用的环境基本都是ubuntu18.04</p>
+    <div class="post-body" itemprop="articleBody"><p>文章是在初次学习largebin_attack时写的，有不准确的地方还望指正，文章中所用的环境基本都是ubuntu16.04</p>
 <h2 id="了解largebin"><a href="#了解largebin" class="headerlink" title="了解largebin"></a>了解largebin</h2><p>了解largebin，首先要了解largebin的结构，下面是glibc源码的一部分：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">  -----------------------  Chunk representations -----------------------</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">  This struct declaration is misleading (but accurate and necessary).</span></span><br><span class="line"><span class="comment">  It declares a &quot;view&quot; into memory allowing access to necessary</span></span><br><span class="line"><span class="comment">  fields at known offsets from a given base. See explanation below.</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">malloc_chunk</span> &#123;</span></span><br><span class="line"></span><br><span class="line">  INTERNAL_SIZE_T      prev_size;  <span class="comment">/* Size of previous chunk (if free).  */</span></span><br><span class="line">  INTERNAL_SIZE_T      size;       <span class="comment">/* Size in bytes, including overhead. */</span></span><br><span class="line"></span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">malloc_chunk</span>* <span class="title">fd</span>;</span>         <span class="comment">/* double links -- used only if free. */</span></span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">malloc_chunk</span>* <span class="title">bk</span>;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">/* Only used for large blocks: pointer to next larger size.  */</span></span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">malloc_chunk</span>* <span class="title">fd_nextsize</span>;</span> <span class="comment">/* double links -- used only if free. */</span></span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">malloc_chunk</span>* <span class="title">bk_nextsize</span>;</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
