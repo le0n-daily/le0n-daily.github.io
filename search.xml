@@ -498,7 +498,7 @@
       </tags>
   </entry>
   <entry>
-    <title>Largebin attack</title>
+    <title>hijack_stdout</title>
     <url>/2025/03/27/hijack_stdout/</url>
     <content><![CDATA[<p>在glibc_heap的利用中，很可能会遇到没有show功能的程序，从而泄露不了地址，我们可以通过控制stdio，在通过puts等io操作输出之内的函数泄露libc地址</p>
 <h2 id="源码分析"><a href="#源码分析" class="headerlink" title="源码分析"></a>源码分析</h2><h3 id="IO-puts"><a href="#IO-puts" class="headerlink" title="_IO_puts()"></a>_IO_puts()</h3><p>首先我们看puts()函数的源代码</p>
