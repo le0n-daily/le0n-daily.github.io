@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.22.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":true,"style":"default"},"fold":{"enable":false,"height":300},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":{"valine":{"order":-1}}},"stickytabs":false,"motion":{"enable":true,"async":true,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="python量化交易">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python量化交易">
+<meta property="og:url" content="http://example.com/2025/07/04/python%E9%87%8F%E5%8C%96%E5%88%86%E6%9E%90/index.html">
+<meta property="og:site_name" content="le0n-blog">
+<meta property="og:description" content="python量化交易">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/images/image-20250704174239159.png">
+<meta property="article:published_time" content="2025-07-04T09:23:56.207Z">
+<meta property="article:modified_time" content="2025-07-08T10:37:52.348Z">
+<meta property="article:author" content="leon">
+<meta property="article:tag" content="pwn">
+<meta property="article:tag" content="kernel">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/image-20250704174239159.png">
+
+
+<link rel="canonical" href="http://example.com/2025/07/04/python%E9%87%8F%E5%8C%96%E5%88%86%E6%9E%90/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2025/07/04/python%E9%87%8F%E5%8C%96%E5%88%86%E6%9E%90/","path":"2025/07/04/python量化分析/","title":"python量化交易"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>python量化交易 | le0n-blog</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">le0n-blog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%87%8F%E5%8C%96%E4%BA%A4%E6%98%93%E5%88%9D%E8%AF%86"><span class="nav-number">1.</span> <span class="nav-text">量化交易初识</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%87%8F%E5%8C%96%E4%BA%A4%E6%98%93%E5%BC%80%E5%8F%91%E6%B5%81%E7%A8%8B"><span class="nav-number">2.</span> <span class="nav-text">量化交易开发流程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%87%8F%E5%8C%96%E4%BA%A4%E6%98%93%E5%88%86%E7%B1%BB%E4%BD%93%E7%B3%BB"><span class="nav-number">2.1.</span> <span class="nav-text">量化交易分类体系</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%A4%E6%98%93%E4%BA%A7%E5%93%81%E5%88%86%E7%B1%BB"><span class="nav-number">2.1.1.</span> <span class="nav-text">交易产品分类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%88%E5%88%A9%E6%A8%A1%E5%BC%8F%E5%88%86%E7%B1%BB"><span class="nav-number">2.1.2.</span> <span class="nav-text">盈利模式分类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AD%96%E7%95%A5%E4%BF%A1%E5%8F%B7%E5%88%86%E7%B1%BB"><span class="nav-number">2.1.3.</span> <span class="nav-text">策略信号分类</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%82%A1%E7%A5%A8"><span class="nav-number">3.</span> <span class="nav-text">股票</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%87%8F%E5%8C%96%E9%80%89%E8%82%A1"><span class="nav-number">3.1.</span> <span class="nav-text">量化选股</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8B%A9%E6%97%B6"><span class="nav-number">3.2.</span> <span class="nav-text">择时</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%87%8F%E5%8C%96%E4%BA%A4%E6%98%93%E5%B9%B3%E5%8F%B0"><span class="nav-number">3.3.</span> <span class="nav-text">量化交易平台</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Numpy%E5%AE%9E%E6%88%98"><span class="nav-number">4.</span> <span class="nav-text">Numpy实战</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%82%A1%E4%BB%B7%E5%88%86%E6%9E%90"><span class="nav-number">4.1.</span> <span class="nav-text">股价分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%82%A1%E4%BB%B7%E5%9D%87%E7%BA%BF"><span class="nav-number">4.2.</span> <span class="nav-text">股价均线</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Pandas%E5%AE%9E%E6%88%98"><span class="nav-number">5.</span> <span class="nav-text">Pandas实战</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%82%A1%E7%A5%A8%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97"><span class="nav-number">5.1.</span> <span class="nav-text">股票时间序列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#K%E7%BA%BF%E5%9B%BE"><span class="nav-number">5.2.</span> <span class="nav-text">K线图</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Matplotlib%E5%AE%9E%E6%88%98"><span class="nav-number">6.</span> <span class="nav-text">Matplotlib实战</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#MACD"><span class="nav-number">6.1.</span> <span class="nav-text">MACD</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#KDJ"><span class="nav-number">6.2.</span> <span class="nav-text">KDJ</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AD%96%E7%95%A5"><span class="nav-number">7.</span> <span class="nav-text">策略</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="leon"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">leon</p>
+  <div class="site-description" itemprop="description">Take more notes to reach higher efficiency.</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">24</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/le0n-daily" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;le0n-daily" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:1192876128@gmail.com" title="E-Mail → mailto:1192876128@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2025/07/04/python%E9%87%8F%E5%8C%96%E5%88%86%E6%9E%90/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="leon">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="le0n-blog">
+      <meta itemprop="description" content="Take more notes to reach higher efficiency.">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="python量化交易 | le0n-blog">
+      <meta itemprop="description" content="python量化交易">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          python量化交易
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2025-07-04 17:23:56" itemprop="dateCreated datePublished" datetime="2025-07-04T17:23:56+08:00">2025-07-04</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2025-07-08 18:37:52" itemprop="dateModified" datetime="2025-07-08T18:37:52+08:00">2025-07-08</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/pwn/" itemprop="url" rel="index"><span itemprop="name">pwn</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">Views: </span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="Word count in article">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">Word count in article: </span>
+      <span>18k</span>
+    </span>
+    <span class="post-meta-item" title="Reading time">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">Reading time &asymp;</span>
+      <span>16 mins.</span>
+    </span>
+</div>
+
+            <div class="post-description">python量化交易</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="量化交易初识"><a href="#量化交易初识" class="headerlink" title="量化交易初识"></a>量化交易初识</h1><p><img data-src="/../images/image-20250704174239159.png" alt="image-20250704174239159"></p>
+<p>量化交易分类：</p>
+<p>策略信号：</p>
+<ul>
+<li>多因子策略</li>
+<li>均值回归策略</li>
+<li>动量效益策略</li>
+<li>二八轮动策略</li>
+<li>海归策略</li>
+<li>机器学习策略</li>
+</ul>
+<h1 id="量化交易开发流程"><a href="#量化交易开发流程" class="headerlink" title="量化交易开发流程"></a>量化交易开发流程</h1><ol>
+<li>数据获取</li>
+<li>数据清洗</li>
+<li>策略编写（核心）</li>
+<li>策略回测</li>
+<li>策略优化（重点）</li>
+<li>模拟盘交易</li>
+<li>实盘交易（真金白银）</li>
+</ol>
+<p><strong>数据获取</strong></p>
+<p>内容：行情数据、宏观数据、财务数据、舆情数据</p>
+<p>方式：网站下载、客户端、三方api、爬虫</p>
+<p><strong>数据清洗</strong></p>
+<p>场景：垃圾数据清除、空值填充、格式转换、数据对齐</p>
+<p>类库：numpy、pandas</p>
+<p><strong>策略编写</strong></p>
+<p>建仓：买；平仓：卖；策略要判断出交易信号</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">graph LR;</span><br><span class="line">    A[信号捕捉] --&gt; B[交易];</span><br><span class="line">    B --&gt; C[建仓];</span><br><span class="line">    B --&gt; D[平仓];</span><br></pre></td></tr></table></figure>
+
+<p><strong>策略回测</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">graph LR;</span><br><span class="line">    A[回测参数设置] --&gt; B[策略实例化];</span><br><span class="line">    B --&gt; C[历史数据加载];</span><br><span class="line">    C --&gt; D[回测执行];</span><br><span class="line">    D --&gt; E[计算统计指标];</span><br><span class="line">    E --&gt; F[生成回测报告];</span><br></pre></td></tr></table></figure>
+
+<p><strong>量化策略优化</strong></p>
+<ul>
+<li>重视交易费</li>
+<li>重视风险，重视退出（止盈线、止损线）</li>
+<li>优化无止境（不要无休止得）</li>
+</ul>
+<p><strong>模拟盘交易</strong></p>
+<ul>
+<li>过去的表现并不表示未来结果（事后诸葛亮）</li>
+<li>至少半年以上</li>
+<li>模拟盘交易稳定收益100%以上在考虑实盘交易</li>
+</ul>
+<p><strong>实盘交易</strong></p>
+<ul>
+<li>做好第一年会输的准备</li>
+<li>不要急于扩大投资，增加杠杆（控制风险）</li>
+<li>心态最重要</li>
+</ul>
+<h2 id="量化交易分类体系"><a href="#量化交易分类体系" class="headerlink" title="量化交易分类体系"></a>量化交易分类体系</h2><h3 id="交易产品分类"><a href="#交易产品分类" class="headerlink" title="交易产品分类"></a>交易产品分类</h3><p>交易产品、盈利模式</p>
+<ul>
+<li>股票策略，股票——股价波动盈利</li>
+<li>期权策略，期权——期权合约差价（常用）、到期行权收益</li>
+<li>CTA策略，期货——关注价格趋势获取利差</li>
+<li>FOF策略，FOF</li>
+</ul>
+<h3 id="盈利模式分类"><a href="#盈利模式分类" class="headerlink" title="盈利模式分类"></a>盈利模式分类</h3><ul>
+<li>单边多空策略——<strong>低价买</strong>进，带股价出现单边下跌时卖出，赚取利差</li>
+<li>套利策略——<strong>金融产品价格与收益略暂时不一致</strong>的机会收益</li>
+<li>对冲策略——指特以减低另一项投资风险的<strong>投资</strong>。同时进行两笔<strong>行情相同、方向相关、数量相当、盈亏相抵</strong>的交易</li>
+</ul>
+<h3 id="策略信号分类"><a href="#策略信号分类" class="headerlink" title="策略信号分类"></a>策略信号分类</h3><p>策略信号就是交易信号</p>
+<ul>
+<li>多因子——找到某些和收益率最相关的指标，并根据该指标，建一个股票组合，期望该组合在未来的一段时间跑赢（做多）或跑输（做空）指数</li>
+</ul>
+<p>例：因子项：资产负债率、资产回报率、每股净收益、净利润增长率、市盈率等</p>
+<ul>
+<li>交易模型——具有普遍性、可盈利可量化可执行的交易系统</li>
+<li>机器学习——从大规模数据中找到某种规律，包括但不限于文本数据、<strong>图像数据</strong>等，找到可盈利、可量化、可执行的策略信号。</li>
+</ul>
+<h1 id="股票"><a href="#股票" class="headerlink" title="股票"></a>股票</h1><p>股票的<strong>交易价格</strong>与股票的<strong>价值</strong>是相对的概念。股票价值的真实含义是<strong>企业资产的价值</strong>。而股票的价值就等于<strong>每股收益</strong>。</p>
+<p>影响因素：</p>
+<ul>
+<li>经济因素——经济繁荣，股价上涨；经济衰退，股价下跌</li>
+<li>政治因素</li>
+<li>行业因素</li>
+<li>企业自身因素</li>
+<li>市场因素</li>
+<li>心理因素</li>
+</ul>
+<p>股票的基础知识：自己拿真金白银才能在股市中试出来，通过各种指标读懂散户与主力的情绪、市场和其中的博弈。</p>
+<h2 id="量化选股"><a href="#量化选股" class="headerlink" title="量化选股"></a>量化选股</h2><p>选股是股票投资的第一步，选好赚钱选坏亏钱</p>
+<p>方法：基本面选股</p>
+<p>基本面：通过分析一家上市公司在发展过程中所面临的<strong>外部因素</strong>及<strong>自身的因素</strong>，来预测其未来的发展前景，并以此来判断该上市公司的股票是否值得购买。</p>
+<p>外部因素：经济增长、财政策略、利率变化（贷款等）</p>
+<p>内部因素：经营状况、行业地位、财务状况</p>
+<p>科学的分析方法：估值</p>
+<p><strong>股票估值</strong>基本面选股的<strong>核心方法</strong>。股票估值能够帮助投资者发现价值被低估的股票，让他们低买高卖，从而获利。</p>
+<p>常用指标：</p>
+<ul>
+<li><strong>每股收益</strong>：<strong>越高越好</strong>，代表公司盈利水平</li>
+<li><strong>市盈率</strong>：14~30倍正常，大于30属于高估，50倍以上存在泡沫</li>
+<li><strong>毛利率</strong>：越高越好，大于50%不错</li>
+<li><strong>净资产收益率</strong>：代表公司盈利能力，<strong>ROE长期保持在20%以上就是白马股</strong></li>
+<li><strong>资产负债率</strong>：适中为好，最好在<strong>10%~40%</strong>。过高，易暴雷；过低，太保守</li>
+<li><strong>净利润增速</strong>：代表公司未来成长能力，近三年20以上属优质企业，大于50%属于<strong>成长股</strong></li>
+</ul>
+<h2 id="择时"><a href="#择时" class="headerlink" title="择时"></a>择时</h2><p>即<strong>买入股票</strong>和<strong>卖出股票</strong>的时机</p>
+<p>作用：择时的好坏，决定能够<strong>赚到多少钱</strong></p>
+<p>方法：技术分析——K线、成交量、均线、柏林带、MACD、KDJ等<strong>反应股价变化</strong>的指标</p>
+<h2 id="量化交易平台"><a href="#量化交易平台" class="headerlink" title="量化交易平台"></a>量化交易平台</h2><p>joinQuant、掘金量化、BigQuant、RiceQuant等</p>
+<h1 id="Numpy实战"><a href="#Numpy实战" class="headerlink" title="Numpy实战"></a>Numpy实战</h1><h2 id="股价分析"><a href="#股价分析" class="headerlink" title="股价分析"></a>股价分析</h2><p><strong>一些指标</strong></p>
+<p>极差：股价近期最高价的最大值和最小值的插值，</p>
+<p>成交量加权平均价格</p>
+<p>收益率：简单收益率；对数收益率——之所有价格取对数后两两之间的差值</p>
+<p>波动率：波动率：是对价格变动的一种衡量，计算历史波动率需要用到对数收益率</p>
+<p>年波动率：对数波动率的标准差除以其均值，再乘以交易日倒数的平方根，通常为250</p>
+<p>月波动率：对数收益率的标准差除以其均值，再乘以交易月的平方根，通常为12</p>
+<p>code:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> unittest</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">TestNumpyStock</span>(unittest.TestCase):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    读取指定列</span></span><br><span class="line"><span class="string">    numpy.loadtxt需要传入4个关键字参数：</span></span><br><span class="line"><span class="string">    1.fname是文件名，数据类型为字符串str；</span></span><br><span class="line"><span class="string">    2.delimiter是分隔符，数据类型为字符串str；</span></span><br><span class="line"><span class="string">    3.usecols是读取的列数，数据类型为元组tuple，其中元素个数有多少个，则选出多少列；</span></span><br><span class="line"><span class="string">    4.unpack是是否解包，数据类型为布尔bool。</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">testReadFile</span>(<span class="params">self</span>):</span><br><span class="line">        file_name = <span class="string">&quot;./demo_tushare.csv&quot;</span></span><br><span class="line">        <span class="comment"># 读取股票代码、日期、开盘价、最高价、最低价、收盘价和成交量</span></span><br><span class="line">        end_price,volumn = np.loadtxt(</span><br><span class="line">            fname=file_name,</span><br><span class="line">            delimiter=<span class="string">&#x27;,&#x27;</span>,</span><br><span class="line">            usecols=(<span class="number">5</span>,<span class="number">6</span>),</span><br><span class="line">            unpack=<span class="literal">True</span>,</span><br><span class="line">            <span class="comment"># dtype=str,</span></span><br><span class="line">            skiprows=<span class="number">1</span>  <span class="comment"># 跳过标题行</span></span><br><span class="line">        )</span><br><span class="line">        <span class="comment"># print(end_price)</span></span><br><span class="line">        <span class="comment"># print(volumn)</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 计算最大值与最小值</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">testMaxAndMin</span>(<span class="params">self</span>):</span><br><span class="line">        file_name = <span class="string">&quot;./demo_tushare.csv&quot;</span></span><br><span class="line">        <span class="comment"># 读取最高价和最低价(从第5列开始，索引为4和5)</span></span><br><span class="line">        high_price,low_price = np.loadtxt(</span><br><span class="line">            fname=file_name,</span><br><span class="line">            delimiter=<span class="string">&#x27;,&#x27;</span>,</span><br><span class="line">            usecols=(<span class="number">3</span>, <span class="number">4</span>),</span><br><span class="line">            <span class="comment">#dtype=float,</span></span><br><span class="line">            skiprows=<span class="number">1</span>,</span><br><span class="line">            unpack=<span class="literal">True</span></span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&#x27;max_price = <span class="subst">&#123;high_price.<span class="built_in">max</span>()&#125;</span>&#x27;</span>)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&#x27;min_price = <span class="subst">&#123;low_price.<span class="built_in">min</span>()&#125;</span>&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 计算极差</span></span><br><span class="line">    <span class="comment"># 计算股价近期最高价的最大值和最小值的差值 和 计算股价近期最低价的最大值和最小值的差值</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">testPtp</span>(<span class="params">self</span>):</span><br><span class="line">        file_name = <span class="string">&quot;./demo_tushare.csv&quot;</span></span><br><span class="line">        high_price, low_price = np.loadtxt(</span><br><span class="line">            fname=file_name,</span><br><span class="line">            delimiter=<span class="string">&#x27;,&#x27;</span>,</span><br><span class="line">            usecols=(<span class="number">3</span>, <span class="number">4</span>),</span><br><span class="line">            dtype=<span class="built_in">float</span>,</span><br><span class="line">            skiprows=<span class="number">1</span>,  <span class="comment"># 跳过标题行</span></span><br><span class="line">            unpack=<span class="literal">True</span></span><br><span class="line">        )</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&#x27;max - min of high_price = <span class="subst">&#123;np.ptp(high_price)&#125;</span>&#x27;</span>)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&#x27;max - min of low_price = <span class="subst">&#123;np.ptp(low_price)&#125;</span>&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 计算成交量加权平均价格</span></span><br><span class="line">    <span class="comment"># 成交量加权平均价格: 英文名VWAP(Volume-Weighted Average Price，成交量加权平均价格)</span></span><br><span class="line">    <span class="comment"># 是一个非常重要的经济学指标，代表着金融资产的&quot;平均&quot;价格</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">testAVG</span>(<span class="params">self</span>):</span><br><span class="line">        file_name = <span class="string">&quot;./demo_tushare.csv&quot;</span></span><br><span class="line">        end_price, volume = np.loadtxt(</span><br><span class="line">            fname=file_name,</span><br><span class="line">            delimiter=<span class="string">&#x27;,&#x27;</span>,</span><br><span class="line">            usecols=(<span class="number">5</span>, <span class="number">6</span>),  <span class="comment"># 2: 收盘价(open), 6: 成交量(vol)</span></span><br><span class="line">            dtype=<span class="built_in">float</span>,</span><br><span class="line">            skiprows=<span class="number">1</span>,</span><br><span class="line">            unpack=<span class="literal">True</span></span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&#x27;vg_price = <span class="subst">&#123;np.average(end_price)&#125;</span>&#x27;</span>)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;VWAD = <span class="subst">&#123;np.average(end_price,weights=volume)&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">#计算中位数</span></span><br><span class="line">    <span class="comment">#收盘价的中位数</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">testMedian</span>(<span class="params">self</span>):</span><br><span class="line">        file_name = <span class="string">&quot;./demo_tushare.csv&quot;</span></span><br><span class="line">        end_price, volumn = np.loadtxt(</span><br><span class="line">            fname=file_name,</span><br><span class="line">            delimiter=<span class="string">&#x27;,&#x27;</span>,</span><br><span class="line">            usecols=(<span class="number">5</span>, <span class="number">6</span>),</span><br><span class="line">            skiprows=<span class="number">1</span>,</span><br><span class="line">            unpack=<span class="literal">True</span></span><br><span class="line">        )</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;median = <span class="subst">&#123;np.median(end_price)&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">#计算方差</span></span><br><span class="line">    <span class="comment">#收盘价的方差</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">testVar</span>(<span class="params">self</span>):</span><br><span class="line">        file_name = <span class="string">&quot;./demo_tushare.csv&quot;</span></span><br><span class="line">        end_price, volumn = np.loadtxt(</span><br><span class="line">            fname=file_name,</span><br><span class="line">            delimiter=<span class="string">&#x27;,&#x27;</span>,</span><br><span class="line">            usecols=(<span class="number">5</span>, <span class="number">6</span>),</span><br><span class="line">            skiprows=<span class="number">1</span>,</span><br><span class="line">            unpack=<span class="literal">True</span></span><br><span class="line">        )</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;var = <span class="subst">&#123;np.var(end_price)&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">#计算股票收益率、年波动率及月波动率</span></span><br><span class="line">    <span class="comment">#收益率：简单收益率；对数收益率——之所有价格取对数后两两之间的差值</span></span><br><span class="line">    <span class="comment">#波动率：是对价格变动的一种衡量，计算历史波动率需要用到对数收益率</span></span><br><span class="line">    <span class="comment">#年波动率：对数波动率的标准差除以其均值，再乘以交易日倒数的平方根，通常为250</span></span><br><span class="line">    <span class="comment">#月波动率：对数收益率的标准差除以其均值，再乘以交易月的平方根，通常为12</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">testVolatility</span>(<span class="params">self</span>):</span><br><span class="line">        file_name = <span class="string">&quot;./demo_tushare.csv&quot;</span></span><br><span class="line">        end_price, volumn = np.loadtxt(</span><br><span class="line">            fname=file_name,</span><br><span class="line">            delimiter=<span class="string">&#x27;,&#x27;</span>,</span><br><span class="line">            usecols=(<span class="number">5</span>, <span class="number">6</span>),</span><br><span class="line">            skiprows=<span class="number">1</span>,</span><br><span class="line">            unpack=<span class="literal">True</span></span><br><span class="line">        )</span><br><span class="line">        <span class="comment">#对数收益率</span></span><br><span class="line">        log_return = np.diff(np.log(end_price))</span><br><span class="line">        <span class="comment">#年度波动率</span></span><br><span class="line">        annual_volatility = log_return.std() / log_return.mean() * np.sqrt(<span class="number">250</span>)</span><br><span class="line">        <span class="comment">#月度波动率</span></span><br><span class="line">        monthly_volatility = log_return.std() / log_return.mean() * np.sqrt(<span class="number">12</span>)</span><br><span class="line"></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&#x27;log_return = <span class="subst">&#123;log_return&#125;</span>&#x27;</span>)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&#x27;annual_volatility = <span class="subst">&#123;annual_volatility&#125;</span>&#x27;</span>)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&#x27;monthly_volatility = <span class="subst">&#123;monthly_volatility&#125;</span>&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    unittest.main()</span><br></pre></td></tr></table></figure>
+
+<h2 id="股价均线"><a href="#股价均线" class="headerlink" title="股价均线"></a>股价均线</h2><p>卷积：可用于描述过去左右对当前的影响。<strong>卷积是时空相应的叠加，可用作计算“滑动平均”</strong></p>
+<p>numpy.convolve(a, v, mode&#x3D;’full’)，这是numpy函数中的卷积函数。</p>
+<p>参数：</p>
+<ul>
+<li><p><strong>a</strong>: <code>(N,)</code> 输入的一维数组</p>
+</li>
+<li><p><strong>b</strong>: <code>(M,)</code> 输入的第三个一维数组</p>
+</li>
+<li><p><strong>mode</strong>: <code>&#123;‘full’, ‘valid’, ‘same’&#125;</code> 参量可选</p>
+<ul>
+<li><p><strong>‘full’</strong>: 默认值，返回每一个卷积值，长度是 N + M - 1，在卷积的边缘处，信号不重量，存在边际效应。</p>
+</li>
+<li><p><strong>‘same’</strong>: 返回的数组长度为 max(M, N)，即原有效应存在。</p>
+</li>
+<li><p><strong>‘valid’</strong>: 返回的数组长度为 max(M, N) - min(M, N) + 1，此时返回的是完全重量的点，边缘的点无效。</p>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>简单移动均线</strong>：一般用于分析时间序列上的股价趋势   计算股价与权重的指标函数的卷积。通过将一段时间内的股票收盘价相加，然后除以时间段的天数来计算。简单移动平均线可以平滑价格波动，显示出长期趋势。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">flowchart LR</span><br><span class="line">    A[生成权重] --&gt; B[卷积运算]</span><br><span class="line">    B --&gt; C[均线可视化]</span><br></pre></td></tr></table></figure>
+
+<p><strong>指标移动均线</strong>：历史数据的<strong>权重</strong>以<strong>指标速度衰减</strong>，计算股价与权重衰减的指标函数的卷积。对近期价格给予更高的权重，反映了市场更近期的变化。计算指数移动平均线时，当前价格会根据选定的时间段和权重系数，与之前的移动平均线值相结合。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">flowchart LR</span><br><span class="line">    A[权重初始化] --&gt; B[权重衰减]</span><br><span class="line">    B --&gt; C[卷积运算]</span><br><span class="line">    C --&gt; D[均线可视化]</span><br></pre></td></tr></table></figure>
+
+<p><strong>应用</strong>：</p>
+<ul>
+<li><strong>确定趋势</strong>：投资者可以使用不同期限的移动平均线来确定趋势的强度和方向。</li>
+<li><strong>交叉信号</strong>：移动平均线的交叉可以提供买入或卖出的信号。</li>
+<li><strong>支撑与阻力线</strong>：移动平均线经常被用作支撑和阻力线的参考。</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> unittest</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> unittest <span class="keyword">import</span> TestCase</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">TestNumpyMA</span>(<span class="title class_ inherited__">TestCase</span>):</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 简单移动均线</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">testSMA</span>(<span class="params">self</span>):</span><br><span class="line">        file_name = <span class="string">&quot;./demo_tushare.csv&quot;</span></span><br><span class="line">        end_price = np.loadtxt(</span><br><span class="line">            fname=file_name,</span><br><span class="line">            delimiter=<span class="string">&quot;,&quot;</span>,</span><br><span class="line">            skiprows=<span class="number">1</span>,</span><br><span class="line">            usecols=(<span class="number">5</span>),</span><br><span class="line">            unpack=<span class="literal">True</span></span><br><span class="line">        )</span><br><span class="line">        <span class="built_in">print</span>(end_price)</span><br><span class="line">        <span class="comment"># 这里为什么这么算</span></span><br><span class="line">        N=<span class="number">5</span></span><br><span class="line">        weights = np.ones(N) / N</span><br><span class="line">        <span class="built_in">print</span>(weights)</span><br><span class="line"></span><br><span class="line">        sma = np.convolve(weights,end_price)[N-<span class="number">1</span>:-N+<span class="number">1</span>] <span class="comment">#从N-1到-(N-1)</span></span><br><span class="line">        <span class="built_in">print</span>(sma) <span class="comment"># 5日均线</span></span><br><span class="line"></span><br><span class="line">        plt.plot(sma,linewidth=<span class="number">5</span>)</span><br><span class="line">        <span class="comment">#plt.show()</span></span><br><span class="line">        <span class="comment"># plt.draw()</span></span><br><span class="line">        <span class="comment"># plt.pause()  # 短暂暂停确保绘图完成</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 卷积</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">testEXP</span>(<span class="params">self</span>):</span><br><span class="line">        x = np.arange(<span class="number">5</span>)</span><br><span class="line">        y = np.arange(<span class="number">10</span>)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;x&quot;</span>,x) <span class="comment"># exp 函数可以计算出每个数组元素的指数</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;y&quot;</span>,y)</span><br><span class="line">        <span class="comment"># 指数</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;&quot;&quot;Exp x : <span class="subst">&#123;np.exp(x)&#125;</span>&quot;&quot;&quot;</span>)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&#x27;&#x27;&#x27;Exp y : <span class="subst">&#123;np.exp(y)&#125;</span>&#x27;&#x27;&#x27;</span>)</span><br><span class="line">        <span class="comment"># 线性衰减</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;&quot;&quot;LineSpace : <span class="subst">&#123;np.linspace(-<span class="number">1</span>,<span class="number">0</span>,<span class="number">5</span>)&#125;</span>&quot;&quot;&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 指数移动均线</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">testEMA</span>(<span class="params">self</span>):</span><br><span class="line">        file_name = <span class="string">&quot;./demo_tushare.csv&quot;</span></span><br><span class="line">        end_price,volumn = np.loadtxt(</span><br><span class="line">            fname=file_name,</span><br><span class="line">            delimiter=<span class="string">&quot;,&quot;</span>,</span><br><span class="line">            skiprows=<span class="number">1</span>,</span><br><span class="line">            usecols=(<span class="number">5</span>,<span class="number">6</span>),</span><br><span class="line">            unpack=<span class="literal">True</span></span><br><span class="line">        )</span><br><span class="line">        <span class="built_in">print</span>(end_price)</span><br><span class="line">        N = <span class="number">5</span></span><br><span class="line">        weighs = np.exp(np.linspace(-<span class="number">1</span>,<span class="number">0</span>,N))</span><br><span class="line">        weighs /= weighs.<span class="built_in">sum</span>() <span class="comment">#weighs.sum()</span></span><br><span class="line">        <span class="built_in">print</span>(weighs)</span><br><span class="line">        ema = np.convolve(weighs,end_price)[N-<span class="number">1</span>:-N+<span class="number">1</span>]</span><br><span class="line">        <span class="built_in">print</span>(ema)</span><br><span class="line"></span><br><span class="line">        t = np.arange(N-<span class="number">1</span>,<span class="built_in">len</span>(end_price))</span><br><span class="line">        plt.plot(t,end_price[N-<span class="number">1</span>:],lw=<span class="number">1.0</span>)</span><br><span class="line">        plt.plot(t,ema,lw=<span class="number">2.0</span>)</span><br><span class="line">        plt.show()</span><br><span class="line"></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;++++++++=============++++++++&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    unittest.main()</span><br></pre></td></tr></table></figure>
+
+<h1 id="Pandas实战"><a href="#Pandas实战" class="headerlink" title="Pandas实战"></a>Pandas实战</h1><h2 id="股票时间序列"><a href="#股票时间序列" class="headerlink" title="股票时间序列"></a>股票时间序列</h2><p><strong>时间序列</strong>：金融领域最重要的数据类型之一，股价、汇率为常见的时间序列数据</p>
+<p><strong>趋势分析</strong>：**主要分析时间序列在某一方向上持续运动。**在量化交易领域，我们通过统计手段对投资品的收益率进行时间序列建模，以此来预测未来的收益率并产生交易信号。</p>
+<p><strong>序列相关性</strong>：金融时间序列的一个最重要特征是序列相关性。  以投资品的收益率序列为例，我们会经常观察到一段时间内的收益率呈现一定的相关性。</p>
+<p><strong>pandas时间序列函数：</strong></p>
+<ul>
+<li>datetime——时间序列最常用的数据类型，方便进行各种时间类型运算</li>
+<li>loc——Pandas中对DataFrame进行筛选的函数，相当于SQL中的where</li>
+<li>groupby——Pandas中对数据分组函数，相当于SQL中的GroupBy</li>
+</ul>
+<p>code:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">from</span> unittest <span class="keyword">import</span> TestCase</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">TestPandasStock</span>(<span class="title class_ inherited__">TestCase</span>):</span><br><span class="line">    <span class="comment">#读取文件</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">testPandasFile</span>(<span class="params">self</span>):</span><br><span class="line">        file_name = <span class="string">&quot;./demo_tushare.csv&quot;</span></span><br><span class="line">        df = pd.read_csv(file_name)</span><br><span class="line"></span><br><span class="line">        <span class="built_in">print</span>(df.info())</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;-----------&quot;</span>)</span><br><span class="line">        <span class="built_in">print</span>(df.describe())</span><br><span class="line"></span><br><span class="line">    <span class="comment">#时间处理</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">testTime</span>(<span class="params">self</span>):</span><br><span class="line">        file_name = <span class="string">&quot;./demo_tushare.csv&quot;</span></span><br><span class="line">        df = pd.read_csv(file_name)</span><br><span class="line">        df.columns = [<span class="string">&#x27;ts_code&#x27;</span>, <span class="string">&#x27;trade_date&#x27;</span>, <span class="string">&#x27;open&#x27;</span>, <span class="string">&#x27;high&#x27;</span>, <span class="string">&#x27;low&#x27;</span>, <span class="string">&#x27;close&#x27;</span>, <span class="string">&#x27;vol&#x27;</span>]</span><br><span class="line">        <span class="comment">#单独处理时间类型</span></span><br><span class="line">        df[<span class="string">&#x27;trade_date&#x27;</span>] = pd.to_datetime(df[<span class="string">&#x27;trade_date&#x27;</span>])</span><br><span class="line"></span><br><span class="line">        df[<span class="string">&quot;year&quot;</span>] = df[<span class="string">&quot;trade_date&quot;</span>].dt.year</span><br><span class="line">        df[<span class="string">&quot;month&quot;</span>] = df[<span class="string">&quot;trade_date&quot;</span>].dt.month</span><br><span class="line"></span><br><span class="line">        <span class="built_in">print</span>(df)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 最低收盘价</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">testCloseMin</span>(<span class="params">self</span>):</span><br><span class="line">        file_name = <span class="string">&quot;./demo_tushare.csv&quot;</span></span><br><span class="line">        df = pd.read_csv(file_name)</span><br><span class="line">        df.columns = [<span class="string">&#x27;ts_code&#x27;</span>, <span class="string">&#x27;trade_date&#x27;</span>, <span class="string">&#x27;open&#x27;</span>, <span class="string">&#x27;high&#x27;</span>, <span class="string">&#x27;low&#x27;</span>, <span class="string">&#x27;close&#x27;</span>, <span class="string">&#x27;col&#x27;</span>]</span><br><span class="line"></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;&quot;&quot;close min : <span class="subst">&#123;df[<span class="string">&#x27;close&#x27;</span>].<span class="built_in">min</span>()&#125;</span>&quot;&quot;&quot;</span>)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;&quot;&quot;close min index : <span class="subst">&#123;df[<span class="string">&#x27;close&#x27;</span>].idxmin()&#125;</span>&quot;&quot;&quot;</span>)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;&quot;&quot;close min frame : <span class="subst">&#123;df.loc[df[<span class="string">&#x27;close&#x27;</span>].idxmin()]&#125;</span>&quot;&quot;&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 每月的平均收盘价和开盘价</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">testMean</span>(<span class="params">self</span>):</span><br><span class="line">        file_name = <span class="string">&quot;./demo_tushare.csv&quot;</span></span><br><span class="line">        df = pd.read_csv(file_name)</span><br><span class="line">        df.columns = [<span class="string">&#x27;ts_code&#x27;</span>, <span class="string">&#x27;trade_date&#x27;</span>, <span class="string">&#x27;open&#x27;</span>, <span class="string">&#x27;high&#x27;</span>, <span class="string">&#x27;low&#x27;</span>, <span class="string">&#x27;close&#x27;</span>, <span class="string">&#x27;col&#x27;</span>]</span><br><span class="line"></span><br><span class="line">        df[<span class="string">&#x27;trade_date&#x27;</span>] = pd.to_datetime(df[<span class="string">&#x27;trade_date&#x27;</span>])</span><br><span class="line">        df[<span class="string">&quot;month&quot;</span>] = df[<span class="string">&quot;trade_date&quot;</span>].dt.month</span><br><span class="line">        <span class="comment">#每月平均收盘价</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;&quot;&quot;month close mean : <span class="subst">&#123;df.groupby(<span class="string">&quot;month&quot;</span>)[<span class="string">&#x27;close&#x27;</span>].mean()&#125;</span>&quot;&quot;&quot;</span>)</span><br><span class="line">        <span class="comment">#每月平均开盘价</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;&quot;&quot;month open mean : <span class="subst">&#123;df.groupby(<span class="string">&quot;month&quot;</span>)[<span class="string">&#x27;open&#x27;</span>].mean()&#125;</span>&quot;&quot;&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 涨跌幅</span></span><br><span class="line">    <span class="comment"># 涨跌幅计算今日收盘价减去昨日收盘价</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">testRipples_ratio</span>(<span class="params">self</span>):</span><br><span class="line">        file_name = <span class="string">&quot;./demo_tushare.csv&quot;</span></span><br><span class="line">        df = pd.read_csv(file_name)</span><br><span class="line">        df.columns = [<span class="string">&#x27;ts_code&#x27;</span>, <span class="string">&#x27;trade_date&#x27;</span>, <span class="string">&#x27;open&#x27;</span>, <span class="string">&#x27;high&#x27;</span>, <span class="string">&#x27;low&#x27;</span>, <span class="string">&#x27;close&#x27;</span>, <span class="string">&#x27;col&#x27;</span>]</span><br><span class="line"></span><br><span class="line">        df[<span class="string">&#x27;trade_date&#x27;</span>] = pd.to_datetime(df[<span class="string">&#x27;trade_date&#x27;</span>])</span><br><span class="line">        df[<span class="string">&quot;rise&quot;</span>] = df[<span class="string">&quot;close&quot;</span>].diff() <span class="comment"># rise列</span></span><br><span class="line">        df[<span class="string">&quot;rise_ratio&quot;</span>] = df[<span class="string">&quot;rise&quot;</span>] / df.shift(<span class="number">1</span>)[<span class="string">&quot;close&quot;</span>]</span><br><span class="line"></span><br><span class="line">        <span class="built_in">print</span>(df)</span><br></pre></td></tr></table></figure>
+
+<h2 id="K线图"><a href="#K线图" class="headerlink" title="K线图"></a>K线图</h2><p>三种K线图：K线图、K线图带交易量、K线图带交易量和均线5和10日</p>
+<p>code:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">from</span> mplfinance.original_flavor <span class="keyword">import</span> candlestick2_ohlc</span><br><span class="line"><span class="keyword">import</span> mplfinance <span class="keyword">as</span> mpf</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> unittest <span class="keyword">import</span> TestCase</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">TestPandasKLine</span>(<span class="title class_ inherited__">TestCase</span>):</span><br><span class="line">    <span class="comment">#读取股票数据，画出K线图</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">testKLineChart</span>(<span class="params">self</span>):</span><br><span class="line">        file_name = <span class="string">&quot;./demo_tushare.csv&quot;</span></span><br><span class="line">        df = pd.read_csv(file_name)</span><br><span class="line">        df.columns = [<span class="string">&#x27;ts_code&#x27;</span>, <span class="string">&#x27;trade_date&#x27;</span>, <span class="string">&#x27;open&#x27;</span>, <span class="string">&#x27;high&#x27;</span>, <span class="string">&#x27;low&#x27;</span>, <span class="string">&#x27;close&#x27;</span>, <span class="string">&#x27;vol&#x27;</span>]</span><br><span class="line"></span><br><span class="line">        fig = plt.figure()</span><br><span class="line">        axes = fig.add_subplot(<span class="number">111</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 关键修改3：使用正确的参数格式</span></span><br><span class="line">        candlestick2_ohlc(ax=axes, opens=df[<span class="string">&quot;open&quot;</span>].values,closes=df[<span class="string">&quot;close&quot;</span>].values,highs=df[<span class="string">&quot;high&quot;</span>].values,</span><br><span class="line">                          lows=df[<span class="string">&quot;low&quot;</span>].values,width=<span class="number">0.75</span>,colorup=<span class="string">&#x27;red&#x27;</span>, colordown=<span class="string">&#x27;green&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        plt.xticks(<span class="built_in">range</span>(<span class="built_in">len</span>(df.index.values)), df.index.values, rotation=<span class="number">30</span>)</span><br><span class="line">        axes.grid(<span class="literal">True</span>)<span class="comment">#网格图</span></span><br><span class="line">        plt.title(<span class="string">&quot;K-Line&quot;</span>)</span><br><span class="line">        plt.show()</span><br><span class="line"></span><br><span class="line">    <span class="comment">#k线图带交易量</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">testKLineByVolume</span>(<span class="params">self</span>):</span><br><span class="line">        file_name = <span class="string">&quot;./demo_tushare.csv&quot;</span></span><br><span class="line">        df = pd.read_csv(file_name)</span><br><span class="line">        df.columns = [<span class="string">&#x27;ts_code&#x27;</span>, <span class="string">&#x27;trade_date&#x27;</span>, <span class="string">&#x27;open&#x27;</span>, <span class="string">&#x27;high&#x27;</span>, <span class="string">&#x27;low&#x27;</span>, <span class="string">&#x27;close&#x27;</span>, <span class="string">&#x27;volume&#x27;</span>]</span><br><span class="line">        df = df[[<span class="string">&quot;trade_date&quot;</span>, <span class="string">&quot;open&quot;</span>, <span class="string">&quot;high&quot;</span>, <span class="string">&quot;low&quot;</span>, <span class="string">&quot;close&quot;</span>,<span class="string">&quot;volume&quot;</span>]]</span><br><span class="line">        df[<span class="string">&#x27;trade_date&#x27;</span>] = pd.to_datetime(df[<span class="string">&#x27;trade_date&#x27;</span>])<span class="comment">#给时间转一下类型</span></span><br><span class="line">        df = df.set_index(<span class="string">&#x27;trade_date&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        my_color = mpf.make_marketcolors(</span><br><span class="line">            up = <span class="string">&#x27;red&#x27;</span>,</span><br><span class="line">            down = <span class="string">&#x27;green&#x27;</span>,</span><br><span class="line">            wick = <span class="string">&#x27;i&#x27;</span>,</span><br><span class="line">            volume = &#123;<span class="string">&#x27;up&#x27;</span>:<span class="string">&#x27;red&#x27;</span>, <span class="string">&#x27;down&#x27;</span>:<span class="string">&#x27;green&#x27;</span>&#125;,</span><br><span class="line">            ohlc = <span class="string">&#x27;i&#x27;</span></span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">        my_style = mpf.make_mpf_style(</span><br><span class="line">            marketcolors=my_color,</span><br><span class="line">            gridaxis=<span class="string">&#x27;both&#x27;</span>,</span><br><span class="line">            gridstyle=<span class="string">&#x27;-.&#x27;</span>,<span class="comment">#网格线种类</span></span><br><span class="line">            rc = &#123;<span class="string">&#x27;font.family&#x27;</span>:<span class="string">&#x27;STSong&#x27;</span>&#125;<span class="comment">#字体</span></span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">        mpf.plot(</span><br><span class="line">            df,</span><br><span class="line">            <span class="built_in">type</span> = <span class="string">&#x27;candle&#x27;</span>,</span><br><span class="line">            title = <span class="string">&#x27;K-Line&#x27;</span>,</span><br><span class="line">            ylabel = <span class="string">&#x27;price&#x27;</span>,<span class="comment">#y轴</span></span><br><span class="line">            style = my_style,</span><br><span class="line">            show_nontrading = <span class="literal">False</span>,</span><br><span class="line">            volume = <span class="literal">True</span>,</span><br><span class="line">            ylabel_lower = <span class="string">&#x27;volume&#x27;</span>,</span><br><span class="line">            datetime_format = <span class="string">&#x27;%Y-%m-%d&#x27;</span>,</span><br><span class="line">            xrotation = <span class="number">45</span>,</span><br><span class="line">            linecolor = <span class="string">&#x27;#00ff00&#x27;</span>,</span><br><span class="line">            tight_layout = <span class="literal">False</span>,</span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">    <span class="comment">#K线图带交易量及均线</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">testKLineByMA</span>(<span class="params">self</span>):</span><br><span class="line">        file_name = <span class="string">&quot;./demo_tushare.csv&quot;</span></span><br><span class="line">        df = pd.read_csv(file_name)</span><br><span class="line">        df.columns = [<span class="string">&#x27;ts_code&#x27;</span>, <span class="string">&#x27;trade_date&#x27;</span>, <span class="string">&#x27;open&#x27;</span>, <span class="string">&#x27;high&#x27;</span>, <span class="string">&#x27;low&#x27;</span>, <span class="string">&#x27;close&#x27;</span>, <span class="string">&#x27;volume&#x27;</span>]</span><br><span class="line">        df = df[[<span class="string">&quot;trade_date&quot;</span>, <span class="string">&quot;open&quot;</span>, <span class="string">&quot;high&quot;</span>, <span class="string">&quot;low&quot;</span>, <span class="string">&quot;close&quot;</span>, <span class="string">&quot;volume&quot;</span>]]</span><br><span class="line">        df[<span class="string">&#x27;trade_date&#x27;</span>] = pd.to_datetime(df[<span class="string">&#x27;trade_date&#x27;</span>])  <span class="comment"># 给时间转一下类型</span></span><br><span class="line">        df = df.set_index(<span class="string">&#x27;trade_date&#x27;</span>)</span><br><span class="line">        <span class="comment">#color和style与上面相同</span></span><br><span class="line">        my_color = mpf.make_marketcolors(</span><br><span class="line">            up = <span class="string">&#x27;red&#x27;</span>,</span><br><span class="line">            down = <span class="string">&#x27;green&#x27;</span>,</span><br><span class="line">            wick = <span class="string">&#x27;i&#x27;</span>,</span><br><span class="line">            volume = &#123;<span class="string">&#x27;up&#x27;</span>:<span class="string">&#x27;red&#x27;</span>, <span class="string">&#x27;down&#x27;</span>:<span class="string">&#x27;green&#x27;</span>&#125;,</span><br><span class="line">            ohlc = <span class="string">&#x27;i&#x27;</span></span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">        my_style = mpf.make_mpf_style(</span><br><span class="line">            marketcolors=my_color,</span><br><span class="line">            gridaxis=<span class="string">&#x27;both&#x27;</span>,</span><br><span class="line">            gridstyle=<span class="string">&#x27;-.&#x27;</span>,<span class="comment">#网格线种类</span></span><br><span class="line">            rc = &#123;<span class="string">&#x27;font.family&#x27;</span>:<span class="string">&#x27;STSong&#x27;</span>&#125;<span class="comment">#字体</span></span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        mpf.plot(</span><br><span class="line">            df,</span><br><span class="line">            <span class="built_in">type</span> = <span class="string">&#x27;candle&#x27;</span>,</span><br><span class="line">            mav = [<span class="number">5</span>,<span class="number">10</span>],</span><br><span class="line">            title = <span class="string">&#x27;K-Line&#x27;</span>,</span><br><span class="line">            ylabel = <span class="string">&#x27;price&#x27;</span>,  <span class="comment"># y轴</span></span><br><span class="line">            style = my_style,</span><br><span class="line">            show_nontrading = <span class="literal">False</span>,</span><br><span class="line">            volume = <span class="literal">True</span>,</span><br><span class="line">            ylabel_lower = <span class="string">&#x27;volume&#x27;</span>,</span><br><span class="line">            datetime_format = <span class="string">&#x27;%Y-%m-%d&#x27;</span>,</span><br><span class="line">            xrotation = <span class="number">45</span>,</span><br><span class="line">            linecolor = <span class="string">&#x27;#00ff00&#x27;</span>,</span><br><span class="line">            tight_layout = <span class="literal">False</span>,</span><br><span class="line">        )</span><br></pre></td></tr></table></figure>
+
+<h1 id="Matplotlib实战"><a href="#Matplotlib实战" class="headerlink" title="Matplotlib实战"></a>Matplotlib实战</h1><h2 id="MACD"><a href="#MACD" class="headerlink" title="MACD"></a>MACD</h2><p>MACD意为异同移动平均线。它刻画的是<strong>股价变化速率</strong></p>
+<p>构成：白色线代表快线DIF，黄色线代表慢线DEA，零轴，红色柱体，绿色柱体</p>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th>含义</th>
+<th>公式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>短期EMA</td>
+<td>短期收益率指标移动均线（12天）</td>
+<td>前一日EMA(12)<em>11&#x2F;13 + 今日收益率</em>2&#x2F;13</td>
+</tr>
+<tr>
+<td>长期EMA</td>
+<td>长期收益率指标移动均线（26天）</td>
+<td>前一日EMA(26)<em>25&#x2F;27 + 今日收益率</em>2&#x2F;27</td>
+</tr>
+<tr>
+<td>DIF</td>
+<td>短期EMA与长期EMA差值</td>
+<td>EMA(12) - EMA(26)</td>
+</tr>
+<tr>
+<td>DEA</td>
+<td>DIF线的M日指数移动均线</td>
+<td>前一日DEA*8&#x2F;10 + 今日</td>
+</tr>
+<tr>
+<td>MACD</td>
+<td>DIF线与DEA线的差 * 2</td>
+<td>(DIF - DEA) * 2</td>
+</tr>
+</tbody></table>
+<p>**ewm:**Pandas中指数加权移动窗口函数，采用ewm函数+mean()快捷计算MACD</p>
+<p>**bar:**Matplotlib柱状图函数，高校绘制MACD中的柱状图</p>
+<p>code:</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">from</span> matplotlib <span class="keyword">import</span> colors <span class="keyword">as</span> mycolors</span><br><span class="line"><span class="keyword">from</span> matplotlib.collections <span class="keyword">import</span> LineCollection,PolyCollection</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> unittest <span class="keyword">import</span> TestCase</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">TestMatplotlibMACD</span>(<span class="title class_ inherited__">TestCase</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">cal_macd</span>(<span class="params">self,df,fastperiod=<span class="number">12</span>, slowperiod=<span class="number">26</span>, signalperiod=<span class="number">9</span></span>):</span><br><span class="line">        <span class="comment">#短期移动均线</span></span><br><span class="line">        ewma12 = df[<span class="string">&#x27;close&#x27;</span>].ewm(span=fastperiod, adjust=<span class="literal">False</span>).mean()</span><br><span class="line">        <span class="comment">#长期移动均线</span></span><br><span class="line">        ewma26 = df[<span class="string">&#x27;close&#x27;</span>].ewm(span=slowperiod, adjust=<span class="literal">False</span>).mean()</span><br><span class="line">        df[<span class="string">&#x27;dif&#x27;</span>] = ewma12 - ewma26</span><br><span class="line">        df[<span class="string">&#x27;dea&#x27;</span>] = df[<span class="string">&#x27;dif&#x27;</span>].ewm(span=signalperiod, adjust=<span class="literal">False</span>).mean()</span><br><span class="line">        df[<span class="string">&#x27;bar&#x27;</span>] = (df[<span class="string">&#x27;dif&#x27;</span>] - df[<span class="string">&#x27;dea&#x27;</span>]) * <span class="number">2</span></span><br><span class="line">        <span class="keyword">return</span> df</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">test_macd</span>(<span class="params">self</span>):</span><br><span class="line">        file_name = <span class="string">&quot;./demo_tushare.csv&quot;</span></span><br><span class="line">        df = pd.read_csv(file_name)</span><br><span class="line">        df.columns = [<span class="string">&#x27;ts_code&#x27;</span>, <span class="string">&#x27;trade_date&#x27;</span>, <span class="string">&#x27;open&#x27;</span>, <span class="string">&#x27;high&#x27;</span>, <span class="string">&#x27;low&#x27;</span>, <span class="string">&#x27;close&#x27;</span>, <span class="string">&#x27;volume&#x27;</span>]</span><br><span class="line">        df = df[[<span class="string">&#x27;trade_date&#x27;</span>, <span class="string">&#x27;open&#x27;</span>, <span class="string">&#x27;high&#x27;</span>, <span class="string">&#x27;low&#x27;</span>, <span class="string">&#x27;close&#x27;</span>, <span class="string">&#x27;volume&#x27;</span>]]</span><br><span class="line">        df[<span class="string">&quot;trade_date&quot;</span>] = pd.to_datetime(df[<span class="string">&quot;trade_date&quot;</span>])</span><br><span class="line"></span><br><span class="line">        df_macd = <span class="variable language_">self</span>.cal_macd(df)</span><br><span class="line">        <span class="built_in">print</span>(df_macd)</span><br><span class="line">        <span class="comment">#声明画布</span></span><br><span class="line">        plt.figure()</span><br><span class="line">        df_macd[<span class="string">&#x27;dea&#x27;</span>].plot(color=<span class="string">&#x27;red&#x27;</span>,label=<span class="string">&#x27;dea&#x27;</span>) <span class="comment"># 多头</span></span><br><span class="line">        df_macd[<span class="string">&#x27;dif&#x27;</span>].plot(color=<span class="string">&#x27;blue&#x27;</span>,label=<span class="string">&#x27;dif&#x27;</span>)</span><br><span class="line">        plt.legend(loc=<span class="string">&#x27;best&#x27;</span>)</span><br><span class="line">        <span class="comment">#画图</span></span><br><span class="line">        pos_bar = []</span><br><span class="line">        pos_index = []</span><br><span class="line">        neg_bar = []</span><br><span class="line">        neg_index = []</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> index,row <span class="keyword">in</span> df_macd.iterrows():</span><br><span class="line">            <span class="keyword">if</span>(row[<span class="string">&#x27;bar&#x27;</span>] &gt; <span class="number">0</span>):</span><br><span class="line">                pos_bar.append(row[<span class="string">&#x27;bar&#x27;</span>])</span><br><span class="line">                pos_index.append(index)</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                neg_bar.append(row[<span class="string">&#x27;bar&#x27;</span>])</span><br><span class="line">                neg_index.append(index)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 大于0用红色</span></span><br><span class="line">        plt.bar(pos_index,pos_bar,width=<span class="number">0.5</span>,color=<span class="string">&#x27;red&#x27;</span>)</span><br><span class="line">        <span class="comment"># 小于0用绿色</span></span><br><span class="line">        plt.bar(neg_index,neg_bar,width=<span class="number">0.5</span>,color=<span class="string">&#x27;green&#x27;</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment">#</span></span><br><span class="line">        major_index = df_macd.index[df_macd.index]</span><br><span class="line">        major_xtics = df_macd[<span class="string">&#x27;trade_date&#x27;</span>][df_macd.index]</span><br><span class="line">        plt.xticks(major_index,major_xtics)</span><br><span class="line">        plt.setp(plt.gca().get_xticklabels(), rotation=<span class="number">30</span>)</span><br><span class="line"></span><br><span class="line">        plt.grid(linestyle=<span class="string">&#x27;-.&#x27;</span>)</span><br><span class="line">        plt.title(<span class="string">&#x27;MACD&#x27;</span>)</span><br><span class="line">        plt.rcParams[<span class="string">&#x27;axes.unicode_minus&#x27;</span>] = <span class="literal">False</span></span><br><span class="line">        plt.rcParams[<span class="string">&#x27;font.sans-serif&#x27;</span>] = [<span class="string">&#x27;SimHei&#x27;</span>]</span><br><span class="line">        plt.show()</span><br></pre></td></tr></table></figure>
+
+<h2 id="KDJ"><a href="#KDJ" class="headerlink" title="KDJ"></a>KDJ</h2><p>KDJ叫<strong>随机指标</strong>。通过<strong>价格波动的真实波幅来反映价格走势的强弱和超买超卖现象</strong>。在价格尚上涨或下降之前，发出买信号的一种技术分析指标，适用于<strong>短期行情</strong>走势分析。</p>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th>含义</th>
+<th>公式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>RSV</td>
+<td>未成熟随机指标值</td>
+<td>(Cn - Ln) &#x2F; (Hn - Ln) × 100 (N日)</td>
+</tr>
+<tr>
+<td>K</td>
+<td>当天K值</td>
+<td>2&#x2F;3×前一日K值 + 1&#x2F;3×当日RSV</td>
+</tr>
+<tr>
+<td>D</td>
+<td>当天D值</td>
+<td>2&#x2F;3×前一日D值 + 1&#x2F;3×当日K值</td>
+</tr>
+<tr>
+<td>J</td>
+<td>当天J值</td>
+<td>3<em>当日K值 - 2</em>当日D值</td>
+</tr>
+<tr>
+<td>备注</td>
+<td>若无前一日K值与D值，则可分别用50来代替</td>
+<td></td>
+</tr>
+</tbody></table>
+<p>**rolloing：**Pandas中移动窗口函数，每个窗口都是指定的固定大小，快捷计算Ln与Hn</p>
+<p><strong>expanding</strong>:  在Pandas中扩展窗口函数，只设置最小的观察值数量，不固定窗口大小，实现累积计算，即不断扩展，使用<code>expanding().max()</code>可以创建新的高度。</p>
+<p>code:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">from</span> matplotlib <span class="keyword">import</span> colors <span class="keyword">as</span> mycolors</span><br><span class="line"><span class="keyword">from</span> matplotlib.collections <span class="keyword">import</span> LineCollection,PolyCollection</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> unittest <span class="keyword">import</span> TestCase</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">TestKDJ</span>(<span class="title class_ inherited__">TestCase</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">cal_kdj</span>(<span class="params">self,df</span>):</span><br><span class="line">        <span class="comment">#计算Ln</span></span><br><span class="line">        low_list = df[<span class="string">&#x27;low&#x27;</span>].rolling(<span class="number">9</span>, min_periods=<span class="number">9</span>).<span class="built_in">min</span>()</span><br><span class="line">        low_list.fillna(value=df[<span class="string">&#x27;low&#x27;</span>].expanding().<span class="built_in">min</span>(),inplace=<span class="literal">True</span>)</span><br><span class="line">        <span class="comment"># Hn</span></span><br><span class="line">        high_list = df[<span class="string">&#x27;high&#x27;</span>].rolling(<span class="number">9</span>, min_periods=<span class="number">9</span>).<span class="built_in">max</span>()</span><br><span class="line">        high_list.fillna(value=df[<span class="string">&#x27;high&#x27;</span>].expanding().<span class="built_in">max</span>(),inplace=<span class="literal">True</span>)</span><br><span class="line">        <span class="comment"># rsv</span></span><br><span class="line">        rsv = (df[<span class="string">&#x27;close&#x27;</span>] - low_list)/(high_list - low_list)*<span class="number">100</span></span><br><span class="line">        df[<span class="string">&#x27;k&#x27;</span>] = pd.DataFrame(rsv).ewm(com=<span class="number">2</span>).mean()</span><br><span class="line">        df[<span class="string">&#x27;d&#x27;</span>] = df[<span class="string">&#x27;k&#x27;</span>].ewm(com=<span class="number">2</span>).mean()</span><br><span class="line">        df[<span class="string">&#x27;j&#x27;</span>] = <span class="number">3</span>*df[<span class="string">&#x27;k&#x27;</span>] - <span class="number">2</span>*df[<span class="string">&#x27;d&#x27;</span>]</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> df</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">test_kdj</span>(<span class="params">self</span>):</span><br><span class="line">        file_name = <span class="string">&quot;./demo_tushare.csv&quot;</span></span><br><span class="line">        df = pd.read_csv(file_name)</span><br><span class="line">        df.columns = [<span class="string">&#x27;ts_code&#x27;</span>, <span class="string">&#x27;trade_date&#x27;</span>, <span class="string">&#x27;open&#x27;</span>, <span class="string">&#x27;high&#x27;</span>, <span class="string">&#x27;low&#x27;</span>, <span class="string">&#x27;close&#x27;</span>, <span class="string">&#x27;volume&#x27;</span>]</span><br><span class="line">        df = df[[<span class="string">&#x27;trade_date&#x27;</span>, <span class="string">&#x27;open&#x27;</span>, <span class="string">&#x27;high&#x27;</span>, <span class="string">&#x27;low&#x27;</span>, <span class="string">&#x27;close&#x27;</span>, <span class="string">&#x27;volume&#x27;</span>]]</span><br><span class="line">        df[<span class="string">&quot;trade_date&quot;</span>] = pd.to_datetime(df[<span class="string">&quot;trade_date&quot;</span>])</span><br><span class="line"></span><br><span class="line">        df_kdj = <span class="variable language_">self</span>.cal_kdj(df)</span><br><span class="line">        <span class="built_in">print</span>(df_kdj)</span><br><span class="line"></span><br><span class="line">        plt.figure()</span><br><span class="line">        df_kdj[<span class="string">&#x27;k&#x27;</span>].plot(color=<span class="string">&#x27;red&#x27;</span>,label=<span class="string">&#x27;k&#x27;</span>)</span><br><span class="line">        df_kdj[<span class="string">&#x27;d&#x27;</span>].plot(color=<span class="string">&#x27;yellow&#x27;</span>,label=<span class="string">&#x27;d&#x27;</span>)</span><br><span class="line">        df_kdj[<span class="string">&#x27;j&#x27;</span>].plot(color=<span class="string">&#x27;blue&#x27;</span>,label=<span class="string">&#x27;j&#x27;</span>)</span><br><span class="line">        plt.legend(loc=<span class="string">&#x27;best&#x27;</span>)</span><br><span class="line"></span><br><span class="line">        major_index = df_kdj.index[df_kdj.index]</span><br><span class="line">        major_xtics = df_kdj[<span class="string">&#x27;trade_date&#x27;</span>][df_kdj.index]</span><br><span class="line">        plt.xticks(major_index,major_xtics)</span><br><span class="line">        plt.setp(plt.gca().get_xticklabels(), rotation=<span class="number">30</span>)</span><br><span class="line"></span><br><span class="line">        plt.grid(linestyle=<span class="string">&#x27;-.&#x27;</span>)</span><br><span class="line">        plt.title(<span class="string">&#x27;KDJ&#x27;</span>)</span><br><span class="line">        plt.rcParams[<span class="string">&#x27;axes.unicode_minus&#x27;</span>] = <span class="literal">False</span></span><br><span class="line">        plt.rcParams[<span class="string">&#x27;font.sans-serif&#x27;</span>] = [<span class="string">&#x27;SimHei&#x27;</span>]</span><br><span class="line">        plt.show()</span><br></pre></td></tr></table></figure>
+
+<h1 id="策略"><a href="#策略" class="headerlink" title="策略"></a>策略</h1><p>主力做局散户没法准确知道，但可以一招破解：（图中白色均线为MA5，紫红色均线为MA20，你对照一下上面的图线）只买MA20上涨+MA5在MA20以上的+MA5上涨的股票，凡是买入后某天开盘后下跌3.8%的一律不计条件出局，或者MA5跌到MA20以下一律出局，或者MA20向下运动一律出局。这样每一只股总能吃到主体利润，下跌只有轻微损失，不会上主力的当！淋过雨的人，才会想到别人淋雨的感受，切记！</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>Post author:  </strong>leon
+  </li>
+  <li class="post-copyright-link">
+      <strong>Post link: </strong>
+      <a href="http://example.com/2025/07/04/python%E9%87%8F%E5%8C%96%E5%88%86%E6%9E%90/" title="python量化交易">http://example.com/2025/07/04/python量化分析/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/pwn/" rel="tag"><i class="fa fa-tag"></i> pwn</a>
+              <a href="/tags/kernel/" rel="tag"><i class="fa fa-tag"></i> kernel</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2025/07/03/%E5%86%85%E6%A0%B8pwn%E5%85%A5%E9%97%A8/" rel="prev" title="内核pwn">
+                  <i class="fa fa-angle-left"></i> 内核pwn
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2025/07/08/arm%E6%B1%87%E7%BC%96/" rel="next" title="arm汇编">
+                  arm汇编 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">leon</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="Word count total">355k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="Reading time total">5:23</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/le0n-daily" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.umd.js" integrity="sha256-a+H7FYzJv6oU2hfsfDGM2Ohw/cR9v+hPfxHCLdmCrE8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.4.0/mermaid.min.js","integrity":"sha256-G8ouPAnw4zzMbnAenHnVz6h9XpKbNdOkrqTh7AadyHs="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>
