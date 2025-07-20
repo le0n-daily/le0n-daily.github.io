@@ -21,15 +21,15 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.22.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":true,"style":"default"},"fold":{"enable":false,"height":300},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":{"valine":{"order":-1}}},"stickytabs":false,"motion":{"enable":true,"async":true,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="内核pwn入门">
+    <meta name="description" content="内核pwn开坑">
 <meta property="og:type" content="article">
 <meta property="og:title" content="内核pwn">
 <meta property="og:url" content="http://example.com/2025/07/03/%E5%86%85%E6%A0%B8pwn%E5%85%A5%E9%97%A8/index.html">
 <meta property="og:site_name" content="le0n-blog">
-<meta property="og:description" content="内核pwn入门">
+<meta property="og:description" content="内核pwn开坑">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2025-07-03T04:28:32.204Z">
-<meta property="article:modified_time" content="2025-07-04T09:43:45.068Z">
+<meta property="article:modified_time" content="2025-07-20T05:03:21.511Z">
 <meta property="article:author" content="leon">
 <meta property="article:tag" content="pwn">
 <meta property="article:tag" content="kernel">
@@ -101,7 +101,7 @@
   
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           Table of Contents
@@ -114,6 +114,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="nav-number">1.</span> <span class="nav-text">基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E64%E4%BD%8D128TB-%E7%94%A8%E6%88%B7%E7%A9%BA%E9%97%B4-128TB-%E5%86%85%E6%A0%B8%E7%A9%BA%E9%97%B4"><span class="nav-number">1.1.</span> <span class="nav-text">关于64位128TB 用户空间 + 128TB 内核空间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E32%E4%BD%8D%E7%9A%843GB-%E7%94%A8%E6%88%B7%E7%A9%BA%E9%97%B4-1GB-%E5%86%85%E6%A0%B8%E7%A9%BA%E9%97%B4%E3%80%82"><span class="nav-number">1.2.</span> <span class="nav-text">关于32位的3GB 用户空间 + 1GB 内核空间。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E4%BA%8Emm-struct"><span class="nav-number">1.3.</span> <span class="nav-text">关于mm_struct</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E4%B8%AD%E6%96%AD"><span class="nav-number">1.4.</span> <span class="nav-text">关于中断</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E4%BA%8Evmlloc%E3%80%81kmalloc%E3%80%81mmap"><span class="nav-number">1.5.</span> <span class="nav-text">关于vmlloc、kmalloc、mmap</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#kmalloc-kfree%EF%BC%9A%E5%86%85%E6%A0%B8%E7%9A%84%E4%B8%BB%E5%8A%9B%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D%E6%96%B9%E5%BC%8F"><span class="nav-number">1.5.1.</span> <span class="nav-text">kmalloc &#x2F; kfree：内核的主力内存分配方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#vmalloc-vfree%EF%BC%9A%E4%B8%BA%E5%A4%A7%E5%9D%97%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E8%80%8C%E7%94%9F"><span class="nav-number">1.5.2.</span> <span class="nav-text">vmalloc &#x2F; vfree：为大块虚拟内存而生</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mmap-munmap%EF%BC%9A%E8%BF%9E%E6%8E%A5%E5%86%85%E6%A0%B8%E4%B8%8E%E7%94%A8%E6%88%B7%E7%9A%84%E6%A1%A5%E6%A2%81"><span class="nav-number">1.5.3.</span> <span class="nav-text">mmap &#x2F; munmap：连接内核与用户的桥梁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93%E5%AF%B9%E6%AF%94"><span class="nav-number">1.5.4.</span> <span class="nav-text">总结对比</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E4%BA%8Etask-struct"><span class="nav-number">1.6.</span> <span class="nav-text">关于task_struct</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#task-struct-%E6%A0%B8%E5%BF%83%E5%AD%97%E6%AE%B5%E5%8A%9F%E8%83%BD%E6%A8%A1%E5%9D%97%E5%8C%96%E8%A7%A3%E8%AF%BB"><span class="nav-number">1.6.1.</span> <span class="nav-text">task_struct 核心字段功能模块化解读</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%9C%A8%E5%86%85%E6%A0%B8%E4%B8%AD%E6%89%BE%E5%88%B0%E5%BD%93%E5%89%8D%E7%9A%84-task-struct%EF%BC%9F"><span class="nav-number">1.6.2.</span> <span class="nav-text">如何在内核中找到当前的 task_struct？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">1.6.3.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E4%BA%8Eslab%E5%8E%9F%E7%90%86%E6%BA%90%E7%A0%81%E7%BA%A7%E5%89%96%E6%9E%90"><span class="nav-number">1.7.</span> <span class="nav-text">关于slab原理源码级剖析</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -128,18 +129,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">24</span>
+          <span class="site-state-item-count">25</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -188,7 +189,7 @@
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
       <meta itemprop="name" content="内核pwn | le0n-blog">
-      <meta itemprop="description" content="内核pwn入门">
+      <meta itemprop="description" content="内核pwn开坑">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
@@ -210,7 +211,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2025-07-04 17:43:45" itemprop="dateModified" datetime="2025-07-04T17:43:45+08:00">2025-07-04</time>
+      <time title="Modified: 2025-07-20 13:03:21" itemprop="dateModified" datetime="2025-07-20T13:03:21+08:00">2025-07-20</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -236,25 +237,281 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">Word count in article: </span>
-      <span>0</span>
+      <span>12k</span>
     </span>
     <span class="post-meta-item" title="Reading time">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">Reading time &asymp;</span>
-      <span>1 mins.</span>
+      <span>11 mins.</span>
     </span>
 </div>
 
-            <div class="post-description">内核pwn入门</div>
+            <div class="post-description">内核pwn开坑</div>
         </div>
       </header>
 
     
     
     
-    <div class="post-body" itemprop="articleBody">
+    <div class="post-body" itemprop="articleBody"><h1 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h1><p><a target="_blank" rel="noopener" href="https://ctf-wiki.org/pwn/linux/kernel-mode/basic-knowledge/">参考链接-ctfwiki</a></p>
+<p>下面是学习时收集的AI(gemini2.5pro)问答</p>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>您的 Ubuntu 22.04_amd64 VM</th>
+<th>Linux Kernel arm64</th>
+<th>QEMU 的角色</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>角色</strong></td>
+<td><strong>开发平台 &#x2F; 工厂</strong></td>
+<td><strong>目标产品</strong></td>
+<td><strong>测试平台 &#x2F; 模拟器</strong></td>
+</tr>
+<tr>
+<td><strong>架构</strong></td>
+<td>amd64 &#x2F; x86-64</td>
+<td>arm64 &#x2F; AArch64</td>
+<td>自身是amd64程序，但能模拟arm64硬件</td>
+</tr>
+<tr>
+<td><strong>关系</strong></td>
+<td>在这里<strong>编译</strong>和<strong>准备</strong>arm64内核。</td>
+<td>在这里<strong>被编译</strong>和<strong>被准备</strong>。</td>
+<td>在amd64平台上为arm64内核提供<strong>运行环境</strong>。</td>
+</tr>
+</tbody></table>
+<h2 id="关于64位128TB-用户空间-128TB-内核空间"><a href="#关于64位128TB-用户空间-128TB-内核空间" class="headerlink" title="关于64位128TB 用户空间 + 128TB 内核空间"></a><strong>关于64位128TB 用户空间 + 128TB 内核空间</strong></h2><p>您提到的数字非常具体，这涉及到 x86-64 架构的一个特定设计。</p>
+<ul>
+<li><strong>64位的潜力</strong>：一个 64 位的指针理论上可以寻址 2^64 字节，这大约是 16 EB (Exabytes)，一个天文数字。</li>
+<li><strong>现实的限制 (Canonical Addresses)</strong>：目前的 x86-64 架构 CPU 并没有使用全部 64 位来寻址，而是通常只使用了<strong>低 48 位</strong>。这要求一个有效的地址，其第 47 位到第 63 位必须全部相同（要么全是 0，要么全是 1）。这种规范格式的地址被称为<strong>规范地址 (Canonical Address)</strong>。<ul>
+<li>这 48 位地址空间提供了 2^48 &#x3D; <strong>256 TB</strong> 的虚拟地址空间。</li>
+</ul>
+</li>
+<li><strong>内核与用户的划分</strong>：Linux 内核非常巧妙地利用了这个“规范地址”的特点，将这 256TB 的虚拟地址空间一分为二：<ul>
+<li><strong>用户空间 (User Space)</strong>：地址范围从 0x00000000_00000000 到 0x00007FFF_FFFFFFFF。这些地址的最高有效位都是 0。这部分空间的大小正好是 <strong>128 TB</strong>。这部分是每个进程私有的。</li>
+<li><strong>内核空间 (Kernel Space)</strong>：地址范围从 0xFFFF8000_00000000 到 0xFFFFFFFF_FFFFFFFF。这些地址的最高有效位都是 1。这部分的大小也是 <strong>128 TB</strong>。这部分空间被所有进程<strong>共享</strong>，但只有在内核态才能访问。</li>
+</ul>
+</li>
+</ul>
+<h2 id="关于32位的3GB-用户空间-1GB-内核空间。"><a href="#关于32位的3GB-用户空间-1GB-内核空间。" class="headerlink" title="关于32位的3GB 用户空间 + 1GB 内核空间。"></a><strong>关于32位的3GB 用户空间 + 1GB 内核空间。</strong></h2><p><strong>根本限制</strong>：32 位的寻址能力</p>
+<ul>
+<li>一个 32 位的指针，其所能表示的不同地址数量是 2^32。</li>
+<li>2^32 字节 &#x3D; 4,294,967,296 字节 &#x3D; 4 GB。</li>
+<li>这意味着，在 32 位架构上，<strong>任何一个进程的虚拟地址空间总大小被死死地限制在了 4GB</strong>。</li>
+</ul>
+<p>对于系统中的每一个进程，它的 4GB 虚拟地址空间都被划分成如下两部分：</p>
+<ol>
+<li><strong>用户空间 (User Space): 3GB</strong><ul>
+<li><strong>地址范围</strong>: 0x00000000 到 0xBFFFFFFF。</li>
+<li><strong>内容</strong>: 这里存放着进程私有的一切，包括：<ul>
+<li>程序代码（.text段）</li>
+<li>已初始化的数据（.data段）</li>
+<li>未初始化的数据（.bss段）</li>
+<li>堆（Heap），用于动态内存分配（如 malloc）</li>
+<li>栈（Stack），用于函数调用和局部变量</li>
+<li>内存映射的库（如 libc.so）和文件。</li>
+</ul>
+</li>
+<li><strong>属性</strong>: 这部分空间是<strong>进程私有的</strong>。进程 A 的 3GB 空间和进程 B 的 3GB 空间通过页表映射到了不同的物理内存上，它们互相隔离。</li>
+</ul>
+</li>
+<li><strong>内核空间 (Kernel Space): 1GB</strong><ul>
+<li><strong>地址范围</strong>: 0xC0000000 到 0xFFFFFFFF。</li>
+<li><strong>内容</strong>: 这里存放着操作系统的核心代码和数据。</li>
+<li><strong>属性</strong>: 这部分空间是<strong>所有进程共享的</strong>。无论当前哪个进程在运行，它的虚拟地址空间的高 1GB 都映射到同一块物理内存，即内核所在的物理内存。进程在用户态时没有权限访问这部分地址，只有当通过系统调用进入内核态后，CPU 的权限级别提升，才能访问这部分内存。</li>
+</ul>
+</li>
+</ol>
+<h2 id="关于mm-struct"><a href="#关于mm-struct" class="headerlink" title="关于mm_struct"></a><strong>关于mm_struct</strong></h2><p><code>mm_struct</code> 结构体是 Linux 内核中描述一个进程虚拟地址空间的核心数据结构，可以说是进程内存管理的“总司令部”。它包含了管理进程内存所需的所有信息。</p>
+<p>这个结构体非常庞大且复杂，其定义位于内核源码的 <code>include/linux/mm_types.h</code> 文件中。由于内核版本更迭，字段会略有增删，但其核心成员和设计思想是稳定的。</p>
+<p>以下是 <code>mm_struct</code> 的一些关键和有代表性的字段，并按照功能进行分类和注释，帮助您更好地理解。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义于: include/linux/mm_types.h</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">mm_struct</span> &#123;</span></span><br><span class="line">    <span class="comment">/****************************************************************</span></span><br><span class="line"><span class="comment">     * 1. 虚拟内存区域 (VMA) 管理</span></span><br><span class="line"><span class="comment">     * 这是 mm_struct 最核心的部分，用于管理进程的所有内存区域</span></span><br><span class="line"><span class="comment">     * (如代码段、数据段、堆、栈、内存映射文件等)。</span></span><br><span class="line"><span class="comment">     ****************************************************************/</span></span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">vm_area_struct</span> *<span class="title">mmap</span>;</span>        <span class="comment">/* VMA 链表的头指针，按地址排序 */</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">rb_root</span> <span class="title">mm_rb</span>;</span>               <span class="comment">/* VMA 的红黑树根节点，用于快速查找 */</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">vm_area_struct</span> *<span class="title">mmap_cache</span>;</span>  <span class="comment">/* 最近找到的 VMA 缓存，提高查找效率 */</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/****************************************************************</span></span><br><span class="line"><span class="comment">     * 2. 页表和地址转换</span></span><br><span class="line"><span class="comment">     * 指向该进程的页表，是 CPU (MMU) 进行地址翻译的依据。</span></span><br><span class="line"><span class="comment">     ****************************************************************/</span></span><br><span class="line"></span><br><span class="line">    <span class="type">pgd_t</span> * pgd;                        <span class="comment">/* 指向页全局目录 (Page Global Directory) 的指针 */</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/****************************************************************</span></span><br><span class="line"><span class="comment">     * 3. 内存使用计数</span></span><br><span class="line"><span class="comment">     * 统计和控制进程使用了多少内存。</span></span><br><span class="line"><span class="comment">     ****************************************************************/</span></span><br><span class="line"></span><br><span class="line">    <span class="type">atomic_long_t</span> <span class="string">&quot;rss_stat&quot;</span>;         <span class="comment">/* 包含四种类型的驻留集大小 (RSS) 统计：</span></span><br><span class="line"><span class="comment">                                           - MM_FILEPAGES: 文件映射的物理页数</span></span><br><span class="line"><span class="comment">                                           - MM_ANONPAGES: 匿名映射的物理页数</span></span><br><span class="line"><span class="comment">                                           - MM_SWAPENTS:  交换区中的页数</span></span><br><span class="line"><span class="comment">                                           - MM_SHMEMPAGES: 共享内存页数</span></span><br><span class="line"><span class="comment">                                         */</span></span><br><span class="line">    <span class="type">unsigned</span> <span class="type">long</span> total_vm;             <span class="comment">/* 进程总的虚拟内存大小（以页为单位） */</span></span><br><span class="line">    <span class="type">unsigned</span> <span class="type">long</span> locked_vm;            <span class="comment">/* 被 mlock() 锁定的页数，不能被换出 */</span></span><br><span class="line">    <span class="type">unsigned</span> <span class="type">long</span> pinned_vm;            <span class="comment">/* 被特殊驱动 &quot;pin&quot; 住的页数 */</span></span><br><span class="line">    <span class="type">unsigned</span> <span class="type">long</span> data_vm;              <span class="comment">/* 数据段的大小 */</span></span><br><span class="line">    <span class="type">unsigned</span> <span class="type">long</span> exec_vm;              <span class="comment">/* 可执行代码段的大小 */</span></span><br><span class="line">    <span class="type">unsigned</span> <span class="type">long</span> stack_vm;             <span class="comment">/* 栈的大小 */</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/****************************************************************</span></span><br><span class="line"><span class="comment">     * 4. 进程地址空间范围定义</span></span><br><span class="line"><span class="comment">     * 记录了进程各个关键部分的起始和结束地址。</span></span><br><span class="line"><span class="comment">     ****************************************************************/</span></span><br><span class="line"></span><br><span class="line">    <span class="type">unsigned</span> <span class="type">long</span> start_code, end_code;     <span class="comment">/* 代码段的起始和结束地址 */</span></span><br><span class="line">    <span class="type">unsigned</span> <span class="type">long</span> start_data, end_data;     <span class="comment">/* 数据段的起始和结束地址 */</span></span><br><span class="line">    <span class="type">unsigned</span> <span class="type">long</span> start_brk, brk;           <span class="comment">/* 堆的起始和当前结束地址 (program break) */</span></span><br><span class="line">    <span class="type">unsigned</span> <span class="type">long</span> start_stack;              <span class="comment">/* 栈的起始地址 */</span></span><br><span class="line">    <span class="type">unsigned</span> <span class="type">long</span> arg_start, arg_end;       <span class="comment">/* 命令行参数的起始和结束地址 */</span></span><br><span class="line">    <span class="type">unsigned</span> <span class="type">long</span> env_start, env_end;       <span class="comment">/* 环境变量的起始和结束地址 */</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/****************************************************************</span></span><br><span class="line"><span class="comment">     * 5. 锁和同步机制</span></span><br><span class="line"><span class="comment">     * 用于保护 mm_struct 自身以及其下的 VMA 链表/红黑树在多线程环境下不被破坏。</span></span><br><span class="line"><span class="comment">     ****************************************************************/</span></span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">mmap_lock</span> <span class="title">mmap_lock</span>;</span>         <span class="comment">/* 一个读写信号量，用于保护 VMA 结构。</span></span><br><span class="line"><span class="comment">                                           读操作（如缺页中断）可以并发，</span></span><br><span class="line"><span class="comment">                                           写操作（如 mmap/munmap）则需要独占访问。</span></span><br><span class="line"><span class="comment">                                         */</span></span><br><span class="line">    <span class="type">spinlock_t</span> page_table_lock;         <span class="comment">/* 保护页表的自旋锁 */</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/****************************************************************</span></span><br><span class="line"><span class="comment">     * 6. 进程所有权和使用计数</span></span><br><span class="line"><span class="comment">     * 记录了谁拥有这个地址空间以及有多少个线程在使用它。</span></span><br><span class="line"><span class="comment">     ****************************************************************/</span></span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">task_struct</span> *<span class="title">owner</span>;</span>          <span class="comment">/* 指向拥有这个地址空间的进程（通常是主线程）*/</span></span><br><span class="line">    <span class="type">atomic_t</span> mm_users;                  <span class="comment">/* 使用这个地址空间的线程数（例如，一个进程的所有线程共享同一个 mm_struct）*/</span></span><br><span class="line">    <span class="type">atomic_t</span> mm_count;                  <span class="comment">/* mm_struct 结构体自身的引用计数。当为0时，可以被销毁。*/</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/****************************************************************</span></span><br><span class="line"><span class="comment">     * 7. 内核线程和上下文</span></span><br><span class="line"><span class="comment">     * 用于区分一个 mm_struct 是属于普通用户进程还是内核线程。</span></span><br><span class="line"><span class="comment">     ****************************************************************/</span></span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> core_state;                     <span class="comment">/* 用于 coredump 的状态信息 */</span></span><br><span class="line">    u32 anova_context;                  <span class="comment">/* 匿名虚拟地址(AVA)的上下文 */</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/****************************************************************</span></span><br><span class="line"><span class="comment">     * 8. 缺页中断（Page Fault）相关</span></span><br><span class="line"><span class="comment">     ****************************************************************/</span></span><br><span class="line"></span><br><span class="line">    <span class="type">unsigned</span> <span class="type">long</span> faultstamp;           <span class="comment">/* 最近一次 major fault 的时间戳 */</span></span><br><span class="line">    <span class="type">unsigned</span> <span class="type">long</span> token_priority;       <span class="comment">/* 缺页令牌的优先级 */</span></span><br><span class="line">    <span class="type">unsigned</span> <span class="type">long</span> last_interval;        <span class="comment">/* 两次 major fault 之间的间隔 */</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/* ... 以及其他许多用于特定功能（如 coredump, transparent huge pages, KSM 等）的字段 ... */</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p><strong>总结：</strong></p>
+<table>
+<thead>
+<tr>
+<th>数据结构</th>
+<th>在 mm_struct 中的字段</th>
+<th>擅长操作</th>
+<th>主要应用场景</th>
+<th>时间复杂度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>VMA 链表</strong></td>
+<td>mmap</td>
+<td><strong>顺序遍历 (Iteration)</strong></td>
+<td>fork(), &#x2F;proc&#x2F;pid&#x2F;maps, 跨多个VMA的munmap</td>
+<td>遍历: O(n)</td>
+</tr>
+<tr>
+<td><strong>VMA 红黑树</strong></td>
+<td>mm_rb</td>
+<td><strong>快速查找 (Lookup)</strong></td>
+<td><strong>缺页中断 (Page Fault)</strong>, mmap时检查地址冲突</td>
+<td>查找&#x2F;插入&#x2F;删除: O(log n)</td>
+</tr>
+</tbody></table>
+<p><code>mm_struct</code> 就像一个进程的内存蓝图，它通过以下几个核心组件来工作：</p>
+<ol>
+<li><strong>VMA 链表和红黑树 (<code>mmap</code>, <code>mm_rb</code>)</strong>：这是灵魂所在。它将进程的虚拟地址空间划分为一个个具有不同属性（如可读、可写、可执行）的 <code>vm_area_struct</code> 区域。当你调用 <code>mmap</code> 时，内核就是在这里为你创建一个新的 VMA。</li>
+<li><strong>页全局目录 (<code>pgd</code>)</strong>：这是通往硬件翻译的桥梁。<code>pgd</code> 指向该进程页表的顶层结构，CPU 的 MMU 正是利用它来将虚拟地址翻译为物理地址。</li>
+<li><strong>内存统计 (<code>total_vm</code>, <code>rss_stat</code>)</strong>：提供了对进程内存使用情况的宏观掌控，也是 <code>top</code>、<code>free</code> 等命令的数据来源之一。</li>
+<li><strong>锁 (<code>mmap_lock</code>)</strong>：保证了在多线程环境下，对内存布局的修改是安全的。</li>
+</ol>
+<p>每个用户进程都有其自己唯一的 <code>mm_struct</code>。而内核线程则比较特殊，它们没有自己的地址空间，所以它们的 <code>task_struct-&gt;mm</code> 字段通常是 <code>NULL</code>，它们运行时会借用上一个用户进程的 <code>mm_struct</code>。</p>
+<h2 id="关于中断"><a href="#关于中断" class="headerlink" title="关于中断"></a>关于中断</h2><p>Linux内核通过中断技术，响应硬件发出的异步信号，暂停当前任务以立即处理紧急事件，从而实现高效的I&#x2F;O操作和任务调度。</p>
+<h2 id="关于vmlloc、kmalloc、mmap"><a href="#关于vmlloc、kmalloc、mmap" class="headerlink" title="关于vmlloc、kmalloc、mmap"></a>关于vmlloc、kmalloc、mmap</h2><p><code>kmalloc</code>、<code>vmalloc</code> 和 <code>mmap</code> 是 Linux 内核和驱动开发中至关重要的三个内存操作机制。它们在不同的场景下使用，理解其区别是编写健壮、高效内核代码的基础。</p>
+<h3 id="kmalloc-kfree：内核的主力内存分配方式"><a href="#kmalloc-kfree：内核的主力内存分配方式" class="headerlink" title="kmalloc &#x2F; kfree：内核的主力内存分配方式"></a><code>kmalloc</code> &#x2F; <code>kfree</code>：内核的主力内存分配方式</h3><p><code>kmalloc</code> 是内核中最常用、最高效的内存分配函数。</p>
+<p> <code>void *kmalloc(size_t size, gfp_t flags);</code></p>
+<ul>
+<li><strong>作用</strong>: 分配一块<strong>物理上连续</strong>并且<strong>虚拟地址上也连续</strong>的内存。</li>
+<li><strong>核心特点 (物理连续)</strong>: 这是 <code>kmalloc</code> 最重要的特征。因为它分配的内存在物理 RAM 中是连成一片的，所以非常适合需要进行 DMA (Direct Memory Access) 操作的硬件设备。DMA 控制器通常不理解虚拟地址，只能操作物理地址。</li>
+<li><strong>分配来源</strong>: <code>kmalloc</code> 的内存来自于内核的 <strong>slab&#x2F;slub 分配器</strong>，这是一套为分配小块内存而高度优化的缓存机制。</li>
+<li><strong>分配大小</strong>: 通常用于分配相对较小的、大小固定的内存块（一般不超过几兆字节，上限为 <code>KMALLOC_MAX_SIZE</code>）。</li>
+<li><strong>速度</strong>: 非常快，因为大部分情况下是从预先分配好的缓存池中直接获取，几乎没有额外开销。</li>
+<li><strong><code>gfp_t flags</code></strong>: 这是一个关键参数，用于指定分配行为。<ul>
+<li><strong><code>GFP_KERNEL</code></strong>: 最常用的标志。表示可以在需要时睡眠（阻塞），等待内存变为可用。因此，它<strong>不能在中断上下文或持有自旋锁时使用</strong>。</li>
+<li><strong><code>GFP_ATOMIC</code></strong>: 表示分配必须是原子的，绝不能睡眠。如果当前没有可用内存，它会立即返回 <code>NULL</code>。这是<strong>在中断处理程序等不能阻塞的代码中唯一可以使用的标志</strong>。</li>
+</ul>
+</li>
+</ul>
+<p> <code>void kfree(const void *objp);</code></p>
+<ul>
+<li><strong>作用</strong>: 释放由 <code>kmalloc</code> 分配的内存块，将其归还给 slab 分配器。</li>
+<li><strong>规则</strong>: <code>kfree</code> 必须用于释放 <code>kmalloc</code> 分配的内存，不能混用。传入 <code>NULL</code> 是安全的操作。</li>
+</ul>
+<p><strong>一句话总结 <code>kmalloc</code></strong>: 用于为设备驱动和内核核心功能分配快速、物理连续的小块内存。</p>
+<hr>
+<h3 id="vmalloc-vfree：为大块虚拟内存而生"><a href="#vmalloc-vfree：为大块虚拟内存而生" class="headerlink" title="vmalloc &#x2F; vfree：为大块虚拟内存而生"></a><code>vmalloc</code> &#x2F; <code>vfree</code>：为大块虚拟内存而生</h3><p><code>vmalloc</code> 用于分配大块的、对物理连续性没有要求的内存。</p>
+<p><code>void *vmalloc(unsigned long size);</code></p>
+<ul>
+<li><strong>作用</strong>: 分配一块<strong>虚拟地址上连续</strong>，但<strong>物理上不一定连续</strong>的内存。</li>
+<li><strong>核心特点 (虚拟连续)</strong>: 内核会将来自不同物理位置的零散内存页（Pages），通过修改内核的页表，将它们映射成一块看起来连续的虚拟地址空间。</li>
+<li><strong>分配来源</strong>: 直接从内核的伙伴系统（Buddy System）中请求物理页，然后构建页表来映射它们。</li>
+<li><strong>分配大小</strong>: 非常适合需要大块内存（例如几十兆或更大）的场景，比如为某些模块加载大的固件，或者创建大的缓冲区。</li>
+<li><strong>速度</strong>: 比 <code>kmalloc</code> 慢得多。因为它涉及到查找空闲物理页、修改页表等一系列更复杂的操作。</li>
+<li><strong>是否可睡眠</strong>: <code>vmalloc</code> 可能会睡眠以等待内存，因此<strong>不能在中断上下文中使用</strong>。</li>
+</ul>
+<p><code>void vfree(const void *addr);</code></p>
+<ul>
+<li><strong>作用</strong>: 释放由 <code>vmalloc</code> 分配的内存。它会解除页表映射，并将底层的物理页归还给伙伴系统。</li>
+<li><strong>规则</strong>: 与 <code>vfree</code> 配对使用，不能混用。</li>
+</ul>
+<p><strong>一句话总结 <code>vmalloc</code></strong>: 用于在内核中分配大块的、虚拟地址连续的内存，不关心物理上是否连续。</p>
+<hr>
+<h3 id="mmap-munmap：连接内核与用户的桥梁"><a href="#mmap-munmap：连接内核与用户的桥梁" class="headerlink" title="mmap &#x2F; munmap：连接内核与用户的桥梁"></a><code>mmap</code> &#x2F; <code>munmap</code>：连接内核与用户的桥梁</h3><p><code>mmap</code> 本身是一个<strong>系统调用</strong>，它不是一个像 <code>kmalloc</code> 那样直接供内核其他部分使用的分配函数。它的主要职责是在<strong>用户进程的虚拟地址空间</strong>中创建一块新的内存映射。</p>
+<p>从内核的角度看，响应 <code>mmap</code> 系统调用的过程是：</p>
+<ul>
+<li><p><strong>作用</strong>: 在调用进程的地址空间中，创建一个新的 <strong>VMA (<code>vm_area_struct</code>)</strong>。这个 VMA 可以是：</p>
+<ol>
+<li><strong>文件映射 (File-backed)</strong>: 将一个文件的某一部分映射到进程的地址空间。当用户访问这块内存时，内核通过缺页中断机制，按需从磁盘读取文件内容到物理内存，并建立页表映射。对这块内存的修改也可以被写回文件。</li>
+<li><strong>匿名映射 (Anonymous)</strong>: 创建一块不与任何文件关联的内存区域，通常用作程序的堆或栈。这块内存会被初始化为零。</li>
+</ol>
+</li>
+<li><p><strong>核心特点</strong>: <code>mmap</code> 是实现用户空间与内核空间（特别是设备驱动）进行<strong>零拷贝 (Zero-copy)</strong> 数据交换的关键。驱动程序可以实现 <code>mmap</code> 接口，将设备的内存（如显存、硬件缓冲区）直接映射到用户空间，用户程序可以直接读写这块内存，避免了数据在内核和用户空间之间来回拷贝的开销。</p>
+</li>
+<li><p><strong>释放</strong>: 用户空间的程序通过调用 <code>munmap</code> 系统调用来解除这段映射，内核会回收对应的 VMA 和相关的物理内存页。</p>
+</li>
+</ul>
+<p><strong>一句话总结 <code>mmap</code></strong>: 它是用户程序向内核申请创建内存映射的机制，是实现高效 I&#x2F;O 和进程内存管理的核心系统调用。</p>
+<hr>
+<h3 id="总结对比"><a href="#总结对比" class="headerlink" title="总结对比"></a>总结对比</h3><table>
+<thead>
+<tr>
+<th align="left">特性</th>
+<th align="left"><code>kmalloc</code></th>
+<th align="left"><code>vmalloc</code></th>
+<th align="left"><code>mmap</code> (从内核视角)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>分配目标</strong></td>
+<td align="left">内核自身使用</td>
+<td align="left">内核自身使用</td>
+<td align="left"><strong>用户进程</strong>的地址空间</td>
+</tr>
+<tr>
+<td align="left"><strong>物理连续性</strong></td>
+<td align="left"><strong>是</strong></td>
+<td align="left"><strong>否</strong></td>
+<td align="left">取决于底层（通常是否）</td>
+</tr>
+<tr>
+<td align="left"><strong>虚拟连续性</strong></td>
+<td align="left"><strong>是</strong></td>
+<td align="left"><strong>是</strong></td>
+<td align="left"><strong>是</strong></td>
+</tr>
+<tr>
+<td align="left"><strong>常用大小</strong></td>
+<td align="left">小块 (&lt; <code>KMALLOC_MAX_SIZE</code>)</td>
+<td align="left">大块</td>
+<td align="left">任意大小</td>
+</tr>
+<tr>
+<td align="left"><strong>性能&#x2F;速度</strong></td>
+<td align="left"><strong>非常快</strong></td>
+<td align="left">较慢</td>
+<td align="left">开销较大（涉及VMA操作）</td>
+</tr>
+<tr>
+<td align="left"><strong>是否可睡眠</strong></td>
+<td align="left">取决于<code>flags</code> (<code>GFP_ATOMIC</code>不可)</td>
+<td align="left">是</td>
+<td align="left">是（在系统调用上下文中）</td>
+</tr>
+<tr>
+<td align="left"><strong>主要用途</strong></td>
+<td align="left">DMA、描述符、小缓冲区</td>
+<td align="left">大缓冲区、模块加载</td>
+<td align="left"><strong>驱动与用户空间数据交换</strong>、文件映射</td>
+</tr>
+<tr>
+<td align="left"><strong>释放函数</strong></td>
+<td align="left"><code>kfree</code></td>
+<td align="left"><code>vfree</code></td>
+<td align="left"><code>munmap</code> (由用户进程调用)</td>
+</tr>
+</tbody></table>
+<p>看过malloc.c源码的就知道，malloc()和free()其实就是对mmap和munmap的包装</p>
+<h2 id="关于task-struct"><a href="#关于task-struct" class="headerlink" title="关于task_struct"></a>关于task_struct</h2><p><code>task_struct</code> 是 Linux 内核中<strong>最核心、最庞大</strong>的数据结构，没有之一。它就是内核对一个<strong>进程或线程</strong>的完整描述，通常被称为**“进程描述符”(Process Descriptor)**。</p>
+<p>理解了 <code>task_struct</code>，就等于拿到了理解内核如何管理进程的钥匙。</p>
+<p>这个结构体定义在内核源码的 <code>include/linux/sched.h</code> 文件中。由于它极其庞大（在现代内核中有数百个字段），我们不可能逐一讲解。最好的方式是将其<strong>按功能模块进行分类解读</strong>，这能让你看清它的设计脉络。</p>
+<p><code>task_struct</code> 的核心作用：进程的“身份证”与“档案袋”</p>
+<p>你可以把 <code>task_struct</code> 想象成一个人的全部档案，里面包含了：</p>
+<ul>
+<li><strong>个人信息</strong>: 进程 ID (PID)、状态（在干嘛）、名字。</li>
+<li><strong>工作安排</strong>: 调度策略、优先级、被分配到哪个 CPU 上运行。</li>
+<li><strong>资产清单</strong>: 拥有哪些内存空间 (<code>mm_struct</code>)。</li>
+<li><strong>社会关系</strong>: 父进程是谁、子进程有哪些。</li>
+<li><strong>权限与凭证</strong>: 用户 ID、组 ID、拥有的能力 (Capabilities)。</li>
+<li><strong>随身物品</strong>: 打开了哪些文件。</li>
+</ul>
+<hr>
+<h3 id="task-struct-核心字段功能模块化解读"><a href="#task-struct-核心字段功能模块化解读" class="headerlink" title="task_struct 核心字段功能模块化解读"></a><code>task_struct</code> 核心字段功能模块化解读</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义于: include/linux/sched.h</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">task_struct</span> &#123;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/*********************************************************************</span></span><br><span class="line"><span class="comment">     * 1. 进程状态与标识 (State &amp; Identification)</span></span><br><span class="line"><span class="comment">     * &quot;我是谁？我在干什么？&quot;</span></span><br><span class="line"><span class="comment">     *********************************************************************/</span></span><br><span class="line">    <span class="keyword">volatile</span> <span class="type">long</span> state;            </span><br><span class="line">    <span class="comment">/* 任务状态: TASK_RUNNING--&gt;运行态（表示进程当前正在运行或准备运行）,</span></span><br><span class="line"><span class="comment">    TASK_INTERRUPTIBLE--&gt;可中断睡眠态（表示进程正在等待某个事件的发生，一旦事件发生或收到信号，可被唤醒继续执行）</span></span><br><span class="line"><span class="comment">    TASK_UNINTERRUPTIBLE--&gt;不可中断睡眠态（与可中断睡眠态类似，表示进程正在等待某个事件的发生，但在此状态下进程无法被信号唤醒或中断）</span></span><br><span class="line"><span class="comment">    TASK_STOPPED--&gt;停止态（表示进程已经停止运行，并没有被停止。它可能是由于接收到SIGSTOP、SIGTSTP、SIGTTIN等信号而暂停执行）</span></span><br><span class="line"><span class="comment">    TASK_TRACED--&gt;跟踪态（表示进程处于调试状态，在这种状态下，一个父进程可以听歌调用系统调用来观察和控制子进程的执行）*/</span></span><br><span class="line">    <span class="type">void</span> *<span class="built_in">stack</span>;                    </span><br><span class="line">    <span class="comment">/* 进程内核栈，Linux内核通过thread_union联合体表示进程的内核栈</span></span><br><span class="line"><span class="comment">    分配/释放内核栈：alloc_thread_info/free_thread_info*/</span></span><br><span class="line">    <span class="type">pid_t</span> pid;                      <span class="comment">/* 进程ID (Process ID) */</span></span><br><span class="line">    <span class="type">pid_t</span> tgid;                     <span class="comment">/* 线程组ID (Thread Group ID)。一个进程中所有线程的 tgid 相同。*/</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">task_struct</span> *<span class="title">parent</span>;</span>     <span class="comment">/* 指向父进程的指针 */</span></span><br><span class="line">    <span class="type">char</span> comm[TASK_COMM_LEN];       <span class="comment">/* 进程名，如 &quot;bash&quot;, &quot;top&quot; */</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/*********************************************************************</span></span><br><span class="line"><span class="comment">     * 2. 调度信息 (Scheduling)</span></span><br><span class="line"><span class="comment">     * &quot;我该如何、以及何时使用 CPU？&quot;</span></span><br><span class="line"><span class="comment">     *********************************************************************/</span></span><br><span class="line">    <span class="type">int</span> prio, static_prio, normal_prio; <span class="comment">/* 动态、静态、普通优先级 */</span></span><br><span class="line">    <span class="type">unsigned</span> <span class="type">int</span> rt_priority;         <span class="comment">/* 实时优先级 */</span></span><br><span class="line"></span><br><span class="line">    <span class="type">const</span> <span class="class"><span class="keyword">struct</span> <span class="title">sched_class</span> *<span class="title">sched_class</span>;</span> <span class="comment">/* 指向调度器类的指针 (如 CFS, FIFO, RR)。</span></span><br><span class="line"><span class="comment">                                              这是实现不同调度策略的关键，是面向对象思想的体现。*/</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">sched_entity</span> <span class="title">se</span>;</span>              <span class="comment">/* 调度实体 (Scheduling Entity)，专门用于CFS调度器。</span></span><br><span class="line"><span class="comment">                                              包含了虚拟运行时间(vruntime)等核心调度数据。*/</span></span><br><span class="line">    <span class="type">unsigned</span> <span class="type">int</span> policy;                 <span class="comment">/* 调度策略 (SCHED_NORMAL, SCHED_FIFO, etc.) */</span></span><br><span class="line">    <span class="type">int</span> nr_cpus_allowed;                 <span class="comment">/* 允许在多少个CPU上运行 */</span></span><br><span class="line">    <span class="type">cpumask_t</span> cpus_allowed;              <span class="comment">/* 允许运行的CPU的位掩码 */</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/*********************************************************************</span></span><br><span class="line"><span class="comment">     * 3. 内存管理 (Memory Management)</span></span><br><span class="line"><span class="comment">     * &quot;我的地址空间在哪里？&quot; - 这是 Pwn 领域最关心的部分之一</span></span><br><span class="line"><span class="comment">     *********************************************************************/</span></span><br><span class="line">    <span class="comment">// 表示进程/线程所属的内存管理结构体，用于管理进程/线程的虚拟内存空间和页表信息</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">mm_struct</span> *<span class="title">mm</span>;</span>             <span class="comment">/* 指向内存描述符的指针，描述了完整的用户地址空间。*/</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">mm_struct</span> *<span class="title">active_mm</span>;</span>      <span class="comment">/* 指向当前活跃的地址空间。</span></span><br><span class="line"><span class="comment">                                         对于普通进程, mm == active_mm。</span></span><br><span class="line"><span class="comment">                                         对于内核线程, mm 为 NULL, 但它会借用上一个进程的 active_mm。*/</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/*********************************************************************</span></span><br><span class="line"><span class="comment">     * 4. 身份与凭证 (Credentials &amp; Security)</span></span><br><span class="line"><span class="comment">     * &quot;我有什么权限？&quot; - 内核提权 Pwn 的核心目标</span></span><br><span class="line"><span class="comment">     *********************************************************************/</span></span><br><span class="line">    <span class="type">const</span> <span class="class"><span class="keyword">struct</span> <span class="title">cred</span> __<span class="title">rcu</span> *<span class="title">cred</span>;</span>   <span class="comment">/* 指向&quot;凭证&quot;结构体的指针 (rcu是一种高级锁)。</span></span><br><span class="line"><span class="comment">                                        cred 结构体包含了 real_uid, uid, gid, capabilities 等。</span></span><br><span class="line"><span class="comment">                                        内核提权的经典手法就是修改当前进程的 cred，</span></span><br><span class="line"><span class="comment">                                        例如调用 commit_creds(prepare_kernel_cred(0))。*/</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/*********************************************************************</span></span><br><span class="line"><span class="comment">     * 5. 进程关系 (Relationships)</span></span><br><span class="line"><span class="comment">     * &quot;我的家族树是怎样的？&quot;</span></span><br><span class="line"><span class="comment">     *********************************************************************/</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">list_head</span> <span class="title">children</span>;</span>      <span class="comment">/* 我的子进程链表的头部 */</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">list_head</span> <span class="title">sibling</span>;</span>       <span class="comment">/* 我在父进程的 children 链表中的节点 */</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">task_struct</span> *<span class="title">group_leader</span>;</span><span class="comment">/* 指向线程组的领导者（通常是主线程）*/</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/*********************************************************************</span></span><br><span class="line"><span class="comment">     * 6. 文件系统与文件描述符 (Filesystem &amp; File Descriptors)</span></span><br><span class="line"><span class="comment">     * &quot;我打开了哪些文件？&quot;</span></span><br><span class="line"><span class="comment">     *********************************************************************/</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">files_struct</span> *<span class="title">files</span>;</span>     <span class="comment">/* 指向文件描述符表的指针。</span></span><br><span class="line"><span class="comment">                                       这里包含了fd数组，记录了每个文件描述符指向哪个 `struct file`。*/</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">fs_struct</span> *<span class="title">fs</span>;</span>           <span class="comment">/* 指向文件系统信息的指针，如当前工作目录(pwd)和根目录。*/</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/*********************************************************************</span></span><br><span class="line"><span class="comment">     * 7. 信号处理 (Signal Handling)</span></span><br><span class="line"><span class="comment">     * &quot;我该如何响应信号？&quot;</span></span><br><span class="line"><span class="comment">     *********************************************************************/</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">signal_struct</span> *<span class="title">signal</span>;</span>   <span class="comment">/* 指向信号描述符的指针，由线程组共享。*/</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">sighand_struct</span> *<span class="title">sighand</span>;</span> <span class="comment">/* 指向信号处理函数的指针，也由线程组共享。*/</span></span><br><span class="line">    <span class="type">sigset_t</span> blocked;               <span class="comment">/* 此线程阻塞的信号掩码 (per-thread) */</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/* ... 以及其他成百上千用于不同子系统（如 cgroups, namespaces, tracing 等）的字段 ... */</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="如何在内核中找到当前的-task-struct？"><a href="#如何在内核中找到当前的-task-struct？" class="headerlink" title="如何在内核中找到当前的 task_struct？"></a>如何在内核中找到当前的 <code>task_struct</code>？</h3><p>你不可能去遍历所有内存来找这个结构体。内核提供了一个极其高效的宏：</p>
+<p><code>current</code></p>
+<p>在内核代码的任何地方，<code>current</code> 宏都会返回一个指向<strong>当前正在 CPU 上运行的进程</strong>的 <code>task_struct</code> 的指针。</p>
+<p>例如，一个系统调用的代码可能是这样：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SYSCALL_DEFINE0(getuid)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">/* current 指向调用 getuid() 的那个进程的 task_struct */</span></span><br><span class="line">    <span class="keyword">return</span> current-&gt;cred-&gt;uid.val;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>current</code> 的实现非常巧妙，通常是通过读取当前 CPU 的栈指针，然后进行对齐计算得到的，速度极快。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p><code>task_struct</code> 是内核数据结构的中心枢纽。它通过一系列的指针，将进程的状态、调度、内存、文件、凭证、信号等所有方面的信息全部组织和链接起来，形成了一个完整而复杂的管理体系。</p>
+<p>对于 Pwn 学习者来说，理解以下几个指针指向的结构体尤为重要：</p>
+<ul>
+<li><strong><code>cred</code></strong>: 提权的核心目标。</li>
+<li><strong><code>mm</code></strong>: 理解进程虚拟内存布局，为用户态 Pwn 和内核利用打下基础。</li>
+<li><strong><code>files</code></strong>: 在一些利用场景中，可能需要操作文件描述符表（如重定向）。</li>
+</ul>
+<h2 id="关于slab原理源码级剖析"><a href="#关于slab原理源码级剖析" class="headerlink" title="关于slab原理源码级剖析"></a>关于slab原理源码级剖析</h2><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/binlovetech/p/17434311.html">参考文章</a></p>
+
     </div>
 
     
@@ -288,8 +545,8 @@
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2025/06/28/%E6%AF%8F%E6%97%A5%E5%BF%83%E5%BE%97/" rel="prev" title="日常笔记">
-                  <i class="fa fa-angle-left"></i> 日常笔记
+                <a href="/2025/06/28/%E6%AF%8F%E6%97%A5%E5%BF%83%E5%BE%97/" rel="prev" title="每日心得">
+                  <i class="fa fa-angle-left"></i> 每日心得
                 </a>
             </div>
             <div class="post-nav-item">
@@ -326,13 +583,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="Word count total">355k</span>
+    <span title="Word count total">419k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="Reading time total">5:23</span>
+    <span title="Reading time total">6:21</span>
   </span>
 </div>
 <div class="busuanzi-count">

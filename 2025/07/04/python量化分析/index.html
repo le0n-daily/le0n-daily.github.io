@@ -21,19 +21,18 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.22.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":true,"style":"default"},"fold":{"enable":false,"height":300},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":{"valine":{"order":-1}}},"stickytabs":false,"motion":{"enable":true,"async":true,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="python量化交易">
+    <meta name="description" content="python量化交易----学习这玩意要相信哪三个基础条件，但是呢在实际交易中我觉得这三个基础条件已经不成立了。有点用的就是macd，其他的像kdj别的在我看来基本太大用处。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="python量化交易">
 <meta property="og:url" content="http://example.com/2025/07/04/python%E9%87%8F%E5%8C%96%E5%88%86%E6%9E%90/index.html">
 <meta property="og:site_name" content="le0n-blog">
-<meta property="og:description" content="python量化交易">
+<meta property="og:description" content="python量化交易----学习这玩意要相信哪三个基础条件，但是呢在实际交易中我觉得这三个基础条件已经不成立了。有点用的就是macd，其他的像kdj别的在我看来基本太大用处。">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/images/image-20250704174239159.png">
 <meta property="article:published_time" content="2025-07-04T09:23:56.207Z">
-<meta property="article:modified_time" content="2025-07-08T10:37:52.348Z">
+<meta property="article:modified_time" content="2025-07-20T04:58:53.988Z">
 <meta property="article:author" content="leon">
-<meta property="article:tag" content="pwn">
-<meta property="article:tag" content="kernel">
+<meta property="article:tag" content="python">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/images/image-20250704174239159.png">
 
@@ -116,7 +115,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%87%8F%E5%8C%96%E4%BA%A4%E6%98%93%E5%88%9D%E8%AF%86"><span class="nav-number">1.</span> <span class="nav-text">量化交易初识</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%87%8F%E5%8C%96%E4%BA%A4%E6%98%93%E5%BC%80%E5%8F%91%E6%B5%81%E7%A8%8B"><span class="nav-number">2.</span> <span class="nav-text">量化交易开发流程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%87%8F%E5%8C%96%E4%BA%A4%E6%98%93%E5%88%86%E7%B1%BB%E4%BD%93%E7%B3%BB"><span class="nav-number">2.1.</span> <span class="nav-text">量化交易分类体系</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%A4%E6%98%93%E4%BA%A7%E5%93%81%E5%88%86%E7%B1%BB"><span class="nav-number">2.1.1.</span> <span class="nav-text">交易产品分类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%88%E5%88%A9%E6%A8%A1%E5%BC%8F%E5%88%86%E7%B1%BB"><span class="nav-number">2.1.2.</span> <span class="nav-text">盈利模式分类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AD%96%E7%95%A5%E4%BF%A1%E5%8F%B7%E5%88%86%E7%B1%BB"><span class="nav-number">2.1.3.</span> <span class="nav-text">策略信号分类</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%82%A1%E7%A5%A8"><span class="nav-number">3.</span> <span class="nav-text">股票</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%87%8F%E5%8C%96%E9%80%89%E8%82%A1"><span class="nav-number">3.1.</span> <span class="nav-text">量化选股</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8B%A9%E6%97%B6"><span class="nav-number">3.2.</span> <span class="nav-text">择时</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%87%8F%E5%8C%96%E4%BA%A4%E6%98%93%E5%B9%B3%E5%8F%B0"><span class="nav-number">3.3.</span> <span class="nav-text">量化交易平台</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Numpy%E5%AE%9E%E6%88%98"><span class="nav-number">4.</span> <span class="nav-text">Numpy实战</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%82%A1%E4%BB%B7%E5%88%86%E6%9E%90"><span class="nav-number">4.1.</span> <span class="nav-text">股价分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%82%A1%E4%BB%B7%E5%9D%87%E7%BA%BF"><span class="nav-number">4.2.</span> <span class="nav-text">股价均线</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Pandas%E5%AE%9E%E6%88%98"><span class="nav-number">5.</span> <span class="nav-text">Pandas实战</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%82%A1%E7%A5%A8%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97"><span class="nav-number">5.1.</span> <span class="nav-text">股票时间序列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#K%E7%BA%BF%E5%9B%BE"><span class="nav-number">5.2.</span> <span class="nav-text">K线图</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Matplotlib%E5%AE%9E%E6%88%98"><span class="nav-number">6.</span> <span class="nav-text">Matplotlib实战</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#MACD"><span class="nav-number">6.1.</span> <span class="nav-text">MACD</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#KDJ"><span class="nav-number">6.2.</span> <span class="nav-text">KDJ</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AD%96%E7%95%A5"><span class="nav-number">7.</span> <span class="nav-text">策略</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%87%8F%E5%8C%96%E4%BA%A4%E6%98%93%E5%88%9D%E8%AF%86"><span class="nav-number">1.</span> <span class="nav-text">量化交易初识</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%87%8F%E5%8C%96%E4%BA%A4%E6%98%93%E5%BC%80%E5%8F%91%E6%B5%81%E7%A8%8B"><span class="nav-number">2.</span> <span class="nav-text">量化交易开发流程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%87%8F%E5%8C%96%E4%BA%A4%E6%98%93%E5%88%86%E7%B1%BB%E4%BD%93%E7%B3%BB"><span class="nav-number">2.1.</span> <span class="nav-text">量化交易分类体系</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%A4%E6%98%93%E4%BA%A7%E5%93%81%E5%88%86%E7%B1%BB"><span class="nav-number">2.1.1.</span> <span class="nav-text">交易产品分类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%88%E5%88%A9%E6%A8%A1%E5%BC%8F%E5%88%86%E7%B1%BB"><span class="nav-number">2.1.2.</span> <span class="nav-text">盈利模式分类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AD%96%E7%95%A5%E4%BF%A1%E5%8F%B7%E5%88%86%E7%B1%BB"><span class="nav-number">2.1.3.</span> <span class="nav-text">策略信号分类</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%82%A1%E7%A5%A8"><span class="nav-number">3.</span> <span class="nav-text">股票</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%87%8F%E5%8C%96%E9%80%89%E8%82%A1"><span class="nav-number">3.1.</span> <span class="nav-text">量化选股</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8B%A9%E6%97%B6"><span class="nav-number">3.2.</span> <span class="nav-text">择时</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%87%8F%E5%8C%96%E4%BA%A4%E6%98%93%E5%B9%B3%E5%8F%B0"><span class="nav-number">3.3.</span> <span class="nav-text">量化交易平台</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Numpy%E5%AE%9E%E6%88%98"><span class="nav-number">4.</span> <span class="nav-text">Numpy实战</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%82%A1%E4%BB%B7%E5%88%86%E6%9E%90"><span class="nav-number">4.1.</span> <span class="nav-text">股价分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%82%A1%E4%BB%B7%E5%9D%87%E7%BA%BF"><span class="nav-number">4.2.</span> <span class="nav-text">股价均线</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Pandas%E5%AE%9E%E6%88%98"><span class="nav-number">5.</span> <span class="nav-text">Pandas实战</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%82%A1%E7%A5%A8%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97"><span class="nav-number">5.1.</span> <span class="nav-text">股票时间序列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#K%E7%BA%BF%E5%9B%BE"><span class="nav-number">5.2.</span> <span class="nav-text">K线图</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Matplotlib%E5%AE%9E%E6%88%98"><span class="nav-number">6.</span> <span class="nav-text">Matplotlib实战</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#MACD"><span class="nav-number">6.1.</span> <span class="nav-text">MACD</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#KDJ"><span class="nav-number">6.2.</span> <span class="nav-text">KDJ</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%87%8F%E5%8C%96%E4%BA%A4%E6%98%93%E7%AD%96%E7%95%A5%E6%A1%86%E6%9E%B6"><span class="nav-number">7.</span> <span class="nav-text">量化交易策略框架</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AD%96%E7%95%A5%E6%A1%86%E6%9E%B6"><span class="nav-number">7.1.</span> <span class="nav-text">策略框架</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E5%87%BD%E6%95%B0"><span class="nav-number">7.2.</span> <span class="nav-text">设置函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E6%97%B6%E5%87%BD%E6%95%B0"><span class="nav-number">7.3.</span> <span class="nav-text">定时函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%A4%E6%98%93%E5%87%BD%E6%95%B0"><span class="nav-number">7.4.</span> <span class="nav-text">交易函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%A4%E6%98%93%E5%AF%B9%E8%B1%A1"><span class="nav-number">7.5.</span> <span class="nav-text">交易对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AD%96%E7%95%A5%E4%BF%A1%E6%81%AF"><span class="nav-number">7.6.</span> <span class="nav-text">策略信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B4%A6%E6%88%B7%E4%BF%A1%E6%81%AF"><span class="nav-number">7.7.</span> <span class="nav-text">账户信息</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%87%8F%E5%8C%96%E4%BA%A4%E6%98%93%E6%95%B0%E6%8D%AE%E8%8E%B7%E5%8F%96"><span class="nav-number">8.</span> <span class="nav-text">量化交易数据获取</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B4%A2%E5%8A%A1%E6%95%B0%E6%8D%AE"><span class="nav-number">8.1.</span> <span class="nav-text">财务数据</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%87%8F%E5%8C%96%E9%80%89%E8%82%A1-1"><span class="nav-number">9.</span> <span class="nav-text">量化选股</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%87%8F%E5%8C%96%E9%80%89%E8%82%A1%E6%A6%82%E5%86%B5"><span class="nav-number">9.1.</span> <span class="nav-text">量化选股概况</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%90%A5%E6%94%B6%E5%9B%A0%E5%AD%90"><span class="nav-number">9.2.</span> <span class="nav-text">营收因子</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%87%8F%E5%8C%96%E6%8B%A9%E6%97%B6"><span class="nav-number">10.</span> <span class="nav-text">量化择时</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B6%8B%E5%8A%BF%E6%8C%87%E6%A0%87"><span class="nav-number">10.1.</span> <span class="nav-text">趋势指标</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#MACD-1"><span class="nav-number">10.1.1.</span> <span class="nav-text">MACD</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UOS"><span class="nav-number">10.1.2.</span> <span class="nav-text">UOS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MA"><span class="nav-number">10.1.3.</span> <span class="nav-text">MA</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#VMA"><span class="nav-number">10.1.4.</span> <span class="nav-text">VMA</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%8D%E8%B6%8B%E5%90%91%E6%8C%87%E6%A0%87"><span class="nav-number">10.2.</span> <span class="nav-text">反趋向指标</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#RSI"><span class="nav-number">10.2.1.</span> <span class="nav-text">RSI</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#KDJ-1"><span class="nav-number">10.2.2.</span> <span class="nav-text">KDJ</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8E%8B%E5%8A%9B%E6%94%AF%E6%92%91%E6%8C%87%E6%A0%87"><span class="nav-number">10.3.</span> <span class="nav-text">压力支撑指标</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#BOLL"><span class="nav-number">10.3.1.</span> <span class="nav-text">BOLL</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%87%8F%E4%BB%B7%E6%8C%87%E6%A0%87"><span class="nav-number">10.4.</span> <span class="nav-text">量价指标</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#OBV"><span class="nav-number">10.4.1.</span> <span class="nav-text">OBV</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#VOL"><span class="nav-number">10.4.2.</span> <span class="nav-text">VOL</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%87%8F%E5%8C%96%E7%AD%96%E7%95%A5%E5%9B%9E%E6%B5%8B"><span class="nav-number">11.</span> <span class="nav-text">量化策略回测</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9E%E6%B5%8B%E6%B5%81%E7%A8%8B"><span class="nav-number">11.1.</span> <span class="nav-text">回测流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MACD-2"><span class="nav-number">11.2.</span> <span class="nav-text">MACD</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%87%8F%E5%8C%96%E5%9B%9E%E6%B5%8B%E7%9A%84%E9%A3%8E%E9%99%A9%E6%8C%87%E6%A0%87"><span class="nav-number">11.3.</span> <span class="nav-text">量化回测的风险指标</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9B%A0%E5%AD%90%E5%88%86%E6%9E%90"><span class="nav-number">12.</span> <span class="nav-text">因子分析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%A0%E5%AD%90%E5%88%86%E6%9E%90%E6%A6%82%E8%BF%B0"><span class="nav-number">12.1.</span> <span class="nav-text">因子分析概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9B%A0%E5%AD%90"><span class="nav-number">12.2.</span> <span class="nav-text">自定义因子</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -131,18 +130,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">24</span>
+          <span class="site-state-item-count">25</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -191,7 +190,7 @@
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
       <meta itemprop="name" content="python量化交易 | le0n-blog">
-      <meta itemprop="description" content="python量化交易">
+      <meta itemprop="description" content="python量化交易----学习这玩意要相信哪三个基础条件，但是呢在实际交易中我觉得这三个基础条件已经不成立了。有点用的就是macd，其他的像kdj别的在我看来基本太大用处。">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
@@ -213,7 +212,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2025-07-08 18:37:52" itemprop="dateModified" datetime="2025-07-08T18:37:52+08:00">2025-07-08</time>
+      <time title="Modified: 2025-07-20 12:58:53" itemprop="dateModified" datetime="2025-07-20T12:58:53+08:00">2025-07-20</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -221,7 +220,7 @@
       </span>
       <span class="post-meta-item-text">In</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/pwn/" itemprop="url" rel="index"><span itemprop="name">pwn</span></a>
+          <a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
         </span>
     </span>
 
@@ -239,18 +238,18 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">Word count in article: </span>
-      <span>18k</span>
+      <span>45k</span>
     </span>
     <span class="post-meta-item" title="Reading time">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">Reading time &asymp;</span>
-      <span>16 mins.</span>
+      <span>41 mins.</span>
     </span>
 </div>
 
-            <div class="post-description">python量化交易</div>
+            <div class="post-description">python量化交易----学习这玩意要相信哪三个基础条件，但是呢在实际交易中我觉得这三个基础条件已经不成立了。有点用的就是macd，其他的像kdj别的在我看来基本太大用处。</div>
         </div>
       </header>
 
@@ -500,7 +499,598 @@
 <p>code:</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">from</span> matplotlib <span class="keyword">import</span> colors <span class="keyword">as</span> mycolors</span><br><span class="line"><span class="keyword">from</span> matplotlib.collections <span class="keyword">import</span> LineCollection,PolyCollection</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> unittest <span class="keyword">import</span> TestCase</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">TestKDJ</span>(<span class="title class_ inherited__">TestCase</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">cal_kdj</span>(<span class="params">self,df</span>):</span><br><span class="line">        <span class="comment">#计算Ln</span></span><br><span class="line">        low_list = df[<span class="string">&#x27;low&#x27;</span>].rolling(<span class="number">9</span>, min_periods=<span class="number">9</span>).<span class="built_in">min</span>()</span><br><span class="line">        low_list.fillna(value=df[<span class="string">&#x27;low&#x27;</span>].expanding().<span class="built_in">min</span>(),inplace=<span class="literal">True</span>)</span><br><span class="line">        <span class="comment"># Hn</span></span><br><span class="line">        high_list = df[<span class="string">&#x27;high&#x27;</span>].rolling(<span class="number">9</span>, min_periods=<span class="number">9</span>).<span class="built_in">max</span>()</span><br><span class="line">        high_list.fillna(value=df[<span class="string">&#x27;high&#x27;</span>].expanding().<span class="built_in">max</span>(),inplace=<span class="literal">True</span>)</span><br><span class="line">        <span class="comment"># rsv</span></span><br><span class="line">        rsv = (df[<span class="string">&#x27;close&#x27;</span>] - low_list)/(high_list - low_list)*<span class="number">100</span></span><br><span class="line">        df[<span class="string">&#x27;k&#x27;</span>] = pd.DataFrame(rsv).ewm(com=<span class="number">2</span>).mean()</span><br><span class="line">        df[<span class="string">&#x27;d&#x27;</span>] = df[<span class="string">&#x27;k&#x27;</span>].ewm(com=<span class="number">2</span>).mean()</span><br><span class="line">        df[<span class="string">&#x27;j&#x27;</span>] = <span class="number">3</span>*df[<span class="string">&#x27;k&#x27;</span>] - <span class="number">2</span>*df[<span class="string">&#x27;d&#x27;</span>]</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> df</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">test_kdj</span>(<span class="params">self</span>):</span><br><span class="line">        file_name = <span class="string">&quot;./demo_tushare.csv&quot;</span></span><br><span class="line">        df = pd.read_csv(file_name)</span><br><span class="line">        df.columns = [<span class="string">&#x27;ts_code&#x27;</span>, <span class="string">&#x27;trade_date&#x27;</span>, <span class="string">&#x27;open&#x27;</span>, <span class="string">&#x27;high&#x27;</span>, <span class="string">&#x27;low&#x27;</span>, <span class="string">&#x27;close&#x27;</span>, <span class="string">&#x27;volume&#x27;</span>]</span><br><span class="line">        df = df[[<span class="string">&#x27;trade_date&#x27;</span>, <span class="string">&#x27;open&#x27;</span>, <span class="string">&#x27;high&#x27;</span>, <span class="string">&#x27;low&#x27;</span>, <span class="string">&#x27;close&#x27;</span>, <span class="string">&#x27;volume&#x27;</span>]]</span><br><span class="line">        df[<span class="string">&quot;trade_date&quot;</span>] = pd.to_datetime(df[<span class="string">&quot;trade_date&quot;</span>])</span><br><span class="line"></span><br><span class="line">        df_kdj = <span class="variable language_">self</span>.cal_kdj(df)</span><br><span class="line">        <span class="built_in">print</span>(df_kdj)</span><br><span class="line"></span><br><span class="line">        plt.figure()</span><br><span class="line">        df_kdj[<span class="string">&#x27;k&#x27;</span>].plot(color=<span class="string">&#x27;red&#x27;</span>,label=<span class="string">&#x27;k&#x27;</span>)</span><br><span class="line">        df_kdj[<span class="string">&#x27;d&#x27;</span>].plot(color=<span class="string">&#x27;yellow&#x27;</span>,label=<span class="string">&#x27;d&#x27;</span>)</span><br><span class="line">        df_kdj[<span class="string">&#x27;j&#x27;</span>].plot(color=<span class="string">&#x27;blue&#x27;</span>,label=<span class="string">&#x27;j&#x27;</span>)</span><br><span class="line">        plt.legend(loc=<span class="string">&#x27;best&#x27;</span>)</span><br><span class="line"></span><br><span class="line">        major_index = df_kdj.index[df_kdj.index]</span><br><span class="line">        major_xtics = df_kdj[<span class="string">&#x27;trade_date&#x27;</span>][df_kdj.index]</span><br><span class="line">        plt.xticks(major_index,major_xtics)</span><br><span class="line">        plt.setp(plt.gca().get_xticklabels(), rotation=<span class="number">30</span>)</span><br><span class="line"></span><br><span class="line">        plt.grid(linestyle=<span class="string">&#x27;-.&#x27;</span>)</span><br><span class="line">        plt.title(<span class="string">&#x27;KDJ&#x27;</span>)</span><br><span class="line">        plt.rcParams[<span class="string">&#x27;axes.unicode_minus&#x27;</span>] = <span class="literal">False</span></span><br><span class="line">        plt.rcParams[<span class="string">&#x27;font.sans-serif&#x27;</span>] = [<span class="string">&#x27;SimHei&#x27;</span>]</span><br><span class="line">        plt.show()</span><br></pre></td></tr></table></figure>
 
-<h1 id="策略"><a href="#策略" class="headerlink" title="策略"></a>策略</h1><p>主力做局散户没法准确知道，但可以一招破解：（图中白色均线为MA5，紫红色均线为MA20，你对照一下上面的图线）只买MA20上涨+MA5在MA20以上的+MA5上涨的股票，凡是买入后某天开盘后下跌3.8%的一律不计条件出局，或者MA5跌到MA20以下一律出局，或者MA20向下运动一律出局。这样每一只股总能吃到主体利润，下跌只有轻微损失，不会上主力的当！淋过雨的人，才会想到别人淋雨的感受，切记！</p>
+<h1 id="量化交易策略框架"><a href="#量化交易策略框架" class="headerlink" title="量化交易策略框架"></a>量化交易策略框架</h1><p>主力做局散户没法准确知道，但可以一招破解：（图中白色均线为MA5，紫红色均线为MA20，你对照一下上面的图线）只买MA20上涨+MA5在MA20以上的+MA5上涨的股票，凡是买入后某天开盘后下跌3.8%的一律不计条件出局，或者MA5跌到MA20以下一律出局，或者MA20向下运动一律出局。这样每一只股总能吃到主体利润，下跌只有轻微损失，不会上主力的当！淋过雨的人，才会想到别人淋雨的感受，切记！</p>
+<h2 id="策略框架"><a href="#策略框架" class="headerlink" title="策略框架"></a>策略框架</h2><p>**框架：**初始化+策略函数（周期循环）</p>
+<p><strong>初始化:<strong>通过初始化函数设置基准。初始化函数在整个回测或者实盘操作中只被运行一次，用于</strong>初始化全局变量</strong></p>
+<p>函数：initialize(context)</p>
+<p>context : Context对象，存放有当前的账户&#x2F;股票持仓信息</p>
+<p>示例：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">initialize</span>:</span><br><span class="line">    <span class="comment"># g为全局变量，设定标的股票为深交所的平安银行</span></span><br><span class="line">    g.security = <span class="string">&quot;000001.XSHE&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>策略函数：<strong>策略开始后，随着时间周期</strong>重复执行你的交易策略</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">handle_data</span>(<span class="params">context,data</span>):</span><br><span class="line">    <span class="comment"># 下单一千股</span></span><br><span class="line">    order(g.security, <span class="number">1000</span>)</span><br><span class="line">    <span class="comment"># 卖出八百股</span></span><br><span class="line">    order(g.security, -<span class="number">800</span>)</span><br></pre></td></tr></table></figure>
+
+<p>order()聚宽的api</p>
+<p>示例：</p>
+<ul>
+<li>初始化中要有股票和策略运行周期</li>
+<li>策略函数：<ul>
+<li>如果上一时间点价格高出五天平均价1%，则全仓买入</li>
+<li>如果上一时间点价格低于五天平均价，则空仓卖入（画出上一时间点价格）</li>
+</ul>
+</li>
+</ul>
+<p>基础框架：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> jqdata <span class="keyword">import</span> *  <span class="comment"># 必需导入聚宽库</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">initialize</span>(<span class="params">context</span>):</span><br><span class="line">    g.security = <span class="string">&quot;000001.XSHE&quot;</span>  <span class="comment"># 深交所平安银行</span></span><br><span class="line">    run_daily(market_open, time=<span class="string">&#x27;every_bar&#x27;</span>)  <span class="comment"># 每次Bar执行</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">market_open</span>(<span class="params">context</span>):</span><br><span class="line">    security = g.security</span><br><span class="line">    close_data = attribute_history(security, <span class="number">5</span>, <span class="string">&#x27;1d&#x27;</span>, [<span class="string">&#x27;close&#x27;</span>])  <span class="comment"># 获取5日收盘价</span></span><br><span class="line">    MA5 = close_data[<span class="string">&#x27;close&#x27;</span>].mean()  <span class="comment"># 5日均线</span></span><br><span class="line">    current_price = close_data[<span class="string">&#x27;close&#x27;</span>][-<span class="number">1</span>]  <span class="comment"># 当前价格</span></span><br><span class="line">    </span><br><span class="line">    cash = context.portfolio.available_cash  <span class="comment"># 修正拼写</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 买入逻辑：价格突破均线1%</span></span><br><span class="line">    <span class="keyword">if</span> current_price &gt; <span class="number">1.01</span> * MA5:</span><br><span class="line">        order_value(security, cash)  <span class="comment"># 全仓买入</span></span><br><span class="line">        log.info(<span class="string">&quot;买入 %s&quot;</span> % security)</span><br><span class="line">        </span><br><span class="line">    <span class="comment"># 卖出逻辑：价格低于均线且持有可卖数量</span></span><br><span class="line">    <span class="keyword">elif</span> current_price &lt; MA5 <span class="keyword">and</span> context.portfolio.positions[security].closeable_amount &gt; <span class="number">0</span>:</span><br><span class="line">        order_target(security, <span class="number">0</span>)  <span class="comment"># 清仓卖出</span></span><br><span class="line">        log.info(<span class="string">&quot;卖出 %s&quot;</span> % security)</span><br><span class="line">        </span><br><span class="line">    record(stock_price=current_price)  <span class="comment"># 记录股价</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>这个策略则垃圾不要随便用</p>
+</blockquote>
+<h2 id="设置函数"><a href="#设置函数" class="headerlink" title="设置函数"></a>设置函数</h2><p><strong>策略设置函数</strong></p>
+<ul>
+<li>基准：设定业绩比较基准：set_benchmark(security)</li>
+<li>佣金&#x2F;印花税：set_order_cost(cost,type,ref&#x3D;None)</li>
+<li>滑点：真是成交价格与下单时预期的价格偏差，set_slippage(object,type&#x3D;None,ref&#x3D;None)</li>
+<li>成交量比例：根据实际行情限制每个订单的成交量，set_option(‘order_volume_ratio’,value)</li>
+<li>动态复权模式：设置真实价格，建议开启，set_option(‘use_real_option’,value)</li>
+</ul>
+<p>这几个函数的使用</p>
+<p>code:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> jqdata <span class="keyword">import</span> *  <span class="comment"># 必需导入聚宽库</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">initialize</span>(<span class="params">context</span>):</span><br><span class="line">    <span class="comment">#设定业绩比较基准</span></span><br><span class="line">    set_benchmark(<span class="string">&#x27;000300.XSHG&#x27;</span>)</span><br><span class="line">    g.security = <span class="string">&quot;000001.XSHE&quot;</span>  <span class="comment"># 深交所平安银行</span></span><br><span class="line">    run_daily(market_open, time=<span class="string">&#x27;10:30&#x27;</span>)  <span class="comment"># 每次Bar执行</span></span><br><span class="line">    <span class="comment">#设置佣金，税率</span></span><br><span class="line">    set_order_cost(OrderCost(open_commission=<span class="number">0.03</span>,close_commission=<span class="number">0.03</span>,close_tax=<span class="number">0.001</span>),<span class="built_in">type</span>=<span class="string">&#x27;stock&#x27;</span>)</span><br><span class="line">    set_slippage(PriceRelatedSlippage(<span class="number">0.002</span>),<span class="built_in">type</span>=<span class="string">&#x27;stock&#x27;</span>)</span><br><span class="line">    <span class="comment">#成交量不足50%</span></span><br><span class="line">    set_option(<span class="string">&#x27;order_volume_ratio&#x27;</span>,<span class="number">0.5</span>)</span><br><span class="line">    <span class="comment">#复权</span></span><br><span class="line">    set_option(<span class="string">&#x27;use_real_price&#x27;</span>,<span class="literal">True</span>)</span><br><span class="line">    </span><br><span class="line"><span class="keyword">def</span> <span class="title function_">market_open</span>(<span class="params">context</span>):</span><br><span class="line">    security = g.security</span><br><span class="line">    close_data = attribute_history(security, <span class="number">5</span>, <span class="string">&#x27;1d&#x27;</span>, [<span class="string">&#x27;close&#x27;</span>])  <span class="comment"># 获取5日收盘价</span></span><br><span class="line">    MA5 = close_data[<span class="string">&#x27;close&#x27;</span>].mean()  <span class="comment"># 5日均线</span></span><br><span class="line">    current_price = close_data[<span class="string">&#x27;close&#x27;</span>][-<span class="number">1</span>]  <span class="comment"># 当前价格</span></span><br><span class="line">    </span><br><span class="line">    cash = context.portfolio.available_cash  <span class="comment"># 修正拼写</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 买入逻辑：价格突破均线1%</span></span><br><span class="line">    <span class="keyword">if</span> current_price &gt; <span class="number">1.01</span> * MA5:</span><br><span class="line">        order_value(security, cash)  <span class="comment"># 全仓买入</span></span><br><span class="line">        log.info(<span class="string">&quot;买入 %s&quot;</span> % security)</span><br><span class="line">        </span><br><span class="line">    <span class="comment"># 卖出逻辑：价格低于均线且持有可卖数量</span></span><br><span class="line">    <span class="keyword">elif</span> current_price &lt; MA5 <span class="keyword">and</span> context.portfolio.positions[security].closeable_amount &gt; <span class="number">0</span>:</span><br><span class="line">        order_target(security, <span class="number">0</span>)  <span class="comment"># 清仓卖出</span></span><br><span class="line">        log.info(<span class="string">&quot;卖出 %s&quot;</span> % security)</span><br><span class="line">        </span><br><span class="line">    record(stock_price=current_price)  <span class="comment"># 记录股价</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="定时函数"><a href="#定时函数" class="headerlink" title="定时函数"></a>定时函数</h2><p>作用：设定<strong>回测</strong>和<strong>模拟交易</strong>中运行时间及频率</p>
+<ul>
+<li>月度：run_monthly(func,monthday,time&#x3D;’open’,reference_security)</li>
+<li>周度：run_weekly(func,weekday,time&#x3D;’open’,reference_security)</li>
+<li>日度：run_daily(func,time&#x3D;’open’,reference_security)</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>介绍</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>func</td>
+<td>用户自定义接受 <code>context</code> 参数的函数，必须是全局函数</td>
+</tr>
+<tr>
+<td>monthday</td>
+<td>指定每月的第几个交易日执行函数。当值为负数时，表示在月末第几个交易日执行函数</td>
+</tr>
+<tr>
+<td>time</td>
+<td>字符串格式，支持 <code>time</code> 表达式，例如：‘9:30’</td>
+</tr>
+<tr>
+<td>reference_security</td>
+<td>表示时间的参照指标。如按照 “000001.XSHE” 交易时间</td>
+</tr>
+</tbody></table>
+<h2 id="交易函数"><a href="#交易函数" class="headerlink" title="交易函数"></a>交易函数</h2><p>交易函数：<code>order(security,amount,style=None,side=&#39;long&#39;,pindex=0)</code></p>
+<ul>
+<li>security：股票代码</li>
+<li>amount：交易数量（负数表示卖出）</li>
+<li>styple：下单类型</li>
+<li>side：short空（一般不允许）&#x2F; long多</li>
+<li>pindex：仓位号，默认为0</li>
+</ul>
+<p>股票价值：<code>order_value(security,value,style=None,side=&#39;long&#39;,pindex=0)</code></p>
+<ul>
+<li>security：股票代码</li>
+<li>value：交易数量（负数表示卖出）</li>
+<li>styple：下单类型</li>
+<li>side：short空（一般不允许）&#x2F; long多</li>
+<li>pindex：仓位号，默认为0</li>
+</ul>
+<p>目标数量：<code>order(security,amount,style=None,side=&#39;long&#39;,pindex=0,close_today=False)</code></p>
+<ul>
+<li>security：股票代码</li>
+<li>amount：交易数量（负数表示卖出）</li>
+<li>styple：下单类型</li>
+<li>side：short空（一般不允许）&#x2F; long多</li>
+<li>pindex：仓位号，默认为0</li>
+</ul>
+<p>成交订单：<code>get_orders(order_id=None,security=None,status=None)</code></p>
+<ul>
+<li>get_orders(order_id&#x3D;’123’) 订单id查询订单号为’123’的订单</li>
+<li>get_orders(security&#x3D;’000001.XSHE’) 查询所有标的为000001.XSHE的订单</li>
+</ul>
+<p>未完成订单：<code>get_open_orders()</code></p>
+<p>在每天交易结束后获取当天所有未完成订单</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">after_market_close</span>(<span class="params">context</span>):</span><br><span class="line">    orders = get_open_orders()</span><br><span class="line">    <span class="keyword">for</span> _order <span class="keyword">in</span> orders:</span><br><span class="line">        log.info(_order.order_id)</span><br></pre></td></tr></table></figure>
+
+<p>撤单函数：<code>cancel_order(order)</code></p>
+<p>在每天交易结束后对当天所有未完成订单撤单</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">after_market_close</span>(<span class="params">context</span>):</span><br><span class="line">    orders = get_open_orders()</span><br><span class="line">    <span class="keyword">for</span> _order <span class="keyword">in</span> orders:</span><br><span class="line">        cancel_order(_order)</span><br></pre></td></tr></table></figure>
+
+<p>账户出入金（充钱）：<code>inout_cash(cash,pindex=0)</code></p>
+<ul>
+<li>cash：浮点数，负数表示出金</li>
+<li>pindex：仓位号，默认为0</li>
+</ul>
+<p>向账户增加10000元，inout_cash(10000,pindex&#x3D;0)</p>
+<p>示例：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> jqdata <span class="keyword">import</span> *  <span class="comment"># 必需导入聚宽库</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">initialize</span>(<span class="params">context</span>):</span><br><span class="line">    <span class="comment">#设定业绩比较基准</span></span><br><span class="line">    set_benchmark(<span class="string">&#x27;000300.XSHG&#x27;</span>)</span><br><span class="line">    g.security = <span class="string">&quot;000001.XSHE&quot;</span>  <span class="comment"># 深交所平安银行</span></span><br><span class="line">    run_daily(market_open, time=<span class="string">&#x27;9:30&#x27;</span>)</span><br><span class="line">    run_daily(after_market_close, time=<span class="string">&#x27;15:30&#x27;</span>)</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line"><span class="keyword">def</span> <span class="title function_">market_open</span>(<span class="params">context</span>):</span><br><span class="line">    <span class="comment">#先向账户里面增加10000</span></span><br><span class="line">    inout_cash(<span class="number">10000</span>, pindex=<span class="number">0</span>)</span><br><span class="line">    <span class="comment">#查询可用资金</span></span><br><span class="line">    log.info(<span class="string">&quot;&quot;&quot;资金：&#123;&#125;&quot;&quot;&quot;</span>.<span class="built_in">format</span>(context.portfolio.subportfolios[<span class="number">0</span>].available_cash))</span><br><span class="line">    <span class="comment">#获取账户当前现金</span></span><br><span class="line">    cash = context.portfolio.available_cash</span><br><span class="line">    </span><br><span class="line">    <span class="comment">#如果没有仓位</span></span><br><span class="line">    <span class="keyword">if</span> g.security <span class="keyword">not</span> <span class="keyword">in</span> context.portfolio.positions:</span><br><span class="line">        <span class="comment">#买入</span></span><br><span class="line">        order(g.security,<span class="number">1000</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="comment">#卖出</span></span><br><span class="line">        order(g.security,-<span class="number">500</span>)</span><br><span class="line">    </span><br><span class="line"><span class="keyword">def</span> <span class="title function_">after_market_close</span>(<span class="params">context</span>):</span><br><span class="line">    <span class="comment">#获取当天所有未完成订单</span></span><br><span class="line">    orders = get_open_orders()</span><br><span class="line">    <span class="keyword">for</span> _order <span class="keyword">in</span> orders:</span><br><span class="line">        log.info(<span class="string">f&quot;&quot;&quot;未完成订单:<span class="subst">&#123;_order&#125;</span>&quot;&quot;&quot;</span>)</span><br><span class="line">        </span><br><span class="line">    <span class="comment">#对未完成订单进行撤单</span></span><br><span class="line">    <span class="keyword">for</span> _order <span class="keyword">in</span> orders:</span><br><span class="line">        cancel_order(_order)</span><br><span class="line">        log.info(<span class="string">f&quot;&quot;&quot;撤单:<span class="subst">&#123;_order&#125;</span>&quot;&quot;&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="交易对象"><a href="#交易对象" class="headerlink" title="交易对象"></a>交易对象</h2><p>**order对象：**订单处理流程</p>
+<p>订单创建–&gt;订单检查–&gt;报单–&gt;确认委托–&gt;撮合</p>
+<ul>
+<li>cummission：交易费用</li>
+<li>is_buy：bool值，买还是卖</li>
+<li>status：状态，一个OrderStatus值</li>
+<li>price：平均成交价的</li>
+</ul>
+<p>code:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> jqdata <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">initialize</span>(<span class="params">context</span>):</span><br><span class="line">    <span class="comment">#设定业绩比较基准</span></span><br><span class="line">    set_benchmark(<span class="string">&#x27;000300.XSHG&#x27;</span>)</span><br><span class="line">    g.security = <span class="string">&quot;000001.XSHE&quot;</span>  <span class="comment"># 深交所平安银行</span></span><br><span class="line">    run_weekly(market_open,<span class="number">1</span>,time=<span class="string">&#x27;open&#x27;</span>)</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line"><span class="keyword">def</span> <span class="title function_">market_open</span>(<span class="params">context</span>):</span><br><span class="line">    <span class="comment">#如果没有持仓</span></span><br><span class="line">    <span class="keyword">if</span> g.security <span class="keyword">not</span> <span class="keyword">in</span> context.portfolio.positions:</span><br><span class="line">        orders = order(g.security,<span class="number">100</span>)</span><br><span class="line">        <span class="built_in">print</span>(orders)</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> orders <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;创建订单失败...&quot;</span>)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">f&quot;&quot;&quot;交易费用：<span class="subst">&#123;orders.commission&#125;</span>&quot;&quot;&quot;</span>)</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">f&quot;&quot;&quot;是否买单：<span class="subst">&#123;orders.is_buy&#125;</span>&quot;&quot;&quot;</span>)</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">f&quot;&quot;&quot;订单状态：<span class="subst">&#123;orders.status&#125;</span>&quot;&quot;&quot;</span>)</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">f&quot;&quot;&quot;订单平均成交价：<span class="subst">&#123;orders.price&#125;</span>&quot;&quot;&quot;</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        order(g.security,-<span class="number">800</span>)</span><br></pre></td></tr></table></figure>
+
+<p>**trade对象：**订单成交相关信息</p>
+<ul>
+<li>time：交易时间,[datetime.datetime]对象</li>
+<li>security：标的代码</li>
+<li>amount：交易数量</li>
+<li>price：交易价格</li>
+<li>trade_id：交易记录id</li>
+<li>order_id：对应的订单id</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> jqdata <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">initialize</span>(<span class="params">context</span>):</span><br><span class="line">    <span class="comment">#设定业绩比较基准</span></span><br><span class="line">    set_benchmark(<span class="string">&#x27;000300.XSHG&#x27;</span>)</span><br><span class="line">    g.security = <span class="string">&quot;000001.XSHE&quot;</span>  <span class="comment"># 深交所平安银行</span></span><br><span class="line">    run_daily(market_open,time=<span class="string">&#x27;9:30&#x27;</span>)</span><br><span class="line">    run_daily(after_market_close, time=<span class="string">&#x27;15:30&#x27;</span>)</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line"><span class="keyword">def</span> <span class="title function_">market_open</span>(<span class="params">context</span>):</span><br><span class="line">    <span class="comment">#如果没有持仓</span></span><br><span class="line">    <span class="keyword">if</span> g.security <span class="keyword">not</span> <span class="keyword">in</span> context.portfolio.positions:</span><br><span class="line">        orders = order(g.security,<span class="number">100</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="comment">#卖出800股</span></span><br><span class="line">        order(g.security,-<span class="number">800</span>)</span><br><span class="line">                </span><br><span class="line"><span class="keyword">def</span> <span class="title function_">after_market_close</span>(<span class="params">context</span>):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;&quot;&quot;闭市后&quot;&quot;&quot;</span>)</span><br><span class="line">    <span class="comment">#得到所有的成交记录</span></span><br><span class="line">    trades = get_trades()</span><br><span class="line">    <span class="keyword">for</span> _trade <span class="keyword">in</span> trades.values():</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;&quot;&quot;成交记录：<span class="subst">&#123;_trade&#125;</span>&quot;&quot;&quot;</span>)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;&quot;&quot;成交时间：<span class="subst">&#123;_trade.time&#125;</span>&quot;&quot;&quot;</span>)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;&quot;&quot;对应的订单id：<span class="subst">&#123;_trade.order_id&#125;</span>&quot;&quot;&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="策略信息"><a href="#策略信息" class="headerlink" title="策略信息"></a>策略信息</h2><p>**Context对象:**策略信息总览，包含账户、时间等信息</p>
+<ul>
+<li><strong>subportfolios</strong>: 当前单个操作仓位的资金、标的信息，是一个 <code>SubPortfolio</code> 的数组。</li>
+<li><strong>portfolio</strong>: 账户信息，即 <code>subportfolios</code> 的汇总信息，<code>Portfolio</code> 对象，单个操作仓位时，<code>portfolio</code> 指向 <code>subportfolios[0]</code>。</li>
+<li><strong>current_dt</strong>: 当前单位时间的开始时间，[datetime.datetime] 对象。</li>
+<li><strong>previous_date</strong>: 前一个交易日，[datetime.date] 对象，注意这是一个日期，是 <code>date</code>，而不是 <code>datetime</code>。</li>
+<li><strong>universe</strong>: 查询 <code>set_universe()</code> 设置的股票池，比如： <code>[&#39;000001.XSHE&#39;, &#39;600000.XSHG&#39;]</code>。</li>
+</ul>
+<p>code:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> jqdata <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">initialize</span>(<span class="params">context</span>):</span><br><span class="line">    <span class="comment">#设定业绩比较基准</span></span><br><span class="line">    set_benchmark(<span class="string">&#x27;000300.XSHG&#x27;</span>)</span><br><span class="line">    g.security = <span class="string">&quot;000001.XSHE&quot;</span>  <span class="comment"># 深交所平安银行</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">handle_data</span>(<span class="params">context, data</span>):</span><br><span class="line">    <span class="comment">#context.portflio变为整数1</span></span><br><span class="line">    context.portfolio = <span class="number">1</span></span><br><span class="line">    log.info(context.portfolio)</span><br><span class="line">    </span><br><span class="line">    <span class="comment">#回复系统变量</span></span><br><span class="line">    <span class="keyword">del</span> context.portfolio</span><br><span class="line">    </span><br><span class="line">    <span class="comment">#context.portfolio将变为用户账户信息</span></span><br><span class="line">    log.info(context.portfolio.total_value)</span><br><span class="line">------------------------------------------------------</span><br><span class="line"><span class="keyword">from</span> jqdata <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">initialize</span>(<span class="params">context</span>):</span><br><span class="line">    <span class="comment">#设定业绩比较基准</span></span><br><span class="line">    set_benchmark(<span class="string">&#x27;000300.XSHG&#x27;</span>)</span><br><span class="line">    g.security = <span class="string">&quot;000001.XSHE&quot;</span>  <span class="comment"># 深交所平安银行</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">handle_data</span>(<span class="params">context, data</span>):</span><br><span class="line">    <span class="comment">#输出账户总资产</span></span><br><span class="line">    log.info(context.portfolio.total_value)</span><br><span class="line">    </span><br><span class="line">    <span class="comment">#输出持仓金额</span></span><br><span class="line">    log.info(context.portfolio.positions_value)</span><br><span class="line">    </span><br><span class="line">    <span class="comment">#输出今日日期</span></span><br><span class="line">    log.info(context.current_dt.day)</span><br><span class="line">    </span><br><span class="line">    <span class="comment">#输出总权益的累计收益</span></span><br><span class="line">    log.info(context.portfolio.returns)</span><br><span class="line">    </span><br><span class="line">    <span class="comment">#获取仓位subportfolios[0]的可用资金</span></span><br><span class="line">    log.info(context.subportfolios[<span class="number">0</span>].available_cash)</span><br><span class="line">    </span><br></pre></td></tr></table></figure>
+
+<p>**Position对象：**输出持有的标的信息</p>
+<ul>
+<li><strong>security</strong>: 标的的代码。</li>
+<li><strong>price</strong>: 最新行情价格。</li>
+<li><strong>total_amount</strong>: 总合计，不包括挂单冻结仓位。</li>
+<li><strong>init_time</strong>: 建仓时间，格式为 <code>datetime.datetime</code>。</li>
+</ul>
+<p>code:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> jqdata <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">initialize</span>(<span class="params">context</span>):</span><br><span class="line">    <span class="comment">#设定业绩比较基准</span></span><br><span class="line">    set_benchmark(<span class="string">&#x27;000300.XSHG&#x27;</span>)</span><br><span class="line">    g.security = <span class="string">&quot;000001.XSHE&quot;</span>  <span class="comment"># 深交所平安银行</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">handle_data</span>(<span class="params">context, data</span>):</span><br><span class="line">    <span class="comment">#如果没有持仓</span></span><br><span class="line">    <span class="keyword">if</span> g.security <span class="keyword">not</span> <span class="keyword">in</span> context.portfolio.positions:</span><br><span class="line">        <span class="comment">#下单1000股</span></span><br><span class="line">        order(g.security,<span class="number">1000</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="comment">#卖出800股</span></span><br><span class="line">        order(g.security,-<span class="number">800</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">print</span>(<span class="built_in">type</span>(context.portfolio.long_positions))</span><br><span class="line">    long_positions_dict = context.portfolio.long_positions</span><br><span class="line">    <span class="keyword">for</span> position <span class="keyword">in</span> <span class="built_in">list</span>(long_positions_dict.values()):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;&quot;&quot;标：<span class="subst">&#123;position.security&#125;</span>，总仓位：<span class="subst">&#123;position.total_amount&#125;</span></span></span><br><span class="line"><span class="string">        ，标的价值：<span class="subst">&#123;position.value&#125;</span>，建仓时间：<span class="subst">&#123;position.init_time&#125;</span>&quot;&quot;&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="账户信息"><a href="#账户信息" class="headerlink" title="账户信息"></a>账户信息</h2><p>**portfolio对象：**总帐户信息</p>
+<ul>
+<li><strong>long_positions</strong>: 多单的仓位，一个字典，key 是证券代码，value 是 [Position] 对象。</li>
+<li><strong>short_positions</strong>: 空单的仓位，一个字典，key 是证券代码，value 是 [Position] 对象。</li>
+<li><strong>total_value</strong>: 总的权益，包括现金、保证金（期货）或者仓位（股票）的总价值，可用于计算收益。</li>
+<li><strong>returns</strong>: 总权益的累计收益；（当前总资产 + 今日出入金 - 昨日总资产）&#x2F; 昨日总资产。</li>
+<li><strong>starting_cash</strong>: 初始资金，现在等于 <code>inout_cash</code>。</li>
+<li><strong>positions_value</strong>: 持仓价值。</li>
+</ul>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> jqdata <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">initialize</span>(<span class="params">context</span>):</span><br><span class="line">    <span class="comment">#设定业绩比较基准</span></span><br><span class="line">    set_benchmark(<span class="string">&#x27;000300.XSHG&#x27;</span>)</span><br><span class="line">    g.security = <span class="string">&quot;000001.XSHE&quot;</span>  <span class="comment"># 深交所平安银行</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">handle_data</span>(<span class="params">context, data</span>):</span><br><span class="line">    <span class="comment">#如果没有持仓</span></span><br><span class="line">    <span class="keyword">if</span> g.security <span class="keyword">not</span> <span class="keyword">in</span> context.portfolio.positions:</span><br><span class="line">        order(g.security,<span class="number">1000</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        order(g.security,-<span class="number">800</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;&quot;&quot;多单的仓位：&#123;&#125;&quot;&quot;&quot;</span>,<span class="built_in">format</span>(context.portfolio.long_positions))</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;&quot;&quot;空单的仓位：&#123;&#125;&quot;&quot;&quot;</span>,<span class="built_in">format</span>(context.portfolio.short_positions))</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;&quot;&quot;总权益：&#123;&#125;&quot;&quot;&quot;</span>,<span class="built_in">format</span>(context.portfolio.total_value))</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;&quot;&quot;总权益的累计收益：&#123;&#125;&quot;&quot;&quot;</span>,<span class="built_in">format</span>(context.portfolio.returns))</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;&quot;&quot;初始资金：&#123;&#125;&quot;&quot;&quot;</span>,<span class="built_in">format</span>(context.portfolio.starting_cash))</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;&quot;&quot;持仓价值：&#123;&#125;&quot;&quot;&quot;</span>,<span class="built_in">format</span>(context.portfolio.positions_value))</span><br></pre></td></tr></table></figure>
+
+<p>**subportfolio对象：**子账户信息</p>
+<ul>
+<li><strong>inout_cash</strong>: 累计出入金，如初始资金 1000，后面转移出去 100，则这个值是 1000 - 100。</li>
+<li><strong>available_cash</strong>: 可用资金，可以用来购买证券的资金。</li>
+<li><strong>transferable_cash</strong>: 可取资金，即可以提取的资金，不包括今日卖出证券所得资金。</li>
+<li><strong>locked_cash</strong>: 挂单锁住资金。</li>
+<li><strong>type</strong>: 账号所属类型。</li>
+</ul>
+<p>code:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> jqdata <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">initialize</span>(<span class="params">context</span>):</span><br><span class="line">    <span class="comment">#设定业绩比较基准</span></span><br><span class="line">    set_benchmark(<span class="string">&#x27;000300.XSHG&#x27;</span>)</span><br><span class="line">    g.security = <span class="string">&quot;000001.XSHE&quot;</span>  <span class="comment"># 深交所平安银行</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">handle_data</span>(<span class="params">context, data</span>):</span><br><span class="line">    <span class="comment">#如果没有持仓</span></span><br><span class="line">    <span class="keyword">if</span> g.security <span class="keyword">not</span> <span class="keyword">in</span> context.portfolio.positions:</span><br><span class="line">        order(g.security,<span class="number">1000</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        order(g.security,-<span class="number">800</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;&quot;&quot;累计出入金：&#123;&#125;&quot;&quot;&quot;</span>,<span class="built_in">format</span>(context.subportfolios[<span class="number">0</span>].inout_cash))</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;&quot;&quot;可用资金：&#123;&#125;&quot;&quot;&quot;</span>,<span class="built_in">format</span>(context.subportfolios[<span class="number">0</span>].available_cash))</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;&quot;&quot;可取资金：&#123;&#125;&quot;&quot;&quot;</span>,<span class="built_in">format</span>(context.subportfolios[<span class="number">0</span>].transferable_cash))</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;&quot;&quot;挂单锁住资金：&#123;&#125;&quot;&quot;&quot;</span>,<span class="built_in">format</span>(context.subportfolios[<span class="number">0</span>].locked_cash))</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;&quot;&quot;账户所属类型：&#123;&#125;&quot;&quot;&quot;</span>,<span class="built_in">format</span>(context.subportfolios[<span class="number">0</span>].<span class="built_in">type</span>))</span><br></pre></td></tr></table></figure>
+
+<h1 id="量化交易数据获取"><a href="#量化交易数据获取" class="headerlink" title="量化交易数据获取"></a>量化交易数据获取</h1><p>个股K线数据可以直接通过同花顺，聚宽等直接下载</p>
+<h2 id="财务数据"><a href="#财务数据" class="headerlink" title="财务数据"></a>财务数据</h2><p>**get_fundamentals(query_object,date&#x3D;None,statDate&#x3D;None)：**查询财务数据</p>
+<ul>
+<li><strong>注意</strong>: <code>date</code> 和 <code>statDate</code> 参数只能传入一个。</li>
+<li>传入 <code>date</code> 时，查询指定日期后能看到的最近（除市值表外为最近一个季度，市值为最近一天）的数据。</li>
+<li>传入 <code>statDate</code> 时，查询 <code>statDate</code> 指定的季度或年份的财务数据。</li>
+<li><strong>date&#x2F;statdate</strong>: 获取一个字符串（格式类似 ‘2015-10-15’）或 <code>datetime</code> 对象。</li>
+<li><strong>query_object</strong>: 一个 <code>sqlalchemy.orm.query.Query</code> 对象，可以通过全局的 <code>query</code> 函数获取。</li>
+</ul>
+<p><strong>query_object()：<strong>查询数据API，可以是</strong>整张表，也可以是标准的多个字段或计算结果</strong></p>
+<ul>
+<li><strong>filter</strong>: 填写过滤条件，可以使用逗号分隔多个条件，或使用 <code>and</code>、<code>or</code>。</li>
+<li><strong>order_by</strong>: 填写排序条件。</li>
+<li><strong>limit</strong>: 限制返回的个数。</li>
+<li><strong>group_by</strong>: 进行分组统计。</li>
+</ul>
+<p>示例：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">query(valuation).<span class="built_in">filter</span>(valuation.code == <span class="string">&#x27;000001.XSHE&#x27;</span>)  <span class="comment"># 查询 &#x27;000001.XSHE&#x27; 的全部市值数据</span></span><br></pre></td></tr></table></figure>
+
+<p>**get_fundamentals_continuously(query_object,end_date&#x3D;None,count&#x3D;None,panel&#x3D;True)：**查询多日的财务数据</p>
+<ul>
+<li><strong>end_date</strong>: 获取一个字符串（格式类似于 ‘2015-10-15’）或 datetime 对象。</li>
+<li><strong>count</strong>: 获取 <code>end_date</code> 前的 <code>count</code> 个日期的数据，<code>count</code> 应小于 500。</li>
+<li><strong>panel</strong>: 默认 <code>panel=True</code>，返回一个 <code>pandas.Panel</code>；建议设置 <code>panel=False</code>，返回更有效的 DataFrame。</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> jqdata <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="comment">#查询平安银行2022年9月1日</span></span><br><span class="line">q = query(</span><br><span class="line">    valuation</span><br><span class="line">    ).<span class="built_in">filter</span>(</span><br><span class="line">        valuation.code == <span class="string">&#x27;000001.XSHE&#x27;</span></span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">df = get_fundamentals(q,<span class="string">&#x27;2022-09-01&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(df[<span class="string">&#x27;market_cap&#x27;</span>][<span class="number">0</span>])</span><br></pre></td></tr></table></figure>
+
+<h1 id="量化选股-1"><a href="#量化选股-1" class="headerlink" title="量化选股"></a>量化选股</h1><h2 id="量化选股概况"><a href="#量化选股概况" class="headerlink" title="量化选股概况"></a>量化选股概况</h2><ol>
+<li><strong>量化选股</strong>: 利用<strong>数量化的方法选择股票组合</strong>，期望该组合能够获得超越基准的投资行为。</li>
+<li><strong>技术面选股</strong>: 利用<strong>各种技术理论或技术指标</strong>来分析和预测股票的未来价格走势。</li>
+<li><strong>基本面选股</strong>: 通过对上市公司在发展过程中面临的<strong>外部因素</strong>和<strong>自身因素</strong>进行分析，判断该公司的股票是否值得购买。</li>
+</ol>
+<blockquote>
+<p>量化选股注意事项</p>
+<ul>
+<li>分配多股，减少单股重仓的情况</li>
+<li>全面研究个股基本面，增强个股判断逻辑和支撑</li>
+<li>主动投资而非被动投资</li>
+<li>只是提高胜率的工具之一</li>
+</ul>
+</blockquote>
+<hr>
+<blockquote>
+<p>白马股选股</p>
+<p>一、筛选条件：</p>
+<ol>
+<li>总市值&gt;50亿（市值较大的公司，流动性好，竞争力强）</li>
+<li>上市天数&gt;750（抛开3年以内的次新）</li>
+<li>流通盘比例&gt;95%（要全流通，避免解禁压力）</li>
+<li>销售毛利率&gt;20%（毛利率要高）</li>
+<li>扣非净资产收益率&gt;20%（ROE要高）</li>
+</ol>
+<p>二、排名条件：</p>
+<ol>
+<li>总市值从大到小排列</li>
+</ol>
+</blockquote>
+<p>按照上面的策略code:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> jqdata <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> datetime</span><br><span class="line"></span><br><span class="line"><span class="comment">##初始化函数，设定要操作的股票、基准等</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">initialize</span>(<span class="params">context</span>):</span><br><span class="line">    <span class="comment">#设定沪深300为基准</span></span><br><span class="line">    set_benchmark(<span class="string">&#x27;000300.XSHG&#x27;</span>)</span><br><span class="line">    <span class="comment">#开启动态复权模式</span></span><br><span class="line">    set_option(<span class="string">&#x27;use_real_price&#x27;</span>,<span class="literal">True</span>)</span><br><span class="line">    <span class="comment">#设定成交量比例</span></span><br><span class="line">    set_option(<span class="string">&#x27;order_volume_ratio&#x27;</span>,<span class="number">1</span>)</span><br><span class="line">    <span class="comment">#设定股票交易手续费</span></span><br><span class="line">    set_order_cost(OrderCost(open_tax=<span class="number">0</span>,close_tax=<span class="number">0.001</span>,</span><br><span class="line">    open_commission=<span class="number">0.0003</span>,close_commission=<span class="number">0.0003</span>,</span><br><span class="line">    close_today_commission=<span class="number">0</span>,min_commission=<span class="number">5</span>),<span class="built_in">type</span>=<span class="string">&#x27;stock&#x27;</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="comment">#设定持仓数量</span></span><br><span class="line">    g.stocknum = <span class="number">20</span></span><br><span class="line">    <span class="comment">#交易日计时器</span></span><br><span class="line">    g.days = <span class="number">20</span></span><br><span class="line">    <span class="comment">#调仓频率</span></span><br><span class="line">    g.refresh_rate = <span class="number">100</span></span><br><span class="line">    <span class="comment">#运行函数</span></span><br><span class="line">    run_daily(trade, <span class="string">&#x27;every_bar&#x27;</span>)</span><br><span class="line">    </span><br><span class="line"><span class="comment">##筛选逻辑</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">check_stocks</span>(<span class="params">context</span>):</span><br><span class="line">    <span class="comment">#设定查询条件</span></span><br><span class="line">    q = query(</span><br><span class="line">        indicator.code,</span><br><span class="line">        valuation.capitalization,</span><br><span class="line">        indicator.roe,</span><br><span class="line">        indicator.gross_profit_margin,</span><br><span class="line">        ).<span class="built_in">filter</span>(</span><br><span class="line">            <span class="comment">#1、总市值&gt;50亿</span></span><br><span class="line">            valuation.capitalization &gt; <span class="number">50</span>,</span><br><span class="line">            <span class="comment">#3、流通盘比率大于95%</span></span><br><span class="line">            valuation.circulating_market_cap &gt; valuation.market_cap*<span class="number">0.95</span>,</span><br><span class="line">            <span class="comment">#4、销售毛利率&gt;20%</span></span><br><span class="line">            indicator.gross_profit_margin &gt; <span class="number">20</span>,</span><br><span class="line">            <span class="comment">#5、ROE &gt; 20%</span></span><br><span class="line">            indicator.roe &gt; <span class="number">20</span>,</span><br><span class="line">            ).order_by(</span><br><span class="line">                <span class="comment">#按照市值倒序</span></span><br><span class="line">                valuation.market_cap.desc()</span><br><span class="line">                ).limit(</span><br><span class="line">                    <span class="number">100</span></span><br><span class="line">                    )</span><br><span class="line">    df = get_fundamentals(q,statDate=<span class="built_in">str</span>(context.current_dt)[:<span class="number">4</span>])</span><br><span class="line">    buylist = <span class="built_in">list</span>(df[<span class="string">&#x27;code&#x27;</span>])</span><br><span class="line">    <span class="comment">#2、上市天数&gt;750</span></span><br><span class="line">    buylist = delect_stock(buylist,context.current_dt,<span class="number">750</span>)</span><br><span class="line">    buylist = filter_paused_stock(buylist)[:<span class="number">20</span>]</span><br><span class="line">    <span class="keyword">return</span> buylist</span><br><span class="line">    </span><br><span class="line"><span class="comment">##过滤停牌股票</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">filter_paused_stock</span>(<span class="params">stock_list</span>):</span><br><span class="line">    current_date = get_current_data()</span><br><span class="line">    <span class="keyword">return</span> [stock <span class="keyword">for</span> stock <span class="keyword">in</span> stock_list <span class="keyword">if</span> <span class="keyword">not</span> current_date[stock].paused]</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line"><span class="comment">##排除次新</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">delect_stock</span>(<span class="params">stocks,begin,n=<span class="number">180</span></span>):</span><br><span class="line">    <span class="comment">#去除上市距begin不足n天的股票</span></span><br><span class="line">    stockList=[]</span><br><span class="line">    <span class="keyword">for</span> stock <span class="keyword">in</span> stocks:</span><br><span class="line">        start_date = get_security_info(stock).start_date</span><br><span class="line">        <span class="keyword">if</span> start_date &lt; (begin - timedelta(days=n)).date():</span><br><span class="line">            stockList.append(stock)</span><br><span class="line">            </span><br><span class="line">    <span class="keyword">return</span> stockList</span><br><span class="line">    </span><br><span class="line"><span class="keyword">def</span> <span class="title function_">trade</span>(<span class="params">context</span>):</span><br><span class="line">    <span class="keyword">if</span> g.days % g.refresh_rate == <span class="number">0</span>:</span><br><span class="line">        <span class="comment">#白马股选股</span></span><br><span class="line">        stockList = check_stocks(context)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;&quot;&quot;stockList:&#123;&#125;&quot;&quot;&quot;</span>,<span class="built_in">format</span>(stockList))</span><br><span class="line">        <span class="comment">#获取持仓列表</span></span><br><span class="line">        sell_list = <span class="built_in">list</span>(context.portfolio.positions.keys())</span><br><span class="line">        </span><br><span class="line">        sells = <span class="built_in">list</span>(<span class="built_in">set</span>(sell_list).difference(<span class="built_in">set</span>(stockList)))</span><br><span class="line">        </span><br><span class="line">        <span class="comment">#先卖再买</span></span><br><span class="line">        <span class="keyword">for</span> stock <span class="keyword">in</span> sells:</span><br><span class="line">            order_target_value(stock,<span class="number">0</span>)</span><br><span class="line">            </span><br><span class="line">        <span class="comment">#分配资金</span></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(context.portfolio.positions) &lt; g.stocknum:</span><br><span class="line">            num = g.stocknum - <span class="built_in">len</span>(context.portfolio.positions)</span><br><span class="line">            cash = context.portfolio.cash / num</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            cash = <span class="number">0</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> stock <span class="keyword">in</span> stockList:</span><br><span class="line">            <span class="keyword">if</span> <span class="built_in">len</span>(context.portfolio.positions) &lt; g.stocknum <span class="keyword">and</span> stock <span class="keyword">not</span> <span class="keyword">in</span> context.portfolio.positions:</span><br><span class="line">                    order_value(stock,cash)</span><br><span class="line">                </span><br><span class="line">        <span class="comment">#更新天数计数器</span></span><br><span class="line">        g.days = <span class="number">1</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        g.days += <span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="营收因子"><a href="#营收因子" class="headerlink" title="营收因子"></a>营收因子</h2><ol>
+<li><strong>财务因素</strong>: 通常包括成长类因素、价值类因素以及质量类因素。</li>
+<li><strong>成长类因素</strong>: 在财务因素选股中，常用的方法是选择成长类因素进行选股，包括营收因素与利润因素。</li>
+<li><strong>规模类因素</strong>: 反映公司规模情况，主要用于体现市场价值大小，对投资收益产生影响，包括总市值和流通市值</li>
+<li><strong>价值类因素</strong>: 价值投资是一种长期的投资策略，通常是购买那些相对低估的股票，主要基于基本面标准。价值类因素包括市净率、市销率，以及市盈率等指标。</li>
+<li><strong>质量类因素</strong>: 质量类因素与股票的财务质量、资本结构相关，主要用于评估公司整体的财务健康状态。质量类因素包括净资产收益率，以及总资产净利率等指标。</li>
+</ol>
+<h1 id="量化择时"><a href="#量化择时" class="headerlink" title="量化择时"></a>量化择时</h1><p>概述：采用量化的方式判断买点和卖点</p>
+<p><strong>趋势量化择时</strong>——基本思想基于<strong>技术分析</strong>，前提时你得承认有一定的规律（那三个假设）</p>
+<p><strong>市场情绪量化择时</strong>——利用投资者的热情程度来判断大势方向</p>
+<p>后者舍去（一堆散户在哪里他能涨吗）</p>
+<p>前者：通过考虑市场的多个方面建立一个数学模型，并给出完整的数学公式</p>
+<ol>
+<li>技术趋势指标是识别和追踪有趋势的图形类指标，其特点是<strong>不试图捕捉顶底</strong>，如均线指标、MACD指标等。</li>
+<li>反趋势指标又称为<strong>振荡指标</strong>，是识别和追踪趋势运行的转折点的图形类指标，其特点是<strong>具有强烈的顶底</strong>的意义，对市场转折点较敏感，如随机指标KDJ、强弱指标RSI等。</li>
+<li>压力支撑指标，又称通道指标，是通过顶部轨道线和底部轨道线，试图捕捉行情的顶部和底部的图形类指标，其特点是具<strong>有明显的压力线，也有明显的支撑线</strong>，如布林带 BOLL 指标、XS 藤斯通道指标。</li>
+<li>量价指标就是通过成交量变动来分析价格未来走势的图形类指标，其特点是<strong>分析成交量与价格波动的关系</strong>，如 OBV 能量潮指标、VOL 成交量指标等。</li>
+</ol>
+<h2 id="趋势指标"><a href="#趋势指标" class="headerlink" title="趋势指标"></a>趋势指标</h2><h3 id="MACD-1"><a href="#MACD-1" class="headerlink" title="MACD"></a>MACD</h3><p>即平滑异同移动平均线，是由美国投资家杰拉尔德·阿佩尔在 20 世纪 70 年代末提出的，主要表示经过平滑处理后线的差异程度。一般用来判断<strong>股票价格变化的方向、强度和趋势</strong>。</p>
+<p>快线 DIFF 上穿慢线 DEA，<strong>红柱出现的第一天</strong>，称为<strong>金叉</strong>，是买进持有的时机；</p>
+<p>快线 DIFF 下穿慢线 DEA，<strong>绿柱出现的第一天</strong>，称为<strong>死叉</strong>，是卖出空仓的时机。</p>
+<p><code>MACD(security_list, check_date, SHORT = 12, LONG = 26, MID = 9)</code></p>
+<p><strong>参数：</strong></p>
+<ul>
+<li>security_list：标的列表</li>
+<li>check_date：要查询数据的日期</li>
+<li>SHORT：统计的天数 SHORT</li>
+<li>LONG：统计的天数 LONG</li>
+<li>MID：统计的天数 MID</li>
+<li>unit：统计周期，默认为 ‘1d’, 支持如下周期: ‘1m’, ‘5m’, ‘15m’, ‘30m’, ‘60m’, ‘120m’, ‘1d’, ‘1w’, ‘1M’. ‘1w’ 表示一周, ‘1M’ 表示一月</li>
+<li>include_now：是否包含当前周期，默认为 True</li>
+<li>fq_ref_date：复权基准日，默认为 None</li>
+</ul>
+<p><strong>返回：</strong></p>
+<ul>
+<li>DIF, DEA和MACD的值</li>
+</ul>
+<p><strong>返回结果类型：</strong></p>
+<ul>
+<li>字典(dict)：键(key)为标的代码，值(value)为数据。</li>
+<li>如：({‘000001.XSHE’: 0.024474457964069884, ‘603177.XSHG’: nan, ‘000002.XSHE’: 1.9534717416190936, ‘601211.XSHG’: -0.13735007291032986}, {‘000001.XSHE’: 0.031674925444633864, ‘603177.XSHG’: nan, ‘000002.XSHE’: 1.4784672678080988, ‘601211.XSHG’: -0.020490844872792721}, {‘000001.XSHE’: -0.014400934961127959, ‘603177.XSHG’: nan, ‘000002.XSHE’: 0.95000894762198973, ‘601211.XSHG’: -0.23371845607507427})</li>
+</ul>
+<p><strong>备注：</strong></p>
+<ul>
+<li>计算方式与通达信、东方财富和同花顺相同</li>
+</ul>
+<p><strong>用法注释：</strong></p>
+<p>DIFF线　收盘价短期、长期指数平滑移动平均线间的差 DEA线　 DIFF线的M日指数平滑移动平均线 MACD线　DIFF线与DEA线的差，彩色柱状线 参数：SHORT(短期)、LONG(长期)、M 天数，一般为12、26、9</p>
+<p>用法： 1.DIFF、DEA均为正，DIFF向上突破DEA，买入信号。 2.DIFF、DEA均为负，DIFF向下跌破DEA，卖出信号。 3.DEA线与K线发生背离，行情反转信号。 4.分析MACD柱状线，由红变绿(正变负)，卖出信号；由绿变红，买入信号</p>
+<p><strong>示例：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 定义股票池列表</span></span><br><span class="line">security_list1 = <span class="string">&#x27;000001.XSHE&#x27;</span></span><br><span class="line">security_list2 = [<span class="string">&#x27;000001.XSHE&#x27;</span>,<span class="string">&#x27;000002.XSHE&#x27;</span>,<span class="string">&#x27;601211.XSHG&#x27;</span>,<span class="string">&#x27;603177.XSHG&#x27;</span>]</span><br><span class="line"><span class="comment"># 计算并输出 security_list1 的 MACD 值</span></span><br><span class="line">macd_dif, macd_dea, macd_macd = MACD(security_list1,check_date=<span class="string">&#x27;2017-01-04&#x27;</span>, SHORT = <span class="number">12</span>, LONG = <span class="number">26</span>, MID = <span class="number">9</span>)</span><br><span class="line"><span class="built_in">print</span> macd_dif[security_list1]</span><br><span class="line"><span class="built_in">print</span> macd_dea[security_list1]</span><br><span class="line"><span class="built_in">print</span> macd_macd[security_list1]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出 security_list2 的 MACD 值</span></span><br><span class="line">macd_dif, macd_dea, macd_macd = MACD(security_list2,check_date=<span class="string">&#x27;2017-01-04&#x27;</span>, SHORT = <span class="number">12</span>, LONG = <span class="number">26</span>, MID = <span class="number">9</span>)</span><br><span class="line"><span class="keyword">for</span> stock <span class="keyword">in</span> security_list2:</span><br><span class="line">    <span class="built_in">print</span> macd_dif[stock]</span><br><span class="line">    <span class="built_in">print</span> macd_dea[stock]</span><br><span class="line">    <span class="built_in">print</span> macd_macd[stock]</span><br></pre></td></tr></table></figure>
+
+<h3 id="UOS"><a href="#UOS" class="headerlink" title="UOS"></a>UOS</h3><p>即终极波动指标。UOS指标是一种多功能的指标，除了超买超卖方面的作用之外，它的“突破”讯号不仅可以提供最适当的交易时机之外，更可以进一步强化指标的可靠度。</p>
+<ol>
+<li><p>TH &#x3D; 今日最高价和昨日收盘价的较大值  </p>
+</li>
+<li><p>TL &#x3D; 今日最低价和昨日收盘价的较小值  </p>
+</li>
+<li><p>ACCC1 &#x3D; (收盘价 - TL) 的 N1 日累和 &#x2F; (TH - TL) 的 N1 日累和<br>ACCC2 &#x3D; (收盘价 - TL) 的 N2 日累和 &#x2F; (TH - TL) 的 N2 日累和<br>ACCC3 &#x3D; (收盘价 - TL) 的 N3 日累和 &#x2F; (TH - TL) 的 N3 日累和  </p>
+</li>
+<li><p>UOS &#x3D; (ACCC1 * N2 * N3 + ACCC2 * N1 * N3 + ACCC3 * N1 * N2) * 100 &#x2F; (N1 * N2 + N1 * N3 + N2 * N3)  </p>
+</li>
+<li><p>MAUOS &#x3D; UOS 的 M 日指数平滑移动平均  </p>
+</li>
+<li><p>参考 N1 &#x3D; 7, N2 &#x3D; 14, N3 &#x3D; 28, M &#x3D; 6</p>
+</li>
+</ol>
+<ul>
+<li>UOS短线拐底：UOS上穿50  </li>
+<li>UOS短线卖顶：UOS下穿65  </li>
+<li>UOS中长期拐底：UOS上穿35  </li>
+<li>UOS中长期卖顶：UOS下穿70</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://www.joinquant.com/help/api/help#UOS-%E7%BB%88%E6%9E%81%E6%8C%87%E6%A0%87">参考代码</a></p>
+<h3 id="MA"><a href="#MA" class="headerlink" title="MA"></a>MA</h3><p><strong>均线——葛兰碧法则</strong></p>
+<ul>
+<li><p>平均线从下下降逐渐转为走平，而价格从下方突破平均线，为买进信号  </p>
+</li>
+<li><p>价格虽然跌破平均线，但是又立刻回升到平均线上，此时平均线仍然持续上涨，仅为买进信号  </p>
+</li>
+<li><p>价格趋势走在平均线上，价格下跌并未跌破平均线且立刻反转上升，为买进信号  </p>
+</li>
+<li><p>价格突然暴跌，跌破平均线，且远离平均线，则有可能反弹上升，为买进时机  </p>
+</li>
+<li><p>平均线从上升逐渐转为盘局或下跌，而价格向下跌破平均线，为卖出信号  </p>
+</li>
+<li><p>价格虽然向上突破平均线，但是又立刻回跌至平均线下，此时平均线仍然持续的下降，仅为卖出信号  </p>
+</li>
+<li><p>价格趋势走在平均线下，价格上升并未突破平均线且立刻反转下跌，也是卖出信号  </p>
+</li>
+<li><p>价格突然暴涨，突破平均线，且远离平均线，则有可能反弹回调，也为卖出时机</p>
+</li>
+</ul>
+<p>看看就好</p>
+<p><code>MA(security_list, check_date, timeperiod=5, unit = &#39;1d&#39;, include_now = True, fq_ref_date = None)</code></p>
+<p><strong>参数：</strong></p>
+<ul>
+<li>security_list：标的列表</li>
+<li>check_date：要查询数据的日期</li>
+<li>timeperiod：统计的天数timeperiod</li>
+<li>unit：统计周期，默认为 ‘1d’, 支持如下周期: ‘1m’, ‘5m’, ‘15m’, ‘30m’, ‘60m’, ‘120m’, ‘1d’, ‘1w’, ‘1M’. ‘1w’ 表示一周, ‘1M’ 表示一月</li>
+<li>include_now：是否包含当前周期，默认为 True</li>
+<li>fq_ref_date：复权基准日，默认为 None</li>
+</ul>
+<p><strong>返回：</strong></p>
+<ul>
+<li>MA 的值。</li>
+</ul>
+<p><strong>返回结果类型：</strong></p>
+<ul>
+<li>字典(dict)：键(key)为标的代码，值(value)为数据。</li>
+<li>如：{‘000001.XSHE’: 9.2599999999999998, ‘603177.XSHG’: nan, ‘000002.XSHE’: 20.68, ‘601211.XSHG’: 18.704000000000001}</li>
+</ul>
+<p><strong>备注：</strong></p>
+<ul>
+<li>计算方式与通达信，同花顺和东方财富相同</li>
+</ul>
+<p><strong>用法注释：</strong></p>
+<p>1.股价高于平均线，视为强势；股价低于平均线，视为弱势 2.平均线向上涨升，具有助涨力道；平均线向下跌降，具有助跌力道； 3.二条以上平均线向上交叉时，买进； 4.二条以上平均线向下交叉时，卖出； 5.移动平均线的信号经常落后股价，若以EXPMA 、VMA 辅助，可以改善。</p>
+<h3 id="VMA"><a href="#VMA" class="headerlink" title="VMA"></a>VMA</h3><p>变异平均线</p>
+<p><code>VMA(security_list, check_date, timeperiod = 12, unit = &#39;1d&#39;, include_now = True, fq_ref_date = None)</code></p>
+<p><strong>参数：</strong></p>
+<ul>
+<li>security_list：标的列表</li>
+<li>check_date: 要查询数据的日期</li>
+<li>timeperiod：统计的天数</li>
+<li>unit：统计周期，默认为 ‘1d’, 支持如下周期: ‘1m’, ‘5m’, ‘15m’, ‘30m’, ‘60m’, ‘120m’, ‘1d’, ‘1w’, ‘1M’. ‘1w’ 表示一周, ‘1M’ 表示一月</li>
+<li>include_now：是否包含当前周期，默认为 True</li>
+<li>fq_ref_date：复权基准日，默认为 None</li>
+</ul>
+<p><strong>返回：</strong></p>
+<ul>
+<li>VMA的值</li>
+</ul>
+<p><strong>返回结果类型：</strong></p>
+<ul>
+<li>字典(dict)：键(key)为标的代码，值(value)为数据。</li>
+<li>如：{‘000001.XSHE’: 8.3202083333333334, ‘603177.XSHG’: nan, ‘000002.XSHE’: 18.979166666666668, ‘601211.XSHG’: 16.474166666666669}</li>
+</ul>
+<p><strong>备注：</strong></p>
+<ul>
+<li>计算方式与通达信和同花顺相同，东方财富没有该指标</li>
+</ul>
+<p><strong>用法注释：</strong></p>
+<ol>
+<li>股价高于平均线，视为强势；股价低于平均线，视为弱势；</li>
+<li>平均线向上涨升，具有助涨力道；平均线向下跌降，具有助跌力道；</li>
+<li>二条以上平均线向上交叉时，买进；</li>
+<li>二条以上平均线向下交叉时，卖出；</li>
+<li>VMA 比一般平均线的敏感度更高，消除了部份平均线落后的缺陷。</li>
+</ol>
+<h2 id="反趋向指标"><a href="#反趋向指标" class="headerlink" title="反趋向指标"></a>反趋向指标</h2><h3 id="RSI"><a href="#RSI" class="headerlink" title="RSI"></a>RSI</h3><p><strong>RSI</strong>:即相对强弱指标，是期货市场和股票市场中最为著名的动量指标。显示的是股价向上波动的幅度占总的波动幅度的百分比。如果其数值大，就表示市场处于强势状态，如果数值小，则表示市场处于弱势。</p>
+<p>计算公式：NRSI &#x3D; A &#x2F; (A + B) × 100</p>
+<p>A &#x3D; N日内上涨的平均值之和；B &#x3D; N日内下跌的平均值之和（取正值）</p>
+<p>由于上面的公式对RSI的定义较为明确，即<strong>上涨的力量与下跌的力量进行比较</strong>，显然，上涨的力量越大，对应计算出的指数越上升；而下跌的力量越大，则对应指数出市场的弱势。</p>
+<p><strong>策略L:</strong></p>
+<ul>
+<li>RSI &gt; 80 为超买，RSI &lt; 20 为超卖</li>
+<li>RSI 以50为中界线，大于50为多头行情，小于50为空头行情</li>
+<li>RSI 在80以上形成M头或顶部形态时，为向下反转信号</li>
+<li>RSI 在20以下形成W底或底部形态时，为向上反转信号</li>
+</ul>
+<p><code>RSI(security_list, check_date, N1=6, unit = &#39;1d&#39;, include_now = True, fq_ref_date = None)</code></p>
+<p><strong>参数：</strong></p>
+<ul>
+<li>security_list：标的列表</li>
+<li>check_date：要查询数据的日期</li>
+<li>N1：统计的天数N1</li>
+<li>unit：统计周期，默认为 ‘1d’, 支持如下周期: ‘1m’, ‘5m’, ‘15m’, ‘30m’, ‘60m’, ‘120m’, ‘1d’, ‘1w’, ‘1M’. ‘1w’ 表示一周, ‘1M’ 表示一月</li>
+<li>include_now：是否包含当前周期，默认为 True</li>
+<li>fq_ref_date：复权基准日，默认为 None</li>
+</ul>
+<p><strong>返回：</strong></p>
+<ul>
+<li>RSI 的值。</li>
+</ul>
+<p><strong>返回结果类型：</strong></p>
+<ul>
+<li>字典(dict)：键(key)为标的代码，值(value)为数据。</li>
+<li>如： {‘000001.XSHE’: 86.697784941552129, ‘603177.XSHG’: nan, ‘000002.XSHE’: 45.669839353084029, ‘601211.XSHG’: 65.952531344607962}</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> jqdata <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> jqlib.technical_analysis <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">security_list = [<span class="string">&#x27;000001.XSHE&#x27;</span>,<span class="string">&#x27;000002.XSHE&#x27;</span>,<span class="string">&#x27;601211.XSHG&#x27;</span>]</span><br><span class="line">_RSI = RSI(security_list,check_date=<span class="string">&#x27;2022-09-01&#x27;</span>,N1=<span class="number">6</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> stock <span class="keyword">in</span> security_list:</span><br><span class="line">    <span class="built_in">print</span>(stock,<span class="string">&#x27;2022-09-01RSI=&#x27;</span>,_RSI[stock])</span><br></pre></td></tr></table></figure>
+
+<h3 id="KDJ-1"><a href="#KDJ-1" class="headerlink" title="KDJ"></a>KDJ</h3><p>定义前面有，用的非常多</p>
+<p><code>KDJ(security_list, check_date, N =9, M1=3, M2=3, unit = &#39;1d&#39;, include_now = True, fq_ref_date = None)</code></p>
+<p><strong>参数：</strong></p>
+<ul>
+<li>security_list：标的列表</li>
+<li>check_date：要查询数据的日期</li>
+<li>N：统计的天数 N</li>
+<li>M1：统计的天数 M1</li>
+<li>M2：统计的天数 M2</li>
+<li>unit：统计周期，默认为 ‘1d’, 支持如下周期: ‘1m’, ‘5m’, ‘15m’, ‘30m’, ‘60m’, ‘120m’, ‘1d’, ‘1w’, ‘1M’. ‘1w’ 表示一周, ‘1M’ 表示一月</li>
+<li>include_now：是否包含当前周期，默认为 True</li>
+<li>fq_ref_date：复权基准日，默认为 None</li>
+</ul>
+<p><strong>返回：</strong></p>
+<ul>
+<li>K，D和J 的值。</li>
+</ul>
+<p><strong>返回结果类型：</strong></p>
+<ul>
+<li>字典(dict)：键(key)为标的代码，值(value)为数据。</li>
+<li>如：({‘000001.XSHE’: 89.145187806127595, ‘603177.XSHG’: nan, ‘000002.XSHE’: 20.523907534762358, ‘601211.XSHG’: 82.545216532766361}, {‘000001.XSHE’: 82.915346288340473, ‘603177.XSHG’: nan, ‘000002.XSHE’: 21.246652224886216, ‘601211.XSHG’: 80.903864946907802}, {‘000001.XSHE’: 101.60487084170185, ‘603177.XSHG’: nan, ‘000002.XSHE’: 19.078418154514644, ‘601211.XSHG’: 85.827919704483492})</li>
+</ul>
+<p><strong>用法注释：</strong></p>
+<ol>
+<li><p>指标&gt;80 时，回档机率大；指标&lt;20时，反弹机率大；</p>
+</li>
+<li><p>K在20左右向上交叉D时，视为买进信号； </p>
+</li>
+<li><p>K在80左右向下交叉D时，视为卖出信号； </p>
+</li>
+<li><p>J&gt;100 时，股价易反转下跌；J&lt;0 时，股价易反转上涨； </p>
+</li>
+<li><p>KDJ 波动于50左右的任何信号，其作用不大。</p>
+</li>
+</ol>
+<h2 id="压力支撑指标"><a href="#压力支撑指标" class="headerlink" title="压力支撑指标"></a>压力支撑指标</h2><h3 id="BOLL"><a href="#BOLL" class="headerlink" title="BOLL"></a>BOLL</h3><p><code>Bollinger_Bands(security_list, check_date, timeperiod=20, nbdevup=2, nbdevdn=2, unit = &#39;1d&#39;, include_now = True, fq_ref_date = None)</code></p>
+<p><strong>参数：</strong></p>
+<ul>
+<li>security_list：标的列表</li>
+<li>check_date：要查询数据的日期</li>
+<li>timeperiod：统计的天数timeperiod</li>
+<li>nbdevup：统计的天数 nbdevup</li>
+<li>nbdevdn：统计的天数 nbdevdn</li>
+<li>unit：统计周期，默认为 ‘1d’, 支持如下周期: ‘1m’, ‘5m’, ‘15m’, ‘30m’, ‘60m’, ‘120m’, ‘1d’, ‘1w’, ‘1M’. ‘1w’ 表示一周, ‘1M’ 表示一月</li>
+<li>include_now：是否包含当前周期，默认为 True</li>
+<li>fq_ref_date：复权基准日，默认为 None</li>
+</ul>
+<p><strong>返回：</strong></p>
+<ul>
+<li>上轨线UB 、中轨线MB、下轨线LB 的值。</li>
+</ul>
+<p><strong>返回结果类型：</strong></p>
+<ul>
+<li>字典(dict)：键(key)为标的代码，值(value)为数据。</li>
+<li>如： ({‘000001.XSHE’: 9.2899945886169739, ‘603177.XSHG’: nan, ‘000002.XSHE’: 21.378028110909778, ‘601211.XSHG’: 18.846866409164456}, {‘000001.XSHE’: 9.1745000000000037, ‘603177.XSHG’: nan, ‘000002.XSHE’: 20.795500000000004, ‘601211.XSHG’: 18.423999999999999}, {‘000001.XSHE’: 9.0590054113830334, ‘603177.XSHG’: nan, ‘000002.XSHE’: 20.21297188909023, ‘601211.XSHG’: 18.001133590835543})</li>
+</ul>
+<p><strong>备注：</strong></p>
+<ul>
+<li>计算方式与通达信、东方财富和同花顺相同</li>
+</ul>
+<p><strong>用法注释：</strong></p>
+<ol>
+<li><p>股价上升穿越布林线上限时，回档机率大； </p>
+</li>
+<li><p>股价下跌穿越布林线下限时，反弹机率大； </p>
+</li>
+<li><p>布林线震动波带变窄时，表示变盘在即； </p>
+</li>
+<li><p>BOLL须配合BB 、WIDTH 使用；</p>
+</li>
+</ol>
+<p><strong>示例：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 定义股票池列表</span></span><br><span class="line">security_list1 = <span class="string">&#x27;000001.XSHE&#x27;</span></span><br><span class="line">security_list2 = [<span class="string">&#x27;000001.XSHE&#x27;</span>,<span class="string">&#x27;000002.XSHE&#x27;</span>,<span class="string">&#x27;601211.XSHG&#x27;</span>,<span class="string">&#x27;603177.XSHG&#x27;</span>]</span><br><span class="line"><span class="comment"># 计算并输出 security_list1 的 BOLL 值</span></span><br><span class="line">upperband, middleband, lowerband = Bollinger_Bands(security_list1, check_date=<span class="string">&#x27;2017-01-04&#x27;</span>, timeperiod=<span class="number">20</span>, nbdevup=<span class="number">2</span>, nbdevdn=<span class="number">2</span>)</span><br><span class="line"><span class="built_in">print</span> upperband[security_list1]</span><br><span class="line"><span class="built_in">print</span> middleband[security_list1]</span><br><span class="line"><span class="built_in">print</span> lowerband[security_list1]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出 security_list2 的 BOLL 值</span></span><br><span class="line">upperband, middleband, lowerband = Bollinger_Bands(security_list2, check_date=<span class="string">&#x27;2017-01-04&#x27;</span>, timeperiod=<span class="number">20</span>, nbdevup=<span class="number">2</span>, nbdevdn=<span class="number">2</span>)</span><br><span class="line"><span class="keyword">for</span> stock <span class="keyword">in</span> security_list2:</span><br><span class="line">    <span class="built_in">print</span> upperband[stock]</span><br><span class="line">    <span class="built_in">print</span> middleband[stock]</span><br><span class="line">    <span class="built_in">print</span> lowerband[stock]</span><br></pre></td></tr></table></figure>
+
+<h2 id="量价指标"><a href="#量价指标" class="headerlink" title="量价指标"></a>量价指标</h2><h3 id="OBV"><a href="#OBV" class="headerlink" title="OBV"></a>OBV</h3><p><a target="_blank" rel="noopener" href="https://www.joinquant.com/help/api/help#OBV-%E7%B4%AF%E7%A7%AF%E8%83%BD%E9%87%8F%E7%BA%BF">参考连接</a></p>
+<h3 id="VOL"><a href="#VOL" class="headerlink" title="VOL"></a>VOL</h3><p>成交量指标：</p>
+<p><strong>用法注释：</strong></p>
+<ol>
+<li>成交量大，代表交投热络，可界定为热门股；</li>
+<li>底部起涨点出现大成交量(成交手数)，代表攻击量；</li>
+<li>头部地区出现大成交量(成交手数)，代表出货量；</li>
+<li>观察成交金额的变化，比观察成交手数更具意义，因为成交手数并未反应股价的涨跌的后所应支出的实际金额。</li>
+</ol>
+<p><a target="_blank" rel="noopener" href="https://www.joinquant.com/help/api/help#VOL-%E6%88%90%E4%BA%A4%E9%87%8F">参考链接</a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> jqdata <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> jqlib.technical_analysis <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义股票池列表</span></span><br><span class="line">security_list = [<span class="string">&#x27;000001.XSHE&#x27;</span>,<span class="string">&#x27;000002.XSHE&#x27;</span>]</span><br><span class="line">check_dates = [<span class="string">&#x27;2022-10-31&#x27;</span>,<span class="string">&#x27;2022-11-01&#x27;</span>]</span><br><span class="line"><span class="keyword">for</span> check_date <span class="keyword">in</span> check_dates:</span><br><span class="line">    <span class="keyword">for</span> security <span class="keyword">in</span> security_list:</span><br><span class="line">        _VOL,MAVOL1,MAVOL2 = VOL(security,check_date=check_date,M1=<span class="number">5</span>,M2=<span class="number">10</span>)</span><br><span class="line">        <span class="built_in">print</span>(check_date,<span class="string">f&#x27;<span class="subst">&#123;security&#125;</span>的VOL:&#x27;</span>,_VOL[security])</span><br><span class="line">        <span class="built_in">print</span>(check_date,<span class="string">f&#x27;<span class="subst">&#123;security&#125;</span>的MOVAL1:&#x27;</span>,MAVOL1[security])</span><br><span class="line">        <span class="built_in">print</span>(check_date,<span class="string">f&#x27;<span class="subst">&#123;security&#125;</span>的MOVAL2:&#x27;</span>,MAVOL2[security])</span><br></pre></td></tr></table></figure>
+
+<h1 id="量化策略回测"><a href="#量化策略回测" class="headerlink" title="量化策略回测"></a>量化策略回测</h1><h2 id="回测流程"><a href="#回测流程" class="headerlink" title="回测流程"></a>回测流程</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">flowchart LR</span><br><span class="line">    A[选择股票池和实现回测函数] --&gt; B[设定回测时间段,初始金额及调仓频率]</span><br><span class="line">    B --&gt; C[历史数据载入]</span><br><span class="line">    C --&gt; D[处理订单]</span><br><span class="line">    D --&gt; E[取消未完成订单]</span><br><span class="line">    E --&gt; F[输出日志]</span><br><span class="line">    F --&gt; G[生成回测报告]</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>选择股票池和实现回测函数 实现handle_data函数 编写量化交易策略</p>
+</li>
+<li><p>选定一个回测开始时间和结束日期 选择初始金额和调仓频率</p>
+</li>
+<li><p>取得股票数据 调用handle_data()函数</p>
+</li>
+<li><p>下单后，根据接下来时间的实际交易情况，处理订单</p>
+</li>
+<li><p>下单后，可以调用get_open_orders()取得所有未完成订单，调用cancel_order取消订单</p>
+</li>
+<li><p>可在任何时间打印日志</p>
+</li>
+<li><p>回测结束，生成回测报告，画出收益曲线和基准收益曲线，列出每日持仓和交易情况</p>
+</li>
+</ul>
+<h2 id="MACD-2"><a href="#MACD-2" class="headerlink" title="MACD"></a>MACD</h2><p>金叉买入，死叉卖出</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> jqdata</span><br><span class="line"><span class="keyword">from</span> jqlib.technical_analysis <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">initialize</span>(<span class="params">context</span>):</span><br><span class="line">    <span class="comment">#设定基准沪深300</span></span><br><span class="line">    set_benchmark(<span class="string">&#x27;000300.XSHG&#x27;</span>)</span><br><span class="line">    <span class="comment">#开启动态复权</span></span><br><span class="line">    set_option(<span class="string">&#x27;use_real_price&#x27;</span>, <span class="literal">True</span>)</span><br><span class="line">    <span class="comment">#设定标的</span></span><br><span class="line">    g.security = <span class="string">&#x27;000001.XSHE&#x27;</span></span><br><span class="line">    <span class="comment">#设置MACD的初始化值</span></span><br><span class="line">    g.macd_yesterday = <span class="number">0</span></span><br><span class="line">    </span><br><span class="line"><span class="keyword">def</span> <span class="title function_">handle_data</span>(<span class="params">context, data</span>):</span><br><span class="line">    security = g.security</span><br><span class="line">    <span class="comment"># 计算当天的MACD</span></span><br><span class="line">    DIF,DEA,_MACD = MACD(security_list = security,check_date=context.current_dt,</span><br><span class="line">                        SHORT=<span class="number">6</span>,LONG=<span class="number">12</span>,MID=<span class="number">9</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="comment">#获取当日现金</span></span><br><span class="line">    cash = context.portfolio.cash</span><br><span class="line">    <span class="comment">#计算金叉</span></span><br><span class="line">    <span class="keyword">if</span> g.macd_yesterday &lt; <span class="number">0</span> <span class="keyword">and</span> _MACD[security] &gt; <span class="number">0</span> <span class="keyword">and</span> cash &gt; <span class="number">0</span>:</span><br><span class="line">        order_value(security,cash)</span><br><span class="line">    <span class="comment">#计算死叉</span></span><br><span class="line">    <span class="keyword">elif</span> g.macd_yesterday &gt; <span class="number">0</span> <span class="keyword">and</span> _MACD[security] &lt; <span class="number">0</span> <span class="keyword">and</span> context.portfolio.positions[security].closeable_amount &gt; <span class="number">0</span>:</span><br><span class="line">        order_target(security,<span class="number">0</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="comment">#更新当天MACD值</span></span><br><span class="line">    g.macd_yesterday = _MACD[security]</span><br></pre></td></tr></table></figure>
+
+<h2 id="量化回测的风险指标"><a href="#量化回测的风险指标" class="headerlink" title="量化回测的风险指标"></a>量化回测的风险指标</h2><p>定义：即股票投资收益率的<strong>不确定性</strong>通常称之为<strong>风险</strong>，具体是指股票市场的一些未知的、不可预测的因素对股票价格造成的不确定的影响，可能是正面影响收益率，也可能是负面的背离。风险指标是对<strong>风险的量化评估</strong>。</p>
+<p>特点：风险指标有利于投资者对投资策略进行一个客观的评价。无论是回测还是模拟，所有风险指标都会根据<strong>每天收益后的收益计算</strong>更新一次，并<strong>不考虑每盘中的收益情况</strong>。</p>
+<p>定义：Alpha是投资者获得与市场波动无关的回报。阿尔法系数，是基金&#x2F;投资的绝对回报和按照beta系数计算的预期回报之间的差额。阿尔法收益与风险相关性很低。</p>
+<p>算法：绝对收益或超额收益是基金&#x2F;投资的<strong>实际收益减去无风险投资收益</strong>。例如投资者获得了15%的回报，其基准获得了10%的回报，那么Alpha部分就是5%。</p>
+<p>公式：Alpha &#x3D; 投资年化收益率 - [无风险回报率+Beta*(基准年化收益率 - 无风险回报率)]</p>
+<p>beta：表示投资的系统性风险，反映了策略对大盘变化的敏感性。例如一个策略的Beta为1.5，则大盘涨1%的时候，策略可能涨1.5%，反之亦然；如果一个策略的Beta为-1.5，说明大盘涨1%的时候，策略可能跌1.5%，反之亦然。</p>
+<p>夏普比率：表示每承受一单位总风险，会产生多少的超额报酬，可以<strong>同时对策略的收益与风险进行综合考虑</strong>。（越高越好）</p>
+<p><a target="_blank" rel="noopener" href="https://www.joinquant.com/help/api/help#%E9%A3%8E%E9%99%A9%E6%8C%87%E6%A0%87">各种风险指标详细参考</a></p>
+<h1 id="因子分析"><a href="#因子分析" class="headerlink" title="因子分析"></a>因子分析</h1><h2 id="因子分析概述"><a href="#因子分析概述" class="headerlink" title="因子分析概述"></a>因子分析概述</h2><p>就是根据因子或特定的特征使我们能赚钱的方法。包括波动性、动量、股票规模等。</p>
+<p>综述一下，就是根据<strong>财务指标和技术指标</strong>作为因子（因子构造），通过选定的因子来选股（因子选股），构建股票池，策略回测（再优化）</p>
+<h2 id="自定义因子"><a href="#自定义因子" class="headerlink" title="自定义因子"></a>自定义因子</h2><p>自定义因子类继承了factor类，三个基本属性，分别为<strong>name、max_window和dependencies</strong>；一个核心函数——calc()</p>
+<p>构建自定义因子流程：构造因子属性—-&gt;实现因子计算—–&gt;因子分析</p>
+<ul>
+<li>name，因子名称。因子名称只能由字母、数字和下划线组成，并且第一个字符不能是数字，另外不能与Python中的关键字相同，也不能与基础因子冲突。</li>
+<li>max_window，获取数据的最长时间窗口，返回日线数据。</li>
+<li>dependencies，自定义因子依赖的基础因子名称，如high, low, close。</li>
+</ul>
+<p>**因子计算：**实现Factor类内置calc()函数  calc(self,data)</p>
+<ul>
+<li>data：字典对象</li>
+<li>key属性是dependencies中的因子名称</li>
+<li>value属性是因子对应的数据表(pandas.DataFrame格式)</li>
+</ul>
+<p>示例：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">calc</span>(<span class="params">self,data</span>):</span><br><span class="line">    <span class="keyword">return</span> data[<span class="string">&#x27;close&#x27;</span>][-<span class="number">10</span>].mean()</span><br></pre></td></tr></table></figure>
+
+<p>返回：Pandas.Series：index属性是股票代码，value属性是因子值</p>
+<p>**单因子分析：**调用analyze_factor</p>
+<p><code>analyze_factor(factor,start_date,end_date,industry,universe,quantiles,periods,weight_method,use_real_price,skip_paused,max_loss,factor_dep_definitions)</code></p>
+<ul>
+<li><p>factor: 获取因子值，可输入三种类型的值</p>
+<ol>
+<li>pandas.DataFrame: 因子值，columns为股票代码（如’000001.XSHE’），index为日期的DatetimeIndex或str</li>
+<li>pandas.Series: 因子值，index为日期索引和股票代码的MultiIndex</li>
+<li>Factor的子类，自定义因子</li>
+</ol>
+</li>
+<li><p>start_date: 开始日期；end_date: 结束日期</p>
+</li>
+<li><p>industry: 获取行业分类，默认值为’jq_l1’    ‘sw_l1’:申万一级行业；’sw_l2’:申万二级行业；’sw_l3’:申万三级行业；’jq_l1’:聚宽一级行业；’jq_l2’:聚宽二级行业；’zjw’: 证监会行业</p>
+</li>
+<li><p>universe: 对<strong>股票池</strong>的定义，可输入两种类型的值。为str时认为输入的是一个股票池；当factor输入为因子值时(DataFrame、Series)，该参数无效</p>
+</li>
+<li><p>quantiles: 分位数数量，默认5</p>
+</li>
+<li><p>periods: 调仓周期，int或int的列表，默认[1, 5, 10]</p>
+</li>
+<li><p>weight_method: 计算分位数收益时的加权方法；avg: 按平均加权；mktcap: 按市场加权</p>
+</li>
+<li><p>use_real_price: 是否使用复权，默认False（当factor为因子值时这个参数失效）</p>
+</li>
+<li><p>skip_paused: 是否跳过停牌，默认False（当factor为因子值时这个参数失效）</p>
+</li>
+<li><p>max_loss: 因重置值或nan值太多而无效的因子值的最大占比，默认0.25 </p>
+</li>
+<li><p>factor_dep_definitions: 主因子的依赖因子的列表，默认为空列表（注：当factor为因子值时这个参数失效）</p>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> jqfactor <span class="keyword">import</span> Factor,analyze_factor</span><br><span class="line">warnings.filterwarnings(<span class="string">&#x27;ignore&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">MA10</span>(<span class="title class_ inherited__">Factor</span>):</span><br><span class="line">    <span class="comment">#因子名称为&#x27;ma10&#x27;</span></span><br><span class="line">    name = <span class="string">&#x27;ma10&#x27;</span></span><br><span class="line">    <span class="comment">#设定最长时间窗口</span></span><br><span class="line">    max_window = <span class="number">10</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">#设置依赖的基础因子</span></span><br><span class="line">    dependencies = [<span class="string">&#x27;close&#x27;</span>]</span><br><span class="line">    </span><br><span class="line">    <span class="comment">#实现因子计算</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">calc</span>(<span class="params">self,data</span>):</span><br><span class="line">        <span class="keyword">return</span> data[<span class="string">&#x27;close&#x27;</span>][-<span class="number">10</span>:].mean()</span><br><span class="line">    </span><br><span class="line"><span class="comment">#单因子分析</span></span><br><span class="line">far = analyze_factor(factor=MA10,start_date=<span class="string">&#x27;2022-01-01&#x27;</span>,end_date=<span class="string">&#x27;2022-06-30&#x27;</span>,weight_method=<span class="string">&#x27;mktcap&#x27;</span>,</span><br><span class="line">                    universe=<span class="string">&#x27;000300.XSHG&#x27;</span>,industry=<span class="string">&#x27;jq_l1&#x27;</span>,quantiles=<span class="number">8</span>,periods=(<span class="number">1</span>,<span class="number">5</span>,<span class="number">10</span>))</span><br><span class="line"><span class="comment">#分析结束后通过不同属性获取数据</span></span><br><span class="line"><span class="comment">#月度信息系数</span></span><br><span class="line">far.ic_monthly</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<hr>
+<p><strong>害，突然觉得量化基于这些指标的操作我并不喜欢，或者说我觉得量化的这些策略并没太大好处，就到这了</strong></p>
 
     </div>
 
@@ -527,8 +1117,7 @@
 </div>
 
           <div class="post-tags">
-              <a href="/tags/pwn/" rel="tag"><i class="fa fa-tag"></i> pwn</a>
-              <a href="/tags/kernel/" rel="tag"><i class="fa fa-tag"></i> kernel</a>
+              <a href="/tags/python/" rel="tag"><i class="fa fa-tag"></i> python</a>
           </div>
 
         
@@ -540,8 +1129,8 @@
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2025/07/08/arm%E6%B1%87%E7%BC%96/" rel="next" title="arm汇编">
-                  arm汇编 <i class="fa fa-angle-right"></i>
+                <a href="/2025/07/08/arm%E6%B1%87%E7%BC%96/" rel="next" title="arm基础+pwn">
+                  arm基础+pwn <i class="fa fa-angle-right"></i>
                 </a>
             </div>
           </div>
@@ -573,13 +1162,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="Word count total">355k</span>
+    <span title="Word count total">419k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="Reading time total">5:23</span>
+    <span title="Reading time total">6:21</span>
   </span>
 </div>
 <div class="busuanzi-count">
