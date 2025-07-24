@@ -28,12 +28,16 @@
 <meta property="og:site_name" content="le0n-blog">
 <meta property="og:description" content="内核pwn开坑">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/images/kernel%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86.png">
+<meta property="og:image" content="http://example.com/2025/07/03/images/image-20250721110324733.png">
+<meta property="og:image" content="http://example.com/images/image-20250721113403783.png">
 <meta property="article:published_time" content="2025-07-03T04:28:32.204Z">
-<meta property="article:modified_time" content="2025-07-20T05:03:21.511Z">
+<meta property="article:modified_time" content="2025-07-22T07:33:55.478Z">
 <meta property="article:author" content="leon">
 <meta property="article:tag" content="pwn">
 <meta property="article:tag" content="kernel">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/kernel%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86.png">
 
 
 <link rel="canonical" href="http://example.com/2025/07/03/%E5%86%85%E6%A0%B8pwn%E5%85%A5%E9%97%A8/">
@@ -114,7 +118,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="nav-number">1.</span> <span class="nav-text">基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E64%E4%BD%8D128TB-%E7%94%A8%E6%88%B7%E7%A9%BA%E9%97%B4-128TB-%E5%86%85%E6%A0%B8%E7%A9%BA%E9%97%B4"><span class="nav-number">1.1.</span> <span class="nav-text">关于64位128TB 用户空间 + 128TB 内核空间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E32%E4%BD%8D%E7%9A%843GB-%E7%94%A8%E6%88%B7%E7%A9%BA%E9%97%B4-1GB-%E5%86%85%E6%A0%B8%E7%A9%BA%E9%97%B4%E3%80%82"><span class="nav-number">1.2.</span> <span class="nav-text">关于32位的3GB 用户空间 + 1GB 内核空间。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E4%BA%8Emm-struct"><span class="nav-number">1.3.</span> <span class="nav-text">关于mm_struct</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E4%B8%AD%E6%96%AD"><span class="nav-number">1.4.</span> <span class="nav-text">关于中断</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E4%BA%8Evmlloc%E3%80%81kmalloc%E3%80%81mmap"><span class="nav-number">1.5.</span> <span class="nav-text">关于vmlloc、kmalloc、mmap</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#kmalloc-kfree%EF%BC%9A%E5%86%85%E6%A0%B8%E7%9A%84%E4%B8%BB%E5%8A%9B%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D%E6%96%B9%E5%BC%8F"><span class="nav-number">1.5.1.</span> <span class="nav-text">kmalloc &#x2F; kfree：内核的主力内存分配方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#vmalloc-vfree%EF%BC%9A%E4%B8%BA%E5%A4%A7%E5%9D%97%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E8%80%8C%E7%94%9F"><span class="nav-number">1.5.2.</span> <span class="nav-text">vmalloc &#x2F; vfree：为大块虚拟内存而生</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mmap-munmap%EF%BC%9A%E8%BF%9E%E6%8E%A5%E5%86%85%E6%A0%B8%E4%B8%8E%E7%94%A8%E6%88%B7%E7%9A%84%E6%A1%A5%E6%A2%81"><span class="nav-number">1.5.3.</span> <span class="nav-text">mmap &#x2F; munmap：连接内核与用户的桥梁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93%E5%AF%B9%E6%AF%94"><span class="nav-number">1.5.4.</span> <span class="nav-text">总结对比</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E4%BA%8Etask-struct"><span class="nav-number">1.6.</span> <span class="nav-text">关于task_struct</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#task-struct-%E6%A0%B8%E5%BF%83%E5%AD%97%E6%AE%B5%E5%8A%9F%E8%83%BD%E6%A8%A1%E5%9D%97%E5%8C%96%E8%A7%A3%E8%AF%BB"><span class="nav-number">1.6.1.</span> <span class="nav-text">task_struct 核心字段功能模块化解读</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%9C%A8%E5%86%85%E6%A0%B8%E4%B8%AD%E6%89%BE%E5%88%B0%E5%BD%93%E5%89%8D%E7%9A%84-task-struct%EF%BC%9F"><span class="nav-number">1.6.2.</span> <span class="nav-text">如何在内核中找到当前的 task_struct？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">1.6.3.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E4%BA%8Eslab%E5%8E%9F%E7%90%86%E6%BA%90%E7%A0%81%E7%BA%A7%E5%89%96%E6%9E%90"><span class="nav-number">1.7.</span> <span class="nav-text">关于slab原理源码级剖析</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="nav-number">1.</span> <span class="nav-text">基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E64%E4%BD%8D128TB-%E7%94%A8%E6%88%B7%E7%A9%BA%E9%97%B4-128TB-%E5%86%85%E6%A0%B8%E7%A9%BA%E9%97%B4"><span class="nav-number">1.1.</span> <span class="nav-text">关于64位128TB 用户空间 + 128TB 内核空间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E32%E4%BD%8D%E7%9A%843GB-%E7%94%A8%E6%88%B7%E7%A9%BA%E9%97%B4-1GB-%E5%86%85%E6%A0%B8%E7%A9%BA%E9%97%B4%E3%80%82"><span class="nav-number">1.2.</span> <span class="nav-text">关于32位的3GB 用户空间 + 1GB 内核空间。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E4%BA%8Emm-struct"><span class="nav-number">1.3.</span> <span class="nav-text">关于mm_struct</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E4%B8%AD%E6%96%AD"><span class="nav-number">1.4.</span> <span class="nav-text">关于中断</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E4%BA%8Evmlloc%E3%80%81kmalloc%E3%80%81mmap"><span class="nav-number">1.5.</span> <span class="nav-text">关于vmlloc、kmalloc、mmap</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#kmalloc-kfree%EF%BC%9A%E5%86%85%E6%A0%B8%E7%9A%84%E4%B8%BB%E5%8A%9B%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D%E6%96%B9%E5%BC%8F"><span class="nav-number">1.5.1.</span> <span class="nav-text">kmalloc &#x2F; kfree：内核的主力内存分配方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#vmalloc-vfree%EF%BC%9A%E4%B8%BA%E5%A4%A7%E5%9D%97%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E8%80%8C%E7%94%9F"><span class="nav-number">1.5.2.</span> <span class="nav-text">vmalloc &#x2F; vfree：为大块虚拟内存而生</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mmap-munmap%EF%BC%9A%E8%BF%9E%E6%8E%A5%E5%86%85%E6%A0%B8%E4%B8%8E%E7%94%A8%E6%88%B7%E7%9A%84%E6%A1%A5%E6%A2%81"><span class="nav-number">1.5.3.</span> <span class="nav-text">mmap &#x2F; munmap：连接内核与用户的桥梁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93%E5%AF%B9%E6%AF%94"><span class="nav-number">1.5.4.</span> <span class="nav-text">总结对比</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E4%BA%8Etask-struct"><span class="nav-number">1.6.</span> <span class="nav-text">关于task_struct</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#task-struct-%E6%A0%B8%E5%BF%83%E5%AD%97%E6%AE%B5%E5%8A%9F%E8%83%BD%E6%A8%A1%E5%9D%97%E5%8C%96%E8%A7%A3%E8%AF%BB"><span class="nav-number">1.6.1.</span> <span class="nav-text">task_struct 核心字段功能模块化解读</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%9C%A8%E5%86%85%E6%A0%B8%E4%B8%AD%E6%89%BE%E5%88%B0%E5%BD%93%E5%89%8D%E7%9A%84-task-struct%EF%BC%9F"><span class="nav-number">1.6.2.</span> <span class="nav-text">如何在内核中找到当前的 task_struct？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">1.6.3.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E4%BA%8Eslab%E5%8E%9F%E7%90%86%E6%BA%90%E7%A0%81%E7%BA%A7%E5%89%96%E6%9E%90"><span class="nav-number">1.7.</span> <span class="nav-text">关于slab原理源码级剖析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E4%BA%8Epwn"><span class="nav-number">1.8.</span> <span class="nav-text">关于pwn</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="nav-number">1.8.1.</span> <span class="nav-text">常用命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86-1"><span class="nav-number">1.8.2.</span> <span class="nav-text">基础知识</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E5%86%85%E6%A0%B8%E4%BF%9D%E6%8A%A4"><span class="nav-number">1.8.3.</span> <span class="nav-text">常见内核保护</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%94%BB%E5%87%BB%E6%B5%81%E7%A8%8B"><span class="nav-number">1.8.4.</span> <span class="nav-text">攻击流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ioctl"><span class="nav-number">1.8.5.</span> <span class="nav-text">ioctl</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Loadable-Kernel-Modules-LKMs"><span class="nav-number">1.8.6.</span> <span class="nav-text">Loadable Kernel Modules(LKMs)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E6%8C%87%E4%BB%A4"><span class="nav-number">1.8.6.1.</span> <span class="nav-text">相关指令</span></a></li></ol></li></ol></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -211,7 +215,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2025-07-20 13:03:21" itemprop="dateModified" datetime="2025-07-20T13:03:21+08:00">2025-07-20</time>
+      <time title="Modified: 2025-07-22 15:33:55" itemprop="dateModified" datetime="2025-07-22T15:33:55+08:00">2025-07-22</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -237,14 +241,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">Word count in article: </span>
-      <span>12k</span>
+      <span>15k</span>
     </span>
     <span class="post-meta-item" title="Reading time">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">Reading time &asymp;</span>
-      <span>11 mins.</span>
+      <span>14 mins.</span>
     </span>
 </div>
 
@@ -256,7 +260,7 @@
     
     
     <div class="post-body" itemprop="articleBody"><h1 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h1><p><a target="_blank" rel="noopener" href="https://ctf-wiki.org/pwn/linux/kernel-mode/basic-knowledge/">参考链接-ctfwiki</a></p>
-<p>下面是学习时收集的AI(gemini2.5pro)问答</p>
+<p><img data-src="/../images/kernel%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86.png" alt="kernel基础知识">下面是学习时收集的AI(gemini2.5pro)问答和自己写的</p>
 <table>
 <thead>
 <tr>
@@ -511,6 +515,90 @@
 <li><strong><code>files</code></strong>: 在一些利用场景中，可能需要操作文件描述符表（如重定向）。</li>
 </ul>
 <h2 id="关于slab原理源码级剖析"><a href="#关于slab原理源码级剖析" class="headerlink" title="关于slab原理源码级剖析"></a>关于slab原理源码级剖析</h2><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/binlovetech/p/17434311.html">参考文章</a></p>
+<h2 id="关于pwn"><a href="#关于pwn" class="headerlink" title="关于pwn"></a>关于pwn</h2><h3 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a><strong>常用命令</strong></h3><ol>
+<li>查看装载驱动 <code>lsmod</code></li>
+<li>查看所开保护 <code>cat /proc/cpuinfo</code></li>
+<li>查看内核链块 <code>cat /proc/slabinfo</code></li>
+<li>查看内核函数地址<ul>
+<li><code>grep prepare_kernel_cred /proc/kallsysms</code></li>
+<li><code>grep commit_creds /proc/kallsysms</code></li>
+</ul>
+</li>
+</ol>
+<h3 id="基础知识-1"><a href="#基础知识-1" class="headerlink" title="基础知识"></a>基础知识</h3><p>通过rop,uaf等实现这个函数<strong>commit_creds(prepare_kernel_cred(0))，然后返回到用户层面就可以提权成功</strong></p>
+<img data-src="../images/image-20250721110324733.png" alt="image-20250721110324733" style="zoom:67%;" />
+
+<ol>
+<li>修改startvm.sh，加入gdb调试的选项，方便后面调试，就是startvm.sh脚本中加一个<code>-s</code>即可</li>
+</ol>
+<p>如：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#stty intr ^]</span></span><br><span class="line"><span class="comment">#cd `dirname $0`</span></span><br><span class="line"><span class="built_in">timeout</span> --foreground 0 qemu-system-x86_64 \</span><br><span class="line">    -m 512M \</span><br><span class="line">    -nographic \</span><br><span class="line">    -kernel bzImage \</span><br><span class="line">    -append <span class="string">&#x27;console=ttyS0 loglevel=3 oops=panic panic=1 nokaslr&#x27;</span> \</span><br><span class="line">    -monitor /dev/null \</span><br><span class="line">    -initrd initramfs.cpio \</span><br><span class="line">    -smp cores=2,threads=4 \</span><br><span class="line">    -cpu qemu64,+smap,+smep 2&gt;/dev/null \</span><br><span class="line">    -s</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>针对 initramfs.cpio 进行解包和打包，方便之后修改</li>
+</ol>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> core</span><br><span class="line"><span class="built_in">cd</span> core</span><br><span class="line">cpio -idm &lt; ../initramfs.cpio</span><br><span class="line"></span><br><span class="line">find . | cpio -o --format=newc &gt; ../initramfs.cpio</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>修改 initramfs.cpio 的启动脚本 init，方便之后从root身份启动，查看一些信息</li>
+</ol>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/sh</span></span><br><span class="line"></span><br><span class="line">mount -t proc none /proc</span><br><span class="line">mount -t devtmpfs none /dev</span><br><span class="line"><span class="built_in">mkdir</span> /dev/pts</span><br><span class="line">mount /dev/pts</span><br><span class="line"></span><br><span class="line">insmod /home/pwn/babyhacker.ko</span><br><span class="line"><span class="built_in">chmod</span> 644 /dev/babyhacker</span><br><span class="line"><span class="built_in">echo</span> 0 &gt; /proc/sys/kernel/dmesg_restrict</span><br><span class="line"><span class="built_in">echo</span> 0 &gt; /proc/sys/kernel/kptr_restrict</span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> /home/pwn</span><br><span class="line"><span class="built_in">chown</span> -R root /flag</span><br><span class="line"><span class="built_in">chmod</span> 400 /flag</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="built_in">chown</span> -R 1000:1000 .</span><br><span class="line">setsid cttyhack setuidgid 1000 sh</span><br><span class="line"></span><br><span class="line">umount /proc</span><br><span class="line">poweroff -f</span><br></pre></td></tr></table></figure>
+
+<p>启动后并且查看装载驱动（使用lsmod命令）</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">~ $ lsmod</span><br><span class="line">babyhacker 2104 0 - Live 0xffffffffc0000000 (OE)</span><br><span class="line">~ $ <span class="built_in">id</span></span><br><span class="line">uid=1000(pwn) gid=1000 <span class="built_in">groups</span>=1000</span><br><span class="line">~ $</span><br></pre></td></tr></table></figure>
+
+<p>查看相关提权函数 commit_creds 和 prepare_kernel_cred</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">~ $ <span class="built_in">cat</span> /proc/kallsyms | grep commit_creds</span><br><span class="line">ffffffff810a1430 T commit_creds</span><br><span class="line">ffffffff81d73ac0 R __ksymtab_commit_creds</span><br><span class="line">ffffffff81d939e4 r __kstrtab_commit_creds</span><br><span class="line">~ $ <span class="built_in">cat</span> /proc/kallsyms | grep prepare_kernel_cred</span><br><span class="line">ffffffff810a1820 T prepare_kernel_cred</span><br><span class="line">ffffffff81d7c5b0 R __ksymtab_prepare_kernel_cred</span><br><span class="line">ffffffff81d939a8 r __kstrtab_prepare_kernel_cred</span><br></pre></td></tr></table></figure>
+
+<h3 id="常见内核保护"><a href="#常见内核保护" class="headerlink" title="常见内核保护"></a>常见内核保护</h3><ol>
+<li>Kaslr 地址随机化 在startvm.sh 中，一般本地调试时，改为nokaslr</li>
+<li>Smep 内核态不可<strong>执行</strong>用户态代码 root.sh启动 cat &#x2F;proc&#x2F;cpuinfo</li>
+<li>Smap 内核态不可<strong>访问</strong>用户态内存 root.sh 启动 cat &#x2F;proc&#x2F;cpuinfo</li>
+</ol>
+<blockquote>
+<p>常见内核漏洞</p>
+<ol>
+<li>栈溢出</li>
+<li>uaf漏洞</li>
+<li>double fetch漏洞</li>
+<li>其它漏洞，如逻辑漏洞等</li>
+</ol>
+</blockquote>
+<p><img data-src="/../images/image-20250721113403783.png" alt="image-20250721113403783"></p>
+<p><strong>进入kernel态之前会做什么？</strong></p>
+<p>保存用户态的各个寄存器，以及执行到代码的位置</p>
+<p><strong>从kernel态返回用户态需要做什么？</strong></p>
+<p>执行 swapgs 和 iret 指令，当然前提是栈上需要布置好恢复的寄存器的值</p>
+<h3 id="攻击流程"><a href="#攻击流程" class="headerlink" title="攻击流程"></a>攻击流程</h3><ol>
+<li>解包<code>rootfs</code>,检查保护</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">mkdir</span> File_system</span><br><span class="line">$ <span class="built_in">mv</span> rootfs.cpio ./File_system/rootfs.cpio.gz</span><br><span class="line">$ <span class="built_in">cd</span> File_system</span><br><span class="line">$ gunzip rootfs.cpio.gz</span><br><span class="line">$ cpio -idmv &lt; rootfs.cpio</span><br><span class="line"></span><br><span class="line">$ file babydriver.ko </span><br><span class="line">$ checksec --file=babydriver.ko</span><br></pre></td></tr></table></figure>
+
+<p>2.拖进<code>IDA</code>在内核代码中找到漏洞</p>
+<p>3.利用<code>Shellcode</code>, <code>ROP</code>, 等攻击方式实现代码执行</p>
+<p>4.提权</p>
+<p>5.本地写好 <code>exploit</code> 后，可以通过 <code>base64</code> 编码等方式把编译好的二进制文件保存到远程目录下，进而拿到<code> flag</code>，同时可以使用 <code>musl</code>, <code>uclibc</code> 等方法减小 <code>exploit</code> 的体积方便传输</p>
+<p>测试<code>exp</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cp</span> ./exp ./fs &amp;&amp; <span class="built_in">cd</span> fs</span><br><span class="line">$ find . | cpio -o --format=newc &gt; ../rootfs.cpio <span class="comment"># 重新打包文件系统</span></span><br><span class="line">$ ./boot.sh <span class="comment"># 启动&amp;测试exp</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="ioctl"><a href="#ioctl" class="headerlink" title="ioctl"></a>ioctl</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">NAME</span><br><span class="line">       ioctl - control device</span><br><span class="line"></span><br><span class="line">SYNOPSIS</span><br><span class="line">       <span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/ioctl.h&gt;</span></span></span><br><span class="line"></span><br><span class="line">       <span class="type">int</span> <span class="title function_">ioctl</span><span class="params">(<span class="type">int</span> fd, <span class="type">unsigned</span> <span class="type">long</span> request, ...)</span>;</span><br></pre></td></tr></table></figure>
+
+<p><code>ioctl</code>也是一个系统调用，用于与设备通信</p>
+<p><code>int ioctl(int fd, unsigned long request, ...)</code> 的第一个参数为打开设备 (<code>open</code>) 返回的文件描述符，第二个参数为用户程序对设备的<strong>控制命令</strong>，再后边的参数则是一些补充参数，与设备有关</p>
+<blockquote>
+<p>内核被设计成可扩展的，可以加入一个称为设备驱动的模块，驱动的代码允许在内核空间运行而且可以对设备直接寻址。对设备驱动的请求是一个以设备和请求号码为参数的 <code>ioctl</code> 调用，如此内核就允许用户空间访问设备驱动进而访问设备而不需要了解具体的设备细节，同时也不需要一大堆针对不同设备的系统调用</p>
+</blockquote>
+<h3 id="Loadable-Kernel-Modules-LKMs"><a href="#Loadable-Kernel-Modules-LKMs" class="headerlink" title="Loadable Kernel Modules(LKMs)"></a>Loadable Kernel Modules(LKMs)</h3><p>可加载核心模块 (或直接称为内核模块) ,是内核空间的可执行程序，包括<strong>驱动程序（设备驱动、文件系统驱动）和内核扩展模块</strong>,和用户态的可执行程序相同，<code>Linux</code> 下为 <code>ELF</code>，<code>Windows</code> 下为 <code>exe/dll</code>，<code>mac</code> 下为 <code>MACH-O</code></p>
+<p><strong>模块</strong>可以被单独编译，但不能单独运行，运行时<strong>被链接到内核</strong>作为内核的一部分在内核空间运行，这与运行在用户控件的进程不同</p>
+<blockquote>
+<p><code>Linux</code> 内核之所以提供模块机制，是因为它本身是一个单内核 (<code>monolithic kernel</code>)。单内核的优点是效率高，因为所有的内容都集合在一起，但缺点是可扩展性和可维护性相对较差，模块机制就是为了弥补这一缺陷。</p>
+</blockquote>
+<h4 id="相关指令"><a href="#相关指令" class="headerlink" title="相关指令"></a>相关指令</h4><ul>
+<li><strong>insmod</strong>: 将指定<strong>模块加载到内核</strong>中</li>
+<li><strong>rmmod</strong>: 从内核中<strong>卸载指定模块</strong></li>
+<li><strong>lsmod</strong>: <strong>列出</strong>已经加载的模块</li>
+<li><strong>modprobe</strong>: <strong>添加或删除</strong>模块，加载模块时会查找依赖关系</li>
+</ul>
 
     </div>
 
@@ -583,13 +671,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="Word count total">419k</span>
+    <span title="Word count total">425k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="Reading time total">6:21</span>
+    <span title="Reading time total">6:26</span>
   </span>
 </div>
 <div class="busuanzi-count">
