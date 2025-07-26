@@ -24,15 +24,16 @@
     <meta name="description" content="内核pwn开坑">
 <meta property="og:type" content="article">
 <meta property="og:title" content="内核pwn">
-<meta property="og:url" content="http://example.com/2025/07/03/%E5%86%85%E6%A0%B8pwn%E5%85%A5%E9%97%A8/index.html">
+<meta property="og:url" content="http://example.com/2025/07/26/linux%20kernel%20pwn/index.html">
 <meta property="og:site_name" content="le0n-blog">
 <meta property="og:description" content="内核pwn开坑">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/images/kernel%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86.png">
-<meta property="og:image" content="http://example.com/2025/07/03/images/image-20250721110324733.png">
+<meta property="og:image" content="http://example.com/2025/07/26/images/image-20250721110324733.png">
 <meta property="og:image" content="http://example.com/images/image-20250721113403783.png">
-<meta property="article:published_time" content="2025-07-03T04:28:32.204Z">
-<meta property="article:modified_time" content="2025-07-22T07:33:55.478Z">
+<meta property="og:image" content="http://example.com/images/image-20250725162352013.png">
+<meta property="article:published_time" content="2025-07-26T03:10:39.801Z">
+<meta property="article:modified_time" content="2025-07-26T03:12:00.710Z">
 <meta property="article:author" content="leon">
 <meta property="article:tag" content="pwn">
 <meta property="article:tag" content="kernel">
@@ -40,10 +41,10 @@
 <meta name="twitter:image" content="http://example.com/images/kernel%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86.png">
 
 
-<link rel="canonical" href="http://example.com/2025/07/03/%E5%86%85%E6%A0%B8pwn%E5%85%A5%E9%97%A8/">
+<link rel="canonical" href="http://example.com/2025/07/26/linux%20kernel%20pwn/">
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2025/07/03/%E5%86%85%E6%A0%B8pwn%E5%85%A5%E9%97%A8/","path":"2025/07/03/内核pwn入门/","title":"内核pwn"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2025/07/26/linux%20kernel%20pwn/","path":"2025/07/26/linux kernel pwn/","title":"内核pwn"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>内核pwn | le0n-blog</title>
@@ -118,7 +119,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="nav-number">1.</span> <span class="nav-text">基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E64%E4%BD%8D128TB-%E7%94%A8%E6%88%B7%E7%A9%BA%E9%97%B4-128TB-%E5%86%85%E6%A0%B8%E7%A9%BA%E9%97%B4"><span class="nav-number">1.1.</span> <span class="nav-text">关于64位128TB 用户空间 + 128TB 内核空间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E32%E4%BD%8D%E7%9A%843GB-%E7%94%A8%E6%88%B7%E7%A9%BA%E9%97%B4-1GB-%E5%86%85%E6%A0%B8%E7%A9%BA%E9%97%B4%E3%80%82"><span class="nav-number">1.2.</span> <span class="nav-text">关于32位的3GB 用户空间 + 1GB 内核空间。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E4%BA%8Emm-struct"><span class="nav-number">1.3.</span> <span class="nav-text">关于mm_struct</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E4%B8%AD%E6%96%AD"><span class="nav-number">1.4.</span> <span class="nav-text">关于中断</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E4%BA%8Evmlloc%E3%80%81kmalloc%E3%80%81mmap"><span class="nav-number">1.5.</span> <span class="nav-text">关于vmlloc、kmalloc、mmap</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#kmalloc-kfree%EF%BC%9A%E5%86%85%E6%A0%B8%E7%9A%84%E4%B8%BB%E5%8A%9B%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D%E6%96%B9%E5%BC%8F"><span class="nav-number">1.5.1.</span> <span class="nav-text">kmalloc &#x2F; kfree：内核的主力内存分配方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#vmalloc-vfree%EF%BC%9A%E4%B8%BA%E5%A4%A7%E5%9D%97%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E8%80%8C%E7%94%9F"><span class="nav-number">1.5.2.</span> <span class="nav-text">vmalloc &#x2F; vfree：为大块虚拟内存而生</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mmap-munmap%EF%BC%9A%E8%BF%9E%E6%8E%A5%E5%86%85%E6%A0%B8%E4%B8%8E%E7%94%A8%E6%88%B7%E7%9A%84%E6%A1%A5%E6%A2%81"><span class="nav-number">1.5.3.</span> <span class="nav-text">mmap &#x2F; munmap：连接内核与用户的桥梁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93%E5%AF%B9%E6%AF%94"><span class="nav-number">1.5.4.</span> <span class="nav-text">总结对比</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E4%BA%8Etask-struct"><span class="nav-number">1.6.</span> <span class="nav-text">关于task_struct</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#task-struct-%E6%A0%B8%E5%BF%83%E5%AD%97%E6%AE%B5%E5%8A%9F%E8%83%BD%E6%A8%A1%E5%9D%97%E5%8C%96%E8%A7%A3%E8%AF%BB"><span class="nav-number">1.6.1.</span> <span class="nav-text">task_struct 核心字段功能模块化解读</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%9C%A8%E5%86%85%E6%A0%B8%E4%B8%AD%E6%89%BE%E5%88%B0%E5%BD%93%E5%89%8D%E7%9A%84-task-struct%EF%BC%9F"><span class="nav-number">1.6.2.</span> <span class="nav-text">如何在内核中找到当前的 task_struct？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">1.6.3.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E4%BA%8Eslab%E5%8E%9F%E7%90%86%E6%BA%90%E7%A0%81%E7%BA%A7%E5%89%96%E6%9E%90"><span class="nav-number">1.7.</span> <span class="nav-text">关于slab原理源码级剖析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E4%BA%8Epwn"><span class="nav-number">1.8.</span> <span class="nav-text">关于pwn</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="nav-number">1.8.1.</span> <span class="nav-text">常用命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86-1"><span class="nav-number">1.8.2.</span> <span class="nav-text">基础知识</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E5%86%85%E6%A0%B8%E4%BF%9D%E6%8A%A4"><span class="nav-number">1.8.3.</span> <span class="nav-text">常见内核保护</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%94%BB%E5%87%BB%E6%B5%81%E7%A8%8B"><span class="nav-number">1.8.4.</span> <span class="nav-text">攻击流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ioctl"><span class="nav-number">1.8.5.</span> <span class="nav-text">ioctl</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Loadable-Kernel-Modules-LKMs"><span class="nav-number">1.8.6.</span> <span class="nav-text">Loadable Kernel Modules(LKMs)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E6%8C%87%E4%BB%A4"><span class="nav-number">1.8.6.1.</span> <span class="nav-text">相关指令</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="nav-number">1.</span> <span class="nav-text">基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E64%E4%BD%8D128TB-%E7%94%A8%E6%88%B7%E7%A9%BA%E9%97%B4-128TB-%E5%86%85%E6%A0%B8%E7%A9%BA%E9%97%B4"><span class="nav-number">1.1.</span> <span class="nav-text">关于64位128TB 用户空间 + 128TB 内核空间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E32%E4%BD%8D%E7%9A%843GB-%E7%94%A8%E6%88%B7%E7%A9%BA%E9%97%B4-1GB-%E5%86%85%E6%A0%B8%E7%A9%BA%E9%97%B4%E3%80%82"><span class="nav-number">1.2.</span> <span class="nav-text">关于32位的3GB 用户空间 + 1GB 内核空间。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E4%BA%8Emm-struct"><span class="nav-number">1.3.</span> <span class="nav-text">关于mm_struct</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E4%B8%AD%E6%96%AD"><span class="nav-number">1.4.</span> <span class="nav-text">关于中断</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E4%BA%8Evmlloc%E3%80%81kmalloc%E3%80%81mmap"><span class="nav-number">1.5.</span> <span class="nav-text">关于vmlloc、kmalloc、mmap</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#kmalloc-kfree%EF%BC%9A%E5%86%85%E6%A0%B8%E7%9A%84%E4%B8%BB%E5%8A%9B%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D%E6%96%B9%E5%BC%8F"><span class="nav-number">1.5.1.</span> <span class="nav-text">kmalloc &#x2F; kfree：内核的主力内存分配方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#vmalloc-vfree%EF%BC%9A%E4%B8%BA%E5%A4%A7%E5%9D%97%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E8%80%8C%E7%94%9F"><span class="nav-number">1.5.2.</span> <span class="nav-text">vmalloc &#x2F; vfree：为大块虚拟内存而生</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mmap-munmap%EF%BC%9A%E8%BF%9E%E6%8E%A5%E5%86%85%E6%A0%B8%E4%B8%8E%E7%94%A8%E6%88%B7%E7%9A%84%E6%A1%A5%E6%A2%81"><span class="nav-number">1.5.3.</span> <span class="nav-text">mmap &#x2F; munmap：连接内核与用户的桥梁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93%E5%AF%B9%E6%AF%94"><span class="nav-number">1.5.4.</span> <span class="nav-text">总结对比</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E4%BA%8Etask-struct"><span class="nav-number">1.6.</span> <span class="nav-text">关于task_struct</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#task-struct-%E6%A0%B8%E5%BF%83%E5%AD%97%E6%AE%B5%E5%8A%9F%E8%83%BD%E6%A8%A1%E5%9D%97%E5%8C%96%E8%A7%A3%E8%AF%BB"><span class="nav-number">1.6.1.</span> <span class="nav-text">task_struct 核心字段功能模块化解读</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%9C%A8%E5%86%85%E6%A0%B8%E4%B8%AD%E6%89%BE%E5%88%B0%E5%BD%93%E5%89%8D%E7%9A%84-task-struct%EF%BC%9F"><span class="nav-number">1.6.2.</span> <span class="nav-text">如何在内核中找到当前的 task_struct？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">1.6.3.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E4%BA%8Eslab%E5%8E%9F%E7%90%86%E6%BA%90%E7%A0%81%E7%BA%A7%E5%89%96%E6%9E%90"><span class="nav-number">1.7.</span> <span class="nav-text">关于slab原理源码级剖析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E4%BA%8Epwn"><span class="nav-number">1.8.</span> <span class="nav-text">关于pwn</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="nav-number">1.8.1.</span> <span class="nav-text">常用命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86-1"><span class="nav-number">1.8.2.</span> <span class="nav-text">基础知识</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E5%86%85%E6%A0%B8%E4%BF%9D%E6%8A%A4"><span class="nav-number">1.8.3.</span> <span class="nav-text">常见内核保护</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%94%BB%E5%87%BB%E6%B5%81%E7%A8%8B"><span class="nav-number">1.8.4.</span> <span class="nav-text">攻击流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ioctl"><span class="nav-number">1.8.5.</span> <span class="nav-text">ioctl</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Loadable-Kernel-Modules-LKMs"><span class="nav-number">1.8.6.</span> <span class="nav-text">Loadable Kernel Modules(LKMs)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E6%8C%87%E4%BB%A4"><span class="nav-number">1.8.6.1.</span> <span class="nav-text">相关指令</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%AE%E6%A0%87"><span class="nav-number">1.9.</span> <span class="nav-text">目标</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8F%90%E6%9D%83"><span class="nav-number">1.9.1.</span> <span class="nav-text">提权</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%94%B9%E5%8F%98%E8%87%AA%E8%BA%AB"><span class="nav-number">1.9.1.1.</span> <span class="nav-text">改变自身</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%9B%B4%E6%8E%A5%E6%94%B9cred%E7%BB%93%E6%9E%84%E4%BD%93%E7%9A%84%E5%86%85%E5%AE%B9"><span class="nav-number">1.9.1.1.1.</span> <span class="nav-text">直接改cred结构体的内容</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%AE%9A%E4%BD%8Dcred%E5%85%B7%E4%BD%93%E4%BD%8D%E7%BD%AE"><span class="nav-number">1.9.1.1.1.1.</span> <span class="nav-text">定位cred具体位置</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E9%97%B4%E6%8E%A5%E5%AE%9A%E4%BD%8D"><span class="nav-number">1.9.1.1.1.2.</span> <span class="nav-text">间接定位</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9-task-struct-%E7%BB%93%E6%9E%84%E4%BD%93%E4%B8%AD%E7%9A%84-cred-%E6%8C%87%E9%92%88"><span class="nav-number">1.9.1.1.2.</span> <span class="nav-text">修改 task_struct 结构体中的 cred 指针</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%AE%9A%E4%BD%8Dcred%E7%BB%93%E6%9E%84%E4%BD%93%E6%8C%87%E9%92%88%E5%85%B7%E4%BD%93%E4%BD%8D%E7%BD%AE"><span class="nav-number">1.9.1.1.2.1.</span> <span class="nav-text">定位cred结构体指针具体位置</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E9%97%B4%E6%8E%A5%E5%AE%9A%E4%BD%8D-1"><span class="nav-number">1.9.1.1.2.2.</span> <span class="nav-text">间接定位</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%94%B9%E5%8F%98%E5%88%AB%E4%BA%BA"><span class="nav-number">1.9.1.2.</span> <span class="nav-text">改变别人</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%94%B9%E6%95%B0%E6%8D%AE"><span class="nav-number">1.9.1.2.1.</span> <span class="nav-text">改数据</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%94%B9%E4%BB%A3%E7%A0%81"><span class="nav-number">1.9.1.2.2.</span> <span class="nav-text">改代码</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%BB%E7%BB%93-1"><span class="nav-number">1.9.1.3.</span> <span class="nav-text">总结</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%94%B9%E5%8F%98%E8%87%AA%E8%BA%AB-1"><span class="nav-number">1.9.1.3.1.</span> <span class="nav-text">改变自身</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%94%B9%E5%8F%98%E5%88%AB%E4%BA%BA-1"><span class="nav-number">1.9.1.3.2.</span> <span class="nav-text">改变别人</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%84%E9%9C%B2%E6%95%8F%E6%84%9F%E4%BF%A1%E6%81%AF"><span class="nav-number">1.9.2.</span> <span class="nav-text">泄露敏感信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DoS"><span class="nav-number">1.9.3.</span> <span class="nav-text">DoS</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BE%8B%E9%A2%98"><span class="nav-number">2.</span> <span class="nav-text">例题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#test1"><span class="nav-number">2.1.</span> <span class="nav-text">test1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2017ciscn-babydriver"><span class="nav-number">2.2.</span> <span class="nav-text">2017ciscn_babydriver</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%A8%E5%B1%80%E7%8A%B6%E6%80%81"><span class="nav-number">2.2.1.</span> <span class="nav-text">全局状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E9%80%90%E4%B8%AA%E5%88%86%E6%9E%90%EF%BC%88%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%EF%BC%89"><span class="nav-number">2.2.2.</span> <span class="nav-text">函数逐个分析（漏洞分析）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-babyopen-%E5%92%8C-babyrelease-UAF-%E6%82%AC%E5%9E%82%E6%8C%87%E9%92%88%E6%BC%8F%E6%B4%9E"><span class="nav-number">2.2.2.1.</span> <span class="nav-text">1. babyopen 和 babyrelease (UAF &#x2F; 悬垂指针漏洞)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-babywrite-%E5%92%8C-babyioctl-%E5%A0%86%E6%BA%A2%E5%87%BA%E6%BC%8F%E6%B4%9E"><span class="nav-number">2.2.2.2.</span> <span class="nav-text">2. babywrite 和 babyioctl (堆溢出漏洞)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-babyread"><span class="nav-number">2.2.2.3.</span> <span class="nav-text">3. babyread</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93"><span class="nav-number">2.2.3.</span> <span class="nav-text">漏洞总结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E6%80%9D%E8%B7%AF%EF%BC%88%E6%8F%90%E6%9D%83%E7%AD%96%E7%95%A5%EF%BC%89"><span class="nav-number">2.2.4.</span> <span class="nav-text">漏洞利用思路（提权策略）</span></a></li></ol></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -179,7 +180,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2025/07/03/%E5%86%85%E6%A0%B8pwn%E5%85%A5%E9%97%A8/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2025/07/26/linux%20kernel%20pwn/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -207,15 +208,9 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">Posted on</span>
+      
 
-      <time title="Created: 2025-07-03 12:28:32" itemprop="dateCreated datePublished" datetime="2025-07-03T12:28:32+08:00">2025-07-03</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2025-07-22 15:33:55" itemprop="dateModified" datetime="2025-07-22T15:33:55+08:00">2025-07-22</time>
+      <time title="Created: 2025-07-26 11:10:39 / Modified: 11:12:00" itemprop="dateCreated datePublished" datetime="2025-07-26T11:10:39+08:00">2025-07-26</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -241,14 +236,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">Word count in article: </span>
-      <span>15k</span>
+      <span>30k</span>
     </span>
     <span class="post-meta-item" title="Reading time">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">Reading time &asymp;</span>
-      <span>14 mins.</span>
+      <span>27 mins.</span>
     </span>
 </div>
 
@@ -599,6 +594,262 @@
 <li><strong>lsmod</strong>: <strong>列出</strong>已经加载的模块</li>
 <li><strong>modprobe</strong>: <strong>添加或删除</strong>模块，加载模块时会查找依赖关系</li>
 </ul>
+<h2 id="目标"><a href="#目标" class="headerlink" title="目标"></a>目标</h2><h3 id="提权"><a href="#提权" class="headerlink" title="提权"></a>提权</h3><p>即获取到 <code>root</code> 权限</p>
+<h4 id="改变自身"><a href="#改变自身" class="headerlink" title="改变自身"></a>改变自身</h4><p>通过改变自身进程的权限，使其具有 root 权限,内核会通过进程的 <code>task_struct</code> 结构体中的 <code>cred</code> 指针来索引 <code>cred</code> 结构体，<code>cred</code>结构体成员中的 <code>uid-fsgid</code> 都为 <code>0</code>则具有 <code>root </code>权限,这种提权方法分为定位和修改两个步骤，<code>cred</code>结构体在<code>include/linux/cred.h</code></p>
+<h5 id="直接改cred结构体的内容"><a href="#直接改cred结构体的内容" class="headerlink" title="直接改cred结构体的内容"></a>直接改cred结构体的内容</h5><h6 id="定位cred具体位置"><a href="#定位cred具体位置" class="headerlink" title="定位cred具体位置"></a>定位cred具体位置</h6><ul>
+<li><p>直接定位</p>
+<p><code>cred</code> 结构体的最前面记录了各种<code> id</code> 信息，对于一个普通的进程而言，<code>uid-fsgid</code> 都是执行进程的用户的身份,因此可以通过<strong>扫描内存</strong>来定位 <code>cred</code></p>
+<p>**在实际定位的过程中，我们可能会发现很多满足要求的 cred，这主要是因为 cred 结构体可能会被拷贝、释放。**可以利用 <code>usage</code> 不为 <code>0</code> 来筛除掉一些 <code>cred</code>，但仍然会发现一些 <code>usage</code> 为 <code>0</code> 的 <code>cred</code>,这是因为 <code>cred</code> 从 <code>usage</code> 为 <code>0</code>， 到释放有一定的时间,此外，<code>cred</code> 是使用 <code>rcu</code> <strong>延迟释放</strong>的</p>
+</li>
+<li><p>间接定位</p>
+<ul>
+<li><p><code>task_struct</code></p>
+<p>进程的 <code>task_struct</code> 结构体中会存放指向 <code>cred</code> 的指针，因此我们可以</p>
+<ol>
+<li>定位当前进程 <code>task_struct</code> 结构体的地址</li>
+<li>根据<code> cred</code> 指针相对于 <code>task_struct</code> 结构体的偏移计算得出 <code>cred</code> 指针存储的地址</li>
+<li>获取 <code>cred</code> 具体的地址</li>
+</ol>
+</li>
+<li><p><code>comm</code></p>
+<p><code>comm </code>用来标记可执行<strong>文件的名字</strong>，位于进程的 <code>task_struct</code> 结构体中, <code>comm</code> 在 <code>cred</code> 的正下方，所以可以先定位 <code>comm </code>，然后定位 <code>cred</code> 的地址</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">    <span class="type">const</span> <span class="class"><span class="keyword">struct</span> <span class="title">cred</span> __<span class="title">rcu</span>     *<span class="title">ptracer_cred</span>;</span></span><br><span class="line">    <span class="type">const</span> <span class="class"><span class="keyword">struct</span> <span class="title">cred</span> __<span class="title">rcu</span>     *<span class="title">real_cred</span>;</span></span><br><span class="line">    <span class="type">const</span> <span class="class"><span class="keyword">struct</span> <span class="title">cred</span> __<span class="title">rcu</span>     *<span class="title">cred</span>;</span></span><br><span class="line"><span class="meta">#<span class="keyword">ifdef</span> CONFIG_KEYS</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">key</span>          *<span class="title">cached_requested_key</span>;</span></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line">    <span class="type">char</span>                comm[TASK_COMM_LEN];</span><br></pre></td></tr></table></figure>
+
+<p>进程名字并不特殊的情况下可能会有多个同样的字符串，,可以使用 <code>prctl</code> 设置进程的<code>comm</code>为一个特殊的字符串，然后再开始定位 <code>comm</code></p>
+</li>
+</ul>
+</li>
+<li><p>修改</p>
+<p>直接将 <code>cred</code> 中的 <code>uid-fsgid</code> 都修改为 <code>0</code>,当然修改的方式有很多种</p>
+<ul>
+<li>在我们具有任意地址读写后，可以直接修改 <code>cred</code></li>
+<li>在我们可以 <code>ROP</code> 执行代码后，可以利用 <code>ROP gadget</code> 修改 <code>cred</code></li>
+</ul>
+</li>
+</ul>
+<h6 id="间接定位"><a href="#间接定位" class="headerlink" title="间接定位"></a>间接定位</h6><p>不一定非得知道 <code>cred</code> 的具体位置，只需要能够修改 <code>cred</code> 即可</p>
+<p><strong>UAF 使用同样堆块-过时</strong></p>
+<p>如果我们在进程初始化时能控制 <code>cred</code> 结构体的位置，并且我们可以在初始化后修改该部分的内容，那么我们就可以很容易地达到提权的目的,且不需要任何信息泄露，例子:</p>
+<ol>
+<li>申请一块与 <code>cred</code> 结构体大小一样的堆块</li>
+<li>释放该堆块</li>
+<li><code>fork</code> 出新进程，恰好使用刚刚释放的堆块</li>
+<li>修改 <code>cred</code> 结构体特定内存，从而提权</li>
+</ol>
+<p><strong>此种方法在较新版本内核中已不再可行，我们已无法直接分配到 cred_jar 中的 object</strong>，这是因为 <code>cred_jar</code> 在创建时设置了 <code>SLAB_ACCOUNT</code> 标记，在 <code>CONFIG_MEMCG_KMEM=y</code> 时（默认开启）<strong>cred_jar 不会再与相同大小的 kmalloc-192 进行合并</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> __init <span class="title function_">cred_init</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">/* allocate a slab in which we can store credentials */</span></span><br><span class="line">    cred_jar = kmem_cache_create(<span class="string">&quot;cred_jar&quot;</span>, <span class="keyword">sizeof</span>(<span class="keyword">struct</span> cred), <span class="number">0</span>,</span><br><span class="line">            SLAB_HWCACHE_ALIGN|SLAB_PANIC|SLAB_ACCOUNT, <span class="literal">NULL</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="修改-task-struct-结构体中的-cred-指针"><a href="#修改-task-struct-结构体中的-cred-指针" class="headerlink" title="修改 task_struct 结构体中的 cred 指针"></a>修改 task_struct 结构体中的 cred 指针</h5><h6 id="定位cred结构体指针具体位置"><a href="#定位cred结构体指针具体位置" class="headerlink" title="定位cred结构体指针具体位置"></a>定位cred结构体指针具体位置</h6><ul>
+<li><p>间接定位</p>
+<ul>
+<li><p><code>task_struct</code></p>
+<p><code>task_struct</code> 结构体中会存放指向 <code>cred</code> 的指针，可以定位<code>task_struct</code> 结构体的地址,再根据 <code>cred</code> 指针的偏移计算得出 <code>cred</code> 指针地址</p>
+</li>
+<li><p><code>comm</code></p>
+<p>在<code>cred</code>指针正下方，可以使用 <code>prctl</code> 设置进程的 <code>comm</code> 为一个特殊的字符串，然后再定位 <code>comm</code></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">    <span class="type">const</span> <span class="class"><span class="keyword">struct</span> <span class="title">cred</span> __<span class="title">rcu</span>     *<span class="title">ptracer_cred</span>;</span></span><br><span class="line">    <span class="type">const</span> <span class="class"><span class="keyword">struct</span> <span class="title">cred</span> __<span class="title">rcu</span>     *<span class="title">real_cred</span>;</span></span><br><span class="line">    <span class="type">const</span> <span class="class"><span class="keyword">struct</span> <span class="title">cred</span> __<span class="title">rcu</span>     *<span class="title">cred</span>;</span></span><br><span class="line"><span class="meta">#<span class="keyword">ifdef</span> CONFIG_KEYS</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">key</span>          *<span class="title">cached_requested_key</span>;</span></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line">    <span class="type">char</span>                comm[TASK_COMM_LEN];</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>修改</p>
+<ul>
+<li>修改 <code>cred</code> 指针为内核镜像中<strong>已有的</strong><code> init_cred</code> 的地址。这种方法适合于我们<strong>能够直接修改 cred 指针以及知道 init_cred 地址</strong>的情况</li>
+<li>伪造一个 <code>cred</code>，然后修改 <code>cred</code> 指针指向该地址即可。比较麻烦，一般不使用</li>
+</ul>
+</li>
+</ul>
+<h6 id="间接定位-1"><a href="#间接定位-1" class="headerlink" title="间接定位"></a>间接定位</h6><ul>
+<li><p><code>commit_creds(&amp;init_cred)</code></p>
+<p><code>commit_creds()</code> :将一个新的 <code>cred</code> 设为当前进程 <code>task_struct</code> 的 <code>real_cred</code> 与 <code>cred</code> 字段，调用该函数并传入一个具有 <code>root</code> 权限的 <code>cred</code>，则能直接完成对当前进程的提权工作</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">commit_creds</span><span class="params">(<span class="keyword">struct</span> cred *new)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">task_struct</span> *<span class="title">task</span> =</span> current;<span class="comment">//内核宏，用以从 percpu 段获取当前进程的 PCB</span></span><br><span class="line">    <span class="type">const</span> <span class="class"><span class="keyword">struct</span> <span class="title">cred</span> *<span class="title">old</span> =</span> task-&gt;real_cred;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">    rcu_assign_pointer(task-&gt;real_cred, new);</span><br><span class="line">    rcu_assign_pointer(task-&gt;cred, new);</span><br></pre></td></tr></table></figure>
+
+<p>在内核初始化过程当中会以 <code>root</code> 权限启动 <code>init</code> 进程，其 <code>cred</code> 结构体为<strong>静态定义</strong>的 <code>init_cred</code>，可以通过 <code>commit_creds(&amp;init_cred)</code> 来完成提权的工作</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">cred</span> <span class="title">init_cred</span> =</span> &#123;</span><br><span class="line">    .usage          = ATOMIC_INIT(<span class="number">4</span>),</span><br><span class="line"><span class="meta">#<span class="keyword">ifdef</span> CONFIG_DEBUG_CREDENTIALS</span></span><br><span class="line">    .subscribers        = ATOMIC_INIT(<span class="number">2</span>),</span><br><span class="line">    .magic          = CRED_MAGIC,</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line">    .uid            = GLOBAL_ROOT_UID,</span><br><span class="line">    .gid            = GLOBAL_ROOT_GID,</span><br><span class="line">    .suid           = GLOBAL_ROOT_UID,</span><br><span class="line">    .sgid           = GLOBAL_ROOT_GID,</span><br><span class="line">    .euid           = GLOBAL_ROOT_UID,</span><br><span class="line">    .egid           = GLOBAL_ROOT_GID,</span><br><span class="line">    .fsuid          = GLOBAL_ROOT_UID,</span><br><span class="line">    .fsgid          = GLOBAL_ROOT_GID,</span><br><span class="line">    .securebits     = SECUREBITS_DEFAULT,</span><br><span class="line">    .cap_inheritable    = CAP_EMPTY_SET,</span><br><span class="line">    .cap_permitted      = CAP_FULL_SET,</span><br><span class="line">    .cap_effective      = CAP_FULL_SET,</span><br><span class="line">    .cap_bset       = CAP_FULL_SET,</span><br><span class="line">    .user           = INIT_USER,</span><br><span class="line">    .user_ns        = &amp;init_user_ns,</span><br><span class="line">    .group_info     = &amp;init_groups,</span><br><span class="line">    .ucounts        = &amp;init_ucounts,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>commit_creds(prepare_kernel_cred(0))</code>-<code>6.2</code>之后失效</p>
+<p><code>prepare_kernel_cred()</code> 函数用以拷贝指定进程的 <code>cred</code> 结构体，参数为 <code>NULL </code>时，该函数会拷贝 <code>init_cred</code> 并返回一个有着 <code>root</code> 权限的 <code>cred</code>：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> cred *<span class="title function_">prepare_kernel_cred</span><span class="params">(<span class="keyword">struct</span> task_struct *daemon)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">const</span> <span class="class"><span class="keyword">struct</span> <span class="title">cred</span> *<span class="title">old</span>;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">cred</span> *<span class="title">new</span>;</span></span><br><span class="line"></span><br><span class="line">    new = kmem_cache_alloc(cred_jar, GFP_KERNEL);</span><br><span class="line">    <span class="keyword">if</span> (!new)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line">    kdebug(<span class="string">&quot;prepare_kernel_cred() alloc %p&quot;</span>, new);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (daemon)</span><br><span class="line">        old = get_task_cred(daemon);</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        old = get_cred(&amp;init_cred);</span><br></pre></td></tr></table></figure>
+
+<p>调用 <code>commit_creds(prepare_kernel_cred(NULL))</code>能直接完成提权的工作</p>
+<p>不过自从内核版本 <code>6.2</code> 起，<code>prepare_kernel_cred(NULL)</code> 将<strong>不再拷贝 init_cred，而是将其视为一个运行时错误并返回 NULL</strong>，因此内核<code>6.2</code>之后失效</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> cred *<span class="title function_">prepare_kernel_cred</span><span class="params">(<span class="keyword">struct</span> task_struct *daemon)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">const</span> <span class="class"><span class="keyword">struct</span> <span class="title">cred</span> *<span class="title">old</span>;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">cred</span> *<span class="title">new</span>;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (WARN_ON_ONCE(!daemon))</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line">    new = kmem_cache_alloc(cred_jar, GFP_KERNEL);</span><br><span class="line">    <span class="keyword">if</span> (!new)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="改变别人"><a href="#改变别人" class="headerlink" title="改变别人"></a>改变别人</h4><p>通过影响高权限进程的执行，使其完成我们想要的功能</p>
+<h5 id="改数据"><a href="#改数据" class="headerlink" title="改数据"></a>改数据</h5><p><strong>符号链接</strong></p>
+<p>如果一个 <code>root </code>权限的进程会执行一个<strong>符号链接</strong>的程序，并且该<strong>符号链接或者符号链接指向的程序</strong>可以由攻击者控制，攻击者就可以实现提权</p>
+<ul>
+<li><p><code>call_usermodehelper</code></p>
+<p>一种内核线程执行用户态应用的方式，并且启动的进程具有<code>root</code>权限，通过改变某个变量指定的具体要执行的应用提权</p>
+<ul>
+<li><p>修改<code>modprobe_path</code></p>
+<ul>
+<li><p>获取<code>modprobe_path</code></p>
+<p>地址</p>
+<ul>
+<li>直接定位：取值确定，<code>modprobe_path</code>扫描内存寻找字符串</li>
+<li>间接定位：相对内核基址偏移固定，先获取内核基址再通过偏移得到地址</li>
+</ul>
+</li>
+<li><p>修改<code>modprobe_path</code>为指定的程序</p>
+</li>
+<li><p>触发<code>call_modprobe</code></p>
+<ul>
+<li>执行满足相应要求的非法可执行文件</li>
+<li>使用未知协议触发</li>
+</ul>
+</li>
+</ul>
+<p>模板如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// step 1. modify modprobe_path to the target value</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// step 2. create related file</span></span><br><span class="line">system(<span class="string">&quot;echo -ne &#x27;#!/bin/sh\n/bin/cp /flag /home/pwn/flag\n/bin/chmod 777 /home/pwn/flag\ncat flag&#x27; &gt; /home/pwn/catflag.sh&quot;</span>);</span><br><span class="line">system(<span class="string">&quot;chmod +x /home/pwn/catflag.sh&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// step 3. trigger it using unknown executable</span></span><br><span class="line">system(<span class="string">&quot;echo -ne &#x27;\\xff\\xff\\xff\\xff&#x27; &gt; /home/pwn/dummy&quot;</span>);</span><br><span class="line">system(<span class="string">&quot;chmod +x /home/pwn/dummy&quot;</span>);</span><br><span class="line">system(<span class="string">&quot;/home/pwn/dummy&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// step 3. trigger it using unknown protocol</span></span><br><span class="line">socket(AF_INET,SOCK_STREAM,<span class="number">132</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改 <code>poweroff_cmd</code></p>
+</li>
+</ul>
+</li>
+<li><p><code>poweroff_cmd</code></p>
+<ul>
+<li>获取<code>poweroff_cmd</code>地址，方法同上</li>
+<li>修改 <code>poweroff_cmd</code> 为指定的程序</li>
+<li>劫持控制流执行 <code>__orderly_poweroff</code></li>
+</ul>
+</li>
+</ul>
+<h5 id="改代码"><a href="#改代码" class="headerlink" title="改代码"></a>改代码</h5><p>修改<code>root</code>权限执行的代码，内核中 <code>vDSO</code> 的代码会被映射到所有的用户态进程中,高特权的进程周期性地调用 <code>vDSO</code> 中的函数时可以考虑把 <code>vDSO</code> 中相应的函数修改为特定的 <code>shellcode</code>,早期<code>vDSO</code> 是可写的，后来引入 <code>post-init read-only</code> 的数据，即将初始化后不再被写的数据标记为只读，来防御这样的利用</p>
+<ul>
+<li><p>定位 <code>vDSO</code></p>
+<ul>
+<li><p><code>IDA</code>在<code>vmlinux</code>里定位<code>vDSO</code></p>
+<p>点击<code>init_vdso函数 -&gt; vdso_image_64 / vdso_image_x32 -&gt; raw_data</code></p>
+<p>或直接使用<code>raw_data</code>来寻找<code>vDSO</code></p>
+</li>
+<li><p>内存中定位</p>
+<p>直接定位：<code>vDSO</code>是一个<code>ELF</code>文件，有<code>ELF</code>文件头，<code>vDSO</code>特定位置存储导出函数的字符串，根据这两个特征扫描内存</p>
+<p><code>vDSO</code>相对内核基址偏移固定，先获取内核基址再根据偏移得到地址</p>
+</li>
+</ul>
+</li>
+<li><p>修改 <code>vDSO</code> 的特定函数为指定的 <code>shellcode</code></p>
+</li>
+<li><p>等待触发执行 <code>shellcode</code></p>
+</li>
+</ul>
+<h4 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h4><h5 id="改变自身-1"><a href="#改变自身-1" class="headerlink" title="改变自身"></a>改变自身</h5><ul>
+<li>改<code>cred</code>结构体：扫描内存定位&#x2F;<code>task_struct</code>结构体存放<code>cred</code>结构体指针&#x2F;<code>comm</code>偏移定位<code>cred</code>结构体位置，通过任意地址写&#x2F;<code>rop</code>来改<code>cred</code>中的<code>uid-fsgid</code>为<code>0</code></li>
+<li>改<code>cred</code>结构体指针：<code>task_struct</code>结构体存放<code>cred</code>结构体指针&#x2F;<code>comm</code>偏移定位<code>cred</code>结构体指针位置，能够直接修改 <code>cred</code> 指针以及知道有<code>root</code>权限的 <code>init_cred</code> 地址时，修改 <code>cred</code> 指针为内核镜像中已有的<code> init_cred</code> 的地址</li>
+<li><code>UAF</code> 使用同样堆块控制<code>cred</code>结构体-过时</li>
+<li><code>commit_creds(&amp;init_cred)</code>，传入有<code>root</code>权限的<code>init_cred</code>的地址</li>
+<li><code>commit_creds(prepare_kernel_cred(0))</code>-<code>6.2</code>之后失效</li>
+</ul>
+<h5 id="改变别人-1"><a href="#改变别人-1" class="headerlink" title="改变别人"></a>改变别人</h5><ul>
+<li>修改<code>modprobe_path</code>为指定程序之后触发 <code>call_modprobe</code></li>
+<li>修改 <code>poweroff_cmd</code> 为指定的程序之后触发<code>__orderly_poweroff</code></li>
+<li>写<code>vDSO</code>为<code>shellcode</code></li>
+</ul>
+<h3 id="泄露敏感信息"><a href="#泄露敏感信息" class="headerlink" title="泄露敏感信息"></a>泄露敏感信息</h3><p>需要我们具有读取内核数据的能力，具体想要泄漏什么数据与利用场景紧密相关</p>
+<h3 id="DoS"><a href="#DoS" class="headerlink" title="DoS"></a>DoS</h3><p>即使得内核崩溃</p>
+<ul>
+<li>触发内核中的某个<strong>漏洞</strong>让内核崩溃</li>
+<li>触发内核中的<strong>死锁</strong></li>
+<li>触发<strong>大量的内核内存泄漏</strong>，即存在大量的内存被申请但是没有被释放</li>
+</ul>
+<h1 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h1><h2 id="test1"><a href="#test1" class="headerlink" title="test1"></a>test1</h2><p>kernel pwn的uaf，无锁且有全局变量</p>
+<p>关于<code>kmalloc_caches[5]</code>这个可以通过命令<code>cat /proc/slabinfo | grep kmalloc</code></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">/ <span class="comment"># cat /proc/slabinfo | grep kmalloc</span></span><br><span class="line">dma-kmalloc-8192       0      0   8192    4    8 : tunables    0    0    0 : slabdata      0      0      0</span><br><span class="line">dma-kmalloc-4096       0      0   4096    8    8 : tunables    0    0    0 : slabdata      0      0      0</span><br><span class="line">dma-kmalloc-2048       0      0   2048    8    4 : tunables    0    0    0 : slabdata      0      0      0</span><br><span class="line">dma-kmalloc-1024       0      0   1024    8    2 : tunables    0    0    0 : slabdata      0      0      0</span><br><span class="line">dma-kmalloc-512        8      8    512    8    1 : tunables    0    0    0 : slabdata      1      1      0</span><br><span class="line">dma-kmalloc-256        0      0    256   16    1 : tunables    0    0    0 : slabdata      0      0      0</span><br><span class="line">dma-kmalloc-128        0      0    128   32    1 : tunables    0    0    0 : slabdata      0      0      0</span><br><span class="line">dma-kmalloc-64         0      0     64   64    1 : tunables    0    0    0 : slabdata      0      0      0</span><br><span class="line">dma-kmalloc-32         0      0     32  128    1 : tunables    0    0    0 : slabdata      0      0      0</span><br><span class="line">dma-kmalloc-16         0      0     16  256    1 : tunables    0    0    0 : slabdata      0      0      0</span><br><span class="line">dma-kmalloc-8          0      0      8  512    1 : tunables    0    0    0 : slabdata      0      0      0</span><br><span class="line">dma-kmalloc-192        0      0    192   21    1 : tunables    0    0    0 : slabdata      0      0      0</span><br><span class="line">dma-kmalloc-96         0      0     96   42    1 : tunables    0    0    0 : slabdata      0      0      0</span><br><span class="line">kmalloc-8192           8      8   8192    4    8 : tunables    0    0    0 : slabdata      2      2      0</span><br><span class="line">kmalloc-4096          56     56   4096    8    8 : tunables    0    0    0 : slabdata      7      7      0</span><br><span class="line">kmalloc-2048         136    136   2048    8    4 : tunables    0    0    0 : slabdata     17     17      0</span><br><span class="line">kmalloc-1024         312    312   1024    8    2 : tunables    0    0    0 : slabdata     39     39      0</span><br><span class="line">kmalloc-512          264    264    512    8    1 : tunables    0    0    0 : slabdata     33     33      0</span><br><span class="line">kmalloc-256          272    272    256   16    1 : tunables    0    0    0 : slabdata     17     17      0</span><br><span class="line">kmalloc-192         1050   1050    192   21    1 : tunables    0    0    0 : slabdata     50     50      0</span><br><span class="line">kmalloc-128          448    448    128   32    1 : tunables    0    0    0 : slabdata     14     14      0</span><br><span class="line">kmalloc-96           462    462     96   42    1 : tunables    0    0    0 : slabdata     11     11      0</span><br><span class="line">kmalloc-64          1280   1280     64   64    1 : tunables    0    0    0 : slabdata     20     20      0</span><br><span class="line">kmalloc-32           896    896     32  128    1 : tunables    0    0    0 : slabdata      7      7      0</span><br><span class="line">kmalloc-16           768    768     16  256    1 : tunables    0    0    0 : slabdata      3      3      0</span><br><span class="line">kmalloc-8           2048   2048      8  512    1 : tunables    0    0    0 : slabdata      4      4      0</span><br></pre></td></tr></table></figure>
+
+<p>这个下标（在上面这段code中从kmalloc-8开始是0）5就是kmalloc-128</p>
+<p><img data-src="/../images/image-20250725162352013.png" alt="image-20250725162352013"></p>
+<h2 id="2017ciscn-babydriver"><a href="#2017ciscn-babydriver" class="headerlink" title="2017ciscn_babydriver"></a>2017ciscn_babydriver</h2><p>先解压 rootfs.cpio 看一下有什么文件</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">le0n:kernel_pwn/ $ <span class="built_in">mkdir</span> core   </span><br><span class="line">le0n:kernel_pwn/ $ <span class="built_in">ls</span></span><br><span class="line">babydriver.tar  boot.sh  bzImage  core  demo  rootfs.cpio</span><br><span class="line">le0n:kernel_pwn/ $ <span class="built_in">cd</span> core </span><br><span class="line">le0n:core/ $ <span class="built_in">mv</span> ../rootfs.cpio rootfs.cpio.gz </span><br><span class="line">le0n:core/ $ <span class="built_in">ls</span> </span><br><span class="line">rootfs.cpio.gz</span><br><span class="line">le0n:core/ $ gunzip rootfs.cpio.gz</span><br><span class="line">le0n:core/ $ <span class="built_in">ls</span></span><br><span class="line">rootfs.cpio</span><br><span class="line">le0n:core/ $ cpio -idmv &lt; rootfs.cpio</span><br><span class="line">.</span><br><span class="line">5556 blocks</span><br><span class="line">le0n:core/ $ <span class="built_in">ls</span>                                                                                                            [17:09:40]</span><br><span class="line">bin  etc  home  init  lib  linuxrc  proc  rootfs.cpio  sbin  sys  tmp  usr</span><br><span class="line">le0n:core/ $ bat                                                                                                           [17:09:44]</span><br><span class="line">zsh: <span class="built_in">command</span> not found: bat</span><br><span class="line">le0n:core/ $ <span class="built_in">cat</span> init                                                                                                      [17:10:03]</span><br><span class="line"><span class="comment">#!/bin/sh</span></span><br><span class="line"></span><br><span class="line">mount -t proc none /proc</span><br><span class="line">mount -t sysfs none /sys</span><br><span class="line">mount -t devtmpfs devtmpfs /dev</span><br><span class="line"><span class="built_in">chown</span> root:root flag</span><br><span class="line"><span class="built_in">chmod</span> 400 flag</span><br><span class="line"><span class="built_in">exec</span> 0&lt;/dev/console</span><br><span class="line"><span class="built_in">exec</span> 1&gt;/dev/console</span><br><span class="line"><span class="built_in">exec</span> 2&gt;/dev/console</span><br><span class="line"></span><br><span class="line">insmod /lib/modules/4.4.72/babydriver.ko</span><br><span class="line"><span class="built_in">chmod</span> 777 /dev/babydev</span><br><span class="line"><span class="built_in">echo</span> -e <span class="string">&quot;\nBoot took <span class="subst">$(cut -d&#x27; &#x27; -f1 /proc/uptime)</span> seconds\n&quot;</span></span><br><span class="line">setsid cttyhack setuidgid 1000 sh</span><br><span class="line"></span><br><span class="line">umount /proc</span><br><span class="line">umount /sys</span><br><span class="line">poweroff -d 0  -f</span><br></pre></td></tr></table></figure>
+
+<p>根据 init 的内容，上面的30行加载了 <code>babydriver.ko</code> 这个驱动，根据 pwn 的一般套路，这个就是有漏洞的 LKM 了。init 的其他命令都是 linux 常用的命令，就不再解释了。</p>
+<p>把这个驱动文件拿出来。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">le0n:core/ $ <span class="built_in">cp</span> ./lib/modules/4.4.72/babydriver.ko ..   </span><br><span class="line">le0n:core/ $ <span class="built_in">ls</span>              </span><br><span class="line">bin  etc  home  init  lib  linuxrc  proc  rootfs.cpio  sbin  sys  tmp  usr</span><br><span class="line">le0n:core/ $ <span class="built_in">cd</span> ../           </span><br><span class="line">le0n:kernel_pwn/ $ <span class="built_in">ls</span>               </span><br><span class="line">babydriver.ko  babydriver.tar  boot.sh  bzImage  core  demo</span><br><span class="line">le0n:kernel_pwn/ $ checksec babydriver.ko</span><br><span class="line">[*] Checking <span class="keyword">for</span> new versions of pwntools</span><br><span class="line">    To <span class="built_in">disable</span> this functionality, <span class="built_in">set</span> the contents of /home/le0n/.cache/.pwntools-cache-3.10/update to <span class="string">&#x27;never&#x27;</span> (old way).</span><br><span class="line">    Or add the following lines to ~/.pwn.conf or ~/.config/pwn.conf (or /etc/pwn.conf system-wide):</span><br><span class="line">        [update]</span><br><span class="line">        interval=never</span><br><span class="line">[*] You have the latest version of Pwntools (5.0.0.dev0)</span><br><span class="line">[*] <span class="string">&#x27;/home/le0n/kernel_pwn/babydriver.ko&#x27;</span></span><br><span class="line">    Arch:       amd64-64-little</span><br><span class="line">    RELRO:      No RELRO</span><br><span class="line">    Stack:      No canary found</span><br><span class="line">    NX:         NX enabled</span><br><span class="line">    PIE:        No PIE (0x0)</span><br><span class="line">    Stripped:   No</span><br><span class="line">    Debuginfo:  Yes</span><br></pre></td></tr></table></figure>
+
+<p>没有开 PIE，无 canary 保护，没有去除符号表，很 nice。</p>
+<p>用 IDA 打开分析，既然没有去除符号表，shift + F9 先看一下有什么结构体，可以发现如下的结构体：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">00000000 babydevice_t    struc ; (sizeof=0x10, align=0x8, copyof_429)</span><br><span class="line">00000000                                         ; XREF: .bss:babydev_struct/r</span><br><span class="line">00000000 device_buf      dq ?                    ; XREF: babyrelease+6/r</span><br><span class="line">00000000                                         ; babyopen+26/w ... ; offset</span><br><span class="line">00000008 device_buf_len  dq ?                    ; XREF: babyopen+2D/w</span><br><span class="line">00000008                                         ; babyioctl+3C/w ...</span><br><span class="line">00000010 babydevice_t    ends</span><br><span class="line">00000010</span><br></pre></td></tr></table></figure>
+
+<p>再看一下主要函数（第一次做结合ai分析的）</p>
+<p>babydriver_init 函数是这个内核模块（Kernel Module）的入口点。当你在终端中使用 insmod babydriver.ko 命令加载这个模块时，内核就会调用这个函数。</p>
+<p>它的核心目的可以总结为一句话：<strong>创建一个名为 babydev 的字符设备（Character Device），并将其注册到系统中，以便用户空间的程序可以像读写文件一样与它进行交互。</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> __cdecl <span class="title function_">babydriver_init</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="type">int</span> v0; <span class="comment">// edx</span></span><br><span class="line">  <span class="type">int</span> v1; <span class="comment">// ebx</span></span><br><span class="line">  <span class="class"><span class="keyword">class</span> *<span class="title">v2</span>;</span> <span class="comment">// rax</span></span><br><span class="line">  __int64 v3; <span class="comment">// rax</span></span><br><span class="line">	<span class="comment">// 1. 分配设备号</span></span><br><span class="line">  <span class="keyword">if</span> ( alloc_chrdev_region(&amp;babydev_no, <span class="number">0LL</span>, <span class="number">1LL</span>, <span class="string">&quot;babydev&quot;</span>) &gt;= <span class="number">0</span> )</span><br><span class="line">      <span class="comment">/*alloc_chrdev_region: 这是第一步，向内核申请一个或多个设备号。</span></span><br><span class="line"><span class="comment">        &amp;babydev_no: 用来存放申请到的设备号（主设备号和次设备号）。</span></span><br><span class="line"><span class="comment">        0LL: 表示次设备号从 0 开始。</span></span><br><span class="line"><span class="comment">        1LL: 表示我们只申请 1 个设备。</span></span><br><span class="line"><span class="comment">        &quot;babydev&quot;: 设备的名字。</span></span><br><span class="line"><span class="comment">        作用: 在内核中注册一个唯一的“身份证号”，这样内核就知道有 babydev 这个东西了。如果成功，返回 0。</span></span><br><span class="line"><span class="comment">        */</span></span><br><span class="line">  &#123;<span class="comment">// 2. 初始化字符设备结构体</span></span><br><span class="line">    cdev_init(&amp;cdev_0, &amp;fops); </span><br><span class="line">    cdev_0.owner = &amp;_this_module;</span><br><span class="line">      <span class="comment">// 3. 向内核注册字符设备</span></span><br><span class="line">    v1 = cdev_add(&amp;cdev_0, babydev_no, <span class="number">1LL</span>);</span><br><span class="line">      <span class="comment">//将初始化好的 cdev_0 正式添加到内核中，让它生效。</span></span><br><span class="line">      <span class="comment">//现在，内核知道当用户操作 babydev 这个设备号时，应该去调用 fops 里定义的那些函数。</span></span><br><span class="line">    <span class="keyword">if</span> ( v1 &gt;= <span class="number">0</span> )</span><br><span class="line">    &#123;<span class="comment">// 4. 创建设备类和设备节点 (为了自动在 /dev/ 下创建文件)</span></span><br><span class="line">      v2 = _class_create(&amp;_this_module, <span class="string">&quot;babydev&quot;</span>, &amp;babydev_no);</span><br><span class="line">      babydev_class = v2;</span><br><span class="line">      <span class="keyword">if</span> ( v2 )</span><br><span class="line">      &#123;</span><br><span class="line">        v3 = device_create(v2, <span class="number">0LL</span>, babydev_no, <span class="number">0LL</span>, <span class="string">&quot;babydev&quot;</span>);</span><br><span class="line">        v0 = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span> ( v3 )</span><br><span class="line">          <span class="keyword">return</span> v0;</span><br><span class="line">        printk(&amp;unk_351);      <span class="comment">// device_create 失败</span></span><br><span class="line">        class_destroy(babydev_class);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">else</span></span><br><span class="line">      &#123;</span><br><span class="line">        printk(&amp;unk_33B);      <span class="comment">// class_create 失败</span></span><br><span class="line">      &#125;</span><br><span class="line">      cdev_del(&amp;cdev_0);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">      printk(&amp;unk_327);        <span class="comment">// cdev_add 失败</span></span><br><span class="line">    &#125;</span><br><span class="line">    unregister_chrdev_region(babydev_no, <span class="number">1LL</span>);</span><br><span class="line">    <span class="keyword">return</span> v1;                 <span class="comment">// 返回错误码</span></span><br><span class="line">  &#125;</span><br><span class="line">  printk(&amp;unk_309);            <span class="comment">// alloc_chrdev_region 失败</span></span><br><span class="line">  <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="全局状态"><a href="#全局状态" class="headerlink" title="全局状态"></a>全局状态</h3><p>首先，请注意全局变量 <code>babydev_struct</code>。所有的函数都围绕着这个<strong>唯一的、共享的</strong>结构体进行操作。这意味着它的状态（分配的缓冲区指针和长度）在不同的系统调用（<code>open</code>, <code>read</code>, <code>write</code>, <code>ioctl</code>, <code>close</code>）之间是<strong>持续存在的</strong>，并且是<strong>全局共享的</strong>。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">00000000 ; ---------------------------------------------------------------------------</span><br><span class="line">00000000</span><br><span class="line">00000000 babydevice_t    struc ; (sizeof=0x10, align=0x8, copyof_372)</span><br><span class="line">00000000                                         ; XREF: .bss:babydev_struct/r</span><br><span class="line">00000000 device_buf      dq ?                    ; XREF: babyrelease+6/r</span><br><span class="line">00000000                                         ; babyopen+26/w ... ; offset</span><br><span class="line">00000008 device_buf_len  dq ?                    ; XREF: babyopen+2D/w</span><br><span class="line">00000008                                         ; babyioctl+3C/w ...</span><br><span class="line">00000010 babydevice_t    ends</span><br><span class="line">00000010</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="函数逐个分析（漏洞分析）"><a href="#函数逐个分析（漏洞分析）" class="headerlink" title="函数逐个分析（漏洞分析）"></a>函数逐个分析（漏洞分析）</h3><h4 id="1-babyopen-和-babyrelease-UAF-悬垂指针漏洞"><a href="#1-babyopen-和-babyrelease-UAF-悬垂指针漏洞" class="headerlink" title="1. babyopen 和 babyrelease (UAF &#x2F; 悬垂指针漏洞)"></a>1. <code>babyopen</code> 和 <code>babyrelease</code> (UAF &#x2F; 悬垂指针漏洞)</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// babyopen: 分配内存</span></span><br><span class="line"><span class="type">int</span> __fastcall <span class="title function_">babyopen</span><span class="params">(inode *inode, file *filp)</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  babydev_struct.device_buf = kmem_cache_alloc_trace(..., <span class="number">0x40L</span>L); <span class="comment">// 分配 64 字节</span></span><br><span class="line">  babydev_struct.device_buf_len = <span class="number">64LL</span>;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// babyrelease: 释放内存</span></span><br><span class="line"><span class="type">int</span> __fastcall <span class="title function_">babyrelease</span><span class="params">(inode *inode, file *filp)</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  kfree(babydev_struct.device_buf); <span class="comment">// 释放缓冲区</span></span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p><strong>它们的作用：</strong></p>
+<ul>
+<li><code>babyopen</code> 在你执行 <code>open(&quot;/dev/babydev&quot;, ...)</code> 时被调用。它会分配一块 64 字节大小的内核内存，并将指针存放在 <code>babydev_struct.device_buf</code> 中。</li>
+<li><code>babyrelease</code> 在你执行 <code>close()</code> 时被调用，它会释放这块内存。</li>
+</ul>
+</li>
+<li><p><strong>漏洞：释放后重用 (Use-After-Free, UAF)</strong></p>
+<ul>
+<li>请仔细看 <code>babyrelease</code> 函数。在它调用 <code>kfree(babydev_struct.device_buf)</code> 之后，<strong>它没有将指针 <code>babydev_struct.device_buf</code> 设置为 NULL</strong>。</li>
+<li><code>babydev_struct.device_buf</code> 现在包含了一个已经被释放的内存地址。这种指针被称为 <strong>“悬垂指针” (Dangling Pointer)</strong>。</li>
+<li>如果在下一次调用 <code>open()</code> 重新分配内存之前，任何其他函数（如 <code>read</code> 或 <code>write</code>）尝试使用这个悬垂指针，它将访问一块已经被内核回收的内存，从而导致 <strong>UAF 漏洞</strong>。这是一个非常严重的漏洞。</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-babywrite-和-babyioctl-堆溢出漏洞"><a href="#2-babywrite-和-babyioctl-堆溢出漏洞" class="headerlink" title="2. babywrite 和 babyioctl (堆溢出漏洞)"></a>2. <code>babywrite</code> 和 <code>babyioctl</code> (堆溢出漏洞)</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// babyioctl: 重新分配缓冲区</span></span><br><span class="line">__int64 __fastcall <span class="title function_">babyioctl</span><span class="params">(file *filp, <span class="type">unsigned</span> <span class="type">int</span> command, <span class="type">unsigned</span> __int64 arg)</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="type">size_t</span> v4; <span class="comment">// rbx // v4 是用户传入的 arg</span></span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  <span class="keyword">if</span> ( command == <span class="number">0x10001</span> )</span><br><span class="line">  &#123;</span><br><span class="line">    kfree(babydev_struct.device_buf);            <span class="comment">// 释放旧缓冲区</span></span><br><span class="line">    babydev_struct.device_buf = _kmalloc(v4, ...); <span class="comment">// 分配一个用户控制大小(v4)的新缓冲区</span></span><br><span class="line">    babydev_struct.device_buf_len = v4;          <span class="comment">// 将长度更新为新大小</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0LL</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// babywrite: 向缓冲区写入数据</span></span><br><span class="line"><span class="type">ssize_t</span> __fastcall <span class="title function_">babywrite</span><span class="params">(file *filp, <span class="type">const</span> <span class="type">char</span> *buffer, <span class="type">size_t</span> length, <span class="type">loff_t</span> *offset)</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="type">size_t</span> v4; <span class="comment">// rdx  // v4 是用户传入的 length</span></span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  <span class="keyword">if</span> ( babydev_struct.device_buf_len &gt; v4 ) <span class="comment">// 检查: if (已分配大小 &gt; 用户要写入的长度)</span></span><br><span class="line">  &#123;</span><br><span class="line">    v6 = v4;</span><br><span class="line">    copy_from_user(); <span class="comment">// 假设这里是 copy_from_user(device_buf, buffer, v4)</span></span><br><span class="line">    <span class="keyword">return</span> v6;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">-2LL</span>; <span class="comment">// 出错</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p><strong>它们的作用：</strong></p>
+<ul>
+<li><code>babyioctl</code> 是一个控制函数。如果你调用 <code>ioctl(fd, 0x10001, new_size)</code>，它会释放旧的缓冲区，并分配一个由你指定大小 (<code>new_size</code>) 的新缓冲区。</li>
+<li><code>babywrite</code> 应该从你的用户态程序拷贝数据到内核缓冲区。</li>
+</ul>
+</li>
+<li><p><strong>漏洞：堆溢出 (Heap Overflow)</strong></p>
+<ul>
+<li>请看 <code>babywrite</code> 中的检查：<code>if ( babydev_struct.device_buf_len &gt; v4 )</code>。</li>
+<li>假设你用 <code>ioctl</code> 分配了一个 <code>0x40</code> 字节的缓冲区，那么 <code>device_buf_len</code> 就是 <code>0x40</code>。</li>
+<li>现在你调用 <code>write(fd, my_data, 0x40)</code>，这里的 <code>length</code> (<code>v4</code>) 也是 <code>0x40</code>。</li>
+<li>这个检查就变成了 <code>if (0x40 &gt; 0x40)</code>，结果是 <strong>假 (false)</strong>。<code>copy_from_user</code> 在 <code>if</code> 语句内部，所以它根本不会被执行！</li>
+<li>这个逻辑是完全错误的。想要成功写入，<code>length</code> 必须严格小于 <code>device_buf_len</code>。</li>
+<li><strong>关键点在于：</strong> 这个有缺陷的检查是<strong>唯一</strong>能阻止你写入越界的东西。因为这个检查存在逻辑缺陷，我们可以绕过它，从而导致经典的<strong>堆溢出</strong>。你可以分配一块小内存，然后用 <code>write</code> 写入比它大的数据，从而破坏内核堆上相邻的数据结构。</li>
+<li><strong>利用路径：</strong><ol>
+<li>用 <code>ioctl</code> 设置一个较大的 <code>device_buf_len</code>（比如 0x200）。</li>
+<li>但实际的 <code>kmalloc</code> 可以分配一个较小的 chunk（比如 0x40）。</li>
+<li>然后调用 <code>write</code> 写入超过 0x40 的数据，因为检查 <code>if (0x200 &gt; 0x50)</code> 会通过，但 <code>copy_from_user</code> 会拷贝 0x50 字节，导致溢出。</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="3-babyread"><a href="#3-babyread" class="headerlink" title="3. babyread"></a>3. <code>babyread</code></h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">ssize_t</span> __fastcall <span class="title function_">babyread</span><span class="params">(file *filp, <span class="type">char</span> *buffer, <span class="type">size_t</span> length, <span class="type">loff_t</span> *offset)</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  <span class="keyword">if</span> ( babydev_struct.device_buf_len &gt; v4 )</span><br><span class="line">  &#123;</span><br><span class="line">    v6 = v4;</span><br><span class="line">    copy_to_user(buffer);</span><br><span class="line">    <span class="keyword">return</span> v6;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>babyread</code> 也存在和 <code>babywrite</code> 同样有缺陷的逻辑。虽然它本身不会导致写入破坏，但有两个重要作用：</p>
+<ol>
+<li><strong>信息泄露</strong>：在 UAF 场景下，如果被释放的内存被一个包含敏感数据（如内核地址）的结构体重新占据，你可以用 <code>read</code> 将这些敏感数据读出来。</li>
+<li><strong>验证漏洞</strong>：可以用来确认你是否成功地用 UAF 劫持了某个对象。</li>
+</ol>
+<hr>
+<h3 id="漏洞总结"><a href="#漏洞总结" class="headerlink" title="漏洞总结"></a>漏洞总结</h3><ol>
+<li><strong>释放后重用 (Use-After-Free, UAF):</strong> <code>close()</code> 释放内存后，没有将全局指针置为 NULL，产生了悬垂指针。</li>
+<li><strong>堆溢出 (Heap Overflow):</strong> <code>write</code> 函数中的边界检查存在逻辑缺陷，可以配合 <code>ioctl</code> 更改大小，实现向内核堆中写入任意长的数据，造成溢出。</li>
+</ol>
+<h3 id="漏洞利用思路（提权策略）"><a href="#漏洞利用思路（提权策略）" class="headerlink" title="漏洞利用思路（提权策略）"></a>漏洞利用思路（提权策略）</h3><ol>
+<li><p><strong>堆风水 &#x2F; 堆喷射 (Heap Grooming &#x2F; Spraying):</strong> 漏洞利用的目标通常是覆盖一个包含函数指针的敏感内核对象（例如 <code>cred</code> 或 <code>tty_struct</code>）。为了让利用更稳定，你需要进行“堆喷射”——大量地分配同一种内核对象。这会大大增加你的目标对象正好分配在你可控的内存区域（比如被你溢出的 buffer 旁边，或者被你的 UAF 指针指向）的概率。</p>
+</li>
+<li><p><strong>触发漏洞，覆盖目标对象：</strong></p>
+<ul>
+<li><strong>使用堆溢出：</strong> 通过 <code>ioctl</code> 分配一个小缓冲区，然后用 <code>write</code> 写入超长数据，覆盖堆上紧邻的敏感对象的函数指针。</li>
+<li><strong>使用 UAF：</strong><br>a. <code>open()</code> 设备，然后 <code>close()</code> 它来释放缓冲区，制造一个悬垂指针。<br>b. 立刻进行堆喷射，分配大量目标对象（如 <code>tty_struct</code>），期望其中一个能恰好被分配到刚刚释放的那块内存上。<br>c. 调用 <code>write()</code>，通过悬垂指针向这块内存写入数据，从而修改 <code>tty_struct</code> 结构体中的函数指针。</li>
+</ul>
+</li>
+<li><p><strong>劫持控制流：</strong> 现在，被覆盖的函数指针已经指向了你预先布置在用户态内存里的 shellcode（提权代码）。</p>
+</li>
+<li><p><strong>触发恶意指针：</strong> 执行一个正常的操作来触发内核调用这个被篡改的函数指针（例如，对 tty 设备再次调用 <code>ioctl</code>）。内核以为它在调用一个合法的函数，实际上却跳转执行了你的 shellcode。</p>
+</li>
+<li><p><strong>获取 Root 权限：</strong> 你的 shellcode 通常会执行 <code>commit_creds(prepare_kernel_cred(0))</code>，这个组合函数会赋予你当前进程 root 权限。Shellcode 执行完毕后，你再执行 <code>system(&quot;/bin/sh&quot;)</code>，弹出的就是一个 root shell 了。</p>
+</li>
+</ol>
+<p>分析完这些函数，你就找到了这个驱动最核心的漏洞。下一步就是编写一个 C 语言的利用程序，精心编排 <code>open</code>, <code>close</code>, <code>ioctl</code>, <code>write</code> 这些系统调用的顺序，来触发漏洞并夺取系统控制权。祝你好运！</p>
+<p>不得不说这个时候（2025.7.22）gemini 2.5 pro的确是最厉害的</p>
 
     </div>
 
@@ -616,7 +867,7 @@
   </li>
   <li class="post-copyright-link">
       <strong>Post link: </strong>
-      <a href="http://example.com/2025/07/03/%E5%86%85%E6%A0%B8pwn%E5%85%A5%E9%97%A8/" title="内核pwn">http://example.com/2025/07/03/内核pwn入门/</a>
+      <a href="http://example.com/2025/07/26/linux%20kernel%20pwn/" title="内核pwn">http://example.com/2025/07/26/linux kernel pwn/</a>
   </li>
   <li class="post-copyright-license">
       <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
@@ -633,14 +884,11 @@
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2025/06/28/%E6%AF%8F%E6%97%A5%E5%BF%83%E5%BE%97/" rel="prev" title="每日心得">
-                  <i class="fa fa-angle-left"></i> 每日心得
+                <a href="/2025/07/16/docker%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" rel="prev" title="docker常用命令">
+                  <i class="fa fa-angle-left"></i> docker常用命令
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2025/07/04/python%E9%87%8F%E5%8C%96%E5%88%86%E6%9E%90/" rel="next" title="python量化交易">
-                  python量化交易 <i class="fa fa-angle-right"></i>
-                </a>
             </div>
           </div>
     </footer>
@@ -671,13 +919,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="Word count total">425k</span>
+    <span title="Word count total">440k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="Reading time total">6:26</span>
+    <span title="Reading time total">6:40</span>
   </span>
 </div>
 <div class="busuanzi-count">
