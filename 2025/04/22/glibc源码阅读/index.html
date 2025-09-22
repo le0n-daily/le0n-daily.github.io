@@ -30,7 +30,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/2025/04/22/images/image-20250422212550966.png">
 <meta property="article:published_time" content="2025-04-22T09:59:29.830Z">
-<meta property="article:modified_time" content="2025-07-15T00:57:24.315Z">
+<meta property="article:modified_time" content="2025-09-22T06:22:40.423Z">
 <meta property="article:author" content="leon">
 <meta property="article:tag" content="pwn">
 <meta property="article:tag" content="heap">
@@ -131,18 +131,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">28</span>
+          <span class="site-state-item-count">31</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-count">17</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -213,7 +213,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2025-07-15 08:57:24" itemprop="dateModified" datetime="2025-07-15T08:57:24+08:00">2025-07-15</time>
+      <time title="Modified: 2025-09-22 14:22:40" itemprop="dateModified" datetime="2025-09-22T14:22:40+08:00">2025-09-22</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -257,13 +257,7 @@
     
     
     
-    <div class="post-body" itemprop="articleBody"><p>目标：</p>
-<ul>
-<li>做出malloc导图</li>
-<li>理解largebin_attack等攻击利用</li>
-<li></li>
-</ul>
-<h1 id="malloc-c"><a href="#malloc-c" class="headerlink" title="malloc.c"></a>malloc.c</h1><h2 id="malloc-assert"><a href="#malloc-assert" class="headerlink" title="__malloc_assert"></a>__malloc_assert</h2><p>__int_malloc()函数的断言，一个用于处理断言失败的 C 语言宏和函数实现</p>
+    <div class="post-body" itemprop="articleBody"><h1 id="malloc-c"><a href="#malloc-c" class="headerlink" title="malloc.c"></a>malloc.c</h1><h2 id="malloc-assert"><a href="#malloc-assert" class="headerlink" title="__malloc_assert"></a>__malloc_assert</h2><p>__int_malloc()函数的断言，一个用于处理断言失败的 C 语言宏和函数实现</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">ifndef</span> NDEBUG</span></span><br><span class="line"><span class="meta"># <span class="keyword">define</span> __assert_fail(assertion, file, <span class="keyword">line</span>, function)			\</span></span><br><span class="line"><span class="meta">	 __malloc_assert(assertion, file, <span class="keyword">line</span>, function)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">extern</span> <span class="type">const</span> <span class="type">char</span> *__progname;<span class="comment">//声明一个外部变量 __progname，它存储程序的名称。</span></span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="type">void</span><span class="comment">//静态函数 __malloc_assert，用于处理断言失败的情况。因为它是静态的，所以它只能在当前文件中被访问。</span></span><br><span class="line">__malloc_assert (<span class="type">const</span> <span class="type">char</span> *assertion, <span class="type">const</span> <span class="type">char</span> *file, <span class="type">unsigned</span> <span class="type">int</span> line,</span><br><span class="line">		 <span class="type">const</span> <span class="type">char</span> *function)</span><br><span class="line">&#123;</span><br><span class="line">  (<span class="type">void</span>) __fxprintf (<span class="literal">NULL</span>, <span class="string">&quot;%s%s%s:%u: %s%sAssertion `%s&#x27; failed.\n&quot;</span>,</span><br><span class="line">		     __progname, __progname[<span class="number">0</span>] ? <span class="string">&quot;: &quot;</span> : <span class="string">&quot;&quot;</span>,</span><br><span class="line">		     file, line,</span><br><span class="line">		     function ? function : <span class="string">&quot;&quot;</span>, function ? <span class="string">&quot;: &quot;</span> : <span class="string">&quot;&quot;</span>,</span><br><span class="line">		     assertion);</span><br><span class="line">  fflush (<span class="built_in">stderr</span>);<span class="comment">//刷新标准错误流</span></span><br><span class="line">  <span class="built_in">abort</span> ();<span class="comment">//函数被调用以异常终止程序执行</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br></pre></td></tr></table></figure>
 
 <p><strong>代码总结</strong></p>
@@ -644,13 +638,13 @@
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2025/04/15/buuctf(%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0)/" rel="prev" title="buuctf">
-                  <i class="fa fa-angle-left"></i> buuctf
+                <a href="/2025/04/15/%E8%B5%84%E6%96%99/" rel="prev" title="有用的东西">
+                  <i class="fa fa-angle-left"></i> 有用的东西
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2025/04/24/polarctf(%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0)/" rel="next" title="Polar ctf">
-                  Polar ctf <i class="fa fa-angle-right"></i>
+                <a href="/2025/04/25/how2heap/" rel="next" title="how2heap">
+                  how2heap <i class="fa fa-angle-right"></i>
                 </a>
             </div>
           </div>
@@ -682,13 +676,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="Word count total">482k</span>
+    <span title="Word count total">509k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="Reading time total">7:19</span>
+    <span title="Reading time total">7:43</span>
   </span>
 </div>
 <div class="busuanzi-count">

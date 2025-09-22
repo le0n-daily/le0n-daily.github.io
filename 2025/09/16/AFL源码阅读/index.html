@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.22.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":true,"style":"default"},"fold":{"enable":false,"height":300},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":{"valine":{"order":-1}}},"stickytabs":false,"motion":{"enable":true,"async":true,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="fuzz--AFL源码阅读">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AFL源码阅读">
+<meta property="og:url" content="http://example.com/2025/09/16/AFL%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/index.html">
+<meta property="og:site_name" content="le0n-blog">
+<meta property="og:description" content="fuzz--AFL源码阅读">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/images/image-20250918170111499.png">
+<meta property="article:published_time" content="2025-09-16T07:51:47.155Z">
+<meta property="article:modified_time" content="2025-09-18T10:49:55.902Z">
+<meta property="article:author" content="leon">
+<meta property="article:tag" content="fuzz">
+<meta property="article:tag" content="afl">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/image-20250918170111499.png">
+
+
+<link rel="canonical" href="http://example.com/2025/09/16/AFL%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2025/09/16/AFL%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/","path":"2025/09/16/AFL源码阅读/","title":"AFL源码阅读"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>AFL源码阅读 | le0n-blog</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">le0n-blog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%93%E9%A2%98%E4%B8%80%EF%BC%9A%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB"><span class="nav-number">1.</span> <span class="nav-text">专题一：源码阅读</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#afl-gcc-c"><span class="nav-number">1.1.</span> <span class="nav-text">afl-gcc.c</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#main-%E5%87%BD%E6%95%B0"><span class="nav-number">1.1.1.</span> <span class="nav-text">main()函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#find-as-argv-0-%E5%87%BD%E6%95%B0"><span class="nav-number">1.1.2.</span> <span class="nav-text">find_as(argv[0])函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#edit-params-%E5%87%BD%E6%95%B0"><span class="nav-number">1.1.3.</span> <span class="nav-text">edit_params()函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#afl-as-c"><span class="nav-number">1.2.</span> <span class="nav-text">afl-as.c</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="leon"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">leon</p>
+  <div class="site-description" itemprop="description">Take more notes to reach higher efficiency.</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">31</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/le0n-daily" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;le0n-daily" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:1192876128@gmail.com" title="E-Mail → mailto:1192876128@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2025/09/16/AFL%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="leon">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="le0n-blog">
+      <meta itemprop="description" content="Take more notes to reach higher efficiency.">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="AFL源码阅读 | le0n-blog">
+      <meta itemprop="description" content="fuzz--AFL源码阅读">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          AFL源码阅读
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2025-09-16 15:51:47" itemprop="dateCreated datePublished" datetime="2025-09-16T15:51:47+08:00">2025-09-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2025-09-18 18:49:55" itemprop="dateModified" datetime="2025-09-18T18:49:55+08:00">2025-09-18</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/fuzz/" itemprop="url" rel="index"><span itemprop="name">fuzz</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">Views: </span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="Word count in article">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">Word count in article: </span>
+      <span>12k</span>
+    </span>
+    <span class="post-meta-item" title="Reading time">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">Reading time &asymp;</span>
+      <span>11 mins.</span>
+    </span>
+</div>
+
+            <div class="post-description">fuzz--AFL源码阅读</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>这个时候重心已经从CTF比赛上离开了，往考研和iot安全上转移，由于一直对fuzz有一定的兴趣购买了<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41202237/category_11470526.html?fromshare=blogcolumn&sharetype=blogcolumn&sharerId=11470526&sharerefer=PC&sharesource=2302_80131259&sharefrom=from_link">hollk师傅的文章</a>来学习fuzz</p>
+<h1 id="专题一：源码阅读"><a href="#专题一：源码阅读" class="headerlink" title="专题一：源码阅读"></a>专题一：源码阅读</h1><p>阅读大型C&#x2F;C++程序源码相关准备——明确目的</p>
+<h2 id="afl-gcc-c"><a href="#afl-gcc-c" class="headerlink" title="afl-gcc.c"></a>afl-gcc.c</h2><p>借助gemin2.5pro给出的回答，仅供参考</p>
+<blockquote>
+<p>带着以下几个具体问题去阅读：</p>
+<ul>
+<li>main 函数是如何解析我们输入的命令行参数的？</li>
+<li>代码是如何判断应该在背后调用 gcc 还是 clang 的？</li>
+<li>关键函数 find_as 是如何找到 afl-as 这个程序的具体路径的？</li>
+<li>**（核心中的核心）**edit_params 函数到底对我们输入的参数做了哪些修改？它是如何通过添加 -B 参数来告诉 gcc 去指定的目录寻找 afl-as 的？</li>
+<li>除了替换汇编器，它还添加了哪些额外的参数？（提示：寻找与 afl-rt.o 相关的代码，这是AFL的运行时库）。</li>
+</ul>
+<p>在阅读工程中需要注意哪些重点</p>
+<ul>
+<li><strong>main 函数的整体逻辑</strong>：不要一开始就陷入细节，先看 main 函数的骨架，理解“找到 afl-as -&gt; 修改参数 -&gt; 执行真实编译器”这个大流程。</li>
+<li><strong>find_as() 函数</strong>：注意它对环境变量 AFL_PATH 的处理。这有助于你理解 AFL 的安装和环境配置。</li>
+<li><strong>edit_params() 函数</strong>：这是最重要的部分。请重点关注代码中为 cc_params 数组添加新成员的部分。特别是对 -B 参数的处理，你需要去理解 gcc 的 -B 选项的含义：“向 GCC 提供一个搜索路径，用于查找编译器执行程序、库和数据文件”。AFL 正是利用这一点，让 gcc 优先在 afl-as 所在的目录找到了汇编器。</li>
+<li><strong>execvp() 函数</strong>：这是代码的最后一步，它用修改后的参数启动了真正的编译器。理解了它，整个 afl-gcc.c 的生命周期就闭环了</li>
+</ul>
+</blockquote>
+<h3 id="main-函数"><a href="#main-函数" class="headerlink" title="main()函数"></a>main()函数</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Main entry point */</span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span>** argv)</span> &#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (isatty(<span class="number">2</span>) &amp;&amp; !getenv(<span class="string">&quot;AFL_QUIET&quot;</span>)) &#123;</span><br><span class="line">    SAYF(cCYA <span class="string">&quot;afl-cc &quot;</span> cBRI VERSION cRST <span class="string">&quot; by &lt;lcamtuf@google.com&gt;\n&quot;</span>);</span><br><span class="line"></span><br><span class="line">  &#125; <span class="keyword">else</span> be_quiet = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (argc &lt; <span class="number">2</span>) &#123;</span><br><span class="line"></span><br><span class="line">    SAYF(<span class="string">&quot;\n&quot;</span></span><br><span class="line">         <span class="string">&quot;This is a helper application for afl-fuzz. It serves as a drop-in replacement\n&quot;</span></span><br><span class="line">         <span class="string">&quot;for gcc or clang, letting you recompile third-party code with the required\n&quot;</span></span><br><span class="line">         <span class="string">&quot;runtime instrumentation. A common use pattern would be one of the following:\n\n&quot;</span></span><br><span class="line"></span><br><span class="line">         <span class="string">&quot;  CC=%s/afl-gcc ./configure\n&quot;</span></span><br><span class="line">         <span class="string">&quot;  CXX=%s/afl-g++ ./configure\n\n&quot;</span></span><br><span class="line"></span><br><span class="line">         <span class="string">&quot;You can specify custom next-stage toolchain via AFL_CC, AFL_CXX, and AFL_AS.\n&quot;</span></span><br><span class="line">         <span class="string">&quot;Setting AFL_HARDEN enables hardening optimizations in the compiled code.\n\n&quot;</span>,</span><br><span class="line">         BIN_PATH, BIN_PATH);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  find_as(argv[<span class="number">0</span>]); <span class="comment">//argv[0]一定是程序的名称，并且包含了程序所在的完整路径</span></span><br><span class="line"></span><br><span class="line">  edit_params(argc, argv);<span class="comment">/*argc 是什么: argument count（参数计数），一个整数，表示命令行参数的总个数（包括程序名本身）。</span></span><br><span class="line"><span class="comment">                            argv 是什么: argument vector（参数向量），一个字符串数组，包含了所有的命令行参数。</span></span><br><span class="line"><span class="comment">                             这是 afl-gcc 的核心功能。它会遍历原始的 argv 数组，然后创建一个新的参数数组，</span></span><br><span class="line"><span class="comment">                             这个新的数组就是全局变量 cc_params。</span></span><br><span class="line"><span class="comment">                             所以这个cc_params需要重点关注*/</span></span><br><span class="line"></span><br><span class="line">  execvp(cc_params[<span class="number">0</span>], (<span class="type">char</span>**)cc_params);</span><br><span class="line">  <span class="comment">//终止 afl-gcc 进程，并将其完全替换为一个新进程（即真正的 gcc 或 clang），同时让这个新进程带着经过特殊构造的参数列表来运行。</span></span><br><span class="line">  FATAL(<span class="string">&quot;Oops, failed to execute &#x27;%s&#x27; - check your PATH&quot;</span>, cc_params[<span class="number">0</span>]);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>总结一下只有三个重要的函数还有一个是系统函数</p>
+<h3 id="find-as-argv-0-函数"><a href="#find-as-argv-0-函数" class="headerlink" title="find_as(argv[0])函数"></a>find_as(argv[0])函数</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Try to find our &quot;fake&quot; GNU assembler in AFL_PATH or at the location derived</span></span><br><span class="line"><span class="comment">   from argv[0]. If that fails, abort. */</span></span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">find_as</span><span class="params">(u8* argv0)</span> &#123;</span><br><span class="line"></span><br><span class="line">  u8 *afl_path = getenv(<span class="string">&quot;AFL_PATH&quot;</span>);<span class="comment">//假设为 ./afl</span></span><br><span class="line">  u8 *slash, *tmp;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (afl_path) &#123;</span><br><span class="line"></span><br><span class="line">    tmp = alloc_printf(<span class="string">&quot;%s/as&quot;</span>, afl_path);<span class="comment">// 功能如其名，返回值是堆块指针</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!access(tmp, X_OK)) &#123;<span class="comment">//检查当前程序是否有权限访问指定的文件或目录。X_OK执行权限。返回值：有:0;无:1</span></span><br><span class="line">      as_path = afl_path;</span><br><span class="line">      ck_free(tmp);</span><br><span class="line">      <span class="keyword">return</span>; <span class="comment">// ---&gt; 第一个返回点，如果./afl/as存在</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    ck_free(tmp);</span><br><span class="line"></span><br><span class="line">  &#125;<span class="comment">// 获取AFL_PATH路径。检查路径是否可以访问</span></span><br><span class="line"></span><br><span class="line">  slash = <span class="built_in">strrchr</span>(argv0, <span class="string">&#x27;/&#x27;</span>);<span class="comment">// 从右往左查找第一个&#x27;/&#x27;--&gt; 结果/afl</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (slash) &#123;</span><br><span class="line"></span><br><span class="line">    u8 *dir;</span><br><span class="line"></span><br><span class="line">    *slash = <span class="number">0</span>;<span class="comment">// 将&#x27;/&#x27;替换为字符串结束符，截断字符串</span></span><br><span class="line">    dir = ck_strdup(argv0);<span class="comment">// 复制截断后的字符串</span></span><br><span class="line">    *slash = <span class="string">&#x27;/&#x27;</span>;<span class="comment">// 恢复原始字符串</span></span><br><span class="line"></span><br><span class="line">    tmp = alloc_printf(<span class="string">&quot;%s/afl-as&quot;</span>, dir);<span class="comment">// 拼接路径--&gt; afl/afl-as</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!access(tmp, X_OK)) &#123;<span class="comment">// 检查路径是否可以访问</span></span><br><span class="line">      as_path = dir;</span><br><span class="line">      ck_free(tmp);</span><br><span class="line">      <span class="keyword">return</span>; <span class="comment">// ---&gt; 第二个返回点，如果./afl/afl-as存在</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ck_free(tmp);</span><br><span class="line">    ck_free(dir);</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (!access(AFL_PATH <span class="string">&quot;/as&quot;</span>, X_OK)) &#123;<span class="comment">// 检查默认路径是否可以访问</span></span><br><span class="line">    as_path = AFL_PATH;</span><br><span class="line">    <span class="keyword">return</span>; <span class="comment">//第三个返回点，（默认）标准安装路径 /usr/local/lib/afl/as</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 如果都不行，报错退出</span></span><br><span class="line">  FATAL(<span class="string">&quot;Unable to find AFL wrapper binary for &#x27;as&#x27;. Please set AFL_PATH&quot;</span>);</span><br><span class="line"> </span><br><span class="line">&#125;<span class="comment">//走完这个函数最终更新了 as_path 中的内容</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="edit-params-函数"><a href="#edit-params-函数" class="headerlink" title="edit_params()函数"></a>edit_params()函数</h3><p>函数功能就是将执行的命令，如：<code>afl-gcc -O3 -o my_app my_app.c</code></p>
+<p>最终得到的cc_params[]数组如：<code>[&quot;gcc&quot;, &quot;-O3&quot;, &quot;-o&quot;, &quot;my_app&quot;, &quot;my_app.c&quot;, &quot;-B&quot;, as_path, &quot;-g&quot;, &quot;-O3&quot;, &quot;-funroll-loops&quot;, &quot;-D__AFL_COMPILER=1&quot;, &quot;-DFUZZING_BUILD_MODE_UNSAFE_FOR_PRODUCTION=1&quot;, &quot;NULL&quot;]</code></p>
+<p><img data-src="/../images/image-20250918170111499.png" alt="image-20250918170111499"></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Copy argv to cc_params, making the necessary edits. */</span></span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">edit_params</span><span class="params">(u32 argc, <span class="type">char</span>** argv)</span> &#123;</span><br><span class="line"></span><br><span class="line">  u8 fortify_set = <span class="number">0</span>, asan_set = <span class="number">0</span>; <span class="comment">// 设置cc参数</span></span><br><span class="line">  u8 *name; <span class="comment">//指针</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">if</span> defined(__FreeBSD__) &amp;&amp; defined(__x86_64__)</span></span><br><span class="line">  u8 m32_set = <span class="number">0</span>;</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"></span><br><span class="line">  cc_params = ck_alloc((argc + <span class="number">128</span>) * <span class="keyword">sizeof</span>(u8*)); <span class="comment">//为cc_params分配内存</span></span><br><span class="line">  <span class="comment">/*假设你在一台64位的电脑上执行命令：afl-gcc -O3 -o my_app my_app.c</span></span><br><span class="line"><span class="comment">    计算 argc:</span></span><br><span class="line"><span class="comment">    这个命令共有5个部分 (afl-gcc, -O3, -o, my_app, my_app.c)，所以 argc = 5。</span></span><br><span class="line"><span class="comment">    计算argc+128总数:</span></span><br><span class="line"><span class="comment">    argc + 128 = 5 + 128 = 133。</span></span><br><span class="line"><span class="comment">    我们需要一个能容纳 133 个指针的数组。</span></span><br><span class="line"><span class="comment">    计算每个“格子”的大小:</span></span><br><span class="line"><span class="comment">    因为是64位系统，sizeof(u8*) = 8 字节。</span></span><br><span class="line"><span class="comment">    计算总内存大小:</span></span><br><span class="line"><span class="comment">    总字节数 = 133 * 8 = 1064 字节*/</span></span><br><span class="line">    </span><br><span class="line">  name = <span class="built_in">strrchr</span>(argv[<span class="number">0</span>], <span class="string">&#x27;/&#x27;</span>); <span class="comment">// 从右往左查找第一个&#x27;/&#x27;（后的编译器名称），使name指向&#x27;/&#x27;字符，如./afl-clang++ -o test test.cpp则argv[0]是./afl-clang</span></span><br><span class="line">  <span class="keyword">if</span> (!name) name = argv[<span class="number">0</span>]; <span class="keyword">else</span> name++;<span class="comment">// 如果没有&#x27;/&#x27;，直接使用argv[0].否则让name指向&#x27;/&#x27;后的第一个字符</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (!<span class="built_in">strncmp</span>(name, <span class="string">&quot;afl-clang&quot;</span>, <span class="number">9</span>)) &#123;<span class="comment">// 如果是afl-clang则使用clang编译器</span></span><br><span class="line"></span><br><span class="line">    clang_mode = <span class="number">1</span>;<span class="comment">// 设置clang_mode为1</span></span><br><span class="line"></span><br><span class="line">    setenv(CLANG_ENV_VAR, <span class="string">&quot;1&quot;</span>, <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!<span class="built_in">strcmp</span>(name, <span class="string">&quot;afl-clang++&quot;</span>)) &#123;<span class="comment">// 如果是afl-clang++，则使用clang++编译器</span></span><br><span class="line">      u8* alt_cxx = getenv(<span class="string">&quot;AFL_CXX&quot;</span>);<span class="comment">// 获取环境变量AFL_CXX</span></span><br><span class="line">      cc_params[<span class="number">0</span>] = alt_cxx ? alt_cxx : (u8*)<span class="string">&quot;clang++&quot;</span>;<span class="comment">// 如果AFL_CXX存在则使用AFL_CXX，否则使用clang++</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      u8* alt_cc = getenv(<span class="string">&quot;AFL_CC&quot;</span>);<span class="comment">// 获取环境变量AFL_CC</span></span><br><span class="line">      cc_params[<span class="number">0</span>] = alt_cc ? alt_cc : (u8*)<span class="string">&quot;clang&quot;</span>;<span class="comment">// 如果AFL_CC存在则使用AFL_CC，否则使用clang</span></span><br><span class="line">    &#125;<span class="comment">// cc_params[]是保存编译参数的数组</span></span><br><span class="line"></span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* With GCJ and Eclipse installed, you can actually compile Java! The</span></span><br><span class="line"><span class="comment">       instrumentation will work (amazingly). Alas, unhandled exceptions do</span></span><br><span class="line"><span class="comment">       not call abort(), so afl-fuzz would need to be modified to equate</span></span><br><span class="line"><span class="comment">       non-zero exit codes with crash conditions when working with Java</span></span><br><span class="line"><span class="comment">       binaries. Meh. */</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">ifdef</span> __APPLE__<span class="comment">//如果不是以afl_clang开头，而是在苹果系统上,就会进入这个分支</span></span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!<span class="built_in">strcmp</span>(name, <span class="string">&quot;afl-g++&quot;</span>)) cc_params[<span class="number">0</span>] = getenv(<span class="string">&quot;AFL_CXX&quot;</span>);</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (!<span class="built_in">strcmp</span>(name, <span class="string">&quot;afl-gcj&quot;</span>)) cc_params[<span class="number">0</span>] = getenv(<span class="string">&quot;AFL_GCJ&quot;</span>);</span><br><span class="line">    <span class="keyword">else</span> cc_params[<span class="number">0</span>] = getenv(<span class="string">&quot;AFL_CC&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!cc_params[<span class="number">0</span>]) &#123;</span><br><span class="line"></span><br><span class="line">      SAYF(<span class="string">&quot;\n&quot;</span> cLRD <span class="string">&quot;[-] &quot;</span> cRST</span><br><span class="line">           <span class="string">&quot;On Apple systems, &#x27;gcc&#x27; is usually just a wrapper for clang. Please use the\n&quot;</span></span><br><span class="line">           <span class="string">&quot;    &#x27;afl-clang&#x27; utility instead of &#x27;afl-gcc&#x27;. If you really have GCC installed,\n&quot;</span></span><br><span class="line">           <span class="string">&quot;    set AFL_CC or AFL_CXX to specify the correct path to that compiler.\n&quot;</span>);</span><br><span class="line"></span><br><span class="line">      FATAL(<span class="string">&quot;AFL_CC or AFL_CXX required on MacOS X&quot;</span>);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">else</span><span class="comment">// 不是apple系统</span></span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!<span class="built_in">strcmp</span>(name, <span class="string">&quot;afl-g++&quot;</span>)) &#123;<span class="comment">// 如果是afl-g++</span></span><br><span class="line">      u8* alt_cxx = getenv(<span class="string">&quot;AFL_CXX&quot;</span>);<span class="comment">// 获取环境变量AFL_CXX</span></span><br><span class="line">      cc_params[<span class="number">0</span>] = alt_cxx ? alt_cxx : (u8*)<span class="string">&quot;g++&quot;</span>;<span class="comment">// 如果AFL_CXX存在则直接将环境变量赋值给cc_params[0]，否则使用g++</span></span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (!<span class="built_in">strcmp</span>(name, <span class="string">&quot;afl-gcj&quot;</span>)) &#123;<span class="comment">// 如果是afl-gcj</span></span><br><span class="line">      u8* alt_cc = getenv(<span class="string">&quot;AFL_GCJ&quot;</span>);<span class="comment">// 获取环境变量AFL_GCJ</span></span><br><span class="line">      cc_params[<span class="number">0</span>] = alt_cc ? alt_cc : (u8*)<span class="string">&quot;gcj&quot;</span>;<span class="comment">// 如果AFL_GCJ存在则直接将环境变量赋值给cc_params[0]，否则使用gcj</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;<span class="comment">// 其他情况</span></span><br><span class="line">      u8* alt_cc = getenv(<span class="string">&quot;AFL_CC&quot;</span>);<span class="comment">// 获取环境变量AFL_CC</span></span><br><span class="line">      cc_params[<span class="number">0</span>] = alt_cc ? alt_cc : (u8*)<span class="string">&quot;gcc&quot;</span>;<span class="comment">// 如果AFL_CC存在则直接将环境变量赋值给cc_params[0]，否则使用gcc</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span> <span class="comment">/* __APPLE__ */</span></span></span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">while</span> (--argc) &#123;<span class="comment">//循环遍历参数“清洗”和“分析”用户输入的编译参数，参考：共有5个部分 (afl-gcc, -O3, -o, my_app, my_app.c)，所以 argc = 5</span></span><br><span class="line">    u8* cur = *(++argv);<span class="comment">//获取参数</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!<span class="built_in">strncmp</span>(cur, <span class="string">&quot;-B&quot;</span>, <span class="number">2</span>)) &#123;<span class="comment">//如果当前参数为 -B</span></span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span> (!be_quiet) WARNF(<span class="string">&quot;-B is already set, overriding&quot;</span>);<span class="comment">//判断静默模式是否关闭，如果关闭提示 -B 参数已经被设置</span></span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span> (!cur[<span class="number">2</span>] &amp;&amp; argc &gt; <span class="number">1</span>) &#123; argc--; argv++; &#125;<span class="comment">// ... 跳过 -B 和它可能附带的路径 ...</span></span><br><span class="line">      <span class="keyword">continue</span>;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!<span class="built_in">strcmp</span>(cur, <span class="string">&quot;-integrated-as&quot;</span>)) <span class="keyword">continue</span>;<span class="comment">// 当前参数为 -integrated-as，则跳过本次循环</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!<span class="built_in">strcmp</span>(cur, <span class="string">&quot;-pipe&quot;</span>)) <span class="keyword">continue</span>;<span class="comment">// 当前参数为 -pipe，则跳过本次循环</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">if</span> defined(__FreeBSD__) &amp;&amp; defined(__x86_64__)<span class="comment">//判断是否是FreeBSD系统或者x86_64系统上</span></span></span><br><span class="line">    <span class="keyword">if</span> (!<span class="built_in">strcmp</span>(cur, <span class="string">&quot;-m32&quot;</span>)) m32_set = <span class="number">1</span>;<span class="comment">// 如果当前参数为 -m32，则设置m32_set为1</span></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!<span class="built_in">strcmp</span>(cur, <span class="string">&quot;-fsanitize=address&quot;</span>) ||</span><br><span class="line">        !<span class="built_in">strcmp</span>(cur, <span class="string">&quot;-fsanitize=memory&quot;</span>)) asan_set = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">strstr</span>(cur, <span class="string">&quot;FORTIFY_SOURCE&quot;</span>)) fortify_set = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    cc_params[cc_par_cnt++] = cur;<span class="comment">//给cc_params赋值，cc_par_cnt全局变量初始值为1</span></span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  cc_params[cc_par_cnt++] = <span class="string">&quot;-B&quot;</span>;</span><br><span class="line">  cc_params[cc_par_cnt++] = as_path;<span class="comment">//取出find_as函数中找到的as_path路径，组成 -B as_path</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (clang_mode)<span class="comment">// 如果clang模式是1</span></span><br><span class="line">    cc_params[cc_par_cnt++] = <span class="string">&quot;-no-integrated-as&quot;</span>;<span class="comment">//赋值cc_params追加参数 -no-integrated-as</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (getenv(<span class="string">&quot;AFL_HARDEN&quot;</span>)) &#123;<span class="comment">// 获取环境变量AFL_HARDEN，存在进入分支</span></span><br><span class="line"></span><br><span class="line">    cc_params[cc_par_cnt++] = <span class="string">&quot;-fstack-protector-all&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!fortify_set)<span class="comment">//检查是否已经设置了fortify参数，如果没有，进入分支</span></span><br><span class="line">      cc_params[cc_par_cnt++] = <span class="string">&quot;-D_FORTIFY_SOURCE=2&quot;</span>;<span class="comment">//cc_params追加参数 -D_FORTIFY_SOURCE=2</span></span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (asan_set) &#123;<span class="comment">//判断是否检查内存，如果已经设置为1(第一次修改line-208)</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Pass this on to afl-as to adjust map density. */</span></span><br><span class="line"></span><br><span class="line">    setenv(<span class="string">&quot;AFL_USE_ASAN&quot;</span>, <span class="string">&quot;1&quot;</span>, <span class="number">1</span>);<span class="comment">// 设置环境变量AFL_USE_ASAN为1</span></span><br><span class="line"></span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (getenv(<span class="string">&quot;AFL_USE_ASAN&quot;</span>)) &#123;<span class="comment">// 获取环境变量AFL_USE_ASAN(已经被设置为1)，存在进入分支</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (getenv(<span class="string">&quot;AFL_USE_MSAN&quot;</span>))<span class="comment">// 获取环境变量AFL_USE_MSAN，存在报错退出</span></span><br><span class="line">      FATAL(<span class="string">&quot;ASAN and MSAN are mutually exclusive&quot;</span>);<span class="comment">//提示ASAN和MSAN互斥</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (getenv(<span class="string">&quot;AFL_HARDEN&quot;</span>))<span class="comment">// 获取环境变量AFL_HARDEN，存在则进入分支</span></span><br><span class="line">      FATAL(<span class="string">&quot;ASAN and AFL_HARDEN are mutually exclusive&quot;</span>);<span class="comment">//提示ASAN和AFL_HARDEN互斥</span></span><br><span class="line"></span><br><span class="line">    cc_params[cc_par_cnt++] = <span class="string">&quot;-U_FORTIFY_SOURCE&quot;</span>;</span><br><span class="line">    cc_params[cc_par_cnt++] = <span class="string">&quot;-fsanitize=address&quot;</span>;<span class="comment">//如果上述两个环境变量都没有设置，则cc_params追加参数 -fsanitize=address</span></span><br><span class="line"></span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (getenv(<span class="string">&quot;AFL_USE_MSAN&quot;</span>)) &#123;<span class="comment">// 获取环境变量AFL_USE_MSAN，存在进入分支</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (getenv(<span class="string">&quot;AFL_USE_ASAN&quot;</span>))<span class="comment">// 获取环境变量AFL_USE_ASAN，存在报错退出</span></span><br><span class="line">      FATAL(<span class="string">&quot;ASAN and MSAN are mutually exclusive&quot;</span>);<span class="comment">//提示ASAN和MSAN互斥</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (getenv(<span class="string">&quot;AFL_HARDEN&quot;</span>))<span class="comment">// 获取环境变量AFL_HARDEN，存在则进入分支</span></span><br><span class="line">      FATAL(<span class="string">&quot;MSAN and AFL_HARDEN are mutually exclusive&quot;</span>);<span class="comment">//提示MSAN和AFL_HARDEN互斥</span></span><br><span class="line"></span><br><span class="line">    cc_params[cc_par_cnt++] = <span class="string">&quot;-U_FORTIFY_SOURCE&quot;</span>;</span><br><span class="line">    cc_params[cc_par_cnt++] = <span class="string">&quot;-fsanitize=memory&quot;</span>;<span class="comment">//如果上述两个环境变量都没有设置，则cc_params追加参数 -fsanitize=memory</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (!getenv(<span class="string">&quot;AFL_DONT_OPTIMIZE&quot;</span>)) &#123;<span class="comment">// 获取环境变量AFL_DONT_OPTIMIZE，失败则进入分支</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">if</span> defined(__FreeBSD__) &amp;&amp; defined(__x86_64__)<span class="comment">//如果是FreeBSD系统或者x86_64系统，进入分支</span></span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/* On 64-bit FreeBSD systems, clang -g -m32 is broken, but -m32 itself</span></span><br><span class="line"><span class="comment">       works OK. This has nothing to do with us, but let&#x27;s avoid triggering</span></span><br><span class="line"><span class="comment">       that bug. */</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!clang_mode || !m32_set)<span class="comment">// 如果没有设置clang模式或者没有设置-m32参数，进入分支</span></span><br><span class="line">      cc_params[cc_par_cnt++] = <span class="string">&quot;-g&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">else</span><span class="comment">// 不是FreeBSD系统或者x86_64系统</span></span></span><br><span class="line"></span><br><span class="line">      cc_params[cc_par_cnt++] = <span class="string">&quot;-g&quot;</span>;<span class="comment">// cc_params追加参数 -g</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"></span><br><span class="line">    cc_params[cc_par_cnt++] = <span class="string">&quot;-O3&quot;</span>;<span class="comment">// cc_params追加参数 -O3</span></span><br><span class="line">    cc_params[cc_par_cnt++] = <span class="string">&quot;-funroll-loops&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Two indicators that you&#x27;re building for fuzzing; one of them is</span></span><br><span class="line"><span class="comment">       AFL-specific, the other is shared with libfuzzer. */</span></span><br><span class="line"></span><br><span class="line">    cc_params[cc_par_cnt++] = <span class="string">&quot;-D__AFL_COMPILER=1&quot;</span>;</span><br><span class="line">    cc_params[cc_par_cnt++] = <span class="string">&quot;-DFUZZING_BUILD_MODE_UNSAFE_FOR_PRODUCTION=1&quot;</span>;<span class="comment">// cc_params追加参数 -D__AFL_COMPILER=1和 -DFUZZING_BUILD_MODE_UNSAFE_FOR_PRODUCTION=1</span></span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (getenv(<span class="string">&quot;AFL_NO_BUILTIN&quot;</span>)) &#123;<span class="comment">//如果设置了AFL_NO_BUILTIN环境变量，进入分支</span></span><br><span class="line"></span><br><span class="line">    cc_params[cc_par_cnt++] = <span class="string">&quot;-fno-builtin-strcmp&quot;</span>;</span><br><span class="line">    cc_params[cc_par_cnt++] = <span class="string">&quot;-fno-builtin-strncmp&quot;</span>;</span><br><span class="line">    cc_params[cc_par_cnt++] = <span class="string">&quot;-fno-builtin-strcasecmp&quot;</span>;</span><br><span class="line">    cc_params[cc_par_cnt++] = <span class="string">&quot;-fno-builtin-strncasecmp&quot;</span>;</span><br><span class="line">    cc_params[cc_par_cnt++] = <span class="string">&quot;-fno-builtin-memcmp&quot;</span>;</span><br><span class="line">    cc_params[cc_par_cnt++] = <span class="string">&quot;-fno-builtin-strstr&quot;</span>;</span><br><span class="line">    cc_params[cc_par_cnt++] = <span class="string">&quot;-fno-builtin-strcasestr&quot;</span>;<span class="comment">// cc_params追加参数 -fno-builtin-*</span></span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  cc_params[cc_par_cnt] = <span class="literal">NULL</span>;<span class="comment">// cc_params最后一个参数设置为NULL，表示数组结束</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="afl-as-c"><a href="#afl-as-c" class="headerlink" title="afl-as.c"></a>afl-as.c</h2><p>afl-as.c 是 AFL 实现插桩的核心部分，代码相对复杂一些。它的目标是在汇编代码中插入“探针”，也就是桩代码，用于追踪程序的执行路径。</p>
+<p>阅读 afl-as.c 的核心目的：<strong>搞清楚 AFL 是如何识别插桩点，以及它到底插入了什么样的代码来实现路径跟踪的。</strong></p>
+<blockquote>
+<p>带着以下几个具体问题去阅读：</p>
+<ul>
+<li>main 函数是如何处理输入和输出文件的？它如何调用真正的 as？</li>
+<li>**（核心中的核心）**add_instrumentation() 函数是如何工作的？</li>
+<li>它是如何一行行读取汇编代码的？</li>
+<li>它是通过哪些特征（比如标签 L…:、函数开头 .LFB…）来判断“这是一个基本块的开始，我应该在这里插桩”的？</li>
+<li>插桩时，cur_location &#x3D; R(MAP_SIZE) 这行代码的作用是什么？（提示：它为每个桩点分配一个随机ID）。这个ID和AFL的共享内存 (shared_mem) 有什么关系？</li>
+<li>AFL 到底插入了什么汇编代码？这些代码定义在哪里？（提示：寻找 #include “afl-as.h”，然后去阅读 afl-as.h 文件中的 TRAMPOLINE 宏定义）。</li>
+<li>插入的桩代码（trampoline）是如何调用 __afl_maybe_log 这个C函数的？这个函数的作用是什么？</li>
+</ul>
+<p>我在阅读工程中需要注意哪些重点:</p>
+<ul>
+<li><strong>main 函数中的 fork() &#x2F; execvp() 模式</strong>：理解 afl-as 如何通过创建子进程来调用真正的 as，而父进程则负责处理汇编代码的修改。</li>
+<li><strong>add_instrumentation() 函数</strong>：这是你 90% 的精力应该投入的地方。</li>
+<li><strong>状态机思想</strong>: 注意代码中 instr_ok、skip_instr 这些标志位，它们构成了一个简单的状态机，用于判断当前行是否适合插桩。</li>
+<li><strong>识别逻辑</strong>: 重点关注对 line 缓冲区的字符串比较，例如 strncmp(line, “.L”, 2)、strstr(line, “call”) 等。这些是识别插桩点的关键。</li>
+<li><strong>桩代码模板</strong>: 必须打开 afl-as.h 文件，对照 fprintf(outf, …) 和 TRAMPOLINE 宏来看。你需要理解桩代码的通用流程：“保存寄存器 -&gt; 计算共享内存地址 -&gt; 更新计数值 -&gt; 恢复寄存器”。</li>
+<li><strong>__afl_maybe_log 函数</strong>：虽然这个函数的实现在 afl-rt.c 中，但你要在 afl-as.c 的阅读中建立起一个概念：桩代码最终会调用这个函数，这个函数是插桩代码与 afl-fuzz 主进程进行通信的桥梁。</li>
+</ul>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>Post author:  </strong>leon
+  </li>
+  <li class="post-copyright-link">
+      <strong>Post link: </strong>
+      <a href="http://example.com/2025/09/16/AFL%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/" title="AFL源码阅读">http://example.com/2025/09/16/AFL源码阅读/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/fuzz/" rel="tag"><i class="fa fa-tag"></i> fuzz</a>
+              <a href="/tags/afl/" rel="tag"><i class="fa fa-tag"></i> afl</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2025/09/06/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%A4%8D%E7%8E%B0CNVD-2018-01084/" rel="prev" title="从零开始复现CNVD-2018-01084">
+                  <i class="fa fa-angle-left"></i> 从零开始复现CNVD-2018-01084
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">leon</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="Word count total">509k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="Reading time total">7:43</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/le0n-daily" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.umd.js" integrity="sha256-a+H7FYzJv6oU2hfsfDGM2Ohw/cR9v+hPfxHCLdmCrE8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.4.0/mermaid.min.js","integrity":"sha256-G8ouPAnw4zzMbnAenHnVz6h9XpKbNdOkrqTh7AadyHs="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>
