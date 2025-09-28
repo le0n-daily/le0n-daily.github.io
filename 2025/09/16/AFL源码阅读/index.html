@@ -21,12 +21,12 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.22.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":true,"style":"default"},"fold":{"enable":false,"height":300},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":{"valine":{"order":-1}}},"stickytabs":false,"motion":{"enable":true,"async":true,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="fuzz--AFL源码阅读、项目实践">
+    <meta name="description" content="fuzz--AFL源码阅读、fuzzing101项目实践">
 <meta property="og:type" content="article">
-<meta property="og:title" content="fuzz入门到如土">
+<meta property="og:title" content="fuzz入门到入土">
 <meta property="og:url" content="http://example.com/2025/09/16/AFL%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/index.html">
 <meta property="og:site_name" content="le0n-blog">
-<meta property="og:description" content="fuzz--AFL源码阅读、项目实践">
+<meta property="og:description" content="fuzz--AFL源码阅读、fuzzing101项目实践">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/images/image-20250918170111499.png">
 <meta property="og:image" content="http://example.com/images/image-20250925194927464.png">
@@ -36,8 +36,19 @@
 <meta property="og:image" content="http://example.com/images/image-20250925204442069.png">
 <meta property="og:image" content="http://example.com/images/image-20250926094910645.png">
 <meta property="og:image" content="http://example.com/images/image-20250926101210649.png">
+<meta property="og:image" content="http://example.com/images/image-20250927143354760.png">
+<meta property="og:image" content="http://example.com/images/image-20250927144233004.png">
+<meta property="og:image" content="http://example.com/images/image-20250927144308435.png">
+<meta property="og:image" content="http://example.com/images/image-20250927153225557.png">
+<meta property="og:image" content="http://example.com/images/image-20250927203433134.png">
+<meta property="og:image" content="http://example.com/images/image-20250927203444106.png">
+<meta property="og:image" content="http://example.com/images/image-20250927210414191.png">
+<meta property="og:image" content="http://example.com/images/image-20250928111750871.png">
+<meta property="og:image" content="http://example.com/images/image-20250928112211412.png">
+<meta property="og:image" content="http://example.com/images/image-20250927212632108.png">
+<meta property="og:image" content="http://example.com/images/image-20250928111035935.png">
 <meta property="article:published_time" content="2025-09-16T07:51:47.155Z">
-<meta property="article:modified_time" content="2025-09-26T03:24:54.873Z">
+<meta property="article:modified_time" content="2025-09-28T04:07:02.512Z">
 <meta property="article:author" content="leon">
 <meta property="article:tag" content="fuzz">
 <meta property="article:tag" content="afl">
@@ -48,10 +59,10 @@
 <link rel="canonical" href="http://example.com/2025/09/16/AFL%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/">
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2025/09/16/AFL%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/","path":"2025/09/16/AFL源码阅读/","title":"fuzz入门到如土"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2025/09/16/AFL%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/","path":"2025/09/16/AFL源码阅读/","title":"fuzz入门到入土"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>fuzz入门到如土 | le0n-blog</title>
+<title>fuzz入门到入土 | le0n-blog</title>
   
 
 
@@ -123,7 +134,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%93%E9%A2%98%E4%B8%80%EF%BC%9A%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB"><span class="nav-number">1.</span> <span class="nav-text">专题一：源码阅读</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#afl-gcc-c"><span class="nav-number">1.1.</span> <span class="nav-text">afl-gcc.c</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#main-%E5%87%BD%E6%95%B0"><span class="nav-number">1.1.1.</span> <span class="nav-text">main()函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#find-as-argv-0-%E5%87%BD%E6%95%B0"><span class="nav-number">1.1.2.</span> <span class="nav-text">find_as(argv[0])函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#edit-params-%E5%87%BD%E6%95%B0"><span class="nav-number">1.1.3.</span> <span class="nav-text">edit_params()函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#afl-as-c"><span class="nav-number">1.2.</span> <span class="nav-text">afl-as.c</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#main-%E5%87%BD%E6%95%B0-1"><span class="nav-number">1.2.1.</span> <span class="nav-text">main()函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#edit-params-%E5%87%BD%E6%95%B0-1"><span class="nav-number">1.2.2.</span> <span class="nav-text">edit_params()函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#add-instrumentation"><span class="nav-number">1.2.3.</span> <span class="nav-text">add_instrumentation()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%80%9C%E8%80%83%E7%82%B9%E2%80%9D%E7%AD%94%E6%A1%88%E8%AF%A6%E8%A7%A3"><span class="nav-number">1.2.4.</span> <span class="nav-text">“考点”答案详解</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E6%AE%B5%E8%90%BD%E5%88%87%E6%8D%A2"><span class="nav-number">1.2.4.1.</span> <span class="nav-text">1. 段落切换</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E7%89%B9%E6%AE%8A%E8%AF%AD%E6%B3%95%E5%9D%97%E8%B7%B3%E8%BF%87"><span class="nav-number">1.2.4.2.</span> <span class="nav-text">2. 特殊语法块跳过</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E5%87%BD%E6%95%B0%E6%A0%87%E7%AD%BE-%E5%BB%B6%E8%BF%9F%E6%8F%92%E6%A1%A9"><span class="nav-number">1.2.4.3.</span> <span class="nav-text">3. 函数标签 (延迟插桩)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E6%9D%A1%E4%BB%B6%E8%B7%B3%E8%BD%AC-%E5%8D%B3%E6%97%B6%E6%8F%92%E6%A1%A9"><span class="nav-number">1.2.4.4.</span> <span class="nav-text">4. 条件跳转 (即时插桩)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-%E5%88%86%E6%94%AF%E6%A0%87%E7%AD%BE-%E5%BB%B6%E8%BF%9F%E6%8F%92%E6%A1%A9"><span class="nav-number">1.2.4.5.</span> <span class="nav-text">5. 分支标签 (延迟插桩)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-%E9%9D%9E%E6%8F%92%E6%A1%A9%E7%9B%AE%E6%A0%87"><span class="nav-number">1.2.4.6.</span> <span class="nav-text">6. 非插桩目标</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%80%E7%BB%88-modified-file-%E7%9A%84%E5%86%85%E5%AE%B9"><span class="nav-number">1.2.4.7.</span> <span class="nav-text">最终 modified_file 的内容</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%93%E9%A2%98%E4%BA%8C%EF%BC%9Afuzzing101%E5%AD%A6%E4%B9%A0"><span class="nav-number">2.</span> <span class="nav-text">专题二：fuzzing101学习</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Exercise-1-Xpdf%E2%80%94-CVE-2019-13288"><span class="nav-number">2.1.</span> <span class="nav-text">Exercise 1:Xpdf—-  CVE-2019-13288</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%AE%E6%A0%87%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE"><span class="nav-number">2.1.1.</span> <span class="nav-text">目标环境配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FUZZ%E9%98%B6%E6%AE%B5"><span class="nav-number">2.1.2.</span> <span class="nav-text">FUZZ阶段</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#fuzz%E5%89%8D%E6%9C%9F%E5%87%86%E5%A4%87"><span class="nav-number">2.1.2.1.</span> <span class="nav-text">fuzz前期准备</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BC%80%E5%A7%8Bfuzz"><span class="nav-number">2.1.2.2.</span> <span class="nav-text">开始fuzz</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#gdb%E9%AA%8C%E8%AF%81fuzz%E7%BB%93%E6%9E%9C"><span class="nav-number">2.1.2.3.</span> <span class="nav-text">gdb验证fuzz结果</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%93%E9%A2%98%E4%B8%80%EF%BC%9A%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB"><span class="nav-number">1.</span> <span class="nav-text">专题一：源码阅读</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#afl-gcc-c"><span class="nav-number">1.1.</span> <span class="nav-text">afl-gcc.c</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#main-%E5%87%BD%E6%95%B0"><span class="nav-number">1.1.1.</span> <span class="nav-text">main()函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#find-as-argv-0-%E5%87%BD%E6%95%B0"><span class="nav-number">1.1.2.</span> <span class="nav-text">find_as(argv[0])函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#edit-params-%E5%87%BD%E6%95%B0"><span class="nav-number">1.1.3.</span> <span class="nav-text">edit_params()函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#afl-as-c"><span class="nav-number">1.2.</span> <span class="nav-text">afl-as.c</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#main-%E5%87%BD%E6%95%B0-1"><span class="nav-number">1.2.1.</span> <span class="nav-text">main()函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#edit-params-%E5%87%BD%E6%95%B0-1"><span class="nav-number">1.2.2.</span> <span class="nav-text">edit_params()函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#add-instrumentation"><span class="nav-number">1.2.3.</span> <span class="nav-text">add_instrumentation()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%80%9C%E8%80%83%E7%82%B9%E2%80%9D%E7%AD%94%E6%A1%88%E8%AF%A6%E8%A7%A3"><span class="nav-number">1.2.4.</span> <span class="nav-text">“考点”答案详解</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E6%AE%B5%E8%90%BD%E5%88%87%E6%8D%A2"><span class="nav-number">1.2.4.1.</span> <span class="nav-text">1. 段落切换</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E7%89%B9%E6%AE%8A%E8%AF%AD%E6%B3%95%E5%9D%97%E8%B7%B3%E8%BF%87"><span class="nav-number">1.2.4.2.</span> <span class="nav-text">2. 特殊语法块跳过</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E5%87%BD%E6%95%B0%E6%A0%87%E7%AD%BE-%E5%BB%B6%E8%BF%9F%E6%8F%92%E6%A1%A9"><span class="nav-number">1.2.4.3.</span> <span class="nav-text">3. 函数标签 (延迟插桩)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E6%9D%A1%E4%BB%B6%E8%B7%B3%E8%BD%AC-%E5%8D%B3%E6%97%B6%E6%8F%92%E6%A1%A9"><span class="nav-number">1.2.4.4.</span> <span class="nav-text">4. 条件跳转 (即时插桩)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-%E5%88%86%E6%94%AF%E6%A0%87%E7%AD%BE-%E5%BB%B6%E8%BF%9F%E6%8F%92%E6%A1%A9"><span class="nav-number">1.2.4.5.</span> <span class="nav-text">5. 分支标签 (延迟插桩)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-%E9%9D%9E%E6%8F%92%E6%A1%A9%E7%9B%AE%E6%A0%87"><span class="nav-number">1.2.4.6.</span> <span class="nav-text">6. 非插桩目标</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%80%E7%BB%88-modified-file-%E7%9A%84%E5%86%85%E5%AE%B9"><span class="nav-number">1.2.4.7.</span> <span class="nav-text">最终 modified_file 的内容</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%93%E9%A2%98%E4%BA%8C%EF%BC%9Afuzzing101%E5%AD%A6%E4%B9%A0"><span class="nav-number">2.</span> <span class="nav-text">专题二：fuzzing101学习</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Exercise-1-Xpdf%E2%80%94-CVE-2019-13288"><span class="nav-number">2.1.</span> <span class="nav-text">Exercise 1:Xpdf—-  CVE-2019-13288</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%AE%E6%A0%87%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE"><span class="nav-number">2.1.1.</span> <span class="nav-text">目标环境配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FUZZ%E9%98%B6%E6%AE%B5"><span class="nav-number">2.1.2.</span> <span class="nav-text">FUZZ阶段</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#fuzz%E5%89%8D%E6%9C%9F%E5%87%86%E5%A4%87"><span class="nav-number">2.1.2.1.</span> <span class="nav-text">fuzz前期准备</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BC%80%E5%A7%8Bfuzz"><span class="nav-number">2.1.2.2.</span> <span class="nav-text">开始fuzz</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#gdb%E9%AA%8C%E8%AF%81fuzz%E7%BB%93%E6%9E%9C"><span class="nav-number">2.1.2.3.</span> <span class="nav-text">gdb验证fuzz结果</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Exercise-2-Libexif"><span class="nav-number">2.2.</span> <span class="nav-text">Exercise 2:Libexif</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Libexif"><span class="nav-number">2.2.1.</span> <span class="nav-text">Libexif</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E8%AF%91%E8%83%BD%E8%B0%83%E7%94%A8libexif%E7%9A%84%E7%A8%8B%E5%BA%8F"><span class="nav-number">2.2.2.</span> <span class="nav-text">编译能调用libexif的程序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FUZZ%E9%98%B6%E6%AE%B5-1"><span class="nav-number">2.2.3.</span> <span class="nav-text">FUZZ阶段</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%87%86%E5%A4%87%E7%A7%8D%E5%AD%90"><span class="nav-number">2.2.3.1.</span> <span class="nav-text">准备种子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BC%80%E5%A7%8Bfuzz-1"><span class="nav-number">2.2.3.2.</span> <span class="nav-text">开始fuzz</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Exercise-3-tcpdump"><span class="nav-number">2.3.</span> <span class="nav-text">Exercise 3:tcpdump</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%AE%E6%A0%87%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE-1"><span class="nav-number">2.3.1.</span> <span class="nav-text">目标环境配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FUZZ%E9%98%B6%E6%AE%B5-2"><span class="nav-number">2.3.2.</span> <span class="nav-text">FUZZ阶段</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%87%86%E5%A4%87%E7%A7%8D%E5%AD%90-1"><span class="nav-number">2.3.2.1.</span> <span class="nav-text">准备种子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BC%80%E5%A7%8Bfuzz-2"><span class="nav-number">2.3.2.2.</span> <span class="nav-text">开始fuzz</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#crash%E5%88%86%E6%9E%90"><span class="nav-number">2.3.3.</span> <span class="nav-text">crash分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">2.3.4.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -197,12 +208,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="fuzz入门到如土 | le0n-blog">
-      <meta itemprop="description" content="fuzz--AFL源码阅读、项目实践">
+      <meta itemprop="name" content="fuzz入门到入土 | le0n-blog">
+      <meta itemprop="description" content="fuzz--AFL源码阅读、fuzzing101项目实践">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          fuzz入门到如土
+          fuzz入门到入土
         </h1>
 
         <div class="post-meta-container">
@@ -220,7 +231,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2025-09-26 11:24:54" itemprop="dateModified" datetime="2025-09-26T11:24:54+08:00">2025-09-26</time>
+      <time title="Modified: 2025-09-28 12:07:02" itemprop="dateModified" datetime="2025-09-28T12:07:02+08:00">2025-09-28</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -246,18 +257,18 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">Word count in article: </span>
-      <span>37k</span>
+      <span>44k</span>
     </span>
     <span class="post-meta-item" title="Reading time">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">Reading time &asymp;</span>
-      <span>34 mins.</span>
+      <span>40 mins.</span>
     </span>
 </div>
 
-            <div class="post-description">fuzz--AFL源码阅读、项目实践</div>
+            <div class="post-description">fuzz--AFL源码阅读、fuzzing101项目实践</div>
         </div>
       </header>
 
@@ -455,6 +466,110 @@
 <li>上述 <code>val.fetch(xref, &amp;newobj)</code>，<strong>由于 <code>val</code> 的 <code>ref</code> 二元组为 <code>(num=7, gen=0)</code>，所以会调用 <code>xref-&gt;fetch(7, 0, &amp;newobj)</code></strong>，这个 call 与第 3 条分析的 call 作用相同，至此进入无限递归。</li>
 </ol>
 </blockquote>
+<h2 id="Exercise-2-Libexif"><a href="#Exercise-2-Libexif" class="headerlink" title="Exercise 2:Libexif"></a>Exercise 2:Libexif</h2><h3 id="Libexif"><a href="#Libexif" class="headerlink" title="Libexif"></a>Libexif</h3><p>项目地址：<a target="_blank" rel="noopener" href="https://github.com/libexif/libexif">https://github.com/libexif/libexif</a></p>
+<p>libexif是一个用于解析、编辑和保存EXIF数据的库，支持解析、编辑和保存EXIF数据</p>
+<p>可交换图像文件格式（英语：Exchangeable image file format, 官方简称 Exif），是专门为数码相机的照片设定的，可以记录数码照片的属性信息和拍摄数据。</p>
+<p> 本次练习选用 libexif 0.6.14 版本，该版本存在 CVE-2009-3895 和 CVE-2012-2836 漏洞：</p>
+<ul>
+<li><strong>CVE-2009-3895</strong>  - 一种基于堆溢出的缓冲区溢出漏洞，可以通过无效的 EXIF 图像触发。可利用该漏洞在使用该库的应用程序中执行任意代码： <a target="_blank" rel="noopener" href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2009-3895">CVE-2009-3895 详情</a> </li>
+<li><strong>CVE-2012-2836</strong>  - 一种基于越界读取漏洞，可以通过特构造的 EXIF 标签的图像触发。  - 可利用该漏洞允许攻击者进行拒绝服务或可能从程序内获取潜在的敏感信息： <a target="_blank" rel="noopener" href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2012-2836">CVE-2012-2836 详情</a></li>
+</ul>
+<p><strong>libexif库安装</strong></p>
+<p>由于libexif为本次练习的主要目标，所以还是需要进行插桩编译的，老样子创建一个干净的目录</p>
+<p>将libexif-0.6.14源码的包下载下来并安装一些必要的软件和依赖</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">le0n:fuzzing_libexif/ $ <span class="built_in">sudo</span> apt-get install autopoint libtool gettext libpopt-dev   </span><br><span class="line">le0n:fuzzing_libexif/ $ wget https://github.com/libexif/libexif/archive/refs/tags/libexif-0_6_14-release.tar.gz    </span><br><span class="line">le0n:fuzzing_libexif/ $ tar -xzvf libexif-0_6_14-release.tar.gz</span><br></pre></td></tr></table></figure>
+
+<p>构建并安装libexif</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">le0n:fuzzing_libexif/ $ <span class="built_in">cd</span> libexif-libexif-0_6_14-release </span><br><span class="line">le0n:libexif-libexif-0_6_14-release/ $ autoreconf -fvi </span><br></pre></td></tr></table></figure>
+
+<p>这个时候就可以在当前目录下生成一个configure，是创建makefile的程序，所以还要设置<code>CC</code>和·<code>CXX</code>环境变量</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">le0n:fuzzing_libexif/ $ <span class="built_in">export</span> CC=/home/le0n/tools/AFLplusplus/afl-clang-fast                             </span><br><span class="line">le0n:fuzzing_libexif/ $ <span class="built_in">export</span> CXX=/home/le0n/tools/AFLplusplus/afl-clang-fast++ </span><br></pre></td></tr></table></figure>
+
+<p>然后这里直接指定编译好的程序放在<code>fuzzing_libexif/install</code>目录下</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">le0n:libexif-libexif-0_6_14-release/ $ ./configure --enable-shared=no --prefix=/home/le0n/fuzzing/fuzzing_libexif/install</span><br><span class="line">le0n:libexif-libexif-0_6_14-release/ $ make</span><br><span class="line">le0n:libexif-libexif-0_6_14-release/ $ make install  </span><br></pre></td></tr></table></figure>
+
+<p>有报错的话丢给ai问问有问题没。然后进入<code>install/lib</code>目录下检查一下插桩是否成功</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">le0n:lib/ $ strings libexif.a | grep __sanitizer_cov</span><br></pre></td></tr></table></figure>
+
+<p><img data-src="/../images/image-20250927143354760.png" alt="image-20250927143354760"></p>
+<h3 id="编译能调用libexif的程序"><a href="#编译能调用libexif的程序" class="headerlink" title="编译能调用libexif的程序"></a>编译能调用libexif的程序</h3><p>这里需要注意的是由于libexif是一个链接库，是无法直接运行的，所以还是需要一个能够调用libexif库的程序。libexif官网其实就有提供fuzz白的text文件<a target="_blank" rel="noopener" href="https://github.com/libexif/libexif/blob/master/test/test-fuzzer-persistent.c">https://github.com/libexif/libexif/blob/master/test/test-fuzzer-persistent.c</a></p>
+<p>同时Exercise2中也提供了一个能够调用libexif库的程序，直接用就好了</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">le0n:fuzzing_libexif/ $ wget https://github.com/libexif/exif/archive/refs/tags/exif-0_6_15-release.tar.gz </span><br><span class="line">le0n:fuzzing_libexif/ $ tar -xzvf exif-0_6_15-release.tar.gz </span><br></pre></td></tr></table></figure>
+
+<p>后续安装过程和libexif一样</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">le0n:fuzzing_libexif/ $ <span class="built_in">cd</span> exif-exif-0_6_15-release/</span><br><span class="line">le0n:exif-exif-0_6_15-release/ $ autoreconf -fvi </span><br><span class="line">le0n:exif-exif-0_6_15-release/ $ ./configure --enable-shared=no --prefix=/home/le0n/fuzzing/fuzzing_libexif/install/ PKG_CONFIG_PATH=<span class="variable">$HOME</span>/fuzzing/fuzzing_libexif/install/lib/pkgconfig</span><br><span class="line">le0n:exif-exif-0_6_15-release/ $ make </span><br><span class="line">le0n:exif-exif-0_6_15-release/ $ make install </span><br></pre></td></tr></table></figure>
+
+<p>这里唯一的区别是要用<code>PKG_CONFIG_PATH</code>指定一下安装的链接库的位置，同样是在install目录下的bin里面可以找到程序</p>
+<p><img data-src="/../images/image-20250927144233004.png" alt="image-20250927144233004"></p>
+<p>对于这个文件也可以查看一下插桩是否成功</p>
+<p><img data-src="/../images/image-20250927144308435.png" alt="image-20250927144308435"></p>
+<h3 id="FUZZ阶段-1"><a href="#FUZZ阶段-1" class="headerlink" title="FUZZ阶段"></a>FUZZ阶段</h3><p>环境已部署好，接下来开始fuzz</p>
+<h4 id="准备种子"><a href="#准备种子" class="headerlink" title="准备种子"></a>准备种子</h4><p>因为程序本身的功能是解析EXIF文件，这里直接用Exercise 2提供的种子链接：<a target="_blank" rel="noopener" href="https://github.com/ianare/exif-samples/archive/refs/heads/master.zip">https://github.com/ianare/exif-samples/archive/refs/heads/master.zip</a></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">le0n:fuzzing_libexif/ $ wget https://github.com/ianare/exif-samples/archive/refs/heads/master.zip </span><br><span class="line">le0n:fuzzing_libexif/ $ unzip master.zip </span><br></pre></td></tr></table></figure>
+
+<h4 id="开始fuzz-1"><a href="#开始fuzz-1" class="headerlink" title="开始fuzz"></a>开始fuzz</h4><p>现在所有的条件准备好了，下面就开始fuzz</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/home/hollk/AFLplusplus/afl-fuzz -i /home/hollk/fuzzing_libexif/exif-samples-master/jpg/ -o /home/hollk/fuzzing_libexif/out/ -s 123 -- /home/hollk/fuzzing_libexif/install/bin/exif @@</span><br></pre></td></tr></table></figure>
+
+<p><img data-src="/../images/image-20250927153225557.png" alt="image-20250927153225557"></p>
+<p>同理，我们删去插桩过的install目录，然后仍然带符号重新编译：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">rm</span> install</span><br><span class="line"><span class="built_in">cd</span> libexif-libexif-0_6_15-release</span><br><span class="line">make clean</span><br><span class="line">CFLAGS=<span class="string">&quot;-g -O0&quot;</span> CXXFLAGS=<span class="string">&quot;-g -O0&quot;</span> ./configure --enable-shared=no --prefix=/home/le0n/fuzzing/fuzzing_libexif/install</span><br><span class="line">make -j$(<span class="built_in">nproc</span>)</span><br><span class="line">make install</span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> exif-exif-0_6_15-release</span><br><span class="line">make clean</span><br><span class="line">CFLAGS=<span class="string">&quot;-g -O0&quot;</span> CXXFLAGS=<span class="string">&quot;-g -O0&quot;</span> ./configure --enable-shared=no --prefix=/home/le0n/fuzzing/fuzzing_libexif/install/ PKG_CONFIG_PATH=<span class="variable">$HOME</span>/fuzzing/fuzzing_libexif/install/lib/pkgconfi</span><br><span class="line">make -j$(<span class="built_in">nproc</span>)</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
+
+<p>然后使用 gdb 进行动态调试，参数为 crashes 目录下的文件：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gdb --args ./install/bin/exif ./out/default/crashes/id:000001,sig:11,src:000010,<span class="keyword">time</span>:115911,execs:80465,op:havoc,rep:1</span><br></pre></td></tr></table></figure>
+
+<p>最终这些所有的crashs有两种情况(符合漏洞描述的中断有好几个，hangs中还有一个无限递归吧，不符合的也有目前水平有限暂不分析)，如下：</p>
+<p><img data-src="/../images/image-20250927203433134.png" alt="image-20250927203433134"></p>
+<p><img data-src="/../images/image-20250927203444106.png" alt="image-20250927203444106"></p>
+<p>　　显然，这些 crash 可以分为两类：</p>
+<ul>
+<li>调用 <code>exif_data_load_data_thumbnail</code> 时崩溃。</li>
+<li>调用 <code>exif_get_sshort</code> 时崩溃。</li>
+</ul>
+<p>图一中可以看到在 #1调用 <code>exif_data_load_data_thumbnail</code>中的size &#x3D; 4294966565 这显然是不合理的，这里是为了验证应该是<strong>CVE-2009-3895</strong>  - 一种基于堆溢出的缓冲区溢出漏洞，可以通过无效的 EXIF 图像触发。</p>
+<p>图二的 #1 用 <code>exif_data_load_data</code> 时，成功通过了第一类 crash 的崩溃地点 <code>exif_data_load_data_content</code>，然而在接下来调用 <code>exif_get_short(d + 6 + offset, data-&gt;priv-&gt;order)</code> 读取一个 short 时崩溃。程序试图去读取地址 0x5556557b8c85 里的数据，但这个地址是<strong>非法的、不可访问的</strong>。<strong>CVE-2012-2836</strong>  - 一种基于越界读取漏洞，可以通过特构造的 EXIF 标签的图像触发。</p>
+<p>详细漏洞流程跟踪<a target="_blank" rel="noopener" href="https://www.ruanx.net/fuzzing101-wp-2/">参考文章</a></p>
+<h2 id="Exercise-3-tcpdump"><a href="#Exercise-3-tcpdump" class="headerlink" title="Exercise 3:tcpdump"></a>Exercise 3:tcpdump</h2><h3 id="目标环境配置-1"><a href="#目标环境配置-1" class="headerlink" title="目标环境配置"></a>目标环境配置</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#download libpcap-1.8.0</span></span><br><span class="line">~$ <span class="built_in">cd</span> fuzzing_tcpdump/</span><br><span class="line">~/fuzzing_tcpdump$ wget https://github.com/the-tcpdump-group/libpcap/archive/refs/tags/libpcap-1.8.0.tar.gz</span><br><span class="line">~/fuzzing_tcpdump$ tar -xzvf libpcap-1.8.0.tar.gz</span><br><span class="line"><span class="comment">#改名，否则tcpdump无法识别到</span></span><br><span class="line">~/fuzzing_tcpdump$ <span class="built_in">mv</span> libpcap-libpcap-1.8.0/ libpcap-1.8.0</span><br><span class="line"><span class="comment">#install libpcap-1.8.0</span></span><br><span class="line">~/fuzzing_tcpdump/$ <span class="built_in">cd</span> libpcap-1.8.0</span><br><span class="line">./configure --enable-shared=no --prefix=/home/le0n/fuzzing/fuzzing_tcpdump/install/</span><br><span class="line">~/fuzzing_tcpdump/libpcap-1.8.0$ AFL_USE_ASAN=1 make</span><br><span class="line">~/fuzzing_tcpdump/libpcap-1.8.0$ AFL_USE_ASAN=1 make install</span><br><span class="line"><span class="comment">#download tcpdump</span></span><br><span class="line">~$ <span class="built_in">cd</span> <span class="variable">$HOME</span>/fuzzing_tcpdump/</span><br><span class="line">$ wget https://github.com/the-tcpdump-group/tcpdump/archive/refs/tags/tcpdump-4.9.2.tar.gz</span><br><span class="line">$ tar -xzvf tcpdump-4.9.2.tar.gz</span><br><span class="line"><span class="comment">#install tcpdump</span></span><br><span class="line"><span class="built_in">cd</span> tcpdump-tcpdump-4.9.2/</span><br><span class="line">AFL_USE_ASAN=1 ./configure --prefix=<span class="string">&quot;<span class="variable">$HOME</span>/fuzzing_tcpdump/install/&quot;</span></span><br><span class="line">AFL_USE_ASAN=1 make</span><br><span class="line">AFL_USE_ASAN=1 make install</span><br></pre></td></tr></table></figure>
+
+<p>编译好后返回<code>fuzzing_tcpdump/install/sbin</code>目录下查看插桩是否成功</p>
+<p><img data-src="/../images/image-20250927210414191.png" alt="image-20250927210414191"></p>
+<p>再查看一下编译好的程序是否能正常运行</p>
+<p><img data-src="/../images/image-20250928111750871.png" alt="image-20250928111750871"></p>
+<h3 id="FUZZ阶段-2"><a href="#FUZZ阶段-2" class="headerlink" title="FUZZ阶段"></a>FUZZ阶段</h3><h4 id="准备种子-1"><a href="#准备种子-1" class="headerlink" title="准备种子"></a>准备种子</h4><p>在下载tcpdump的目录下存在一个<code>tests</code>目录，该目录下有很多例子可以使用这些例子作为种子</p>
+<p>可以随便找个例子试一下：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">le0n:tcpdump-tcpdump-4.9.2/ $ ./tcpdump -vvvvXX -ee -nn -r ./tests/geneve.pcap </span><br></pre></td></tr></table></figure>
+
+<p><img data-src="/../images/image-20250928112211412.png" alt="image-20250928112211412"></p>
+<h4 id="开始fuzz-2"><a href="#开始fuzz-2" class="headerlink" title="开始fuzz"></a>开始fuzz</h4><p>指定崩溃处理：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> su</span><br><span class="line"><span class="built_in">echo</span> core &gt;/proc/sys/kernel/core_pattern</span><br><span class="line"><span class="built_in">exit</span></span><br></pre></td></tr></table></figure>
+
+<p>准备就绪开始fuzz(我看了几篇博客有的可能需要16h+，我的在这里开了4个第三个在5min时就发现了crash)</p>
+<p>但是从 fuzz 这项技术本身的角度来看，这种结果是还可以的，毕竟 fuzz 不到东西才是常态</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">/home/le0n/tools/AFLplusplus/afl-fuzz -m none -i ./tcpdump-tcpdump-4.9.2/tests/ -o ./out -s 123 -M master -- ./install/sbin/tcpdump -vvvvXX -ee -nn -r @@</span><br><span class="line"></span><br><span class="line">/home/le0n/tools/AFLplusplus/afl-fuzz -m none -i ./tcpdump-tcpdump-4.9.2/tests/ -o ./out -s 123 -S fuzzer1 -- ./install/sbin/tcpdump -vvvvXX -ee -nn -r @@</span><br></pre></td></tr></table></figure>
+
+<p>参数解释：</p>
+<ul>
+<li>-i：输入目录</li>
+<li>-o：输出目录</li>
+<li>-m：内存限制</li>
+<li>-s：固定编译原始数据</li>
+<li>-M：主fuzzer 命名</li>
+<li>-S：从fuzzer</li>
+<li>@@：指代文件</li>
+<li>–：间隔符</li>
+</ul>
+<p>这里使用 -m none 是因为在ASAN模式下对内存消耗非常大，所以指定禁用内存限制</p>
+<p><img data-src="/../images/image-20250927212632108.png" alt="image-20250927212632108"></p>
+<h3 id="crash分析"><a href="#crash分析" class="headerlink" title="crash分析"></a>crash分析</h3><p>在使用 ASan 之前，我们会使用 gdb 来把目标程序附带 crashes 文件夹中的数据作为参数来进行动态调试，从而可以看到其函数调用栈、内存数据等信息。而有了 ASan 之后，我们不必再编译程序，直接把 crash 文件作为参数传入即可，ASan 会给出我们崩溃的相关信息：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">le0n:fuzzing_tcpdump/ $ ./install/sbin/tcpdump -vvvvXX -ee -nn -r ./out/fuzzer2/crashes/id:000000,sig:06,src:000236,<span class="keyword">time</span>:188180,execs:74793,op:havoc,rep:2</span><br></pre></td></tr></table></figure>
+
+<p><img data-src="/../images/image-20250928111035935.png" alt="image-20250928111035935"></p>
+<p>ASan 会给出造成问题的原因、函数的栈回溯、出现问题的具体数据点，结合这些信息，可以快速帮助我们重现 crash，确认到 crash 的 root case。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>在这个例子里，我们添加了 ASan 这个工具，它对于我们的 fuzz 其实是一个负面的作用，因为它的存在，在进行插桩时会造成内存的严重消耗。但是它的主要作用是在 crash 分析上，我们可以无需经过动态调试，就可以得到程序崩溃的相关信息和数据，可以更快地帮助我们找到造成 crash 的原因。</p>
+<p>需要注意的是，因为 ASan 的大内存消耗，所以需要根据情况来决定要不要使用该工具</p>
+<blockquote>
+<p><strong>扩展</strong></p>
+<p>前面介绍的 AFL 针对的都是 PC 端的软件，确切地说都是 Linux 平台下的传统的端侧软件。如果我们想在 IoT 领域使用该工具，应该如何切入呢？IoT 领域的一些系统中，也会有诸多处理文件的软件，我们是否可以直接套用现有的思路去 fuzz 这些文件处理软件呢？比如 xml、json的处理。因为这些文件都是在前端进行组织，然后发送到后端去进行处理，如果我们能在这个阶段加入 fuzz 流程，就可以倒推 payload 的组织，从而实现漏洞利用。我们在后续会慢慢切入。</p>
+</blockquote>
 
     </div>
 
@@ -472,7 +587,7 @@
   </li>
   <li class="post-copyright-link">
       <strong>Post link: </strong>
-      <a href="http://example.com/2025/09/16/AFL%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/" title="fuzz入门到如土">http://example.com/2025/09/16/AFL源码阅读/</a>
+      <a href="http://example.com/2025/09/16/AFL%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/" title="fuzz入门到入土">http://example.com/2025/09/16/AFL源码阅读/</a>
   </li>
   <li class="post-copyright-license">
       <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
@@ -524,13 +639,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="Word count total">535k</span>
+    <span title="Word count total">541k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="Reading time total">8:06</span>
+    <span title="Reading time total">8:12</span>
   </span>
 </div>
 <div class="busuanzi-count">
