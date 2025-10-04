@@ -23,8 +23,8 @@
 
     <meta name="description" content="fuzz--AFL源码阅读、fuzzing101项目实践">
 <meta property="og:type" content="article">
-<meta property="og:title" content="fuzz入门到入土">
-<meta property="og:url" content="http://example.com/2025/09/16/FUZZ%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9C%9F/index.html">
+<meta property="og:title" content="fuzz入门到入土（一）">
+<meta property="og:url" content="http://example.com/2025/09/16/fuzz%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9C%9F%EF%BC%88%E4%B8%80%EF%BC%89/index.html">
 <meta property="og:site_name" content="le0n-blog">
 <meta property="og:description" content="fuzz--AFL源码阅读、fuzzing101项目实践">
 <meta property="og:locale" content="en_US">
@@ -65,22 +65,28 @@
 <meta property="og:image" content="http://example.com/images/image-20251003170549263.png">
 <meta property="og:image" content="http://example.com/2025/09/16/images/image-20251003173250917.png">
 <meta property="og:image" content="http://example.com/2025/09/16/images/image-20251003173333695.png">
+<meta property="og:image" content="http://example.com/images/image-20251004144909908.png">
+<meta property="og:image" content="http://example.com/images/image-20251004150336314.png">
+<meta property="og:image" content="http://example.com/images/image-20251004152815786.png">
+<meta property="og:image" content="http://example.com/images/image-20251004153554309.png">
+<meta property="og:image" content="http://example.com/images/image-20251004154517609.png">
+<meta property="og:image" content="http://example.com/images/image-20251004160413174.png">
+<meta property="og:image" content="http://example.com/images/image-20251004161213044.png">
 <meta property="article:published_time" content="2025-09-16T07:51:47.155Z">
-<meta property="article:modified_time" content="2025-10-03T09:40:20.032Z">
+<meta property="article:modified_time" content="2025-10-04T08:44:16.134Z">
 <meta property="article:author" content="leon">
 <meta property="article:tag" content="fuzz">
-<meta property="article:tag" content="afl">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/images/image-20250918170111499.png">
 
 
-<link rel="canonical" href="http://example.com/2025/09/16/FUZZ%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9C%9F/">
+<link rel="canonical" href="http://example.com/2025/09/16/fuzz%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9C%9F%EF%BC%88%E4%B8%80%EF%BC%89/">
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2025/09/16/FUZZ%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9C%9F/","path":"2025/09/16/FUZZ从入门到入土/","title":"fuzz入门到入土"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2025/09/16/fuzz%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9C%9F%EF%BC%88%E4%B8%80%EF%BC%89/","path":"2025/09/16/fuzz从入门到入土（一）/","title":"fuzz入门到入土（一）"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>fuzz入门到入土 | le0n-blog</title>
+<title>fuzz入门到入土（一） | le0n-blog</title>
   
 
 
@@ -152,7 +158,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%93%E9%A2%98%E4%B8%80%EF%BC%9A%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB"><span class="nav-number">1.</span> <span class="nav-text">专题一：源码阅读</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#afl-gcc-c"><span class="nav-number">1.1.</span> <span class="nav-text">afl-gcc.c</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#main-%E5%87%BD%E6%95%B0"><span class="nav-number">1.1.1.</span> <span class="nav-text">main()函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#find-as-argv-0-%E5%87%BD%E6%95%B0"><span class="nav-number">1.1.2.</span> <span class="nav-text">find_as(argv[0])函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#edit-params-%E5%87%BD%E6%95%B0"><span class="nav-number">1.1.3.</span> <span class="nav-text">edit_params()函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#afl-as-c"><span class="nav-number">1.2.</span> <span class="nav-text">afl-as.c</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#main-%E5%87%BD%E6%95%B0-1"><span class="nav-number">1.2.1.</span> <span class="nav-text">main()函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#edit-params-%E5%87%BD%E6%95%B0-1"><span class="nav-number">1.2.2.</span> <span class="nav-text">edit_params()函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#add-instrumentation"><span class="nav-number">1.2.3.</span> <span class="nav-text">add_instrumentation()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%80%9C%E8%80%83%E7%82%B9%E2%80%9D%E7%AD%94%E6%A1%88%E8%AF%A6%E8%A7%A3"><span class="nav-number">1.2.4.</span> <span class="nav-text">“考点”答案详解</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E6%AE%B5%E8%90%BD%E5%88%87%E6%8D%A2"><span class="nav-number">1.2.4.1.</span> <span class="nav-text">1. 段落切换</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E7%89%B9%E6%AE%8A%E8%AF%AD%E6%B3%95%E5%9D%97%E8%B7%B3%E8%BF%87"><span class="nav-number">1.2.4.2.</span> <span class="nav-text">2. 特殊语法块跳过</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E5%87%BD%E6%95%B0%E6%A0%87%E7%AD%BE-%E5%BB%B6%E8%BF%9F%E6%8F%92%E6%A1%A9"><span class="nav-number">1.2.4.3.</span> <span class="nav-text">3. 函数标签 (延迟插桩)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E6%9D%A1%E4%BB%B6%E8%B7%B3%E8%BD%AC-%E5%8D%B3%E6%97%B6%E6%8F%92%E6%A1%A9"><span class="nav-number">1.2.4.4.</span> <span class="nav-text">4. 条件跳转 (即时插桩)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-%E5%88%86%E6%94%AF%E6%A0%87%E7%AD%BE-%E5%BB%B6%E8%BF%9F%E6%8F%92%E6%A1%A9"><span class="nav-number">1.2.4.5.</span> <span class="nav-text">5. 分支标签 (延迟插桩)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-%E9%9D%9E%E6%8F%92%E6%A1%A9%E7%9B%AE%E6%A0%87"><span class="nav-number">1.2.4.6.</span> <span class="nav-text">6. 非插桩目标</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%80%E7%BB%88-modified-file-%E7%9A%84%E5%86%85%E5%AE%B9"><span class="nav-number">1.2.4.7.</span> <span class="nav-text">最终 modified_file 的内容</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%93%E9%A2%98%E4%BA%8C%EF%BC%9Afuzzing101%E5%AD%A6%E4%B9%A0"><span class="nav-number">2.</span> <span class="nav-text">专题二：fuzzing101学习</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Exercise-1%EF%BC%9AXpdf%E2%80%94-CVE-2019-13288"><span class="nav-number">2.1.</span> <span class="nav-text">Exercise 1：Xpdf—-  CVE-2019-13288</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%AE%E6%A0%87%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE"><span class="nav-number">2.1.1.</span> <span class="nav-text">目标环境配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FUZZ%E9%98%B6%E6%AE%B5"><span class="nav-number">2.1.2.</span> <span class="nav-text">FUZZ阶段</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#fuzz%E5%89%8D%E6%9C%9F%E5%87%86%E5%A4%87"><span class="nav-number">2.1.2.1.</span> <span class="nav-text">fuzz前期准备</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BC%80%E5%A7%8Bfuzz"><span class="nav-number">2.1.2.2.</span> <span class="nav-text">开始fuzz</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#gdb%E9%AA%8C%E8%AF%81fuzz%E7%BB%93%E6%9E%9C"><span class="nav-number">2.1.2.3.</span> <span class="nav-text">gdb验证fuzz结果</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Exercise-2%EF%BC%9ALibexif"><span class="nav-number">2.2.</span> <span class="nav-text">Exercise 2：Libexif</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Libexif"><span class="nav-number">2.2.1.</span> <span class="nav-text">Libexif</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E8%AF%91%E8%83%BD%E8%B0%83%E7%94%A8libexif%E7%9A%84%E7%A8%8B%E5%BA%8F"><span class="nav-number">2.2.2.</span> <span class="nav-text">编译能调用libexif的程序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FUZZ%E9%98%B6%E6%AE%B5-1"><span class="nav-number">2.2.3.</span> <span class="nav-text">FUZZ阶段</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%87%86%E5%A4%87%E7%A7%8D%E5%AD%90"><span class="nav-number">2.2.3.1.</span> <span class="nav-text">准备种子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BC%80%E5%A7%8Bfuzz-1"><span class="nav-number">2.2.3.2.</span> <span class="nav-text">开始fuzz</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Exercise-3%EF%BC%9Atcpdump"><span class="nav-number">2.3.</span> <span class="nav-text">Exercise 3：tcpdump</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%AE%E6%A0%87%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE-1"><span class="nav-number">2.3.1.</span> <span class="nav-text">目标环境配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FUZZ%E9%98%B6%E6%AE%B5-2"><span class="nav-number">2.3.2.</span> <span class="nav-text">FUZZ阶段</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%87%86%E5%A4%87%E7%A7%8D%E5%AD%90-1"><span class="nav-number">2.3.2.1.</span> <span class="nav-text">准备种子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BC%80%E5%A7%8Bfuzz-2"><span class="nav-number">2.3.2.2.</span> <span class="nav-text">开始fuzz</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#crash%E5%88%86%E6%9E%90"><span class="nav-number">2.3.3.</span> <span class="nav-text">crash分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">2.3.4.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Exercise-4%EF%BC%9Alibtiff"><span class="nav-number">2.4.</span> <span class="nav-text">Exercise 4：libtiff</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2"><span class="nav-number">2.4.1.</span> <span class="nav-text">环境部署</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FUZZ%E9%98%B6%E6%AE%B5-3"><span class="nav-number">2.4.2.</span> <span class="nav-text">FUZZ阶段</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%87%86%E5%A4%87%E7%A7%8D%E5%AD%90-2"><span class="nav-number">2.4.2.1.</span> <span class="nav-text">准备种子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BC%80%E5%A7%8Bfuzz-3"><span class="nav-number">2.4.2.2.</span> <span class="nav-text">开始fuzz</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8BPOC%E4%BB%A3%E7%A0%81%E8%A6%86%E7%9B%96%E7%8E%87"><span class="nav-number">2.4.3.</span> <span class="nav-text">查看POC代码覆盖率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93-1"><span class="nav-number">2.4.4.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Exercise-5%EF%BC%9Alibxml2"><span class="nav-number">2.5.</span> <span class="nav-text">Exercise 5：libxml2</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2-1"><span class="nav-number">2.5.1.</span> <span class="nav-text">环境部署</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FUZZ%E9%98%B6%E6%AE%B5-4"><span class="nav-number">2.5.2.</span> <span class="nav-text">FUZZ阶段</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%87%86%E5%A4%87%E7%A7%8D%E5%AD%90-3"><span class="nav-number">2.5.2.1.</span> <span class="nav-text">准备种子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BC%80%E5%A7%8Bfuzz-4"><span class="nav-number">2.5.2.2.</span> <span class="nav-text">开始fuzz</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93-2"><span class="nav-number">2.5.3.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%87%E5%8D%8A%E6%80%BB%E7%BB%93"><span class="nav-number">2.6.</span> <span class="nav-text">过半总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Exercise-6%EF%BC%9A-GIMP"><span class="nav-number">2.7.</span> <span class="nav-text">Exercise 6： GIMP</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2-2"><span class="nav-number">2.7.1.</span> <span class="nav-text">环境部署</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Exercise-8%EF%BC%9AAdobe-Reader"><span class="nav-number">2.8.</span> <span class="nav-text">Exercise 8：Adobe Reader</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%AE%E6%A0%87%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE-2"><span class="nav-number">2.8.1.</span> <span class="nav-text">目标环境配置</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%93%E9%A2%98%E4%B8%89%EF%BC%9AAddress-Sanitizer-ASan-%E5%90%84%E7%B1%BB%E6%BA%A2%E5%87%BAdemo%E5%88%86%E6%9E%90"><span class="nav-number">3.</span> <span class="nav-text">专题三：Address Sanitizer(ASan)各类溢出demo分析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">3.1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Address-Sanitizer-ASan-%E4%BB%8B%E7%BB%8D"><span class="nav-number">3.2.</span> <span class="nav-text">Address Sanitizer (ASan) 介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%84%E7%B1%BB%E6%BC%8F%E6%B4%9E-demo-%E5%88%86%E6%9E%90"><span class="nav-number">3.3.</span> <span class="nav-text">各类漏洞 demo 分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#stack-overflow"><span class="nav-number">3.3.1.</span> <span class="nav-text">stack overflow</span></a></li></ol></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%93%E9%A2%98%E4%B8%80%EF%BC%9A%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB"><span class="nav-number">1.</span> <span class="nav-text">专题一：源码阅读</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#afl-gcc-c"><span class="nav-number">1.1.</span> <span class="nav-text">afl-gcc.c</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#main-%E5%87%BD%E6%95%B0"><span class="nav-number">1.1.1.</span> <span class="nav-text">main()函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#find-as-argv-0-%E5%87%BD%E6%95%B0"><span class="nav-number">1.1.2.</span> <span class="nav-text">find_as(argv[0])函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#edit-params-%E5%87%BD%E6%95%B0"><span class="nav-number">1.1.3.</span> <span class="nav-text">edit_params()函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#afl-as-c"><span class="nav-number">1.2.</span> <span class="nav-text">afl-as.c</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#main-%E5%87%BD%E6%95%B0-1"><span class="nav-number">1.2.1.</span> <span class="nav-text">main()函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#edit-params-%E5%87%BD%E6%95%B0-1"><span class="nav-number">1.2.2.</span> <span class="nav-text">edit_params()函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#add-instrumentation"><span class="nav-number">1.2.3.</span> <span class="nav-text">add_instrumentation()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%80%9C%E8%80%83%E7%82%B9%E2%80%9D%E7%AD%94%E6%A1%88%E8%AF%A6%E8%A7%A3"><span class="nav-number">1.2.4.</span> <span class="nav-text">“考点”答案详解</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E6%AE%B5%E8%90%BD%E5%88%87%E6%8D%A2"><span class="nav-number">1.2.4.1.</span> <span class="nav-text">1. 段落切换</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E7%89%B9%E6%AE%8A%E8%AF%AD%E6%B3%95%E5%9D%97%E8%B7%B3%E8%BF%87"><span class="nav-number">1.2.4.2.</span> <span class="nav-text">2. 特殊语法块跳过</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E5%87%BD%E6%95%B0%E6%A0%87%E7%AD%BE-%E5%BB%B6%E8%BF%9F%E6%8F%92%E6%A1%A9"><span class="nav-number">1.2.4.3.</span> <span class="nav-text">3. 函数标签 (延迟插桩)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E6%9D%A1%E4%BB%B6%E8%B7%B3%E8%BD%AC-%E5%8D%B3%E6%97%B6%E6%8F%92%E6%A1%A9"><span class="nav-number">1.2.4.4.</span> <span class="nav-text">4. 条件跳转 (即时插桩)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-%E5%88%86%E6%94%AF%E6%A0%87%E7%AD%BE-%E5%BB%B6%E8%BF%9F%E6%8F%92%E6%A1%A9"><span class="nav-number">1.2.4.5.</span> <span class="nav-text">5. 分支标签 (延迟插桩)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-%E9%9D%9E%E6%8F%92%E6%A1%A9%E7%9B%AE%E6%A0%87"><span class="nav-number">1.2.4.6.</span> <span class="nav-text">6. 非插桩目标</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%80%E7%BB%88-modified-file-%E7%9A%84%E5%86%85%E5%AE%B9"><span class="nav-number">1.2.4.7.</span> <span class="nav-text">最终 modified_file 的内容</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%93%E9%A2%98%E4%BA%8C%EF%BC%9Afuzzing101%E5%AD%A6%E4%B9%A0"><span class="nav-number">2.</span> <span class="nav-text">专题二：fuzzing101学习</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Exercise-1%EF%BC%9AXpdf%E2%80%94-CVE-2019-13288"><span class="nav-number">2.1.</span> <span class="nav-text">Exercise 1：Xpdf—-  CVE-2019-13288</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%AE%E6%A0%87%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE"><span class="nav-number">2.1.1.</span> <span class="nav-text">目标环境配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FUZZ%E9%98%B6%E6%AE%B5"><span class="nav-number">2.1.2.</span> <span class="nav-text">FUZZ阶段</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#fuzz%E5%89%8D%E6%9C%9F%E5%87%86%E5%A4%87"><span class="nav-number">2.1.2.1.</span> <span class="nav-text">fuzz前期准备</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BC%80%E5%A7%8Bfuzz"><span class="nav-number">2.1.2.2.</span> <span class="nav-text">开始fuzz</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#gdb%E9%AA%8C%E8%AF%81fuzz%E7%BB%93%E6%9E%9C"><span class="nav-number">2.1.2.3.</span> <span class="nav-text">gdb验证fuzz结果</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Exercise-2%EF%BC%9ALibexif"><span class="nav-number">2.2.</span> <span class="nav-text">Exercise 2：Libexif</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Libexif"><span class="nav-number">2.2.1.</span> <span class="nav-text">Libexif</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E8%AF%91%E8%83%BD%E8%B0%83%E7%94%A8libexif%E7%9A%84%E7%A8%8B%E5%BA%8F"><span class="nav-number">2.2.2.</span> <span class="nav-text">编译能调用libexif的程序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FUZZ%E9%98%B6%E6%AE%B5-1"><span class="nav-number">2.2.3.</span> <span class="nav-text">FUZZ阶段</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%87%86%E5%A4%87%E7%A7%8D%E5%AD%90"><span class="nav-number">2.2.3.1.</span> <span class="nav-text">准备种子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BC%80%E5%A7%8Bfuzz-1"><span class="nav-number">2.2.3.2.</span> <span class="nav-text">开始fuzz</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Exercise-3%EF%BC%9Atcpdump"><span class="nav-number">2.3.</span> <span class="nav-text">Exercise 3：tcpdump</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%AE%E6%A0%87%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE-1"><span class="nav-number">2.3.1.</span> <span class="nav-text">目标环境配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FUZZ%E9%98%B6%E6%AE%B5-2"><span class="nav-number">2.3.2.</span> <span class="nav-text">FUZZ阶段</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%87%86%E5%A4%87%E7%A7%8D%E5%AD%90-1"><span class="nav-number">2.3.2.1.</span> <span class="nav-text">准备种子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BC%80%E5%A7%8Bfuzz-2"><span class="nav-number">2.3.2.2.</span> <span class="nav-text">开始fuzz</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#crash%E5%88%86%E6%9E%90"><span class="nav-number">2.3.3.</span> <span class="nav-text">crash分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">2.3.4.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Exercise-4%EF%BC%9Alibtiff"><span class="nav-number">2.4.</span> <span class="nav-text">Exercise 4：libtiff</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2"><span class="nav-number">2.4.1.</span> <span class="nav-text">环境部署</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FUZZ%E9%98%B6%E6%AE%B5-3"><span class="nav-number">2.4.2.</span> <span class="nav-text">FUZZ阶段</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%87%86%E5%A4%87%E7%A7%8D%E5%AD%90-2"><span class="nav-number">2.4.2.1.</span> <span class="nav-text">准备种子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BC%80%E5%A7%8Bfuzz-3"><span class="nav-number">2.4.2.2.</span> <span class="nav-text">开始fuzz</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8BPOC%E4%BB%A3%E7%A0%81%E8%A6%86%E7%9B%96%E7%8E%87"><span class="nav-number">2.4.3.</span> <span class="nav-text">查看POC代码覆盖率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93-1"><span class="nav-number">2.4.4.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Exercise-5%EF%BC%9Alibxml2"><span class="nav-number">2.5.</span> <span class="nav-text">Exercise 5：libxml2</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2-1"><span class="nav-number">2.5.1.</span> <span class="nav-text">环境部署</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FUZZ%E9%98%B6%E6%AE%B5-4"><span class="nav-number">2.5.2.</span> <span class="nav-text">FUZZ阶段</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%87%86%E5%A4%87%E7%A7%8D%E5%AD%90-3"><span class="nav-number">2.5.2.1.</span> <span class="nav-text">准备种子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BC%80%E5%A7%8Bfuzz-4"><span class="nav-number">2.5.2.2.</span> <span class="nav-text">开始fuzz</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93-2"><span class="nav-number">2.5.3.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%87%E5%8D%8A%E6%80%BB%E7%BB%93"><span class="nav-number">2.6.</span> <span class="nav-text">过半总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Exercise-6%EF%BC%9A-GIMP"><span class="nav-number">2.7.</span> <span class="nav-text">Exercise 6： GIMP</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2-2"><span class="nav-number">2.7.1.</span> <span class="nav-text">环境部署</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Exercise-8%EF%BC%9AAdobe-Reader"><span class="nav-number">2.8.</span> <span class="nav-text">Exercise 8：Adobe Reader</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%AE%E6%A0%87%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE-2"><span class="nav-number">2.8.1.</span> <span class="nav-text">目标环境配置</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%93%E9%A2%98%E4%B8%89%EF%BC%9AAddress-Sanitizer-ASan-%E5%90%84%E7%B1%BB%E6%BA%A2%E5%87%BAdemo%E5%88%86%E6%9E%90"><span class="nav-number">3.</span> <span class="nav-text">专题三：Address Sanitizer(ASan)各类溢出demo分析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">3.1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Address-Sanitizer-ASan-%E4%BB%8B%E7%BB%8D"><span class="nav-number">3.2.</span> <span class="nav-text">Address Sanitizer (ASan) 介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%84%E7%B1%BB%E6%BC%8F%E6%B4%9E-demo-%E5%88%86%E6%9E%90"><span class="nav-number">3.3.</span> <span class="nav-text">各类漏洞 demo 分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#stack-overflow"><span class="nav-number">3.3.1.</span> <span class="nav-text">stack overflow</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#global-buffer-overflow"><span class="nav-number">3.3.2.</span> <span class="nav-text">global-buffer-overflow</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#stack-use-after-scope"><span class="nav-number">3.3.3.</span> <span class="nav-text">stack-use-after-scope</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#heap-buffer-overflow"><span class="nav-number">3.3.4.</span> <span class="nav-text">heap-buffer-overflow</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#use-after-free"><span class="nav-number">3.3.5.</span> <span class="nav-text">use-after-free</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#memory-leak"><span class="nav-number">3.3.6.</span> <span class="nav-text">memory-leak</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#initialization-order-fiasco"><span class="nav-number">3.3.7.</span> <span class="nav-text">initialization-order-fiasco</span></a></li></ol></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -167,7 +173,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">31</span>
+          <span class="site-state-item-count">32</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -178,7 +184,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-count">16</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -213,7 +219,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2025/09/16/FUZZ%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9C%9F/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2025/09/16/fuzz%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9C%9F%EF%BC%88%E4%B8%80%EF%BC%89/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -226,12 +232,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="fuzz入门到入土 | le0n-blog">
+      <meta itemprop="name" content="fuzz入门到入土（一） | le0n-blog">
       <meta itemprop="description" content="fuzz--AFL源码阅读、fuzzing101项目实践">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          fuzz入门到入土
+          fuzz入门到入土（一）
         </h1>
 
         <div class="post-meta-container">
@@ -249,7 +255,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2025-10-03 17:40:20" itemprop="dateModified" datetime="2025-10-03T17:40:20+08:00">2025-10-03</time>
+      <time title="Modified: 2025-10-04 16:44:16" itemprop="dateModified" datetime="2025-10-04T16:44:16+08:00">2025-10-04</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -275,14 +281,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">Word count in article: </span>
-      <span>56k</span>
+      <span>61k</span>
     </span>
     <span class="post-meta-item" title="Reading time">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">Reading time &asymp;</span>
-      <span>51 mins.</span>
+      <span>56 mins.</span>
     </span>
 </div>
 
@@ -770,6 +776,110 @@
 <li>缓冲区溢出情况</li>
 </ul>
 <p>上述三点信息可以溢出位置进行定位。</p>
+<h3 id="global-buffer-overflow"><a href="#global-buffer-overflow" class="headerlink" title="global-buffer-overflow"></a>global-buffer-overflow</h3><p>源demo.cpp</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> hollk[<span class="number">100</span>] = &#123;<span class="number">-1</span>&#125;;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> **argv)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> hollk[argc + <span class="number">100</span>];  <span class="comment">// overflow</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//clang -O -g -fsanitize=address hollk.cpp -o hollk_cpp</span></span><br></pre></td></tr></table></figure>
+
+<p>溢出原理和第一个相同，造成了往下多读了4个字节</p>
+<p><img data-src="/../images/image-20251004144909908.png" alt="image-20251004144909908"></p>
+<p>可以看到一处点位在<code>0x5df8a0363cf4</code>，此时的pc、bp、sp寄存器分别为<code>0x5df8a032dedc</code>,<code>0x7ffe52e39a70 </code>，<code> 0x7ffe52e39a68</code>，下面可以看到此函数的栈，并提示了溢出的全局变量为hollk。</p>
+<p>在shadow中f9为全局变量右侧添加的redzone部分，由于溢出仅4字节，在第一个f9处加上了中括号</p>
+<h3 id="stack-use-after-scope"><a href="#stack-use-after-scope" class="headerlink" title="stack-use-after-scope"></a>stack-use-after-scope</h3><p><code>stack-use-after-scope</code>指的是局部变量在脱离作用域后再次使用，源demo.cpp</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">volatile</span> <span class="type">int</span> *p = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="type">int</span> var = <span class="number">0</span>;</span><br><span class="line">    p = &amp;var;</span><br><span class="line">  &#125;</span><br><span class="line">  *p = <span class="number">5</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//clang -O -g -fsanitize=address hollk.cpp -o hollk_cpp</span></span><br></pre></td></tr></table></figure>
+
+<p>可以看到使用 <code>volatile</code> 关键字，创建 int 指针 p，并且赋值为 0。这是 <code>volatile</code> 的关键字是为了提醒编译器这里所创建的指针 p 是会发生变化的，编译后每一次读取或存储该指针，都将会重新进行读取操作。</p>
+<p>举一个例子，比如说 A、B 两个线程同时读取 p 指针 <code>0x7ffffab0</code> 中的值 0。如果 A 线程对 p 指针修改成 <code>0x7ffffbc0</code> 并将其中的值修改为 2，那么 B 线程如果对 p 指针做操作时，将会重新读取 p 的地址 <code>0x7ffffab0</code>，并且其中的值会变成 1。</p>
+<p>继续向下看，在 <code>main</code> 函数中创建了一个 int 型的变量 var，这里需要注意 var 是局部变量，并赋值为 0；此时 p 指向的地址就是 var 变量所在地址。<code>main</code> 函数结束后，修改 p 指针指向位置的值为 5，这里就出现了 stack-use-after-scope 漏洞，因为 hollk 本身是一个局部变量，超出 main 函数作用范围后，var 中的值发生了改变。</p>
+<p><img data-src="/../images/image-20251004150336314.png" alt="image-20251004150336314"></p>
+<p>查看ASan的日志，可以看到<code>stack-use-after-scope</code>点位在<code>0x7fffc39cc760</code>，此时的pc、bp、sp寄存器分别为<code>0x5a6b55bb8fbe</code>,<code>0x7fffc39cc730</code>，<code> 0x7fffc39cc728</code>，下面可以看到此函数的栈，并提示了溢出的全局变量为var。接下来展示的是函数栈的情况及偏移量，在shadow图中 f8 为漏洞出现的位置。</p>
+<h3 id="heap-buffer-overflow"><a href="#heap-buffer-overflow" class="headerlink" title="heap-buffer-overflow"></a>heap-buffer-overflow</h3><p>这里需要用到堆结构体的知识来分析ASan的日志，demo</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> **argv)</span> </span>&#123;</span><br><span class="line">  <span class="type">int</span> *buf = <span class="keyword">new</span> <span class="type">int</span>[<span class="number">100</span>];</span><br><span class="line">  buf[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">  <span class="type">int</span> res = buf[argc + <span class="number">100</span>];  <span class="comment">// BOOM</span></span><br><span class="line">  <span class="keyword">delete</span> [] buf;</span><br><span class="line">  <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//g++ -O -g -fsanitize=address demo.cpp -o demo </span></span><br></pre></td></tr></table></figure>
+
+<p>在C++中使用new来创建堆块，底层也是调用malloc实现的，并且delete释放堆块底层就是free，回到代码中，首先开票一个存放整数的空间，并指定该int类型最终返回一个指向该存储空间的地址，相当于<code>buf = malloc(100)</code>。接下来将堆块中的第一个四字节赋值为0，后续将<code>argc+100</code>处的内容赋值给res变量，最后释放掉堆块并返回res变量中的值。这里的argc+100其实是<code>超出了堆块400字节</code>的内存空间的(实际上用malloc分配这个内存时，在有相邻的两个堆块时，会出现空间复用的情况那么这4个字节并不是真正的溢出，还是这个指针指向的chunk可以用到地址)</p>
+<p><img data-src="/../images/image-20251004152815786.png" alt="image-20251004152815786"></p>
+<p>首先看上面的数据部分依然是漏洞出现位置以及此时寄存器、bp 寄存器存储地址，下方的函数栈以及漏出的位置范围。这边着重想讲述的是 shadow 图表示的情况，首先红色的 <code>fa</code> 就是 hollk 块旁边的 redzone 空间，结构体的大小就是 400 个字节。在右侧第一个 <code>fa</code> redzone 区域加上了中括号，和前面代码分析部分得出的结论是一致的，溢出了 <code>argc</code> 个字节。</p>
+<p>对于 64 位程序来讲，如果连续申请两个地址相邻的堆块，那么在实际内存中两个地址相邻的堆块，低地址后面相邻的高地址块的 prev size 可以临时充当存储空间使用（就是前面的空间复用），因此如果一个 400 字节的空间，实际上可以在堆中写满 408 个字节，那么 shadow 位图中出现的日志效果就会不太准确。</p>
+<h3 id="use-after-free"><a href="#use-after-free" class="headerlink" title="use-after-free"></a>use-after-free</h3><p>use-after-free是一种常见的堆漏洞，因为在代码编写过程中释放的堆块没有置空，或已释放的指针再次进行调用，这就造成了UAF，源demo.cpp</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> **argv)</span> </span>&#123;</span><br><span class="line">  <span class="type">int</span> *buf = <span class="keyword">new</span> <span class="type">int</span>[<span class="number">100</span>];</span><br><span class="line">  <span class="keyword">delete</span> [] buf;</span><br><span class="line">  <span class="keyword">return</span> buf[argc];  <span class="comment">// UAF</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//g++ -O -g -fsanitize=address demo.cpp -o demo</span></span><br></pre></td></tr></table></figure>
+
+<p>demo的思路很清晰。首先new了一个400字节堆块并将指针赋值给buf，然后释放了这个buf，最后返回堆块中对应的下标造成了UAF。</p>
+<p><img data-src="/../images/image-20251004153554309.png" alt="image-20251004153554309"></p>
+<p>看一下 ASan 的检测日志，出现 UAF 漏洞的堆块地址为 <code>0x514000000044</code>，此时 <code>pc</code>、<code>bp</code>、<code>sp</code> 寄存器中地址分别为 <code>0x6534e7ca821f</code>、<code>0x7ffc28231280</code>、<code>0x7ffc28231270</code>。下方为函数调用栈，并且指明漏洞存在堆块的地址范围。最后是内存创建释放函数调用栈。</p>
+<p>接下来看看 shadow 图，紫色的 <code>fd</code> 代表着被释放堆块区域，<code>return</code> 返回时被释放堆块的第 <code>argc</code> 数组中的内容，所以中括号中括号包含了第一个紫色 <code>fd</code>。</p>
+<h3 id="memory-leak"><a href="#memory-leak" class="headerlink" title="memory-leak"></a>memory-leak</h3><p>内存泄露表现方式有很多，但是中心思想是创建内存空间之后没有释放，导致数据在内存空间中没有消除，那么通过一些手段可以读取这段数据中的内容，demo.c</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> *buf;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">  buf = <span class="built_in">malloc</span>(<span class="number">8</span>);</span><br><span class="line">  buf = <span class="number">0</span>; <span class="comment">// leak</span></span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//clang -g -fsanitize=address deno.c -o demo</span></span><br><span class="line"><span class="comment">//如果想要检测溢出问题，就不要加-O选项</span></span><br></pre></td></tr></table></figure>
+
+<p>这里创建了一个大小为8字节的堆块，接下来在没有释放堆块的情况下，直接将堆块的<code>malloc指针置空</code>。这就意味着这段8字节的内存空间<strong>只要进程不结束，就会一直停留在堆区</strong></p>
+<p><img data-src="/../images/image-20251004154517609.png" alt="image-20251004154517609"></p>
+<p>这个日志就比较简单了，展示了泄露时的栈帧和泄露的字节长度</p>
+<h3 id="initialization-order-fiasco"><a href="#initialization-order-fiasco" class="headerlink" title="initialization-order-fiasco"></a>initialization-order-fiasco</h3><p>这个漏洞主要是由于变量初始化顺序导致的，静态初始化顺序失败是 C++ 程序中与构造全局对象的顺序有关的常见问题（当一个全局对象（或静态对象）的初始化依赖于另一个全局对象， 而这两个对象定义在不同的翻译单元中时，程序行为是未定义的）。未指定不同源文件中全局对象的构造函数的运行顺序，看一下两个 demo：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// a.cc</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">extern</span> <span class="type">int</span> extern_global;</span><br><span class="line"><span class="type">int</span> __attribute__ ((__noinline__)) <span class="built_in">read_extern_global</span>() &#123;</span><br><span class="line">    <span class="keyword">return</span> extern_global;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> x = <span class="built_in">read_extern_global</span>() + <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>, x);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// b.cc</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">foo</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> <span class="number">42</span>; &#125;</span><br><span class="line"><span class="keyword">extern</span> <span class="type">int</span> extern_global = <span class="built_in">foo</span>();</span><br></pre></td></tr></table></figure>
+
+<p>这个 demo 分为两个部分，一个是 <code>a.cc</code> 另一个是 <code>b.cc</code>。首先看 <code>a.cc</code> 的执行流程，<code>extern</code> 定义了一个 int 类型全局变量 <code>extern_global</code>，这里的 extern 的作用是扩展变量的作用域，即使 <code>extern_global</code> 在 <code>a.cc</code> 中进行定义的，但是如果 <code>a.cc</code> 和 <code>b.cc</code> 也可以用 <code>extern_global</code> 变量。接下来定义了一个非内联函数 <code>read_extern_global()</code>，里面会返回 <code>extern_global</code> 的值。在 <code>main</code> 函数中打印 <code>x</code> 的值。</p>
+<p>这里需要注意的是，虽然 <code>main</code> 函数中没有直接调用 <code>read_extern_global()</code> 函数，但是是在编译时会优先初始化 <code>read_extern_global()</code> 的返回值，并计算出 <code>x</code> 的值等传给 <code>main</code> 函数进行调用。</p>
+<p>接下来看b.cc，这里就是先定义了一个<code>foo()</code>函数，函数内直接返回<code>42</code>，定义extern_global变量为foo()函数的返回值。</p>
+<p>那么接下来做两个编译尝试</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">clang++ a.cc b.cc -o a_b</span><br><span class="line">clang++ b.cc a.cc -o b_a</span><br></pre></td></tr></table></figure>
+
+<p>可以看到在编译的时候调换了a.cc和b.cc的顺序，优先编译a.cc程序名a_b，优先编译b.cc程序名b_a。分别运行一些看看结果（在编译的时候编译器其实就已经警告了）：</p>
+<p><img data-src="/../images/image-20251004160413174.png" alt="image-20251004160413174"></p>
+<p>问题的关键在于 a.cc 中的 x 和 b.cc 中的 extern_global 这两个全局变量，哪一个先被初始化。它们的初始化依赖于彼此。</p>
+<ol>
+<li><strong>第一种情况：clang++ a.cc b.cc -o a_b</strong><ul>
+<li>在这个链接顺序下，编译器<strong>可能</strong>会先处理 a.cc 中的全局变量初始化，然后再处理 b.cc 中的。</li>
+<li><strong>初始化 x（在 a.cc 中）</strong>:<ul>
+<li>程序需要调用 read_extern_global()。</li>
+<li>read_extern_global() 读取 extern_global 的值。</li>
+<li>因为 b.cc 中的 extern_global 此时<strong>尚未被初始化</strong>，所以它持有默认值 0。</li>
+<li>因此 read_extern_global() 返回 0。</li>
+<li>x 被初始化为 0 + 1，所以 x 的值是 1。</li>
+</ul>
+</li>
+<li><strong>初始化 extern_global（在 b.cc 中）</strong>:<ul>
+<li>程序调用 foo()，返回 42。</li>
+<li>extern_global 被初始化为 42。但这发生在 x 初始化之后，为时已晚。</li>
+</ul>
+</li>
+<li><strong>执行 main 函数</strong>:<ul>
+<li>printf 打印出 x 的当前值，也就是 1。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>第二种情况：clang++ b.cc a.cc -o b_a</strong><ul>
+<li>在这个链接顺序下，编译器<strong>可能</strong>会先处理 b.cc 中的全局变量初始化。</li>
+<li><strong>初始化 extern_global（在 b.cc 中）</strong>:<ul>
+<li>程序调用 foo()，返回 42。</li>
+<li>extern_global 被初始化为 42。</li>
+</ul>
+</li>
+<li><strong>初始化 x（在 a.cc 中）</strong>:<ul>
+<li>程序需要调用 read_extern_global()。</li>
+<li>read_extern_global() 读取 extern_global 的值。</li>
+<li>由于 extern_global 此时<strong>已经被初始化</strong>，它的值是 42。</li>
+<li>因此 read_extern_global() 返回 42。</li>
+<li>x 被初始化为 42 + 1，所以 x 的值是 43。</li>
+</ul>
+</li>
+<li><strong>执行 main 函数</strong>:<ul>
+<li>printf 打印出 x 的当前值，也就是 43。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<p><strong>如何避免这类问题？</strong></p>
+<p>一种常见的解决办法是使用“Construct on First Use”模式，也就是将全局变量封装在一个函数中，并以静态局部变量的形式存在。这样可以保证它在第一次被访问时才进行初始化。</p>
+<p>例如，可以将 <code>b.cc</code> 改写成：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">foo</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> <span class="number">42</span>; &#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span>&amp; <span class="title">get_extern_global</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">static</span> <span class="type">int</span> extern_global = <span class="built_in">foo</span>();</span><br><span class="line">    <span class="keyword">return</span> extern_global;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在上述 demo 的基础上举出一个漏斗场景，如果两次编译出的程序，这行后的值一次为 8，一次为 -1。那么如果结果作为其他程序中的 <code>read</code> 函数的第三参数使用，那么实际上中由于 <strong>整型溢出导致函数接收到 <code>read(0, buf, 0xffffffff)</code></strong>，如果 buf 的存储空间没有那么大，就会造成 <strong>堆溢出或栈溢出</strong>。</p>
+<p>回到 ASan 方面，这里我们在编译 <code>a.cc</code> 和 <code>b.cc</code> 的时候插上 ASan 检测参数，在执行的时候需要开启该漏洞检测参数。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">clang++ -fsanitize=address -g a.cc b.cc -o demo</span><br><span class="line">ASAN_OPTIONS=check_initialization_order=<span class="literal">true</span> ./demo</span><br></pre></td></tr></table></figure>
+
+<p><img data-src="/../images/image-20251004161213044.png" alt="image-20251004161213044"></p>
+<p>日志中显示漏洞出现的位置<code>0x5c45df3b29a0</code>，此时pc、bp、sp分别是 0x5c45de9a765a 0x7ffd76cab800 0x7ffd76cab7f8。下方是函数调用栈以及漏洞变量的名称</p>
 
     </div>
 
@@ -787,7 +897,7 @@
   </li>
   <li class="post-copyright-link">
       <strong>Post link: </strong>
-      <a href="http://example.com/2025/09/16/FUZZ%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9C%9F/" title="fuzz入门到入土">http://example.com/2025/09/16/FUZZ从入门到入土/</a>
+      <a href="http://example.com/2025/09/16/fuzz%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9C%9F%EF%BC%88%E4%B8%80%EF%BC%89/" title="fuzz入门到入土（一）">http://example.com/2025/09/16/fuzz从入门到入土（一）/</a>
   </li>
   <li class="post-copyright-license">
       <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
@@ -797,7 +907,6 @@
 
           <div class="post-tags">
               <a href="/tags/fuzz/" rel="tag"><i class="fa fa-tag"></i> fuzz</a>
-              <a href="/tags/afl/" rel="tag"><i class="fa fa-tag"></i> afl</a>
           </div>
 
         
@@ -809,6 +918,9 @@
                 </a>
             </div>
             <div class="post-nav-item">
+                <a href="/2025/10/04/fuzz%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9C%9F%EF%BC%88%E4%BA%8C%EF%BC%89/" rel="next" title="fuzz入门到入土（二）">
+                  fuzz入门到入土（二） <i class="fa fa-angle-right"></i>
+                </a>
             </div>
           </div>
     </footer>
@@ -839,13 +951,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="Word count total">554k</span>
+    <span title="Word count total">559k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="Reading time total">8:23</span>
+    <span title="Reading time total">8:28</span>
   </span>
 </div>
 <div class="busuanzi-count">
