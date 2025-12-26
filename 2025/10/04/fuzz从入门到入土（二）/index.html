@@ -44,7 +44,7 @@
 <meta property="og:image" content="http://example.com/images/image-20251006205823898.png">
 <meta property="og:image" content="http://example.com/images/image-20251006210008026.png">
 <meta property="article:published_time" content="2025-10-04T08:43:19.707Z">
-<meta property="article:modified_time" content="2025-10-06T13:11:14.672Z">
+<meta property="article:modified_time" content="2025-12-26T01:34:13.820Z">
 <meta property="article:author" content="leon">
 <meta property="article:tag" content="fuzz">
 <meta name="twitter:card" content="summary">
@@ -226,7 +226,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2025-10-06 21:11:14" itemprop="dateModified" datetime="2025-10-06T21:11:14+08:00">2025-10-06</time>
+      <time title="Modified: 2025-12-26 09:34:13" itemprop="dateModified" datetime="2025-12-26T09:34:13+08:00">2025-12-26</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -323,7 +323,7 @@
 </ul>
 <p><strong>步骤</strong>:</p>
 <ol>
-<li><strong>克隆一个“空”仓库</strong><br>  打开终端，运行以下命令。这会克隆仓库的元数据，但不会检出（下载）任何文件。</li>
+<li><strong>克隆一个“空”仓库</strong><br>打开终端，运行以下命令。这会克隆仓库的元数据，但不会检出（下载）任何文件。</li>
 </ol>
   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> --filter=blob:none --no-checkout https://github.com/google/fuzzer-test-suite</span><br></pre></td></tr></table></figure>
 <ul>
@@ -335,12 +335,12 @@
 </ol>
   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> fuzzer-test-suite</span><br></pre></td></tr></table></figure>
 <ol start="3">
-<li><strong>指定你想要的文件夹</strong><br>  这是最关键的一步。使用 <code>sparse-checkout</code> 命令告诉 Git 你只需要 <code>openssl-1.0.1f</code>。</li>
+<li><strong>指定你想要的文件夹</strong><br>这是最关键的一步。使用 <code>sparse-checkout</code> 命令告诉 Git 你只需要 <code>openssl-1.0.1f</code>。</li>
 </ol>
   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git sparse-checkout <span class="built_in">set</span> openssl-1.0.1f</span><br></pre></td></tr></table></figure>
 
 <ol start="4">
-<li><strong>检出文件</strong><br>  现在，Git 会自动从远程仓库只下载并检出你指定的那个文件夹。<br>  （在新版本的 Git 中，上一步的 <code>set</code> 命令通常会自动触发检出。如果执行完上一步后文件夹没出现，可以手动执行 <code>git checkout</code>。）</li>
+<li><strong>检出文件</strong><br>现在，Git 会自动从远程仓库只下载并检出你指定的那个文件夹。<br>（在新版本的 Git 中，上一步的 <code>set</code> 命令通常会自动触发检出。如果执行完上一步后文件夹没出现，可以手动执行 <code>git checkout</code>。）</li>
 </ol>
 <p>现在你的 <code>fuzzer-test-suite</code> 目录里就只会有 <code>openssl-1.0.1f</code> 这一个文件夹了。</p>
 </blockquote>
@@ -374,7 +374,7 @@
 
 <p>可以看到 libfuzzer 在执行 <code>100362</code> 次后，共发现 <code>2905b</code> 中的 <code>76</code> 个输入项，覆盖 <code>639</code> 个基本块。后面 ASan 日志判定漏洞类型为 <strong>堆溢出</strong>，溢出执行位置pc、bp、sp分别在 <code>0x629000009748</code>、<code>0x7fffa8b90770</code>、<code>0x7fffa8b8ff40</code>。shadow 图中演示数据已经<code>溢出到相邻高地址堆块的头部</code>，fuzz过程中造成的crash已经保存在当前目录<code>crash-ea955891f4388f1bf936c9f824c5081c1cd85a03</code>。后续可以用 gdb 验证一下。</p>
 <p>就先这样，下一篇写优化~</p>
-<h3 id="gdb验证"><a href="#gdb验证" class="headerlink" title="gdb验证"></a>gdb验证</h3><p>非常好！使用 GDB 来验证和深入分析 Fuzzing 发现的崩溃是一个非常专业且有效的做法。它能让你从“程序崩溃了”的层面，深入到“程序为什么会以及如何在这里崩溃”的层面。</p>
+<h3 id="gdb验证"><a href="#gdb验证" class="headerlink" title="gdb验证"></a>gdb验证</h3><p>使用 GDB 来验证和深入分析 Fuzzing 发现的崩溃是一个非常专业且有效的做法。它能让你从“程序崩溃了”的层面，深入到“程序为什么会以及如何在这里崩溃”的层面。</p>
 <p>您看到的 Kali 上的文章，通常是使用现成的<strong>漏洞利用（Exploit）脚本</strong>，例如专门的 Python 脚本或 Metasploit 模块。这些工具的目的是<strong>利用漏洞</strong>，即从一个正在运行的、有漏洞的服务中窃取数据。</p>
 <p>而我们使用 GDB 的目的不同，是为了<strong>调试和分析</strong>，即在本地重现崩溃，并观察程序在崩溃前的内存和变量状态，从而从根本上理解漏洞的成因。</p>
 <p>下面，我将为您提供一个详细的、分步的 GDB 验证指南。</p>
@@ -596,13 +596,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="Word count total">625k</span>
+    <span title="Word count total">641k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="Reading time total">9:29</span>
+    <span title="Reading time total">9:43</span>
   </span>
 </div>
 <div class="busuanzi-count">
