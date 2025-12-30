@@ -19,71 +19,71 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.22.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":true,"style":"mac","show_result":true},"fold":{"enable":false,"height":300},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":{"valine":{"order":-1}}},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false,"trigger":"auto"}}</script><script src="/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"le0n-daily.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.22.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":true,"style":"mac","show_result":true},"fold":{"enable":false,"height":300},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":{"valine":{"order":-1}}},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false,"trigger":"auto"}}</script><script src="/js/config.js"></script>
 
     <meta name="description" content="fuzz--AFL源码阅读、fuzzing101项目实践">
 <meta property="og:type" content="article">
 <meta property="og:title" content="fuzz入门到入土（一）">
-<meta property="og:url" content="http://example.com/2025/09/16/fuzz%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9C%9F%EF%BC%88%E4%B8%80%EF%BC%89/index.html">
+<meta property="og:url" content="http://le0n-daily.github.io/2025/09/16/fuzz%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9C%9F%EF%BC%88%E4%B8%80%EF%BC%89/index.html">
 <meta property="og:site_name" content="le0n-blog">
 <meta property="og:description" content="fuzz--AFL源码阅读、fuzzing101项目实践">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/images/image-20250918170111499.png">
-<meta property="og:image" content="http://example.com/images/image-20250925194927464.png">
-<meta property="og:image" content="http://example.com/images/image-20250925200621502.png">
-<meta property="og:image" content="http://example.com/images/image-20250925201555386.png">
-<meta property="og:image" content="http://example.com/images/image-20250925202823186.png">
-<meta property="og:image" content="http://example.com/images/image-20250925204442069.png">
-<meta property="og:image" content="http://example.com/images/image-20250926094910645.png">
-<meta property="og:image" content="http://example.com/images/image-20250926101210649.png">
-<meta property="og:image" content="http://example.com/images/image-20250927143354760.png">
-<meta property="og:image" content="http://example.com/images/image-20250927144233004.png">
-<meta property="og:image" content="http://example.com/images/image-20250927144308435.png">
-<meta property="og:image" content="http://example.com/images/image-20250927153225557.png">
-<meta property="og:image" content="http://example.com/images/image-20250927203433134.png">
-<meta property="og:image" content="http://example.com/images/image-20250927203444106.png">
-<meta property="og:image" content="http://example.com/images/image-20250927210414191.png">
-<meta property="og:image" content="http://example.com/images/image-20250928111750871.png">
-<meta property="og:image" content="http://example.com/images/image-20250928112211412.png">
-<meta property="og:image" content="http://example.com/images/image-20250927212632108.png">
-<meta property="og:image" content="http://example.com/images/image-20250928111035935.png">
-<meta property="og:image" content="http://example.com/images/image-20251002120430908.png">
-<meta property="og:image" content="http://example.com/images/image-20251002121147452.png">
-<meta property="og:image" content="http://example.com/images/image-20251002121337564.png">
-<meta property="og:image" content="http://example.com/images/image-20251002121520618.png">
-<meta property="og:image" content="http://example.com/images/image-20251002121731871.png">
-<meta property="og:image" content="http://example.com/images/image-20251002123302108.png">
-<meta property="og:image" content="http://example.com/images/image-20251002123532283.png">
-<meta property="og:image" content="http://example.com/images/image-20251002132445973.png">
-<meta property="og:image" content="http://example.com/images/image-20251002134324156.png">
-<meta property="og:image" content="http://example.com/images/image-20251002134644128.png">
-<meta property="og:image" content="http://example.com/images/image-20251002142427305.png">
-<meta property="og:image" content="http://example.com/images/image-20251002152627797.png">
-<meta property="og:image" content="http://example.com/images/image-20251002154805625.png">
-<meta property="og:image" content="http://example.com/images/image-20251002194249184.png">
-<meta property="og:image" content="http://example.com/images/image-20251003170338280.png">
-<meta property="og:image" content="http://example.com/images/image-20251003170549263.png">
-<meta property="og:image" content="http://example.com/2025/09/16/images/image-20251003173250917.png">
-<meta property="og:image" content="http://example.com/2025/09/16/images/image-20251003173333695.png">
-<meta property="og:image" content="http://example.com/images/image-20251004144909908.png">
-<meta property="og:image" content="http://example.com/images/image-20251004150336314.png">
-<meta property="og:image" content="http://example.com/images/image-20251004152815786.png">
-<meta property="og:image" content="http://example.com/images/image-20251004153554309.png">
-<meta property="og:image" content="http://example.com/images/image-20251004154517609.png">
-<meta property="og:image" content="http://example.com/images/image-20251004160413174.png">
-<meta property="og:image" content="http://example.com/images/image-20251004161213044.png">
+<meta property="og:image" content="http://le0n-daily.github.io/images/image-20250918170111499.png">
+<meta property="og:image" content="http://le0n-daily.github.io/images/image-20250925194927464.png">
+<meta property="og:image" content="http://le0n-daily.github.io/images/image-20250925200621502.png">
+<meta property="og:image" content="http://le0n-daily.github.io/images/image-20250925201555386.png">
+<meta property="og:image" content="http://le0n-daily.github.io/images/image-20250925202823186.png">
+<meta property="og:image" content="http://le0n-daily.github.io/images/image-20250925204442069.png">
+<meta property="og:image" content="http://le0n-daily.github.io/images/image-20250926094910645.png">
+<meta property="og:image" content="http://le0n-daily.github.io/images/image-20250926101210649.png">
+<meta property="og:image" content="http://le0n-daily.github.io/images/image-20250927143354760.png">
+<meta property="og:image" content="http://le0n-daily.github.io/images/image-20250927144233004.png">
+<meta property="og:image" content="http://le0n-daily.github.io/images/image-20250927144308435.png">
+<meta property="og:image" content="http://le0n-daily.github.io/images/image-20250927153225557.png">
+<meta property="og:image" content="http://le0n-daily.github.io/images/image-20250927203433134.png">
+<meta property="og:image" content="http://le0n-daily.github.io/images/image-20250927203444106.png">
+<meta property="og:image" content="http://le0n-daily.github.io/images/image-20250927210414191.png">
+<meta property="og:image" content="http://le0n-daily.github.io/images/image-20250928111750871.png">
+<meta property="og:image" content="http://le0n-daily.github.io/images/image-20250928112211412.png">
+<meta property="og:image" content="http://le0n-daily.github.io/images/image-20250927212632108.png">
+<meta property="og:image" content="http://le0n-daily.github.io/images/image-20250928111035935.png">
+<meta property="og:image" content="http://le0n-daily.github.io/images/image-20251002120430908.png">
+<meta property="og:image" content="http://le0n-daily.github.io/images/image-20251002121147452.png">
+<meta property="og:image" content="http://le0n-daily.github.io/images/image-20251002121337564.png">
+<meta property="og:image" content="http://le0n-daily.github.io/images/image-20251002121520618.png">
+<meta property="og:image" content="http://le0n-daily.github.io/images/image-20251002121731871.png">
+<meta property="og:image" content="http://le0n-daily.github.io/images/image-20251002123302108.png">
+<meta property="og:image" content="http://le0n-daily.github.io/images/image-20251002123532283.png">
+<meta property="og:image" content="http://le0n-daily.github.io/images/image-20251002132445973.png">
+<meta property="og:image" content="http://le0n-daily.github.io/images/image-20251002134324156.png">
+<meta property="og:image" content="http://le0n-daily.github.io/images/image-20251002134644128.png">
+<meta property="og:image" content="http://le0n-daily.github.io/images/image-20251002142427305.png">
+<meta property="og:image" content="http://le0n-daily.github.io/images/image-20251002152627797.png">
+<meta property="og:image" content="http://le0n-daily.github.io/images/image-20251002154805625.png">
+<meta property="og:image" content="http://le0n-daily.github.io/images/image-20251002194249184.png">
+<meta property="og:image" content="http://le0n-daily.github.io/images/image-20251003170338280.png">
+<meta property="og:image" content="http://le0n-daily.github.io/images/image-20251003170549263.png">
+<meta property="og:image" content="http://le0n-daily.github.io/2025/09/16/images/image-20251003173250917.png">
+<meta property="og:image" content="http://le0n-daily.github.io/2025/09/16/images/image-20251003173333695.png">
+<meta property="og:image" content="http://le0n-daily.github.io/images/image-20251004144909908.png">
+<meta property="og:image" content="http://le0n-daily.github.io/images/image-20251004150336314.png">
+<meta property="og:image" content="http://le0n-daily.github.io/images/image-20251004152815786.png">
+<meta property="og:image" content="http://le0n-daily.github.io/images/image-20251004153554309.png">
+<meta property="og:image" content="http://le0n-daily.github.io/images/image-20251004154517609.png">
+<meta property="og:image" content="http://le0n-daily.github.io/images/image-20251004160413174.png">
+<meta property="og:image" content="http://le0n-daily.github.io/images/image-20251004161213044.png">
 <meta property="article:published_time" content="2025-09-16T07:51:47.155Z">
 <meta property="article:modified_time" content="2025-10-05T03:59:15.111Z">
 <meta property="article:author" content="leon">
 <meta property="article:tag" content="fuzz">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/images/image-20250918170111499.png">
+<meta name="twitter:image" content="http://le0n-daily.github.io/images/image-20250918170111499.png">
 
 
-<link rel="canonical" href="http://example.com/2025/09/16/fuzz%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9C%9F%EF%BC%88%E4%B8%80%EF%BC%89/">
+<link rel="canonical" href="http://le0n-daily.github.io/2025/09/16/fuzz%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9C%9F%EF%BC%88%E4%B8%80%EF%BC%89/">
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2025/09/16/fuzz%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9C%9F%EF%BC%88%E4%B8%80%EF%BC%89/","path":"2025/09/16/fuzz从入门到入土（一）/","title":"fuzz入门到入土（一）"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://le0n-daily.github.io/2025/09/16/fuzz%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9C%9F%EF%BC%88%E4%B8%80%EF%BC%89/","path":"2025/09/16/fuzz从入门到入土（一）/","title":"fuzz入门到入土（一）"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>fuzz入门到入土（一） | le0n-blog</title>
@@ -249,7 +249,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2025/09/16/fuzz%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9C%9F%EF%BC%88%E4%B8%80%EF%BC%89/">
+    <link itemprop="mainEntityOfPage" href="http://le0n-daily.github.io/2025/09/16/fuzz%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9C%9F%EF%BC%88%E4%B8%80%EF%BC%89/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -927,7 +927,7 @@
   </li>
   <li class="post-copyright-link">
       <strong>Post link: </strong>
-      <a href="http://example.com/2025/09/16/fuzz%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9C%9F%EF%BC%88%E4%B8%80%EF%BC%89/" title="fuzz入门到入土（一）">http://example.com/2025/09/16/fuzz从入门到入土（一）/</a>
+      <a href="http://le0n-daily.github.io/2025/09/16/fuzz%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9C%9F%EF%BC%88%E4%B8%80%EF%BC%89/" title="fuzz入门到入土（一）">http://le0n-daily.github.io/2025/09/16/fuzz从入门到入土（一）/</a>
   </li>
   <li class="post-copyright-license">
       <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/en" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
