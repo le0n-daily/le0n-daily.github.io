@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"le0n-daily.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.22.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":true,"style":"mac","show_result":true},"fold":{"enable":false,"height":300},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":{"valine":{"order":-1}}},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false,"trigger":"auto"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="iot安全——固件模拟">
+<meta property="og:type" content="article">
+<meta property="og:title" content="固件模拟">
+<meta property="og:url" content="http://le0n-daily.github.io/%E5%9B%BA%E4%BB%B6%E6%A8%A1%E6%8B%9F/index.html">
+<meta property="og:site_name" content="le0n-blog">
+<meta property="og:description" content="iot安全——固件模拟">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://le0n-daily.github.io/images/image-20250816152743326.png">
+<meta property="og:image" content="http://le0n-daily.github.io/images/image-20250816154423703.png">
+<meta property="og:image" content="http://le0n-daily.github.io/images/image-20250816162802144.png">
+<meta property="article:published_time" content="2025-08-01T08:15:39.880Z">
+<meta property="article:modified_time" content="2025-08-16T09:46:14.371Z">
+<meta property="article:author" content="leon">
+<meta property="article:tag" content="iot">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://le0n-daily.github.io/images/image-20250816152743326.png">
+
+
+<link rel="canonical" href="http://le0n-daily.github.io/%E5%9B%BA%E4%BB%B6%E6%A8%A1%E6%8B%9F/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://le0n-daily.github.io/%E5%9B%BA%E4%BB%B6%E6%A8%A1%E6%8B%9F/","path":"固件模拟/","title":"固件模拟"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>固件模拟 | le0n-blog</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">le0n-blog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">15</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">8</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">33</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="Searching..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#qiling%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.</span> <span class="nav-text">qiling介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#qiling%E7%A4%BA%E4%BE%8B"><span class="nav-number">1.1.</span> <span class="nav-text">qiling示例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#window%E3%80%81linux-%E7%9B%B8%E4%BA%92%E6%89%A7%E8%A1%8C-%E5%AF%B9%E6%96%B9%E5%8F%AF%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6"><span class="nav-number">1.2.</span> <span class="nav-text">window、linux 相互执行 对方可执行文件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8-linux-%E4%B8%8B%E4%BD%BF%E7%94%A8-qiling-%E6%A1%86%E6%9E%B6%E6%89%A7%E8%A1%8C-exe-%E6%96%87%E4%BB%B6"><span class="nav-number">1.2.1.</span> <span class="nav-text">在 linux 下使用 qiling 框架执行 exe 文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8-windows-%E4%B8%8B%E4%BD%BF%E7%94%A8-qiling-%E6%A1%86%E6%9E%B6%E6%89%A7%E8%A1%8C-linux-%E5%8F%AF%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6"><span class="nav-number">1.2.2.</span> <span class="nav-text">在 windows 下使用 qiling 框架执行 linux 可执行文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Qltool-%E5%B7%A5%E5%85%B7"><span class="nav-number">1.3.</span> <span class="nav-text">Qltool 工具</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4"><span class="nav-number">1.3.1.</span> <span class="nav-text">命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C%E9%80%89%E9%A1%B9"><span class="nav-number">1.3.2.</span> <span class="nav-text">运行选项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E9%80%89%E9%A1%B9"><span class="nav-number">1.3.3.</span> <span class="nav-text">代码选项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E9%80%89%E9%A1%B9"><span class="nav-number">1.3.4.</span> <span class="nav-text">常用选项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#qltui-%E2%80%94-qltool-%E7%9A%84%E7%BB%88%E7%AB%AF%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2"><span class="nav-number">1.3.5.</span> <span class="nav-text">qltui — qltool 的终端用户界面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Examples"><span class="nav-number">1.3.6.</span> <span class="nav-text">Examples</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#shellcode"><span class="nav-number">1.3.6.1.</span> <span class="nav-text">shellcode:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#binary-file"><span class="nav-number">1.3.6.2.</span> <span class="nav-text">binary file:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#UEFI-file"><span class="nav-number">1.3.6.3.</span> <span class="nav-text">UEFI file:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#GDB-debugger-enable"><span class="nav-number">1.3.6.4.</span> <span class="nav-text">GDB debugger enable:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Binary-file-and-argv"><span class="nav-number">1.3.6.5.</span> <span class="nav-text">Binary file and argv:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Binary-file-and-various-output-format"><span class="nav-number">1.3.6.6.</span> <span class="nav-text">Binary file and various output format:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Binary-file-and-env"><span class="nav-number">1.3.6.7.</span> <span class="nav-text">Binary file and env:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#qltui"><span class="nav-number">1.3.6.8.</span> <span class="nav-text">qltui</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#qemu-system%E6%8C%87%E4%BB%A4%E4%BB%8B%E7%BB%8D"><span class="nav-number">2.</span> <span class="nav-text">qemu-system指令介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%BA%E4%BB%B6%E6%A8%A1%E6%8B%9F%E5%9C%BA%E6%99%AF%E4%B8%8B%E7%9A%84-QEMU-%E6%8C%87%E4%BB%A4"><span class="nav-number">2.1.</span> <span class="nav-text">固件模拟场景下的 QEMU 指令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%99%84%E5%BD%95"><span class="nav-number">2.2.</span> <span class="nav-text">附录</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E6%8C%87%E4%BB%A4%EF%BC%9Aqemu-system"><span class="nav-number">2.2.1.</span> <span class="nav-text">核心指令：qemu-system-*</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7%EF%BC%9Aqemu-img"><span class="nav-number">2.2.2.</span> <span class="nav-text">磁盘管理工具：qemu-img</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E5%86%85%E6%A0%B8%E7%BC%96%E8%AF%91"><span class="nav-number">3.</span> <span class="nav-text">系统内核编译</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Buildroot"><span class="nav-number">3.1.</span> <span class="nav-text">Buildroot</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="nav-number">3.1.1.</span> <span class="nav-text">解决方案</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B9%E6%A1%88%E4%B8%80%EF%BC%9A%E4%B8%B4%E6%97%B6%E6%8C%87%E5%AE%9A%E4%B8%80%E4%B8%AA%E2%80%9C%E5%B9%B2%E5%87%80%E2%80%9D%E7%9A%84-PATH-%E6%8E%A8%E8%8D%90"><span class="nav-number">3.1.1.1.</span> <span class="nav-text">方案一：临时指定一个“干净”的 PATH (推荐)</span></a></li></ol></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="leon"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">leon</p>
+  <div class="site-description" itemprop="description">Take more notes to reach higher efficiency.</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/le0n-daily" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;le0n-daily" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:1192876128@qq.com" title="E-Mail → mailto:1192876128@qq.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/en" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://le0n-daily.github.io/%E5%9B%BA%E4%BB%B6%E6%A8%A1%E6%8B%9F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="leon">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="le0n-blog">
+      <meta itemprop="description" content="Take more notes to reach higher efficiency.">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="固件模拟 | le0n-blog">
+      <meta itemprop="description" content="iot安全——固件模拟">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          固件模拟
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2025-08-01 16:15:39" itemprop="dateCreated datePublished" datetime="2025-08-01T16:15:39+08:00">2025-08-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2025-08-16 17:46:14" itemprop="dateModified" datetime="2025-08-16T17:46:14+08:00">2025-08-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/iot/" itemprop="url" rel="index"><span itemprop="name">iot</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">Views: </span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="Word count in article">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">Word count in article: </span>
+      <span>9k</span>
+    </span>
+    <span class="post-meta-item" title="Reading time">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">Reading time &asymp;</span>
+      <span>8 mins.</span>
+    </span>
+</div>
+
+            <div class="post-description">iot安全——固件模拟</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p><strong>什么是固件模拟？</strong></p>
+<p>固件模拟是通过一些模拟器实现的在x86等其他架构电脑环境中运行物联网设备固件的方式。</p>
+<p>**主要的模拟架构：**主流的物联网设备固件的架构是arm和mips。</p>
+<p>**模拟方式：**单应用模拟和系统模拟</p>
+<p><strong>主流的模拟器：</strong></p>
+<ul>
+<li>qemu：目前使用最多的模拟器，支持用户态模拟和系统态的模拟</li>
+<li>qiling：只支持单应用模拟，但是由于qiling是模拟框架，所以更加灵活</li>
+</ul>
+<blockquote>
+<p>安装方式：pip3 install qiling  </p>
+<p>官方文档<a target="_blank" rel="noopener" href="https://docs.qiling.io/en/latest">https://docs.qiling.io/en/latest</a></p>
+</blockquote>
+<h1 id="qiling介绍"><a href="#qiling介绍" class="headerlink" title="qiling介绍"></a>qiling介绍</h1><p><strong>基本流程</strong></p>
+<ol>
+<li>基本代码编写</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> qiling <span class="keyword">import</span> Qiling</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ = <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    argv = <span class="string">r&#x27;./bin/httpd&#x27;</span>.split()</span><br><span class="line">    rootfs = <span class="string">r&#x27;./&#x27;</span></span><br><span class="line">    </span><br><span class="line">    ql = Qiling(argv,rootfs)</span><br><span class="line">    ql.run()</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>问题定位</li>
+</ol>
+<p>一般有时候会出现错误信息，不同的固件错误信息不一样，要找到错误信息进行，定位问题所在</p>
+<ol start="3">
+<li>修改代码</li>
+</ol>
+<p>根据问题所在修改代码，添加一些函数等</p>
+<h2 id="qiling示例"><a href="#qiling示例" class="headerlink" title="qiling示例"></a>qiling示例</h2><h2 id="window、linux-相互执行-对方可执行文件"><a href="#window、linux-相互执行-对方可执行文件" class="headerlink" title="window、linux 相互执行 对方可执行文件"></a>window、linux 相互执行 对方可执行文件</h2><h3 id="在-linux-下使用-qiling-框架执行-exe-文件"><a href="#在-linux-下使用-qiling-框架执行-exe-文件" class="headerlink" title="在 linux 下使用 qiling 框架执行 exe 文件"></a>在 linux 下使用 qiling 框架执行 exe 文件</h3><p>在 linux 上使用 qiling 运行 exe 时，需要模拟 windows系统环境(  window 的 dll 和 注册表 等组件 )才能运行。qiling 提供了一个脚本：在<code>qiling/examples/scripts/dllscollector.bat</code>，在 windows 上执行，就能得到全部所需要的依赖</p>
+<img data-src="../images/image-20250816152743326.png" alt="image-20250816152743326" style="zoom:67%;" />
+
+<p>在qiling-master处以管理员模式打开cmd，执行<code>.\examples\scripts\dllscollector.bat</code>，即可在<code>/examples/rootfs</code>中找到运行后的结果，如下：</p>
+<img data-src="../images/image-20250816154423703.png" alt="image-20250816154423703" style="zoom:67%;" />
+
+<p>然后将<code>rootfs</code>整个文件夹移到已安装<code>qiling</code>的linux的系统里的一个文件夹中</p>
+<p>示例代码:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python3</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">from</span> qiling <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="comment"># sandbox to emulate the EXE</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">my_sandbox</span>(<span class="params">path, rootfs</span>):</span><br><span class="line">    <span class="comment"># setup Qiling engine</span></span><br><span class="line">    ql = Qiling(path, rootfs)</span><br><span class="line">    <span class="comment"># now emulate the EXE</span></span><br><span class="line">    ql.run()</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    <span class="comment"># 将 rootfs 的路径修正为 &quot;rootfs/x8664_windows&quot;</span></span><br><span class="line">    my_sandbox([<span class="string">&quot;rootfs/x8664_windows/bin/hello.exe&quot;</span>], <span class="string">&quot;rootfs/x8664_windows&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>hello.c在win11中用gcc编译<code>gcc hello.c -o hello.exe -static</code>的，源码如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">const</span> <span class="type">char</span> **argv)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Hello, World!\n&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<img data-src="../images/image-20250816162802144.png" alt="image-20250816162802144" style="zoom:67%;" />
+
+<h3 id="在-windows-下使用-qiling-框架执行-linux-可执行文件"><a href="#在-windows-下使用-qiling-框架执行-linux-可执行文件" class="headerlink" title="在 windows 下使用 qiling 框架执行 linux 可执行文件"></a>在 windows 下使用 qiling 框架执行 linux 可执行文件</h3><ul>
+<li>在 linux 上执行 dylibcollector.sh 生成 linux 环境文件，然后把生成的文件放到 windows 上</li>
+</ul>
+<h2 id="Qltool-工具"><a href="#Qltool-工具" class="headerlink" title="Qltool 工具"></a>Qltool 工具</h2><p>文档：<a target="_blank" rel="noopener" href="https://docs.qiling.io/en/latest/qltool/">https://docs.qiling.io/en/latest/qltool/</a></p>
+<p>Qiling 还提供了一个名为 qltool 的强大工具，可以快速模拟出目标 Shellcode 或可执行文件的源码。qltool 有三个可用的命令</p>
+<p>Qiling Framework 还提供了一个名为的友好工具，<code>qltool</code>用于快速模拟 shellcode 和可执行二进制文件。</p>
+<h3 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h3><p><code>qltool</code>有三个可用命令： - <code>run</code>：模拟程序二进制文件 - <code>code</code>：执行 shellcode 摘录 - <code>qltui</code>：显示 qltool 的终端用户界面 - <code>examples</code>：发出使用示例</p>
+<h3 id="运行选项"><a href="#运行选项" class="headerlink" title="运行选项"></a>运行选项</h3><table>
+<thead>
+<tr>
+<th>选项名称</th>
+<th>缩写</th>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>--filename</code></td>
+<td><code>-f</code></td>
+<td><em>文件名</em></td>
+<td>要模拟的二进制文件名</td>
+</tr>
+<tr>
+<td><code>--rootfs</code></td>
+<td></td>
+<td><em>目录名</em></td>
+<td>仿真根目录；这是所有库所在的位置</td>
+</tr>
+<tr>
+<td><code>--args</code></td>
+<td></td>
+<td><em>…</em></td>
+<td>模拟程序命令行参数</td>
+</tr>
+</tbody></table>
+<p>注意： - 如果<code>--filename</code>未指定，最后一个参数将被视为程序二进制文件 - 如果<code>--args</code>未指定，所有尾随参数将被视为程序命令行参数</p>
+<h3 id="代码选项"><a href="#代码选项" class="headerlink" title="代码选项"></a>代码选项</h3><table>
+<thead>
+<tr>
+<th>选项名称</th>
+<th>缩写</th>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>--filename</code></td>
+<td><code>-f</code></td>
+<td><em>文件名</em></td>
+<td>输入文件名</td>
+</tr>
+<tr>
+<td><code>--input</code></td>
+<td><code>-i</code></td>
+<td><em>十六进制</em></td>
+<td>输入十六进制字符串；仅当<code>--format</code>设置为时相关<code>hex</code></td>
+</tr>
+<tr>
+<td><code>--format</code></td>
+<td></td>
+<td><code>asm</code>，， <code>hex``bin</code></td>
+<td>指定文件或输入格式：汇编、十六进制字符串或二进制文件</td>
+</tr>
+<tr>
+<td><code>--arch</code></td>
+<td></td>
+<td><code>x86</code>，，，，，，，， <code>x8664``arm``arm_thumb``arm64``mips``a8086``evm</code></td>
+<td>目标架构</td>
+</tr>
+<tr>
+<td><code>--endian</code></td>
+<td></td>
+<td><code>little</code>， <code>big</code></td>
+<td>目标字节顺序（默认值<code>little</code>：）</td>
+</tr>
+<tr>
+<td><code>--os</code></td>
+<td></td>
+<td><code>linux</code>，，，，，，， <code>freebsd``macos``windows``uefi``dos``evm</code></td>
+<td>目标操作系统</td>
+</tr>
+</tbody></table>
+<p>注意：- 当<code>--format</code>设置为时<code>hex</code>，<code>qltool</code>将首先在 中查找数据<code>--input</code>。如果没有指定输入字符串，它将引用 中指定的文件<code>--filename</code></p>
+<h3 id="常用选项"><a href="#常用选项" class="headerlink" title="常用选项"></a>常用选项</h3><table>
+<thead>
+<tr>
+<th>选项名称</th>
+<th>缩写</th>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>--verbose</code></td>
+<td><code>-v</code></td>
+<td><code>off</code>，，，，， <code>default``debug``disasm``dump</code></td>
+<td>设置日志记录详细级别</td>
+</tr>
+<tr>
+<td><code>--env</code></td>
+<td></td>
+<td><em>文件名</em></td>
+<td>包含环境字典的 Pickle 文件的路径，<strong>或</strong>计算结果为字典的 Python 字符串</td>
+</tr>
+<tr>
+<td><code>--gdb</code></td>
+<td><code>-g</code></td>
+<td>[<em>服务器:端口</em>]</td>
+<td>启用 gdb 服务器</td>
+</tr>
+<tr>
+<td><code>--qdb</code></td>
+<td></td>
+<td></td>
+<td>在入口点附加 qdb。目前仅支持 MIPS 和 ARM（Thumb 模式）</td>
+</tr>
+<tr>
+<td><code>--rr</code></td>
+<td></td>
+<td></td>
+<td>启用 qdb<em>记录和重放</em>功能；需要 <code>--qdb</code></td>
+</tr>
+<tr>
+<td><code>--profile</code></td>
+<td></td>
+<td><em>文件名</em></td>
+<td>指定配置文件</td>
+</tr>
+<tr>
+<td><code>--no-console</code></td>
+<td></td>
+<td></td>
+<td>不要将程序输出到<em>标准输出</em></td>
+</tr>
+<tr>
+<td><code>--filter</code></td>
+<td><code>-e</code></td>
+<td><em>正则表达式</em></td>
+<td>在日志输出上应用过滤正则表达式</td>
+</tr>
+<tr>
+<td><code>--log-file</code></td>
+<td></td>
+<td><em>文件名</em></td>
+<td>将日志发送到文件</td>
+</tr>
+<tr>
+<td><code>--log-plain</code></td>
+<td></td>
+<td></td>
+<td>不要在日志输出中使用颜色；当将日志发送到文件时很有用</td>
+</tr>
+<tr>
+<td><code>--root</code></td>
+<td></td>
+<td></td>
+<td>启用<em>sudo 必需</em>模式</td>
+</tr>
+<tr>
+<td><code>--debug-stop</code></td>
+<td></td>
+<td></td>
+<td>第一次出现错误时停止模拟；需要<code>verbose</code>设置为<code>debug</code>或<code>dump</code></td>
+</tr>
+<tr>
+<td><code>--multithread</code></td>
+<td><code>-m</code></td>
+<td></td>
+<td>以多线程模式执行程序</td>
+</tr>
+<tr>
+<td><code>--timeout</code></td>
+<td></td>
+<td><em>微秒</em></td>
+<td>以微秒为单位设置仿真超时（1000000μs &#x3D; 1s）</td>
+</tr>
+<tr>
+<td><code>--coverage-file</code></td>
+<td><code>-c</code></td>
+<td><em>文件名</em></td>
+<td>代码覆盖率输出文件</td>
+</tr>
+<tr>
+<td><code>--coverage-format</code></td>
+<td></td>
+<td><code>drcov</code>， <code>drcov_exact</code></td>
+<td>代码覆盖率文件格式</td>
+</tr>
+<tr>
+<td><code>--json</code></td>
+<td></td>
+<td></td>
+<td>以 JSON 格式发出模拟报告</td>
+</tr>
+</tbody></table>
+<h3 id="qltui-—-qltool-的终端用户界面"><a href="#qltui-—-qltool-的终端用户界面" class="headerlink" title="qltui — qltool 的终端用户界面"></a>qltui — qltool 的终端用户界面</h3><p>qltui：$ .&#x2F;qltool qltui  终端用户界面<code>qltool</code>。</p>
+<ul>
+<li>运行于 之上 <code>qltool</code>。</li>
+<li>使用接口接受数据 <code>run</code> 和 <code>code</code> 命令。</li>
+<li>返回一个 <code>Argparse Namespace</code> 对象 <code>qltool</code> 以供执行。</li>
+<li>交互式报告查看器加上将其保存为 pdf 的选项。</li>
+</ul>
+<h3 id="Examples"><a href="#Examples" class="headerlink" title="Examples"></a>Examples</h3><h4 id="shellcode"><a href="#shellcode" class="headerlink" title="shellcode:"></a>shellcode:</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ ./qltool code --os linux --<span class="built_in">arch</span> arm --format hex -f examples/shellcodes/linarm32_tcp_reverse_shell.hex</span><br><span class="line">$ ./qltool code --os linux --<span class="built_in">arch</span> x86 --format asm -f examples/shellcodes/lin32_execve.asm</span><br></pre></td></tr></table></figure>
+
+<h4 id="binary-file"><a href="#binary-file" class="headerlink" title="binary file:"></a>binary file:</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ ./qltool run -f examples/rootfs/x8664_linux/bin/x8664_hello --rootfs  examples/rootfs/x8664_linux/</span><br><span class="line">$ ./qltool run -f examples/rootfs/mips32el_linux/bin/mips32el_hello --rootfs examples/rootfs/mips32el_linux</span><br></pre></td></tr></table></figure>
+
+<h4 id="UEFI-file"><a href="#UEFI-file" class="headerlink" title="UEFI file:"></a>UEFI file:</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ./qltool run -f examples/rootfs/x8664_efi/bin/TcgPlatformSetupPolicy --rootfs examples/rootfs/x8664_efi --<span class="built_in">env</span> examples/rootfs/x8664_efi/rom2_nvar.pickel</span><br></pre></td></tr></table></figure>
+
+<h4 id="GDB-debugger-enable"><a href="#GDB-debugger-enable" class="headerlink" title="GDB debugger enable:"></a>GDB debugger enable:</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ./qltool run -f examples/rootfs/x8664_linux/bin/x8664_hello --gdb 127.0.0.1:9999 --rootfs examples/rootfs/x8664_linux</span><br></pre></td></tr></table></figure>
+
+<h4 id="Binary-file-and-argv"><a href="#Binary-file-and-argv" class="headerlink" title="Binary file and argv:"></a>Binary file and argv:</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ ./qltool run -f examples/rootfs/x8664_linux/bin/x8664_args --rootfs examples/rootfs/x8664_linux --args test1 test2 test3</span><br><span class="line">$ ./qltool run --rootfs examples/rootfs/x8664_linux examples/rootfs/x8664_linux/bin/x8664_args test1 test2 test3</span><br></pre></td></tr></table></figure>
+
+<h4 id="Binary-file-and-various-output-format"><a href="#Binary-file-and-various-output-format" class="headerlink" title="Binary file and various output format:"></a>Binary file and various output format:</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ./qltool run -f examples/rootfs/mips32el_linux/bin/mips32el_hello --rootfs examples/rootfs/mips32el_linux --verbose disasm</span><br></pre></td></tr></table></figure>
+
+<h4 id="Binary-file-and-env"><a href="#Binary-file-and-env" class="headerlink" title="Binary file and env:"></a>Binary file and env:</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ./qltool run -f jexamples/rootfs/x8664_linux/bin/tester --rootfs jexamples/rootfs/x8664_linux --<span class="built_in">env</span> <span class="string">&#x27;&#123;&quot;LD_PRELOAD&quot;:&quot;hijack.so&quot;&#125;&#x27;</span> --verbose debug</span><br></pre></td></tr></table></figure>
+
+<h4 id="qltui"><a href="#qltui" class="headerlink" title="qltui"></a>qltui</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ./qltool qltui</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="qemu-system指令介绍"><a href="#qemu-system指令介绍" class="headerlink" title="qemu-system指令介绍"></a>qemu-system指令介绍</h1><p>QEMU (Quick Emulator) 是一款强大的开源虚拟化软件，它能够模拟多种硬件环境，让用户可以在一台物理计算机上运行不同的操作系统。 QEMU 的功能主要通过命令行指令来调用，这些指令参数丰富，可以实现灵活的虚拟机配置和管理。</p>
+<p>QEMU 主要包含两大组件：</p>
+<ul>
+<li><strong>qemu-system-</strong>*: 这是一个完整的虚拟机模拟器，可以模拟一个完整的计算机系统，包括处理器和各种外围设备，从而可以运行未经修改的操作系统。 例如，<code>qemu-system-x86_64</code> 用于模拟 x86_64 架构的计算机系统。</li>
+<li><strong>qemu-img</strong>: 这是一个磁盘镜像管理工具，用于创建、转换和修改不同格式的虚拟磁盘镜像文件。</li>
+</ul>
+<h2 id="固件模拟场景下的-QEMU-指令"><a href="#固件模拟场景下的-QEMU-指令" class="headerlink" title="固件模拟场景下的 QEMU 指令"></a>固件模拟场景下的 QEMU 指令</h2><p>在固件模拟中，我们的目标通常是让一个为特定硬件（如路由器、摄像头）编译的固 সেনারা（Firmware）在 QEMU 模拟的环境中运行起来。这通常比运行一个标准的桌面操作系统要复杂，因为固件与硬件高度耦合。</p>
+<p><strong>核心指令：qemu-system-<arch></strong></p>
+<p>这里的 <arch> 指的是固件所针对的处理器架构，常见于物联网设备的是 arm 和 mips。</p>
+<p><strong>常用且关键的选项：</strong></p>
+<ul>
+<li><strong>-M <machine></strong>: 指定要模拟的单板计算机（Machine）。这是固件模拟中最关键的参数之一。因为固件是为特定硬件板卡编译的，你需要告诉 QEMU 模拟一个尽可能接近真实设备的硬件环境。<ul>
+<li><strong>如何找到合适的 machine？</strong> 你可以使用 qemu-system-arm -M ? 来查看所有支持的 ARM 单板。有时需要选择一个通用板卡（如 vexpress-a9 或 versatilepb），或者社区已经为特定设备（如 raspi2 树莓派）创建了模型。</li>
+<li><strong>示例</strong>: -M vexpress-a9</li>
+</ul>
+</li>
+<li><strong>-kernel <zImage></strong>: 指定要加载的内核镜像文件。在固件模拟中，这通常是从固件包里解压出来的 Linux 内核文件（例如 zImage, uImage）。.</li>
+<li><strong>-initrd <initramfs></strong>: 指定初始内存文件系统 (Initial RAM File System)。这通常是固件解压后的根文件系统，包含了所有必要的程序和库文件。</li>
+<li><strong>-append “console&#x3D;ttyAMA0 root&#x3D;&#x2F;dev&#x2F;ram rdinit&#x3D;&#x2F;sbin&#x2F;init”</strong>: 向内核传递启动参数。这是另一个至关重要的步骤。<ul>
+<li>console&#x3D;ttyAMA0: 指定内核的控制台输出设备。你需要根据你选择的 -M 参数来确定正确的串口设备名称。</li>
+<li>root&#x3D;&#x2F;dev&#x2F;ram: 告诉内核根文件系统在内存中。</li>
+<li>rdinit&#x3D;&#x2F;sbin&#x2F;init: 指定启动后在根文件系统中执行的第一个进程。</li>
+</ul>
+</li>
+<li><strong>-nographic</strong>: 禁用图形界面，并将虚拟机的串口输出重定向到当前的终端。这对于调试和查看固件的启动日志至关重要。</li>
+<li><strong>-drive file&#x3D;&lt;disk.img&gt;,format&#x3D;raw,if&#x3D;sd</strong>: 加载一个完整的磁盘镜像作为 SD 卡。有些固件不是以内核+内存文件系统的方式启动，而是直接从一个完整的磁盘镜像启动。</li>
+</ul>
+<p><strong>一个典型的固件模拟启动命令示例：</strong></p>
+<p>Generated bash</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">qemu-system-arm \</span><br><span class="line">-M vexpress-a9 \</span><br><span class="line">-kernel uImage \</span><br><span class="line">-initrd rootfs.img.gz \</span><br><span class="line">-append &quot;root=/dev/ram rdinit=/bin/sh console=ttyAMA0&quot; \</span><br><span class="line">-nographic</span><br></pre></td></tr></table></figure>
+
+<p>Use code <a target="_blank" rel="noopener" href="https://support.google.com/legal/answer/13505487">with caution</a>.Bash</p>
+<p>这个命令尝试在一个通用的 vexpress-a9 板卡上，加载 uImage 内核和 rootfs.img.gz 文件系统，并将启动后的 shell 重定向到当前终端。</p>
+<h2 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h2><h3 id="核心指令：qemu-system"><a href="#核心指令：qemu-system" class="headerlink" title="核心指令：qemu-system-*"></a><strong>核心指令：qemu-system-</strong>*</h3><p>这是启动和管理虚拟机的核心指令。其基本用法如下：<br><code>qemu-system-x86_64 [options] [disk_image]</code></p>
+<p>其中 <code>[options]</code> 是一系列用于配置虚拟机资源的参数，而 <code>[disk_image]</code> 是虚拟机的磁盘镜像文件。</p>
+<p><strong>常用参数选项：</strong></p>
+<ul>
+<li><strong>-m [size]</strong>: 设置虚拟机的内存大小。例如 <code>-m 512M</code> 表示分配 512MB 内存给虚拟机。</li>
+<li><strong>-cpu [model]</strong>: 指定模拟的 CPU 型号。可以使用 <code>-cpu ?</code> 来查询当前 QEMU 版本支持的 CPU 型号。</li>
+<li><strong>-hda [file]</strong>: 将指定文件作为虚拟机的第一个 IDE 硬盘。</li>
+<li><strong>-cdrom [file]</strong>: 将指定文件作为虚拟机的光驱镜像。</li>
+<li><strong>-boot [order&#x3D;drives]</strong>: 设置虚拟机的启动顺序。例如，<code>-boot order=dc</code> 表示优先从光驱 (d) 启动，其次是硬盘 (c)。</li>
+<li><strong>-net nic</strong>: 为虚拟机创建一个网卡。</li>
+<li><strong>-net user</strong>: 使用用户模式网络，这是一种简单方便的网络配置方式，无需管理员权限。</li>
+<li><strong>-vnc :[display]</strong>: 启用 VNC 显示，允许通过 VNC 客户端远程连接到虚拟机的图形界面。</li>
+<li><strong>-nographic</strong>: 禁用图形界面，让虚拟机在当前终端以命令行方式启动。</li>
+<li><strong>-s</strong>: 启动 GDB 调试服务器。</li>
+<li><strong>-S</strong>: 在启动时暂停虚拟机，等待调试器连接。</li>
+<li><strong>-enable-kvm</strong>: 启用 KVM (Kernel-based Virtual Machine)，利用硬件虚拟化技术来提升虚拟机性能。</li>
+</ul>
+<h3 id="磁盘管理工具：qemu-img"><a href="#磁盘管理工具：qemu-img" class="headerlink" title="磁盘管理工具：qemu-img"></a><strong>磁盘管理工具：qemu-img</strong></h3><p><code>qemu-img</code> 是一个功能强大的磁盘镜像管理工具，支持多种虚拟磁盘格式，包括 raw、qcow2、vmdk、vdi 等。</p>
+<p><strong>常用命令：</strong></p>
+<ul>
+<li><strong>create</strong>: 创建一个新的虚拟磁盘镜像文件。<ul>
+<li><strong>用法</strong>: <code>qemu-img create [-f fmt] filename [size]</code></li>
+<li><strong>示例</strong>: <code>qemu-img create -f qcow2 my_disk.qcow2 10G</code> 创建一个 10GB 大小的 qcow2 格式镜像文件。 qcow2 是 QEMU 目前使用最广泛的镜像格式。</li>
+</ul>
+</li>
+<li><strong>convert</strong>: 转换虚拟磁盘镜像的格式。<ul>
+<li><strong>用法</strong>: <code>qemu-img convert [-f src_fmt] -O dst_fmt src_image dst_image</code></li>
+<li><strong>示例</strong>: <code>qemu-img convert -O qcow2 rhel7.img rhel7-a.qcow2</code> 将 raw 格式的镜像转换为 qcow2 格式。</li>
+</ul>
+</li>
+<li><strong>info</strong>: 显示虚拟磁盘镜像文件的信息。<ul>
+<li><strong>用法</strong>: <code>qemu-img info filename</code></li>
+<li><strong>示例</strong>: <code>qemu-img info my_disk.qcow2</code> 会显示镜像的格式、虚拟大小、实际占用磁盘空间等信息。</li>
+</ul>
+</li>
+<li><strong>resize</strong>: 调整虚拟磁盘镜像文件的大小。<ul>
+<li><strong>用法</strong>: <code>qemu-img resize filename [+|-]size</code></li>
+<li><strong>示例</strong>: <code>qemu-img resize my_disk.qcow2 +2G</code> 将镜像文件增加 2GB。 需要注意的是，增加或减少镜像文件大小后，还需要在客户机操作系统内部进行相应的分区和文件系统调整才能生效。</li>
+</ul>
+</li>
+<li><strong>snapshot</strong>: 管理虚拟机的快照。<ul>
+<li><strong>用法</strong>: <code>qemu-img snapshot [-l | -a snapshot | -c snapshot | -d snapshot] filename</code></li>
+<li><strong>选项</strong>: <code>-l</code> 列出快照，<code>-c</code> 创建快照，<code>-d</code> 删除快照，<code>-a</code> 应用快照。</li>
+</ul>
+</li>
+</ul>
+<p><strong>支持的镜像格式简介：</strong></p>
+<ul>
+<li><strong>raw</strong>: 原始的磁盘镜像格式，简单且易于移植。</li>
+<li><strong>qcow2</strong>: QEMU 的原生格式，支持写时复制、稀疏文件、加密和压缩等高级功能，是目前最常用的格式。</li>
+<li><strong>vmdk</strong>: 兼容 VMware 的镜像文件格式。</li>
+<li><strong>vdi</strong>: 兼容 VirtualBox 的镜像文件格式。</li>
+</ul>
+<p>通过灵活运用 <code>qemu-system-*</code> 和 <code>qemu-img</code> 的各种命令和参数，用户可以高效地创建、配置和管理虚拟机，满足不同的开发、测试和虚拟化需求。</p>
+<h1 id="系统内核编译"><a href="#系统内核编译" class="headerlink" title="系统内核编译"></a>系统内核编译</h1><h2 id="Buildroot"><a href="#Buildroot" class="headerlink" title="Buildroot"></a>Buildroot</h2><p>Buildroot 可以通过交叉编译生成嵌入式 Linux 系统，提供选择的库有 glibc、uClibc、musl，支持的架构包括 arm、mips、PowerPC 等主流架构。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -O https://buildroot.org/downloads/Vagrantfile; vagrant up</span><br></pre></td></tr></table></figure>
+
+<p><strong>如何使用</strong></p>
+<p>实操一下</p>
+<p>第一步安装，直接去官网下载就行，其中这个<a target="_blank" rel="noopener" href="https://developer.hashicorp.com/vagrant/install">vargant来这里下载</a></p>
+<p>第二步安装解压后<code>cd configs</code>，关于这个configs目录介绍：</p>
+<p>configs 目录是 Buildroot 的<strong>官方模板库</strong>。你的工作流程永远是：</p>
+<ol>
+<li>从 configs 目录中选择一个最合适的 _defconfig 文件作为起点。</li>
+<li>使用 make <board_name>_defconfig 命令将其应用为项目当前的 .config 文件。</li>
+<li>使用 make menuconfig 进行个性化定制。</li>
+<li>使用 make 进行编译。</li>
+</ol>
+<p>第三步构建<code>.config</code></p>
+<p>第四步<code>make menuconfig</code>设定好后就可以make了</p>
+<blockquote>
+<p>你正在 Windows Subsystem for Linux (WSL) 环境下工作。WSL 为了方便，默认会将你 Windows 系统的 PATH 环境变量自动追加到 Linux 的 PATH 中。</p>
+<p>问题就出在这里。你的 Windows PATH 中包含了大量 Buildroot 编译脚本无法处理的条目：</p>
+<ol>
+<li><strong>包含空格的路径</strong>：这是最主要的问题。</li>
+</ol>
+<ul>
+<li>&#x2F;mnt&#x2F;c&#x2F;Program Files&#x2F;Eclipse Adoptium&#x2F;…</li>
+<li>&#x2F;mnt&#x2F;c&#x2F;Program Files (x86)&#x2F;Windows Kits&#x2F;…</li>
+<li>&#x2F;mnt&#x2F;d&#x2F;Web&#x2F;Microsoft VS Code&#x2F;bin</li>
+</ul>
+<ol start="2">
+<li><strong>包含非英文字符（非 ASCII）的路径</strong>：这也是一个致命问题。</li>
+</ol>
+<ul>
+<li>&#x2F;mnt&#x2F;d&#x2F;虚拟机&#x2F;vmware&#x2F;bin&#x2F;</li>
+<li>&#x2F;mnt&#x2F;d&#x2F;杂物&#x2F;vivo 套件&#x2F;pcsuite&#x2F;</li>
+</ul>
+<p>Buildroot 的检查脚本非常严格，当它在 PATH 变量中看到这些空格或特殊字符时，就会认为 PATH “不干净”，并立即报错退出。</p>
+<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a><strong>解决方案</strong></h3><p>你有两种解决方案，一种是临时的（推荐，快速解决当前问题），一种是永久的（更彻底）。</p>
+<h4 id="方案一：临时指定一个“干净”的-PATH-推荐"><a href="#方案一：临时指定一个“干净”的-PATH-推荐" class="headerlink" title="方案一：临时指定一个“干净”的 PATH (推荐)"></a><strong>方案一：临时指定一个“干净”的 PATH (推荐)</strong></h4><p>这是解决当前编译问题的最快、最直接的方法。我们可以在执行 make 命令时，临时为它指定一个只包含标准 Linux 路径的、干净的 PATH 变量。</p>
+<p><strong>请在你的 buildroot-2025.02.4&#x2F; 目录下，执行下面这行命令：</strong></p>
+<p>Generated bash</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin make</span><br></pre></td></tr></table></figure>
+
+<p>Use code <a target="_blank" rel="noopener" href="https://support.google.com/legal/answer/13505487">with caution</a>.Bash</p>
+<p><strong>命令解释:</strong></p>
+<ul>
+<li>PATH&#x3D;&#x2F;usr&#x2F;local&#x2F;sbin:&#x2F;usr&#x2F;local&#x2F;bin:&#x2F;usr&#x2F;sbin:&#x2F;usr&#x2F;bin:&#x2F;sbin:&#x2F;bin：这部分会在执行 make 命令<strong>之前</strong>，临时将 PATH 环境变量设置为一个只包含最核心、最标准、最安全的 Linux 路径的集合。</li>
+<li>make：紧跟在后面的 make 命令就会使用这个临时的、干净的 PATH 来执行。</li>
+</ul>
+<p>这个修改<strong>只会对这一条命令生效</strong>，不会影响你终端后续的其他命令，非常安全。</p>
+<p>执行后，Buildroot 的环境检查应该就能通过，并正式开始编译了。</p>
+<hr>
+</blockquote>
+<p>进入<code>./output/images</code>文件夹下有<code>rootfs.ext2</code>(系统文件)和<code>zImage</code>(这个解压一些就是内核)</p>
+<p>创建一个tmp空目录，目的挂载文件系统，命令<code>mount rootfs.ext2 tmp</code></p>
+<p>取消挂载<code>umount tmp</code></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>Post author:  </strong>leon
+  </li>
+  <li class="post-copyright-link">
+      <strong>Post link: </strong>
+      <a href="http://le0n-daily.github.io/%E5%9B%BA%E4%BB%B6%E6%A8%A1%E6%8B%9F/" title="固件模拟">http://le0n-daily.github.io/固件模拟/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/en" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/iot/" rel="tag"><i class="fa fa-tag"></i> iot</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/pwn%E9%A2%98%E7%9B%AE%E9%83%A8%E7%BD%B2/" rel="prev" title="pwn题目部署">
+                  <i class="fa fa-angle-left"></i> pwn题目部署
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/FTP%E5%8D%8F%E8%AE%AE%E5%AE%9E%E6%88%98/" rel="next" title="CVE-2023-24042复现">
+                  CVE-2023-24042复现 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">leon</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="Word count total">672k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="Reading time total">10:11</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/le0n-daily" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.umd.js" integrity="sha256-a+H7FYzJv6oU2hfsfDGM2Ohw/cR9v+hPfxHCLdmCrE8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.4.0/mermaid.min.js","integrity":"sha256-G8ouPAnw4zzMbnAenHnVz6h9XpKbNdOkrqTh7AadyHs="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

