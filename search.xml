@@ -52,17 +52,7 @@
 <li>7月前每周学5.5休1.5，休包含做安全的一些东西；7月后学6.5休0.5</li>
 </ul>
 <h4 id="数学"><a href="#数学" class="headerlink" title="数学"></a>数学</h4><p>主要按照张宇的更新速度来进行规划</p>
-<ul>
-<li><strong>基础阶段（5月前）</strong>：吃透《三十讲》，不留死角。重视<strong>定义</strong>和<strong>定理证明</strong>，建立完整的知识框架（建议手绘思维导图）。</li>
-<li><strong>强化阶段（7-9月）</strong>：疯狂刷题（1800&#x2F;1000&#x2F;660题），重点在于<strong>归纳题型</strong>和<strong>总结套路</strong>，整理错题本。</li>
-<li><strong>冲刺阶段（10-12月）</strong>：真题为王。近15年真题至少刷两遍，严格按考试时间（8:30-11:30）模拟，训练计算准确度和抗压能力。</li>
-</ul>
 <h4 id="英语"><a href="#英语" class="headerlink" title="英语"></a>英语</h4><p>按照颉斌斌的课程更新来进行规划学习</p>
-<ul>
-<li><strong>单词</strong>：利用碎片时间（排队、走路）背单词，坚持到考前最后一天。推荐墨墨背单词或扇贝。</li>
-<li><strong>阅读</strong>：<strong>得阅读者得天下</strong>。精读真题，分析长难句，理解出题人的挖坑逻辑（同义替换、断章取义等）。</li>
-<li><strong>口语&#x2F;听力</strong>：既是为了复试也是为了提升，尝试 <strong>Shadowing（影子跟读法）</strong>，每天15分钟，模仿语调。</li>
-</ul>
 <h4 id="专业课"><a href="#专业课" class="headerlink" title="专业课"></a>专业课</h4><h4 id="政治"><a href="#政治" class="headerlink" title="政治"></a>政治</h4><h3 id="技术栈"><a href="#技术栈" class="headerlink" title="技术栈"></a>技术栈</h3><p>首先在来年的1~2月底任务：</p>
 <ol>
 <li><p>一些简单的web安全知识，命令注入、sxx和ssrf</p>
