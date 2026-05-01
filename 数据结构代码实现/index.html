@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"le0n-daily.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.22.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":true,"style":"mac","show_result":true},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false,"trigger":"auto"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="考研数据结构部分代码实现">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构代码实现">
+<meta property="og:url" content="https://le0n-daily.github.io/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0/index.html">
+<meta property="og:site_name" content="le0n-blog">
+<meta property="og:description" content="考研数据结构部分代码实现">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://le0n-daily.github.io/images/image-20260411200847604.png">
+<meta property="og:image" content="https://le0n-daily.github.io/images/image-20260425221408205.png">
+<meta property="article:published_time" content="2026-04-11T10:00:00.000Z">
+<meta property="article:modified_time" content="2026-04-25T14:15:00.133Z">
+<meta property="article:author" content="leon">
+<meta property="article:tag" content="数据结构">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://le0n-daily.github.io/images/image-20260411200847604.png">
+
+
+<link rel="canonical" href="https://le0n-daily.github.io/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://le0n-daily.github.io/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0/","path":"数据结构代码实现/","title":"数据结构代码实现"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>数据结构代码实现 | le0n-blog</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="le0n-blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">le0n-blog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">17</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">10</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">36</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="Searching..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91"><span class="nav-number">1.</span> <span class="nav-text">二叉搜索树</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E2%80%94%E2%80%94%E2%80%94%E2%80%94%E6%9F%A5%E6%89%BE"><span class="nav-number">1.1.</span> <span class="nav-text">二叉搜索树————查找</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E2%80%94%E2%80%94%E2%80%94%E2%80%94%E6%8F%92%E5%85%A5"><span class="nav-number">1.2.</span> <span class="nav-text">二叉搜索树————插入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E2%80%94%E2%80%94%E2%80%94%E2%80%94%E5%88%A0%E9%99%A4"><span class="nav-number">1.3.</span> <span class="nav-text">二叉搜索树————删除</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A4%E6%96%AD%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91"><span class="nav-number">1.4.</span> <span class="nav-text">判断二叉搜索树</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95"><span class="nav-number">1.5.</span> <span class="nav-text">测试</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Dijkstra%EF%BC%88%E8%BF%AA%E6%9D%B0%E6%96%AF%E7%89%B9%E6%8B%89%EF%BC%89"><span class="nav-number">2.</span> <span class="nav-text">Dijkstra（迪杰斯特拉）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8E%9F%E7%89%88"><span class="nav-number">2.1.</span> <span class="nav-text">原版</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%ABstl%E5%B9%B6%E6%B5%8B%E8%AF%95"><span class="nav-number">2.2.</span> <span class="nav-text">含stl并测试</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="leon"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">leon</p>
+  <div class="site-description" itemprop="description">Take more notes to reach higher efficiency.</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">36</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/le0n-daily" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;le0n-daily" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:1192876128@qq.com" title="E-Mail → mailto:1192876128@qq.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/en" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://le0n-daily.github.io/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="leon">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="le0n-blog">
+      <meta itemprop="description" content="Take more notes to reach higher efficiency.">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="数据结构代码实现 | le0n-blog">
+      <meta itemprop="description" content="考研数据结构部分代码实现">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          数据结构代码实现
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2026-04-11 18:00:00" itemprop="dateCreated datePublished" datetime="2026-04-11T18:00:00+08:00">2026-04-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2026-04-25 22:15:00" itemprop="dateModified" datetime="2026-04-25T22:15:00+08:00">2026-04-25</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" itemprop="url" rel="index"><span itemprop="name">数据结构</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">Views: </span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="Word count in article">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">Word count in article: </span>
+      <span>7.4k</span>
+    </span>
+    <span class="post-meta-item" title="Reading time">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">Reading time &asymp;</span>
+      <span>7 mins.</span>
+    </span>
+</div>
+
+            <div class="post-description">考研数据结构部分代码实现</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>数据结构三要素：逻辑结构、存储结构、数据运算（增删改查）</p>
+<p>所以呢以下代码实现也将从这三方面展开</p>
+<h1 id="二叉搜索树"><a href="#二叉搜索树" class="headerlink" title="二叉搜索树"></a>二叉搜索树</h1><p><strong>存储结构：</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> <span class="title class_">BSTNode</span>&#123;</span><br><span class="line">    <span class="type">int</span> data;</span><br><span class="line">    <span class="keyword">struct</span> <span class="title class_">BSTNode</span> *lchild, *rchild;</span><br><span class="line">&#125;BSTNode;</span><br></pre></td></tr></table></figure>
+
+<h2 id="二叉搜索树————查找"><a href="#二叉搜索树————查找" class="headerlink" title="二叉搜索树————查找"></a>二叉搜索树————查找</h2><p>拿要找的数和根结点对比，如果要找的数大于根结点，就去右子树找，如果小于根结点，就去左子树找</p>
+<p>如果要找的数等于根结点，就直接返回根结点</p>
+<p>如果要找的数不存在，就返回空指针</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">BSTNode *<span class="title">RecSearch</span><span class="params">(BSTNode *root, <span class="type">int</span> x)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (root == <span class="literal">NULL</span>)<span class="comment">// if(!root)</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(x &lt; root-&gt;data)</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">RecSearch</span>(root-&gt;lchild, x);</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(x &gt; root-&gt;data)</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">RecSearch</span>(root-&gt;rchild, x);</span><br><span class="line">    <span class="keyword">else</span><span class="comment">// x == root-&gt;data</span></span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">BSTNode *<span class="title">IterSearch</span><span class="params">(BSTNode *root, <span class="type">int</span> x)</span></span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(root != <span class="literal">NULL</span>)&#123;<span class="comment">// while(root)也可</span></span><br><span class="line">        <span class="keyword">if</span>(x &lt; root-&gt;data)</span><br><span class="line">            root = root-&gt;lchild;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(x &gt; root-&gt;data)</span><br><span class="line">            root = root-&gt;rchild;    </span><br><span class="line">        <span class="keyword">else</span><span class="comment">// x == root-&gt;data</span></span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> root;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="二叉搜索树————插入"><a href="#二叉搜索树————插入" class="headerlink" title="二叉搜索树————插入"></a>二叉搜索树————插入</h2><p>查找到要插入的位置(通过root指针遍历)，即查找失败的位置</p>
+<p>在该位置插入新的结点</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">Insert</span><span class="params">(BSTNode *&amp;root, <span class="type">int</span> x)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(root == <span class="literal">NULL</span>)&#123;<span class="comment">//查找失败的位置就是插入的位置</span></span><br><span class="line">        root = (BSTNode *)<span class="built_in">malloc</span>(<span class="built_in">sizeof</span>(BSTNode));</span><br><span class="line">        root-&gt;data = x;</span><br><span class="line">        root-&gt;lchild = root-&gt;rchild = <span class="literal">NULL</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(x &lt; root-&gt;data)</span><br><span class="line">        <span class="built_in">Insert</span>(root-&gt;lchild, x);</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(x &gt; root-&gt;data)</span><br><span class="line">        <span class="built_in">Insert</span>(root-&gt;rchild, x);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="二叉搜索树————删除"><a href="#二叉搜索树————删除" class="headerlink" title="二叉搜索树————删除"></a>二叉搜索树————删除</h2><p>查找到要删除的结点,删除该结点</p>
+<p>注：root是以引用类型传递的，即可以修改；</p>
+<p>在递归过程中，每次的root是某个结点的lchild或rchild，通过root &#x3D; root-&gt;child保证了链表的完整性</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//查找最小值</span></span><br><span class="line"><span class="function">BSTNode *<span class="title">FinMin</span><span class="params">(BSTNode *p)</span></span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(p-&gt;lchild != <span class="literal">NULL</span>)&#123;<span class="comment">//查找最小值，即最左下的结点</span></span><br><span class="line">        p = p-&gt;lchild;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> p;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//查找最大值，如果是前驱的话，把Delete中的next改为pre并调用此函数即可</span></span><br><span class="line"><span class="function">BSTNode *<span class="title">FinMax</span><span class="params">(BSTNode *p)</span></span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(p-&gt;rchild != <span class="literal">NULL</span>)&#123;<span class="comment">//查找最大值，即最右下的结点</span></span><br><span class="line">        p = p-&gt;rchild;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> p;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Delete</span><span class="params">(BSTNode *&amp;root, <span class="type">int</span> x)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(root == <span class="literal">NULL</span>)</span><br><span class="line">        <span class="keyword">return</span>;<span class="comment">//不存在要删除的结点</span></span><br><span class="line">    <span class="keyword">if</span>(x &lt; root-&gt;data)<span class="comment">//小了递归到左子树</span></span><br><span class="line">        <span class="built_in">Delete</span>(root-&gt;lchild, x);</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(x &gt; root-&gt;data)<span class="comment">//大了递归到右子树</span></span><br><span class="line">        <span class="built_in">Delete</span>(root-&gt;rchild, x);</span><br><span class="line">    <span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="comment">//左右子树均为空，直接删除</span></span><br><span class="line">        <span class="keyword">if</span>(root-&gt;lchild == <span class="literal">NULL</span> &amp;&amp; root-&gt;rchild == <span class="literal">NULL</span>)&#123;</span><br><span class="line">            <span class="built_in">free</span>(root);</span><br><span class="line">            root = <span class="literal">NULL</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//左不空右空，左替代</span></span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(root-&gt;lchild != <span class="literal">NULL</span> &amp;&amp; root-&gt;rchild == <span class="literal">NULL</span>)&#123;</span><br><span class="line">            BSTNode *temp = root;</span><br><span class="line">            root = root-&gt;lchild;</span><br><span class="line">            <span class="built_in">free</span>(temp);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//左空右不空，右替代</span></span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(root-&gt;lchild == <span class="literal">NULL</span> &amp;&amp; root-&gt;rchild != <span class="literal">NULL</span>)&#123;</span><br><span class="line">            BSTNode *temp = root;</span><br><span class="line">            root = root-&gt;rchild;</span><br><span class="line">            <span class="built_in">free</span>(temp);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//左右子树均不空，前驱(左子树中最大，即最右下的结点)/后继(右子树中最小，即最左下的结点)值替代，删除原来的前驱/后继--中序遍历--左&lt;根&lt;右</span></span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            BSTNode *next = <span class="built_in">FinMin</span>(root-&gt;rchild);</span><br><span class="line">            root-&gt;data = next-&gt;data;</span><br><span class="line">            <span class="built_in">Delete</span>(root-&gt;rchild, next-&gt;data);<span class="comment">//删除原来的后继结点</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="判断二叉搜索树"><a href="#判断二叉搜索树" class="headerlink" title="判断二叉搜索树"></a>判断二叉搜索树</h2><p>每遍历到一个数就和前一个数进行比较</p>
+<p>如果 &gt; 前一个数就继续遍历</p>
+<p>否则则说明不是二叉搜索树</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">BSTNode *pre = <span class="literal">NULL</span>; <span class="comment">//当前遍历节点的前驱结点</span></span><br><span class="line"><span class="type">bool</span> flag = <span class="literal">true</span>; <span class="comment">//标志位，判断是否为BST</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">JudgeBST</span><span class="params">(BSTNode *root)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(root!=<span class="literal">NULL</span>&amp;&amp;flag==<span class="literal">true</span>)&#123;</span><br><span class="line">        <span class="built_in">JudegeBST</span>(root-&gt;lchild); <span class="comment">//左</span></span><br><span class="line">        <span class="keyword">if</span>(pre==<span class="literal">NULL</span>)</span><br><span class="line">            pre = root;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(root-&gt;data &gt; pre-&gt;data)</span><br><span class="line">            pre = root;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            flag = <span class="literal">false</span>;</span><br><span class="line">        <span class="built_in">JudeBST</span>(root-&gt;rchild);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><p>AI写的测试代码：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//中序遍历--左&lt;根&lt;右</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">InOrder</span><span class="params">(BSTNode *root)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(root)&#123;</span><br><span class="line">        <span class="built_in">InOrder</span>(root-&gt;lchild);</span><br><span class="line">        std::cout &lt;&lt; root-&gt;data &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">        <span class="built_in">InOrder</span>(root-&gt;rchild);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ===================== 主函数：测试所有功能 =====================</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="comment">// 1. 测试用数组</span></span><br><span class="line">    <span class="type">int</span> arr[] = &#123;<span class="number">50</span>, <span class="number">30</span>, <span class="number">70</span>, <span class="number">20</span>, <span class="number">40</span>, <span class="number">60</span>, <span class="number">80</span>&#125;;</span><br><span class="line">    <span class="type">int</span> n = <span class="built_in">sizeof</span>(arr) / <span class="built_in">sizeof</span>(arr[<span class="number">0</span>]);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 2. 创建二叉搜索树</span></span><br><span class="line">    BSTNode *root = <span class="built_in">CreateBST</span>(arr, n);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;===== 初始构建的二叉搜索树（中序遍历）=====\n&quot;</span>);</span><br><span class="line">    <span class="built_in">InOrder</span>(root);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\n\n&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 3. 测试【递归查找】和【迭代查找】</span></span><br><span class="line">    <span class="type">int</span> target1 = <span class="number">40</span>;  <span class="comment">// 存在的节点</span></span><br><span class="line">    <span class="type">int</span> target2 = <span class="number">90</span>;  <span class="comment">// 不存在的节点</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 递归查找</span></span><br><span class="line">    BSTNode *res1 = <span class="built_in">RecSearch</span>(root, target1);</span><br><span class="line">    BSTNode *res2 = <span class="built_in">RecSearch</span>(root, target2);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;===== 递归查找测试 =====\n&quot;</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;查找 %d：%s\n&quot;</span>, target1, res1 ? <span class="string">&quot;找到&quot;</span> : <span class="string">&quot;未找到&quot;</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;查找 %d：%s\n\n&quot;</span>, target2, res2 ? <span class="string">&quot;找到&quot;</span> : <span class="string">&quot;未找到&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 迭代查找</span></span><br><span class="line">    BSTNode *res3 = <span class="built_in">IterSearch</span>(root, target1);</span><br><span class="line">    BSTNode *res4 = <span class="built_in">IterSearch</span>(root, target2);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;===== 迭代查找测试 =====\n&quot;</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;查找 %d：%s\n&quot;</span>, target1, res3 ? <span class="string">&quot;找到&quot;</span> : <span class="string">&quot;未找到&quot;</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;查找 %d：%s\n\n&quot;</span>, target2, res4 ? <span class="string">&quot;找到&quot;</span> : <span class="string">&quot;未找到&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 4. 测试【插入节点】</span></span><br><span class="line">    <span class="type">int</span> insertVal = <span class="number">55</span>;</span><br><span class="line">    <span class="built_in">Insert</span>(root, insertVal);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;===== 插入 %d 后（中序遍历）=====\n&quot;</span>, insertVal);</span><br><span class="line">    <span class="built_in">InOrder</span>(root);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\n\n&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 5. 测试【删除节点】（分3种情况测试）</span></span><br><span class="line">    <span class="comment">// 情况1：删除叶子节点 20</span></span><br><span class="line">    <span class="type">int</span> del1 = <span class="number">20</span>;</span><br><span class="line">    <span class="built_in">Delete</span>(root, del1);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;===== 删除叶子节点 %d 后 =====\n&quot;</span>, del1);</span><br><span class="line">    <span class="built_in">InOrder</span>(root);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 情况2：删除单孩子节点 70</span></span><br><span class="line">    <span class="type">int</span> del2 = <span class="number">70</span>;</span><br><span class="line">    <span class="built_in">Delete</span>(root, del2);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;===== 删除单孩子节点 %d 后 =====\n&quot;</span>, del2);</span><br><span class="line">    <span class="built_in">InOrder</span>(root);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 情况3：删除双孩子节点 50（根节点）</span></span><br><span class="line">    <span class="type">int</span> del3 = <span class="number">50</span>;</span><br><span class="line">    <span class="built_in">Delete</span>(root, del3);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;===== 删除根节点 %d 后 =====\n&quot;</span>, del3);</span><br><span class="line">    <span class="built_in">InOrder</span>(root);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<img src="../images/image-20260411200847604.png" alt="image-20260411200847604" style="zoom: 33%;" />
+
+<h1 id="Dijkstra（迪杰斯特拉）"><a href="#Dijkstra（迪杰斯特拉）" class="headerlink" title="Dijkstra（迪杰斯特拉）"></a>Dijkstra（迪杰斯特拉）</h1><img src="../images/image-20260425221408205.png" alt="image-20260425221408205" style="zoom:33%;" />
+
+<h2 id="原版"><a href="#原版" class="headerlink" title="原版"></a>原版</h2><p>无stl，按照王道书：</p>
+<ul>
+<li>初始化</li>
+<li>选择路径最短点</li>
+<li>松弛操作</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> MAXV 100</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> INF 0x7fffffff</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// Dijkstra算法</span></span><br><span class="line"><span class="comment">// 输入：图的邻接矩阵graph，图的顶点数n，源点v</span></span><br><span class="line"><span class="comment">// 每次都去找距离源点v最近的点</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Dijkstra</span><span class="params">(<span class="type">int</span> graph[MAXV][MAXV],<span class="type">int</span> n,<span class="type">int</span> v)</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> dist[MAXV]; <span class="comment">//存储源点v到其它点的最短距离</span></span><br><span class="line">    <span class="type">bool</span> flag[MAXV]; <span class="comment">//标记数组</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n;i++)&#123;<span class="comment">//初始化</span></span><br><span class="line">        dist[i] = graph[v][i];</span><br><span class="line">        flag[i] = <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    flag[v] = <span class="literal">true</span>; <span class="comment">//源点v</span></span><br><span class="line">    dist[v] = <span class="number">0</span>; <span class="comment">//源点到自己的距离为0</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;n;i++)&#123;<span class="comment">//再找n-1个点 ---&gt; 时间复杂度O(n^2)</span></span><br><span class="line">        <span class="comment">//每次都找距离源点v最近的点</span></span><br><span class="line">        <span class="type">int</span> mindist = INF;<span class="comment">//存最小值</span></span><br><span class="line">        <span class="type">int</span> k = <span class="number">-1</span>;<span class="comment">//记录最小值对应哪个点</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>;j&lt;n;j++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(flag[j]==<span class="literal">false</span> &amp;&amp; dist[j]&lt;mindist)&#123;<span class="comment">//枚举dist数组看看哪个最小</span></span><br><span class="line">                mindist = dist[j];</span><br><span class="line">                k = j;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(k==<span class="number">-1</span>) <span class="keyword">break</span>;<span class="comment">//没有可达的点了</span></span><br><span class="line"></span><br><span class="line">        flag[k] = <span class="literal">true</span>;</span><br><span class="line">        <span class="comment">//比较dist[k] (已记录的源点v-&gt;j最短路径)和dist[k]+graph[k][j](从源点v通过k转移的路径)，如果后者更小，就更新dist[k]</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>;j&lt;n;j++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(flag[j]==<span class="literal">false</span> </span><br><span class="line">                &amp;&amp; graph[k][j] != INF  </span><br><span class="line">                &amp;&amp; dist[j] &gt; dist[k]+graph[k][j])&#123;</span><br><span class="line">                dist[j] = dist[k]+graph[k][j];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n;i++)&#123;</span><br><span class="line">        std::cout &lt;&lt; <span class="string">&quot;dist[&quot;</span> &lt;&lt; i &lt;&lt; <span class="string">&quot;] = &quot;</span> &lt;&lt; dist[i] &lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="含stl并测试"><a href="#含stl并测试" class="headerlink" title="含stl并测试"></a>含stl并测试</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;limits&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">constexpr</span> <span class="type">int</span> INF = std::numeric_limits&lt;<span class="type">int</span>&gt;::<span class="built_in">max</span>() / <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> Graph = std::vector&lt;std::vector&lt;<span class="type">int</span>&gt;&gt;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Dijkstra算法，返回源点v到所有顶点的最短距离数组</span></span><br><span class="line"><span class="function">std::vector&lt;<span class="type">int</span>&gt; <span class="title">Dijkstra</span><span class="params">(<span class="type">const</span> Graph&amp; graph, <span class="type">int</span> v)</span> </span>&#123;</span><br><span class="line">    <span class="type">size_t</span> n = graph.<span class="built_in">size</span>();</span><br><span class="line">    <span class="keyword">if</span> (n == <span class="number">0</span> || v &lt; <span class="number">0</span> || v &gt;= (<span class="type">int</span>)n) <span class="keyword">return</span> &#123;&#125;;   <span class="comment">// 输入检查</span></span><br><span class="line"></span><br><span class="line">    <span class="function">std::vector&lt;<span class="type">int</span>&gt; <span class="title">dist</span><span class="params">(n, INF)</span></span>;</span><br><span class="line">    <span class="function">std::vector&lt;<span class="type">bool</span>&gt; <span class="title">flag</span><span class="params">(n, <span class="literal">false</span>)</span></span>;   <span class="comment">// 标记是否已确定最短路径</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 初始化：源点直接可达的距离</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">size_t</span> i = <span class="number">0</span>; i &lt; n; ++i) &#123;</span><br><span class="line">        dist[i] = graph[v][i];</span><br><span class="line">    &#125;</span><br><span class="line">    flag[v] = <span class="literal">true</span>;</span><br><span class="line">    dist[v] = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 循环 n-1 次（每次确定一个顶点的最短距离）</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">size_t</span> cnt = <span class="number">1</span>; cnt &lt; n; ++cnt) &#123;</span><br><span class="line">        <span class="comment">// 1. 在未标记顶点中找 dist 最小的顶点 k</span></span><br><span class="line">        <span class="type">int</span> mindist = INF;</span><br><span class="line">        <span class="type">int</span> k = <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">size_t</span> j = <span class="number">0</span>; j &lt; n; ++j) &#123;</span><br><span class="line">            <span class="keyword">if</span> (!flag[j] &amp;&amp; dist[j] &lt; mindist) &#123;</span><br><span class="line">                mindist = dist[j];</span><br><span class="line">                k = <span class="built_in">static_cast</span>&lt;<span class="type">int</span>&gt;(j);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 没有可达的顶点，提前退出</span></span><br><span class="line">        <span class="keyword">if</span> (k == <span class="number">-1</span>) <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 2. 标记顶点 k</span></span><br><span class="line">        flag[k] = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 3. 松弛操作：尝试通过 k 更新所有未标记顶点的 dist</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">size_t</span> j = <span class="number">0</span>; j &lt; n; ++j) &#123;</span><br><span class="line">            <span class="keyword">if</span> (!flag[j] &amp;&amp; graph[k][j] != INF </span><br><span class="line">                    &amp;&amp; dist[j] &gt; dist[k] + graph[k][j]) &#123;</span><br><span class="line">                dist[j] = dist[k] + graph[k][j];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> dist;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 图的邻接矩阵</span></span><br><span class="line">    Graph graph = &#123;</span><br><span class="line">        &#123;<span class="number">0</span>, <span class="number">5</span>, <span class="number">3</span>, INF, INF, INF&#125;,</span><br><span class="line">        &#123;INF, <span class="number">0</span>, INF, <span class="number">3</span>, <span class="number">4</span>, INF&#125;,</span><br><span class="line">        &#123;INF, <span class="number">1</span>, <span class="number">0</span>, <span class="number">2</span>, <span class="number">6</span>, INF&#125;,</span><br><span class="line">        &#123;INF, INF, INF, <span class="number">0</span>, <span class="number">7</span>, <span class="number">2</span>&#125;,</span><br><span class="line">        &#123;INF, INF, INF, INF, <span class="number">0</span>, <span class="number">1</span>&#125;,</span><br><span class="line">        &#123;INF, INF, INF, INF, INF, <span class="number">0</span>&#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="type">int</span> source = <span class="number">0</span>;</span><br><span class="line">    std::vector&lt;<span class="type">int</span>&gt; distances = <span class="built_in">Dijkstra</span>(graph, source);</span><br><span class="line">    <span class="comment">// 输出结果...</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">size_t</span> i = <span class="number">0</span>; i &lt; distances.<span class="built_in">size</span>(); ++i) &#123;</span><br><span class="line">        std::cout &lt;&lt; <span class="string">&quot;dist[&quot;</span> &lt;&lt; i &lt;&lt; <span class="string">&quot;] = &quot;</span> &lt;&lt; distances[i] &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/** 运行结果：</span></span><br><span class="line"><span class="comment">le0n:Dijkstra/ $ ./demo1    </span></span><br><span class="line"><span class="comment">dist[0] = 0</span></span><br><span class="line"><span class="comment">dist[1] = 4</span></span><br><span class="line"><span class="comment">dist[2] = 3</span></span><br><span class="line"><span class="comment">dist[3] = 5</span></span><br><span class="line"><span class="comment">dist[4] = 8</span></span><br><span class="line"><span class="comment">dist[5] = 7</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>Post author:  </strong>leon
+  </li>
+  <li class="post-copyright-link">
+      <strong>Post link: </strong>
+      <a href="https://le0n-daily.github.io/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0/" title="数据结构代码实现">https://le0n-daily.github.io/数据结构代码实现/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/en" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag"># 数据结构</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/awdp/" rel="prev" title="awdp-pwn-patch技巧+一些题目">
+                  <i class="fa fa-angle-left"></i> awdp-pwn-patch技巧+一些题目
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/FTP%E5%8D%8F%E8%AE%AE%E5%AE%9E%E6%88%98/" rel="next" title="CVE-2023-24042复现">
+                  CVE-2023-24042复现 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2025 – 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">leon</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="Word count total">689k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="Reading time total">10:26</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>
