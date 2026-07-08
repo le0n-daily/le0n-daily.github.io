@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"le0n-daily.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.22.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":true,"style":"mac","show_result":true},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false,"trigger":"auto"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="人工智能原理及代码实战">
+<meta property="og:type" content="article">
+<meta property="og:title" content="人工智能原理代码实战">
+<meta property="og:url" content="https://le0n-daily.github.io/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%88%98/index.html">
+<meta property="og:site_name" content="le0n-blog">
+<meta property="og:description" content="人工智能原理及代码实战">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://le0n-daily.github.io/images/image-20260621113225021.png">
+<meta property="og:image" content="https://le0n-daily.github.io/images/image-20260621113331824.png">
+<meta property="og:image" content="https://le0n-daily.github.io/images/image-20260621113356815.png">
+<meta property="og:image" content="https://le0n-daily.github.io/images/image-20260621114044762.png">
+<meta property="og:image" content="https://le0n-daily.github.io/images/image-20260621152936826.png">
+<meta property="og:image" content="https://le0n-daily.github.io/images/image-20260621153722724.png">
+<meta property="article:published_time" content="2025-06-21T03:16:00.000Z">
+<meta property="article:modified_time" content="2026-07-08T04:51:28.520Z">
+<meta property="article:author" content="leon">
+<meta property="article:tag" content="AI">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://le0n-daily.github.io/images/image-20260621113225021.png">
+
+
+<link rel="canonical" href="https://le0n-daily.github.io/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%88%98/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://le0n-daily.github.io/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%88%98/","path":"深度学习代码实战/","title":"人工智能原理代码实战"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>人工智能原理代码实战 | le0n-blog</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="le0n-blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">le0n-blog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">18</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">10</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">37</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="Searching..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E7%BD%AE%E7%90%86%E8%AE%BA"><span class="nav-number">1.</span> <span class="nav-text">前置理论</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C"><span class="nav-number">2.</span> <span class="nav-text">神经网络</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%9E%8B"><span class="nav-number">2.1.</span> <span class="nav-text">神经网络模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E7%B1%BB"><span class="nav-number">2.1.1.</span> <span class="nav-text">分类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9E%E5%BD%92"><span class="nav-number">2.1.2.</span> <span class="nav-text">回归</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9A%8F%E6%9C%BA%E6%90%9C%E7%B4%A2"><span class="nav-number">2.1.3.</span> <span class="nav-text">随机搜索</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81"><span class="nav-number">2.2.</span> <span class="nav-text">代码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E5%88%86%E7%B1%BB%E4%BB%BB%E5%8A%A1-%E2%80%94%E2%80%94-Fashion-MNIST-%E6%9C%8D%E9%A5%B0%E8%AF%86%E5%88%AB"><span class="nav-number">2.2.1.</span> <span class="nav-text">多分类任务 —— Fashion MNIST 服饰识别</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E9%A2%84%E5%8A%A0%E8%BD%BD%E5%92%8C%E6%95%B0%E6%8D%AE%E9%A2%84%E5%A4%84%E7%90%86"><span class="nav-number">2.2.1.1.</span> <span class="nav-text">数据预加载和数据预处理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9E%84%E5%BB%BA%E5%B9%B6%E9%85%8D%E7%BD%AE%E6%A8%A1%E5%9E%8B"><span class="nav-number">2.2.1.2.</span> <span class="nav-text">构建并配置模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%AD%E7%BB%83%E6%A8%A1%E5%9E%8B%E5%B9%B6%E6%B5%8B%E8%AF%95"><span class="nav-number">2.2.1.3.</span> <span class="nav-text">训练模型并测试</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%93%E5%90%88%E7%BB%93%E6%9E%9C%E5%88%86%E6%9E%90"><span class="nav-number">2.2.1.4.</span> <span class="nav-text">结合结果分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">2.2.1.5.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9E%E5%BD%92%E4%BB%BB%E5%8A%A1"><span class="nav-number">2.2.2.</span> <span class="nav-text">回归任务</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="leon"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">leon</p>
+  <div class="site-description" itemprop="description">Take more notes to reach higher efficiency.</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">37</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/le0n-daily" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;le0n-daily" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:1192876128@qq.com" title="E-Mail → mailto:1192876128@qq.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/en" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://le0n-daily.github.io/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%88%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="leon">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="le0n-blog">
+      <meta itemprop="description" content="Take more notes to reach higher efficiency.">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="人工智能原理代码实战 | le0n-blog">
+      <meta itemprop="description" content="人工智能原理及代码实战">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          人工智能原理代码实战
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2025-06-21 11:16:00" itemprop="dateCreated datePublished" datetime="2025-06-21T11:16:00+08:00">2025-06-21</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2026-07-08 12:51:28" itemprop="dateModified" datetime="2026-07-08T12:51:28+08:00">2026-07-08</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/AI/" itemprop="url" rel="index"><span itemprop="name">AI</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">Views: </span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="Word count in article">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">Word count in article: </span>
+      <span>8.4k</span>
+    </span>
+    <span class="post-meta-item" title="Reading time">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">Reading time &asymp;</span>
+      <span>8 mins.</span>
+    </span>
+</div>
+
+            <div class="post-description">人工智能原理及代码实战</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="前置理论"><a href="#前置理论" class="headerlink" title="前置理论"></a>前置理论</h1><p>神经网络的<strong>前向传播</strong>：核心每一层都是<strong>加权求和</strong>和<strong>激活函数</strong>，实质为矩阵运算+非线性运算</p>
+<p>常见的激活函数：</p>
+<ul>
+<li>Sigmoid()函数：可以将数据转换成0~1的概率 $$f(x)&#x3D;\frac{1}{1+e^{-x}}$$</li>
+<li>ReLU()函数：当输入小于0时，输出0；输入大于0时则为线性函数，直接输出值$$f(x)&#x3D;max(0,x)$$</li>
+<li>Tanh()函数：是一种三角函数，其输出范围是-1~1，对于神经网络来说，其优点是更容易处理负值（Sigmoid()和ReLU()函数没有负值) $$f(x)&#x3D;\frac{\sin x}{\cos x}$$</li>
+<li>Softmax()函数：讲输入值转换成0~1的实数，如同是对应输入值的概率程序</li>
+</ul>
+<p><img src="/../images/image-20260621113225021.png" alt="image-20260621113225021"></p>
+<p>神将网络<strong>损失函数</strong>：预测误差+正则化惩罚，损失函数越小，表示模型越好。</p>
+<p>深度学习的<strong>回归问题经常使用均方误差，而分类问题则是使用交叉熵</strong></p>
+<p><img src="/../images/image-20260621113331824.png" alt="image-20260621113331824"></p>
+<p>神将网络<strong>反向传播</strong>：<strong>高效计算所有参数的误差梯度</strong>，从而指导网络向<strong>更小</strong>损失的方向更新</p>
+<p>梯度下降法：知道参数更新方向，沿着使频率下降最快的方向更新参数</p>
+<blockquote>
+<p>就是每一个隐藏层中的加权求和部分，神经网络最开始每一条边上的权值肯定不是一开始就好的（甚至可以说最开始每条边的权值就是随便设置的），然后通过反向传播对每条边的权值进行调整，最终是它的预测达到预期误差范围内。</p>
+</blockquote>
+<p><img src="/../images/image-20260621113356815.png" alt="image-20260621113356815"></p>
+<p>神经网络的学习过程：</p>
+<p><img src="/../images/image-20260621114044762.png" alt="image-20260621114044762"></p>
+<p>上面这几个图中的理论看懂个大概就可以写代码了</p>
+<h1 id="神经网络"><a href="#神经网络" class="headerlink" title="神经网络"></a>神经网络</h1><p>这里采用：TensorFlow&#x2F;Keras实战入门—训练第一个神经网络模型 进行关键程序分析</p>
+<h2 id="神经网络模型"><a href="#神经网络模型" class="headerlink" title="神经网络模型"></a>神经网络模型</h2><h3 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h3><p><strong>基础网络模型</strong></p>
+<p><code>tf.keras.Sequential</code>这里实现了一个简单的多层感知机 MLP ，Keras 中最基础的模型容器，用于按<strong>线性顺序</strong>堆叠网络层（一层接一层，无分支、无跳跃连接等复杂拓扑）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">model = tf.keras.Sequential([</span><br><span class="line">    <span class="comment">#输入层 将二维特征图展开为一维向量 28*28 = 784</span></span><br><span class="line">    tf.keras.layers.Flatten(input_shape=[<span class="number">28</span>,<span class="number">28</span>]),</span><br><span class="line">    <span class="comment">#添加一个层 隐藏层 300个神经元 激活函数relu</span></span><br><span class="line">    tf.keras.layers.Dense(<span class="number">300</span>, activation=<span class="string">&quot;relu&quot;</span>),</span><br><span class="line">    <span class="comment">#Dense 全连接层（又称密集层），是神经网络的基础单元。该层每个神经元都与上一层所有神经元相连，通过权重矩阵对输入做线性变换，再通过激活函数引入非线性表达能力。</span></span><br><span class="line">    tf.keras.layers.Dense(<span class="number">100</span>, activation=<span class="string">&quot;relu&quot;</span>),</span><br><span class="line">    <span class="comment">#输出层 10个神经元（输出10类的概率） 激活函数softmax</span></span><br><span class="line">    tf.keras.layers.Dense(<span class="number">10</span>, activation=<span class="string">&quot;softmax&quot;</span>),</span><br><span class="line">])</span><br></pre></td></tr></table></figure>
+
+<p><strong>配置模型</strong></p>
+<p><code>model.compile</code>编译模型，为模型设定训练规则，确定优化器、损失函数、评估指标三大核心要素</p>
+<p>使用 <code>Adam</code> 优化器（自适应学习率）和 <code>categorical_crossentropy</code>损失函数。      </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">model.<span class="built_in">compile</span>(optimizer=<span class="string">&#x27;adam&#x27;</span>, </span><br><span class="line">              loss=<span class="string">&#x27;categorical_crossentropy&#x27;</span>,</span><br><span class="line">              metrics=[<span class="string">&#x27;accuracy&#x27;</span>])</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p><code>optimizer=&#39;adam&#39;</code> ：优化器 在模型训练过程中，通过计算损失函数的梯度来更新网络权重，从而使误差最小化</p>
+</li>
+<li><p><code>loss=&#39;categorical_crossentropy&#39;</code>：损失函数（多类交叉熵）</p>
+<ul>
+<li>1.用于多分类问题 </li>
+<li>2.真实标签是整数 </li>
+<li>3.计算预测和真是之间的差距</li>
+</ul>
+</li>
+<li><p><code>metrics=[&#39;accuracy&#39;]) </code>：评估指标 是计算模型预测正确的样本占总样本的比例（即准确率），从而直观地告诉你模型的表现如何</p>
+</li>
+</ul>
+<p><strong>训练模型</strong></p>
+<p><code>model.fit</code>:启动训练循环，将训练数据输入模型，按设定的轮次和批次迭代更新权重，同时可实时验证模型效果</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">history = model.fit(train_images, train_labels_cat, <span class="comment">#模型的输入数据和对应的真实标签</span></span><br><span class="line">                    epochs=<span class="number">20</span>, </span><br><span class="line">                    batch_size=<span class="number">64</span>, </span><br><span class="line">                    validation_split=<span class="number">0.2</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>epochs&#x3D;20: 遍历数据集20次，训练20轮</li>
+<li>batch_size&#x3D;64: 每次更新参数使用64张图片</li>
+<li>validation_split&#x3D;0.2: 划出20%训练数据用于验证集，不参与训练，仅用于评估</li>
+</ul>
+<blockquote>
+<p>如果对已知数据有很高的正确性，但是对位置数据的预测很差，就成为过度拟合，即一个没有泛化性的预测模型。</p>
+<p>即当训练集的表现效果很好，但验证集趋于平缓，此时就会造成<strong>过拟合</strong></p>
+</blockquote>
+<h3 id="回归"><a href="#回归" class="headerlink" title="回归"></a>回归</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">tf.random.set_seed(<span class="number">42</span>)</span><br><span class="line">norm_layer = tf.keras.layers.Normalization()</span><br><span class="line"></span><br><span class="line">model = tf.keras.Sequential([</span><br><span class="line">    norm_layer,</span><br><span class="line">    tf.leras.layers.Dense(<span class="number">50</span>,actication=<span class="string">&quot;relu&quot;</span>),</span><br><span class="line">    tf.leras.layers.Dense(<span class="number">50</span>,actication=<span class="string">&quot;relu&quot;</span>),</span><br><span class="line">    tf.leras.layers.Dense(<span class="number">50</span>,actication=<span class="string">&quot;relu&quot;</span>),</span><br><span class="line">    tf.keras.layers.Dense(<span class="number">1</span>) <span class="comment"># 回归嘛，最后预测它值是多少就行了</span></span><br><span class="line">])</span><br><span class="line"><span class="comment"># 回归任务的配置</span></span><br><span class="line">model.<span class="built_in">compile</span>(</span><br><span class="line">	loss=<span class="string">&quot;mse&quot;</span>, <span class="comment"># 均方误差</span></span><br><span class="line">    optimizer=<span class="string">&quot;Adam&quot;</span>,</span><br><span class="line">    metrics=[<span class="string">&quot;RMSE&quot;</span>]</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p><img src="/../images/image-20260621152936826.png" alt="image-20260621152936826"></p>
+<h3 id="随机搜索"><a href="#随机搜索" class="headerlink" title="随机搜索"></a>随机搜索</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">random_search_tuner = kt.RandomSearch(build_model, objective=<span class="string">&quot;val_accurancy&quot;</span>, max_trials=<span class="number">5</span>, 							overwrite=<span class="literal">True</span>, directory=<span class="string">&quot;my_fashion_mnist&quot;</span>, project_name=<span class="string">&quot;my_rnd_search&quot;</span>, seed=<span class="number">42</span>)</span><br><span class="line"></span><br><span class="line">random_search_tuner.search(X_train, y_train, epochs=<span class="number">10</span>, validation_data=(X_valid, y_valid))</span><br></pre></td></tr></table></figure>
+
+<p>参数说明 </p>
+<ul>
+<li><code>objective</code>：以验证集准确率(<code>val_accuracy</code>)作为优化目标 </li>
+<li><code>max_trials=5</code>：最多尝试5组超参数组合 </li>
+<li><code>directory</code>：保存调优结果的目录 </li>
+<li><code>project_name</code>：本次调优项目名称 </li>
+<li><code>seed=42</code>：随机种子，保证可复现 </li>
+<li><code>epochs=10</code>：每个超参数组合训练10个epoch</li>
+<li><code>validation_data</code>：验证集，用于评估模型</li>
+</ul>
+<p><img src="/../images/image-20260621153722724.png" alt="image-20260621153722724"></p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><h3 id="多分类任务-——-Fashion-MNIST-服饰识别"><a href="#多分类任务-——-Fashion-MNIST-服饰识别" class="headerlink" title="多分类任务 —— Fashion MNIST 服饰识别"></a>多分类任务 —— Fashion MNIST 服饰识别</h3><p>采用Keras内置数据集<code>fashion_mnist</code>来进行训练</p>
+<h4 id="数据预加载和数据预处理"><a href="#数据预加载和数据预处理" class="headerlink" title="数据预加载和数据预处理"></a>数据预加载和数据预处理</h4><p>采用keras中内部数据进行本次实验<code>train_images, train_labels</code>这部分将用于训练，这部分将用于训练后的测验<code>test_images, test_labels</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## 数据加载</span></span><br><span class="line">(train_images, train_labels),(test_images, test_labels) = tf.keras.datasets.fashion_mnist.load_data()</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;训练集图片形状: <span class="subst">&#123;train_images.shape&#125;</span>&quot;</span>)   <span class="comment"># (60000, 28, 28)</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;训练集标签形状: <span class="subst">&#123;train_labels.shape&#125;</span>&quot;</span>)   <span class="comment"># (60000,)</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;标签示例（原始）: <span class="subst">&#123;train_labels[:<span class="number">5</span>]&#125;</span>&quot;</span>)   <span class="comment"># 如 [9 0 0 3 0]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## 数据预处理</span></span><br><span class="line"><span class="comment"># 归一化</span></span><br><span class="line">train_images = train_images / <span class="number">255.0</span></span><br><span class="line">test_images = test_images / <span class="number">255.0</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;\n归一化后像素值范围: <span class="subst">&#123;train_images.<span class="built_in">min</span>():<span class="number">.1</span>f&#125;</span> ~ <span class="subst">&#123;train_images.<span class="built_in">max</span>():<span class="number">.1</span>f&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 标签 One-hot 编码</span></span><br><span class="line">train_labels_cat = tf.keras.utils.to_categorical(train_labels, num_classes=<span class="number">10</span>)</span><br><span class="line">test_labels_cat = tf.keras.utils.to_categorical(test_labels, num_classes=<span class="number">10</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;\nOne-Hot前: <span class="subst">&#123;train_labels[<span class="number">0</span>]&#125;</span>&quot;</span>)           <span class="comment"># 如 9</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;One-Hot后: <span class="subst">&#123;train_labels_cat[<span class="number">0</span>]&#125;</span>&quot;</span>)         <span class="comment"># 如 [0. 0. 0. 0. 0. 0. 0. 0. 0. 1.]</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="构建并配置模型"><a href="#构建并配置模型" class="headerlink" title="构建并配置模型"></a>构建并配置模型</h4><p>前面已经讲过这部分代码的作用，再简单提一下</p>
+<p>构建模型部分：</p>
+<ul>
+<li>Flatten 仅用作数据格式转换，将n维的转换为一维的</li>
+<li>两个Dense分别是<ul>
+<li>第 1 层隐藏层，300 个神经元，提取低级特征。输入 784 × 神经元 300 + 偏置 300 &#x3D; <strong>235500</strong></li>
+<li>第 2 层隐藏层，100 个神经元，组合低级特征形成更高级特征。输入 300 × 神经元 100 + 偏置 100 &#x3D; <strong>30100</strong></li>
+</ul>
+</li>
+<li>第三个Dense是输出层，10 个神经元对应 10 个类别。输入 100 × 神经元 10 + 偏置 10 &#x3D; <strong>1010</strong></li>
+</ul>
+<p>编译模型部分：</p>
+<ul>
+<li><p><strong>优化器 <code>adam</code></strong> </p>
+<p>本质是<strong>自适应学习率的梯度下降算法</strong>。深度学习训练的目标是 “最小化损失”，梯度下降就是沿着损失下降的方向，一步步调整网络里的所有权重。</p>
+</li>
+<li><p><strong>损失函数 <code>categorical_crossentropy</code></strong></p>
+<p>损失是衡量 “模型预测错了多少” 的量化标准。多分类任务使用<strong>分类交叉熵</strong>，它计算 “预测概率分布” 和 “真实 One-Hot 分布” 之间的差距：预测越准，损失值越小；预测偏差越大，损失值越大。</p>
+</li>
+<li><p><strong>评估指标 <code>accuracy</code></strong></p>
+<p>准确率 &#x3D; 预测正确的样本数 &#x2F; 总样本数</p>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## 构建模型</span></span><br><span class="line">model = tf.keras.Sequential([</span><br><span class="line">    tf.keras.layers.Flatten(input_shape=[<span class="number">28</span>, <span class="number">28</span>]),</span><br><span class="line">    tf.keras.layers.Dense(<span class="number">300</span>, activation=<span class="string">&#x27;relu&#x27;</span>),</span><br><span class="line">    tf.keras.layers.Dense(<span class="number">100</span>, activation=<span class="string">&#x27;relu&#x27;</span>),</span><br><span class="line">    tf.keras.layers.Dense(<span class="number">10</span>, activation=<span class="string">&#x27;softmax&#x27;</span>)</span><br><span class="line">])</span><br><span class="line"></span><br><span class="line">model.summary()<span class="comment">#打印神经网络模型信息</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## 编译模型</span></span><br><span class="line">model.<span class="built_in">compile</span>(optimizer=<span class="string">&#x27;adam&#x27;</span>,</span><br><span class="line">              loss=<span class="string">&#x27;categorical_crossentropy&#x27;</span>,</span><br><span class="line">              metrics=[<span class="string">&#x27;accuracy&#x27;</span>])</span><br></pre></td></tr></table></figure>
+
+<h4 id="训练模型并测试"><a href="#训练模型并测试" class="headerlink" title="训练模型并测试"></a>训练模型并测试</h4><p><code>model.fit()</code> 是训练的核心，背后是前面理论的最后一张图的<strong>前向传播 + 反向传播</strong>的循环迭代</p>
+<p><strong>epoch</strong>：把全部训练数据完整过一遍，称为 1 个 epoch。这里设置 20，就是让模型把全部训练样本反复学习 20 轮。</p>
+<p><strong>batch_size&#x3D;64</strong>：一次性喂入 64 张图片，计算一次损失、更新一次权重。相比单张更新，批量更新提升了训练效率和梯度稳定性。</p>
+<p><strong>validation_split&#x3D;0.2</strong>：从训练集中划出 20% 作为验证集，训练时不参与权重更新，专门用来实时评估模型在 “未见过的数据” 上的表现。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## 训练模型</span></span><br><span class="line">history = model.fit(</span><br><span class="line">    train_images,train_labels_cat,</span><br><span class="line">    epochs=<span class="number">20</span>,</span><br><span class="line">    batch_size=<span class="number">64</span>,</span><br><span class="line">    validation_split=<span class="number">0.2</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">test_loss, test_acc = model.evaluate(test_images,test_labels_cat,verbose=<span class="number">0</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;\n【分类】测试集准确率: <span class="subst">&#123;test_acc:<span class="number">.4</span>f&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line">predictions = model.predict(test_images[:<span class="number">3</span>])</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;预测结果（概率）:\n<span class="subst">&#123;np.<span class="built_in">round</span>(predictions, <span class="number">2</span>)&#125;</span>&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;预测类别: <span class="subst">&#123;np.argmax(predictions, axis=<span class="number">1</span>)&#125;</span>&quot;</span>)  <span class="comment"># 取概率最大的类别</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;真实类别: <span class="subst">&#123;test_labels[:<span class="number">3</span>]&#125;</span>&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<h4 id="结合结果分析"><a href="#结合结果分析" class="headerlink" title="结合结果分析"></a>结合结果分析</h4><p>运行结果：</p>
+<p><strong>一、数据加载和数据预处理</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">PART <span class="number">1</span>: 分类任务</span><br><span class="line">训练集图片形状: (<span class="number">60000</span>, <span class="number">28</span>, <span class="number">28</span>)</span><br><span class="line">训练集标签形状: (<span class="number">60000</span>,)</span><br><span class="line">标签示例（原始）: [<span class="number">9</span> <span class="number">0</span> <span class="number">0</span> <span class="number">3</span> <span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">归一化后像素值范围: <span class="number">0.0</span> ~ <span class="number">1.0</span></span><br><span class="line"></span><br><span class="line">One-Hot前: <span class="number">9</span></span><br><span class="line">One-Hot后: [<span class="number">0.</span> <span class="number">0.</span> <span class="number">0.</span> <span class="number">0.</span> <span class="number">0.</span> <span class="number">0.</span> <span class="number">0.</span> <span class="number">0.</span> <span class="number">0.</span> <span class="number">1.</span>]</span><br></pre></td></tr></table></figure>
+
+<p>这里是<code>model.summary()</code> 输出的是网络的完整结构和参数量，对应你代码里搭建的三层全连接网络：</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Model: &quot;<span class="title">sequential</span>&quot;</span></span><br><span class="line"><span class="function"><span class="title">_________________________________________________________________</span></span></span><br><span class="line"><span class="function"> <span class="title">Layer</span> (<span class="title">type</span>)                <span class="title">Output</span> <span class="title">Shape</span>              <span class="title">Param</span> #   </span></span><br><span class="line"><span class="function">=================================================================</span></span><br><span class="line"><span class="function"> <span class="title">flatten</span> (<span class="title">Flatten</span>)           (<span class="title">None</span>, 784)               0         </span></span><br><span class="line"><span class="function">                                                                 </span></span><br><span class="line"><span class="function"> <span class="title">dense</span> (<span class="title">Dense</span>)               (<span class="title">None</span>, 300)               235500    </span></span><br><span class="line"><span class="function">                                                                 </span></span><br><span class="line"><span class="function"> <span class="title">dense_1</span> (<span class="title">Dense</span>)             (<span class="title">None</span>, 100)               30100     </span></span><br><span class="line"><span class="function">                                                                 </span></span><br><span class="line"><span class="function"> <span class="title">dense_2</span> (<span class="title">Dense</span>)             (<span class="title">None</span>, 10)                1010      </span></span><br><span class="line"><span class="function">                                                                 </span></span><br><span class="line"><span class="function">=================================================================</span></span><br><span class="line"><span class="function"><span class="title">Total</span> <span class="title">params</span>: 266,610</span></span><br><span class="line"><span class="function"><span class="title">Trainable</span> <span class="title">params</span>: 266,610</span></span><br><span class="line"><span class="function"><span class="title">Non</span>-<span class="title">trainable</span> <span class="title">params</span>: 0</span></span><br><span class="line"><span class="function"><span class="title">_________________________________________________________________</span></span></span><br></pre></td></tr></table></figure>
+
+<p><strong>二、训练过程详解：20 轮 Epoch 的核心规律</strong></p>
+<p>这是份结果最关键的部分，20 行训练日志完整呈现了深度学习「学习→拟合→过拟合」的曲线</p>
+<p>阶段 1：正常拟合期（Epoch 1 ~ Epoch 8）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Epoch <span class="number">1</span>/<span class="number">20</span></span><br><span class="line"><span class="number">750</span>/<span class="number">750</span> [==============================] - 2s 2ms/step - loss: <span class="number">0.5064</span> - accuracy: <span class="number">0.8193</span> - val_loss: <span class="number">0.4630</span> - val_accuracy: <span class="number">0.8282</span></span><br><span class="line">Epoch <span class="number">2</span>/<span class="number">20</span></span><br><span class="line"><span class="number">750</span>/<span class="number">750</span> [==============================] - 1s 2ms/step - loss: <span class="number">0.3691</span> - accuracy: <span class="number">0.8649</span> - val_loss: <span class="number">0.3757</span> - val_accuracy: <span class="number">0.8609</span></span><br><span class="line">......</span><br><span class="line">Epoch <span class="number">6</span>/<span class="number">20</span></span><br><span class="line"><span class="number">750</span>/<span class="number">750</span> [==============================] - 2s 2ms/step - loss: <span class="number">0.2734</span> - accuracy: <span class="number">0.8988</span> - val_loss: <span class="number">0.3182</span> - val_accuracy: <span class="number">0.8852</span></span><br><span class="line">Epoch <span class="number">7</span>/<span class="number">20</span></span><br><span class="line"><span class="number">750</span>/<span class="number">750</span> [==============================] - 2s 2ms/step - loss: <span class="number">0.2574</span> - accuracy: <span class="number">0.9028</span> - val_loss: <span class="number">0.3372</span> - val_accuracy: <span class="number">0.8768</span></span><br><span class="line">Epoch <span class="number">8</span>/<span class="number">20</span></span><br><span class="line"><span class="number">750</span>/<span class="number">750</span> [==============================] - 2s 2ms/step - loss: <span class="number">0.2479</span> - accuracy: <span class="number">0.9057</span> - val_loss: <span class="number">0.3312</span> - val_accuracy: <span class="number">0.8819</span></span><br></pre></td></tr></table></figure>
+
+<p>这是模型真正在「学规律」的阶段：</p>
+<ul>
+<li>训练损失 <code>loss</code>：从 0.5135 持续下降到 0.2487</li>
+<li>训练准确率 <code>accuracy</code>：从 0.8191 稳步上升到 0.9078</li>
+<li>验证损失 <code>val_loss</code>：从 0.4132 下降到<strong>全程最低点 0.3048</strong></li>
+<li>验证准确率 <code>val_accuracy</code>：从 0.8535 上升到 0.8923</li>
+</ul>
+<p>这个阶段里，训练集和验证集的表现同步变好，说明模型正在从数据中提取通用的服饰特征，泛化能力持续提升，是训练的最优区间。</p>
+<p>阶段 2：过拟合显现期（Epoch 9 ~ Epoch 20）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Epoch <span class="number">9</span>/<span class="number">20</span></span><br><span class="line"><span class="number">750</span>/<span class="number">750</span> [==============================] - 2s 3ms/step - loss: <span class="number">0.2374</span> - accuracy: <span class="number">0.9101</span> - val_loss: <span class="number">0.3309</span> - val_accuracy: <span class="number">0.8863</span></span><br><span class="line">Epoch <span class="number">10</span>/<span class="number">20</span></span><br><span class="line"><span class="number">750</span>/<span class="number">750</span> [==============================] - 2s 3ms/step - loss: <span class="number">0.2285</span> - accuracy: <span class="number">0.9133</span> - val_loss: <span class="number">0.3162</span> - val_accuracy: <span class="number">0.8898</span></span><br><span class="line">Epoch <span class="number">11</span>/<span class="number">20</span></span><br><span class="line"><span class="number">750</span>/<span class="number">750</span> [==============================] - 2s 3ms/step - loss: <span class="number">0.2168</span> - accuracy: <span class="number">0.9185</span> - val_loss: <span class="number">0.3232</span> - val_accuracy: <span class="number">0.8907</span></span><br><span class="line">......</span><br><span class="line">Epoch <span class="number">19</span>/<span class="number">20</span></span><br><span class="line"><span class="number">750</span>/<span class="number">750</span> [==============================] - 2s 2ms/step - loss: <span class="number">0.1622</span> - accuracy: <span class="number">0.9380</span> - val_loss: <span class="number">0.3314</span> - val_accuracy: <span class="number">0.8912</span></span><br><span class="line">Epoch <span class="number">20</span>/<span class="number">20</span></span><br><span class="line"><span class="number">750</span>/<span class="number">750</span> [==============================] - 2s 2ms/step - loss: <span class="number">0.1588</span> - accuracy: <span class="number">0.9389</span> - val_loss: <span class="number">0.3549</span> - val_accuracy: <span class="number">0.8875</span></span><br><span class="line"></span><br><span class="line">【分类】测试集准确率: <span class="number">0.8808</span></span><br></pre></td></tr></table></figure>
+
+<p>从第 9 轮开始，训练出现了明显的分化，也是深度学习最经典的现象：</p>
+<ul>
+<li>训练集表现继续一路变好：损失从 0.2357 降到 0.1527，准确率从 0.9118 升到 0.9414</li>
+<li>验证集表现不再提升，甚至开始变差：<ul>
+<li>验证损失不再下降，整体震荡走高，最后一轮涨到 0.3656</li>
+<li>验证准确率在 0.88~0.89 之间反复波动，最后一轮甚至掉到 0.8823</li>
+</ul>
+</li>
+</ul>
+<p><strong>过拟合</strong>：</p>
+<p>模型容量足够大，训练轮数过多后，它不再只学通用规律，开始「死记硬背」训练集里的噪声、个别样本的独有细节；面对从未见过的验证集数据，泛化能力不再提升，反而下降。</p>
+<p><strong>三、最终测试集结果</strong></p>
+<p>测试集是模型<strong>全程完全没接触过</strong>的数据，相当于「最终闭卷考试」</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>/<span class="number">1</span> [==============================] - 0s 43ms/step</span><br><span class="line">预测结果（概率）:</span><br><span class="line">[[<span class="number">0.</span> <span class="number">0.</span> <span class="number">0.</span> <span class="number">0.</span> <span class="number">0.</span> <span class="number">0.</span> <span class="number">0.</span> <span class="number">0.</span> <span class="number">0.</span> <span class="number">1.</span>]</span><br><span class="line"> [<span class="number">0.</span> <span class="number">0.</span> <span class="number">1.</span> <span class="number">0.</span> <span class="number">0.</span> <span class="number">0.</span> <span class="number">0.</span> <span class="number">0.</span> <span class="number">0.</span> <span class="number">0.</span>]</span><br><span class="line"> [<span class="number">0.</span> <span class="number">1.</span> <span class="number">0.</span> <span class="number">0.</span> <span class="number">0.</span> <span class="number">0.</span> <span class="number">0.</span> <span class="number">0.</span> <span class="number">0.</span> <span class="number">0.</span>]]</span><br><span class="line">预测类别: [<span class="number">9</span> <span class="number">2</span> <span class="number">1</span>]</span><br><span class="line">真实类别: [<span class="number">9</span> <span class="number">2</span> <span class="number">1</span>]</span><br><span class="line"></span><br><span class="line">进程已结束，退出代码为 <span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>模型不是训练越久越好，前期快速学习通用规律，中期达到泛化能力峰值，继续训练就会进入过拟合</p>
+<p><strong>过拟合的常见解决方案</strong></p>
+<ol>
+<li><strong>早停法</strong>：监控验证损失，停止下降时立即终止训练</li>
+<li><strong>正则化</strong>：L2 正则化惩罚过大权重，Dropout 随机失活神经元，降低模型对个别样本的依赖</li>
+<li><strong>降低模型复杂度</strong>：减少层数、减少神经元数量</li>
+<li><strong>增加训练数据</strong>：数据量越大，模型越难记住全部样本，越不容易过拟合</li>
+</ol>
+<h3 id="回归任务"><a href="#回归任务" class="headerlink" title="回归任务"></a>回归任务</h3>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>Post author:  </strong>leon
+  </li>
+  <li class="post-copyright-link">
+      <strong>Post link: </strong>
+      <a href="https://le0n-daily.github.io/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%88%98/" title="人工智能原理代码实战">https://le0n-daily.github.io/深度学习代码实战/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/en" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/AI/" rel="tag"># AI</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2025iscc/" rel="prev" title="2025 iscc">
+                  <i class="fa fa-angle-left"></i> 2025 iscc
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/fuzz%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9C%9F%EF%BC%88%E4%B8%89%EF%BC%89/" rel="next" title="fuzz入门到入土（三）">
+                  fuzz入门到入土（三） <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2025 – 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">leon</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="Word count total">731k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="Reading time total">11:04</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>
